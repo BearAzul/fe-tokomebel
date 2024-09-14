@@ -134,6 +134,7 @@ h1, h2, h3, h4, h5, h6, p {
 #detailProduct .detail__items .img__items {
   width: 80%;
 }
+
 #register .card__container,
 #login .card__container {
   max-width: 25rem;
@@ -193,5 +194,16 @@ h1, h2, h3, h4, h5, h6, p {
 
   #shop .card .card-footer p {
     font-size: .7rem !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .order__history>img{
+    width: 50% !important;
+  }
+}
+@media (min-width: 1114px) {
+  .order__history>img{
+    width: 25% !important;
   }
 }
