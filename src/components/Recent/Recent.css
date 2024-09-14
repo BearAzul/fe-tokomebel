@@ -1,0 +1,33 @@
+#recent {
+  min-height: auto !important;
+}
+
+#recent .recent__img span {
+  bottom: 5px;
+  right: 5px;
+  background: #222;
+  text-align: center;
+  padding: 5px;
+}
+
+
+#recent .carousel .carousel-item {
+  width: 100% !important;
+  height: 18rem;
+}
+#recent .carousel .carousel-indicators,
+#recent .carousel a {
+  display: none !important;
+}
+
+@media (max-width: 576px) {
+  #recent .recent__project {
+    height: 13rem !important;
+  }
+}
+
+@media (min-width: 576px) {
+  #recent .recent__project {
+    height: 13rem !important;
+  }
+}

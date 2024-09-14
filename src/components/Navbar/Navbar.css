@@ -1,0 +1,93 @@
+
+
+/* LOGO */
+.text-color-logo1 {
+  color: #F5B800;
+}
+.text-color-logo2 {
+  color: white;
+}
+.text-color {
+  color: #063339;
+}
+/* humberger */
+.navbar-toggler-icon {
+  filter: brightness(100); 
+}
+
+nav{
+  transition: all .3s;
+}
+nav .navbar-nav {
+  gap: 15px;
+  
+}
+
+nav .nav-link.active {
+  color: white !important;
+}
+
+nav .nav-link {
+  font-size: .75rem !important;
+  font-weight: bold !important;
+  color: white;
+  position: relative;
+  padding: 0 !important;
+  width: max-content;
+  margin: 0 auto;
+  font-family: var(--fm-poppins);
+}
+
+nav .nav-link::before {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 2px;
+  background: #F5B800;
+  z-index: 1;
+  transition: all .3s;
+}
+nav .nav-link:hover {
+  color: white;
+}
+
+nav .nav-link:hover:before {
+  width: 100%;
+}
+
+nav .nav-link.active::before {
+  width: 100%;
+}
+
+nav .indicator__cart{
+  border: 2px solid #135961;
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  border-radius: 100%;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  color: #135961;
+  top: -2px;
+  right: -8px;
+  font-size: 10px;
+}
+
+header p, header i {
+  font-size: .8rem;
+}
+
+@media (max-width: 560px) {
+  nav .indicator__cart{
+    font-size: 10px;
+  }
+  header {
+    display: none;
+  }
+}

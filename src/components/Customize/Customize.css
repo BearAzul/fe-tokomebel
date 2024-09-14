@@ -1,0 +1,73 @@
+#customize {
+  min-height: auto !important;
+}
+
+#customize .title {
+  filter: drop-shadow(0 20px 13px rgb(0 0 0 / 0.03)) drop-shadow(0 8px 5px rgb(0 0 0 / 0.08));
+}
+
+#customize .card img {
+  transition: transform .3s;
+}
+#customize .card img:hover {
+  transform: scale(1.1);
+}
+#customize .color__pick button {
+  transition: transform .3s;
+}
+#customize .color__pick button:active {
+  transform: scale(.9);
+}
+
+
+@media (max-width: 576px) {
+
+  #customize .title h5,
+  #customize .title p,
+  #customize button {
+    font-size: .6rem !important;
+  }
+
+  #customize .title .box {
+    font-size: .4rem !important;
+  }
+
+  #customize .card {
+    width: 100% !important;
+  }
+
+  #customize .card .card-footer p {
+    font-size: .6rem !important;
+  }
+}
+
+@media (max-width: 884px) {
+  #customize{
+    min-height: auto !important;
+  }
+
+  #customize .title h5,
+  #customize .title p,
+  #customize button {
+    font-size: .9rem;
+  }
+
+  #customize .title .box {
+    font-size: .6rem;
+  }
+
+  #customize .card .card-footer p {
+    font-size: .8rem;
+  }
+
+}
+
+@media (max-width: 1230px) {
+
+  #customize .title h5,
+  #customize .title p,
+  #customize button {
+    font-size: .8rem;
+  }
+}
+

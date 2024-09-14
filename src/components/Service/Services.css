@@ -1,0 +1,29 @@
+#service {
+  min-height: auto !important;
+}
+
+#service .icon__service {
+  width: 40px !important;
+  height: 40px !important;
+}
+
+#service .title span {
+  width: 100%;
+  height: 2px;
+}
+
+@media (max-width: 576px) {
+
+  #service .card .card-body h5,
+  #service .card .card-body p {
+    font-size: .65rem !important;
+  }
+
+  #service .title h3{
+    font-size: 1rem !important;
+  }
+  #service .title p {
+    font-size: .5rem !important;
+  }
+
+}
