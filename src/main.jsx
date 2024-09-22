@@ -8,7 +8,6 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import App from "./App.jsx";
 import "react-toastify/dist/ReactToastify.css";
-import "./styles/index.css";
 import ButtonTop from "./common/ButtonTop/ButtonTop.jsx";
 import { ToastContainer } from "react-toastify";
 import { store } from "./store.js";

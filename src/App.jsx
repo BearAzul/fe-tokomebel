@@ -12,15 +12,28 @@ import RegisterPage from "./pages/auth/RegisterPage.jsx";
 import PaymentPage from "./pages/PaymentPage.jsx";
 import OrderHistory from "./pages/OrderHistory.jsx";
 
+// Admin Component
+import AdminLayout from "./layouts/AdminLayout.jsx";
+import HomeView from "./pages/admin/HomeView.jsx";
+import UserView from "./pages/admin/UserView.jsx";
+import ProductsView from "./pages/admin/ProductsView.jsx";
+import OrdersView from "./pages/admin/OrdersView.jsx";
+import AddProductView from "./pages/admin/Form/AddProductView.jsx";
+import EditProductView from "./pages/admin/Form/EditProductView.jsx";
+
 // Page Not Found / Error
 import NotPage from "./pages/NotPage.jsx";
 
 // Loader
-import { loader as SellerLoader } from "./components/Trending/BestSellerSection.jsx"
+import { loader as SellerLoader } from "./components/Trending/BestSellerSection.jsx";
 import { loader as ShopLoader } from "./pages/ShopPage.jsx";
 import { loader as ProfilLoader } from "./pages/ProfilUser.jsx";
 import { loader as PaymentLoader } from "./pages/PaymentPage.jsx";
 import { loader as OrderLoader } from "./pages/OrderHistory.jsx";
+import { loader as ProductsLoader } from "./pages/admin/ProductsView.jsx";
+import { loader as AdminLoader } from "./layouts/AdminLayout.jsx";
+
+
 
 // auth
 import { action as LoginAction } from "./pages/auth/LoginPage.jsx";
@@ -71,6 +84,38 @@ const router = createBrowserRouter([
         path: "checkout",
         element: <PaymentPage />,
         loader: PaymentLoader(store),
+      },
+    ],
+  },
+  {
+    path: "/admin",
+    element: <AdminLayout />,
+    loader: AdminLoader(store),
+    children: [
+      {
+        index: true,
+        element: <HomeView />,
+      },
+      {
+        path: "/admin/user",
+        element: <UserView />,
+      },
+      {
+        path: "/admin/products",
+        element: <ProductsView />,
+        loader: ProductsLoader,
+      },
+      {
+        path: "/admin/products/add",
+        element: <AddProductView />,
+      },
+      {
+        path: "/admin/products/:id/edit",
+        element: <EditProductView />,
+      },
+      {
+        path: "/admin/orders",
+        element: <OrdersView />,
       },
     ],
   },

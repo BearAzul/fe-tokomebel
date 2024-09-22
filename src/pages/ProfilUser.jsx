@@ -6,8 +6,8 @@ import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
 import customAPI from "../api.js";
 import Loading from "../components/Loading.jsx";
-import { logoutUser } from "../features/userSlice.js";
 import { clearCartItem } from "../features/cartSlice.js";
+import { logoutUser } from "../features/userSlice.js";
 import { useDispatch } from "react-redux";
 
 export const loader = (storage) => () => {

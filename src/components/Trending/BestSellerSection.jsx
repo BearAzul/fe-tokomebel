@@ -1,10 +1,10 @@
 import "./BestSeller.css";
 import "../../styles/index.css";
-import { Container, Row, Col, Card } from "react-bootstrap";
+import { Container, Row, Col} from "react-bootstrap";
 import Categories from "../../assets/data/Category.jsx";
 import { useState } from "react";
-import { Link, useLoaderData } from "react-router-dom";
-import { formatToIDR } from "../../utils/index.jsx";
+import { useLoaderData } from "react-router-dom";
+import { CardProductCustomer } from "../CardProduct.jsx";
 import customAPI from "../../api.js";
 
 export const loader = async () => {
@@ -57,39 +57,10 @@ const BestSellerSection = () => {
               <Row xs="2" md="3" lg="4" className="g-4">
                 {filteredProducts.map((product) => (
                   <Col key={product._id} data-aos="zoom-in">
-                    <div className="card__container">
-                      <Card className="h-100 w-100 rounded-0 bg-secondary-subtle fm-2 overflow-hidden ">
-                        <Card.Img
-                          variant="top"
-                          src={product.image}
-                          alt={product.name}
-                          className={`d-block w-100 rounded-0 ${
-                            selectedCategory === "Bed"
-                              ? "object-fit-cover"
-                              : "object-fit-contain"
-                          }`}
-                        />
-                        <Card.Footer className="d-flex align-items-center justify-content-between p-0 bg-light position-relative z-1 w-100 border-2 rounded-0">
-                          <p className="mb-0 ms-2 ms-md-3">
-                            {formatToIDR(product.price)}
-                          </p>
-                          <Link
-                            to={`/shop/${product._id}`}
-                            className="rounded-0 btn btn-warning"
-                          >
-                            <i className="ri-shopping-cart-2-line fs-6"></i>
-                          </Link>
-                        </Card.Footer>
-                      </Card>
-                      <div className="w-100 text-bg-light text-start fm-2 mt-2 p-0 bg-transparent">
-                        <Card.Title className="fs-6 fw-semibold">
-                          {product.name}
-                        </Card.Title>
-                        <Card.Text className="fs-7">
-                          {product.summary}
-                        </Card.Text>
-                      </div>
-                    </div>
+                    <CardProductCustomer
+                      product={product}
+                      icons="ri-shopping-cart-2-line"
+                    />
                   </Col>
                 ))}
               </Row>

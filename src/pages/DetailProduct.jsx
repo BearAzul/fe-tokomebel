@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import NavDescription from "../common/NavTabs/NavDescription.jsx";
 import customAPI from "../api.js";
 import { generateSelectAmount, formatToIDR } from "../utils/index.jsx";
-import { useDispatch } from "react-redux"
+import { useDispatch } from "react-redux";
 import { addToCart } from "../features/cartSlice.js";
 
 const DetailProduct = () => {
@@ -47,14 +47,14 @@ const DetailProduct = () => {
     price: detailProducts.price,
     stock: detailProducts.stock,
     amount,
-  }
+  };
 
   const handleAmount = (e) => {
     setAmount(parseInt(e.target.value));
   };
 
   const handleAddToCart = () => {
-    dispatch(addToCart({product: productCart}));
+    dispatch(addToCart({ product: productCart }));
   };
 
   return (
@@ -66,7 +66,7 @@ const DetailProduct = () => {
             <Row lg="2" className="g-3 gy-5">
               <Col md="6" className="d-flex">
                 <div
-                  className="img__items mx-auto bg-light rounded-4 overflow-hidden "
+                  className="img__items mx-auto bg-light rounded-4 overflow-hidden position-relative"
                   style={{ height: "350px", width: "100%" }}
                 >
                   <Image
@@ -79,6 +79,7 @@ const DetailProduct = () => {
                     }`}
                   />
                 </div>
+                <span className="badge text-bg-warning position-absolute m-2 fs-5">Sold Out</span>
               </Col>
               <Col md="6">
                 <div className="spesifik__items fm-2 pt-3 p-md-4">
@@ -103,24 +104,26 @@ const DetailProduct = () => {
                   <p className="fm-2 fs-6 fw-semibold">
                     Stock: {detailProducts.stock}
                   </p>
-                  <div className="d-flex gap-3 align-items-center mt-4">
-                    <select
-                      name="amount"
-                      className="form-select border-0 text-bg-warning text-center select select-bordered"
-                      style={{ width: "80px" }}
-                      onChange={handleAmount}
-                    >
-                      {generateSelectAmount(detailProducts.stock)}
-                    </select>
-                    <Button
-                      variant="warning"
-                      className="fs-7 fw-semibold rounded-1 btn__cart"
-                      onClick={handleAddToCart}
-                    >
-                      Add to Cart
-                      <i className="ri-shopping-cart-2-line ms-2"></i>
-                    </Button>
-                  </div>
+                  {detailProducts.stock > 0 && (
+                    <div className="d-flex gap-3 align-items-center mt-4">
+                      <select
+                        name="amount"
+                        className="form-select border-0 text-bg-warning text-center select select-bordered"
+                        style={{ width: "80px" }}
+                        onChange={handleAmount}
+                      >
+                        {generateSelectAmount(detailProducts.stock)}
+                      </select>
+                      <Button
+                        variant="warning"
+                        className="fs-7 fw-semibold rounded-1 btn__cart"
+                        onClick={handleAddToCart}
+                      >
+                        Add to Cart
+                        <i className="ri-shopping-cart-2-line ms-2"></i>
+                      </Button>
+                    </div>
+                  )}
                 </div>
               </Col>
               <Col lg="12">

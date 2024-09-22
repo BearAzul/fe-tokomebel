@@ -112,12 +112,14 @@ h1, h2, h3, h4, h5, h6, p {
   transform: scale(.9);
 }
 
+#product .furniture__product .card img,
 #shop .furniture__product .card img,
 #detailProduct .detail__items .img__items img {
   filter: drop-shadow(0 25px 25px rgb(0 0 0 / 0.15));
   transition: transform .4s;
 }
 
+#product .furniture__product .card:hover img,
 #shop .furniture__product .card:hover img,
 #detailProduct .detail__items .img__items:hover img {
   transform: scale(1.2);
@@ -125,6 +127,9 @@ h1, h2, h3, h4, h5, h6, p {
 
 #shop .card__container .card img {
   height: 250px;
+}
+#product .card__container .card img {
+  height: 220px;
 }
 
 #detailProduct .detail__items .img__items img {
@@ -157,7 +162,68 @@ h1, h2, h3, h4, h5, h6, p {
   height: 250px;
 }
 
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  grid-template-rows: auto 1fr;
+  grid-template-areas:
+    "sidebar header"
+    "sidebar main";
+  height: 100vh;
+}
+
+.header {
+  grid-area: header;
+}
+
+#sidebar {
+  grid-area: sidebar;
+  font-family: "Poppins", sans-serif;
+}
+
+.sidebar-brand {
+  margin-top: 15px;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.sidebar-item {
+  font-size: 18px;
+  width: 100%;
+}
+
+.sidebar-item:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+}
+
+.sidebar-responsive {
+  display: inline !important;
+  position: absolute;
+  z-index: 12 !important;
+}
+
+main {
+  grid-area: main;
+  overflow-y: auto;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.card-inner>.card_icon {
+  font-size: 25px;
+}
+
+.accodion-item {
+  border-radius: none !important;
+}
+
+.accordion-item button {
+  font-weight: 600;
+}
+
 @media(max-width: 576px) {
+  #product .card__container .card img,
   #shop .card__container .card img {
     height: 175px !important;
   }
@@ -181,6 +247,14 @@ h1, h2, h3, h4, h5, h6, p {
   #login {
     min-height: auto !important;
   }
+
+  main {
+    max-width: 100vw;
+  }
+
+  .header-left {
+    display: none;
+  }
 }
 
 @media(max-width: 992px) {
@@ -188,22 +262,32 @@ h1, h2, h3, h4, h5, h6, p {
     min-height: 20vh !important;
   }
 
+  #product .card__container .card img,
   #shop .card__container .card img {
     height: 160px;
   }
 
+  #product .card .card-footer p,
   #shop .card .card-footer p {
     font-size: .7rem !important;
+  }
+
+  .grid-container {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "header"
+      "main";
   }
 }
 
 @media (min-width: 768px) {
-  .order__history>img{
+  .order__history>img {
     width: 50% !important;
   }
 }
+
 @media (min-width: 1114px) {
-  .order__history>img{
+  .order__history>img {
     width: 25% !important;
   }
 }

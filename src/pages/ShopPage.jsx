@@ -6,7 +6,7 @@ import Categories from "../assets/data/Category.jsx";
 import BannerHeader from "../common/Banner/BannerHeader.jsx";
 import { useState, useEffect } from "react";
 import customAPI from "../api.js";
-import CardProduct from "../components/CardProduct.jsx";
+import { CardProductCustomer } from "../components/CardProduct.jsx";
 import {
   useLoaderData,
   useLocation,
@@ -76,7 +76,8 @@ const ShopPage = () => {
         <Container className="my-4">
           <Row md="2" className="g-0 g-md-3 g-lg-5 ">
             <Col
-              md="3" lg="2"
+              md="3"
+              lg="2"
               className="bg-light p-3 rounded h-max-content "
               data-aos="fade-right"
             >
@@ -140,19 +141,22 @@ const ShopPage = () => {
                 style={{ minHeight: "100vh" }}
               >
                 <Row xs="2" md="3" lg="4" className="g-2 g-lg-4">
-                  {isPageLoading ?
-                    (<Loading />) : 
-                    !filteredProducts.length ? (
+                  {isPageLoading ? (
+                    <Loading />
+                  ) : !filteredProducts.length ? (
                     <h1 className="fw-semibold fs-5 fm-4 text-center w-100">
                       No Product Found
                     </h1>
                   ) : (
                     filteredProducts.map((product) => (
                       <Col key={product._id} data-aos="zoom-in">
-                        <CardProduct product={product} />
+                        <CardProductCustomer
+                          product={product}
+                          icons="ri-shopping-cart-2-line"
+                        />
                       </Col>
                     ))
-                  )} 
+                  )}
                 </Row>
               </div>
             </Col>

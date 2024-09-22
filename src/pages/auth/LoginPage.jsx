@@ -20,7 +20,14 @@ export const action =
       const response = await customAPI.post("/auth/login", data);
       store.dispatch(loginUser(response.data));
       toast.success("Login Success");
-      return redirect("/profile");
+      
+      const userRole = response.data.role;
+
+      if (userRole === "owner") {
+        return redirect("/admin"); 
+      } else {
+        return redirect("/profile");
+      }
     } catch (error) {
       const errorMessage = error?.response?.data?.message;
       toast.error(errorMessage);
