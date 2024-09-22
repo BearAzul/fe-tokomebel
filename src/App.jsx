@@ -20,6 +20,8 @@ import ProductsView from "./pages/admin/ProductsView.jsx";
 import OrdersView from "./pages/admin/OrdersView.jsx";
 import AddProductView from "./pages/admin/Form/AddProductView.jsx";
 import EditProductView from "./pages/admin/Form/EditProductView.jsx";
+import CustomersView from "./pages/admin/CustomersView.jsx";
+import ReportsView from "./pages/admin/ReportsView.jsx";
 
 // Page Not Found / Error
 import NotPage from "./pages/NotPage.jsx";
@@ -32,6 +34,7 @@ import { loader as PaymentLoader } from "./pages/PaymentPage.jsx";
 import { loader as OrderLoader } from "./pages/OrderHistory.jsx";
 import { loader as ProductsLoader } from "./pages/admin/ProductsView.jsx";
 import { loader as AdminLoader } from "./layouts/AdminLayout.jsx";
+import { loader as DashboardLoader } from "./pages/admin/HomeView.jsx";
 
 
 
@@ -95,6 +98,7 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <HomeView />,
+        loader: DashboardLoader,
       },
       {
         path: "/admin/user",
@@ -116,6 +120,14 @@ const router = createBrowserRouter([
       {
         path: "/admin/orders",
         element: <OrdersView />,
+      },
+      {
+        path: "/admin/customers",
+        element: <CustomersView />,
+      },
+      {
+        path: "/admin/reports",
+        element: <ReportsView />,
       },
     ],
   },

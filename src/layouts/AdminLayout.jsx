@@ -1,8 +1,9 @@
 import { useState } from "react";
 import Header from "../components/admin/Header.jsx";
 import Sidebar from "../components/admin/Sidebar.jsx";
-import { Outlet, redirect } from "react-router-dom";
-import { toast } from "react-toastify"
+import { Outlet, redirect, useNavigation } from "react-router-dom";
+import { toast } from "react-toastify";
+import Loading from "../components/Loading.jsx";
 
 export const loader = (storage) => () => {
   const user = storage.getState().userState.user;
@@ -11,7 +12,7 @@ export const loader = (storage) => () => {
     return redirect("/login");
   }
 
-  if (user.role != "owner") {
+  if (user.role !== "owner") {
     toast.error("Anda bukan admin, anda tidak dapat mengakses halaman ini");
     return redirect("/");
   }
@@ -24,6 +25,9 @@ const AdminLayout = () => {
   const OpenSidebar = () => {
     setOpenSidebarToggle(!openSidebarToggle);
   };
+
+  const navigation = useNavigation();
+  const isPageLoading = navigation.state === "loading";
   return (
     <>
       <div className="grid-container container-fluid p-0">
@@ -33,7 +37,7 @@ const AdminLayout = () => {
           OpenSidebar={OpenSidebar}
         />
         <main className="p-3 text-bg-dark">
-          <Outlet />
+          {isPageLoading ? <Loading /> : <Outlet />}
         </main>
       </div>
     </>

@@ -22,9 +22,19 @@ const BarMenu = [
     icon: "ri-box-3-line",
   },
   {
+    title: "Customers",
+    path: "/admin/customers",
+    icon: "ri-team-line",
+  },
+  {
     title: "Orders",
     path: "/admin/orders",
     icon: "ri-shopping-cart-2-line",
+  },
+  {
+    title: "Reports",
+    path: "/admin/reports",
+    icon: "ri-folder-open-line",
   },
 ];
 const Sidebar = ({ openSidebarToggle, OpenSidebar }) => {
@@ -77,6 +87,8 @@ const Sidebar = ({ openSidebarToggle, OpenSidebar }) => {
         Logout
         <i className="ri-logout-circle-r-line ms-2"></i>
       </Button>
+      <hr />
+      <p className="fs-7 text-center fm-3">All Right Reserved. <br /> Toko Mebel 2024</p>
     </aside>
   );
 };
