@@ -66,8 +66,8 @@ const Checkout = () => {
         embedId: "snap-container",
         onSuccess: function (result) {
           console.log(result);
-          dispatch(clearCartItem())
-          navigate('/cart')
+          dispatch(clearCartItem());
+          navigate("/cart");
         },
         onPending: function (result) {
           console.log(result);
@@ -87,10 +87,14 @@ const Checkout = () => {
 
   return (
     <>
-      <div className="mb-2 fm-4">
-        <p className="m-0 fs-5 fw-semibold">Shipping Information</p>
-        <hr />
+      <div className="d-flex align-items-center gap-3">
+        <Link to="/cart" className="btn btn-primary fm-2">
+          <i className="ri-arrow-left-circle-line me-2"></i>
+          Back
+        </Link>
+        <p className="m-0 fs-5 fw-semibold fm-4">Shipping Information</p>
       </div>
+      <hr />
       <form method="POST" onSubmit={handlePayment} className="fm-2">
         <Row md="2" className="g-2 mb-3">
           <Col>
@@ -166,7 +170,7 @@ const Checkout = () => {
                 className="form-control"
                 defaultValue={user.address}
                 readOnly
-                style={{height: "100px"}}
+                style={{ height: "100px" }}
               ></textarea>
               <label htmlFor="address">Address</label>
             </div>

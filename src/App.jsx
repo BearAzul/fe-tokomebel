@@ -6,7 +6,7 @@ import HomePage from "./pages/HomePage.jsx";
 import ShopPage from "./pages/ShopPage.jsx";
 import Cart from "./pages/Cart.jsx";
 import DetailProduct from "./pages/DetailProduct.jsx";
-import ProfilUser from "./pages/ProfilUser.jsx";
+import ProfilePage from "./pages/ProfilePage.jsx";
 import LoginPage from "./pages/auth/LoginPage.jsx";
 import RegisterPage from "./pages/auth/RegisterPage.jsx";
 import PaymentPage from "./pages/PaymentPage.jsx";
@@ -29,7 +29,7 @@ import NotPage from "./pages/NotPage.jsx";
 // Loader
 import { loader as SellerLoader } from "./components/Trending/BestSellerSection.jsx";
 import { loader as ShopLoader } from "./pages/ShopPage.jsx";
-import { loader as ProfilLoader } from "./pages/ProfilUser.jsx";
+import {loader as ProfileLoader} from "./pages/ProfilePage.jsx"
 import { loader as PaymentLoader } from "./pages/PaymentPage.jsx";
 import { loader as OrderLoader } from "./pages/OrderHistory.jsx";
 import { loader as ProductsLoader } from "./pages/admin/ProductsView.jsx";
@@ -65,8 +65,8 @@ const router = createBrowserRouter([
       { path: "cart", element: <Cart /> },
       {
         path: "profile",
-        element: <ProfilUser />,
-        loader: ProfilLoader(store),
+        element: <ProfilePage />,
+        loader: ProfileLoader(store),
       },
       {
         path: "orders",

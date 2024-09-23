@@ -1,5 +1,5 @@
 import { toast } from "react-toastify";
-import { redirect, useLoaderData } from "react-router-dom";
+import { redirect, useLoaderData, Link } from "react-router-dom";
 import BannerHeader from "../common/Banner/BannerHeader";
 import { Container } from "react-bootstrap";
 import { formatToIDR } from "../utils";
@@ -25,6 +25,10 @@ const OrderHistory = () => {
     <section id="history">
       <BannerHeader bannerTitle="Order History" />
       <Container className="py-3 py-md-5">
+        <Link to="/profile" className="btn btn-primary mb-3">
+          <i className="ri-arrow-left-circle-line me-2"></i>
+          Back
+        </Link>
         {!orders.length ? (
           <div className="fm-2 text-center order__history">
             <p>No orders have been received yet.</p>

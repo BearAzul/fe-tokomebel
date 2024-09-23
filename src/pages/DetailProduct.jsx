@@ -79,7 +79,11 @@ const DetailProduct = () => {
                     }`}
                   />
                 </div>
-                <span className="badge text-bg-warning position-absolute m-2 fs-5">Sold Out</span>
+                {detailProducts.stock < 1 && (
+                  <span className="badge text-bg-warning position-absolute m-2 fs-5">
+                    Sold Out
+                  </span>
+                )}
               </Col>
               <Col md="6">
                 <div className="spesifik__items fm-2 pt-3 p-md-4">
@@ -108,7 +112,7 @@ const DetailProduct = () => {
                     <div className="d-flex gap-3 align-items-center mt-4">
                       <select
                         name="amount"
-                        className="form-select border-0 text-bg-warning text-center select select-bordered"
+                        className="form-select text-bg-warning text-center select select-bordered"
                         style={{ width: "80px" }}
                         onChange={handleAmount}
                       >
