@@ -5,6 +5,7 @@ import { Link, useRevalidator } from "react-router-dom";
 import { formatToIDR } from "../utils";
 import { toast } from "react-toastify";
 import customAPI from "../api.js";
+import Swal from "sweetalert2";
 
 export const CardProductCustomer = ({ product, icons, className }) => {
   return (
@@ -51,18 +52,35 @@ export const CardProductCustomer = ({ product, icons, className }) => {
 
 export const CardProductAdmin = ({ product, icons, className }) => {
   const { revalidate } = useRevalidator();
-
+  const handleDelete = async (product, revalidate) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: `You are about to delete the product: ${product.name}. This action cannot be undone.`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes",
+      cancelButtonText: "Cancel",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          await customAPI.delete(`/product/${product._id}`);
+          toast.success(`Product ${product.name} deleted successfully`);
+          revalidate(); // Call your revalidation or update function
+        } catch (error) {
+          toast.error("Failed to delete product. Please try again.");
+        }
+      }
+    });
+  };
   return (
     <div className="card__container position-relative">
       <Button
         variant="danger"
         size="sm"
         className="position-absolute z-1 m-2"
-        onClick={async () => {
-          await customAPI.delete(`/product/${product._id}`);
-          toast.success(`Product ${product.name} deleted successfully`);
-          revalidate();
-        }}
+        onClick={() => handleDelete(product, revalidate)}
       >
         <i className="ri-delete-bin-5-line fs-6"></i>
       </Button>

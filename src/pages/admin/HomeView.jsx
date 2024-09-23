@@ -11,7 +11,6 @@ export const loader = async () => {
   const countOrders = resOrders.data.count;
   const countUsers = resUsers.data.count;
 
-  console.log(countProducts);
   return { countProducts, countOrders, countUsers };
 };
 

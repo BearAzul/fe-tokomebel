@@ -3,7 +3,7 @@ import { Link, useLoaderData, useNavigation, Form } from "react-router-dom";
 import customAPI from "../../api.js";
 import { CardProductAdmin } from "../../components/CardProduct.jsx";
 import Loading from "../../components/Loading.jsx";
-import "../../styles/index.css"
+import "../../styles/index.css";
 import { FormSelect } from "../../components/FormInput.jsx";
 
 export const loader = async ({ request }) => {
@@ -18,9 +18,9 @@ export const loader = async ({ request }) => {
 };
 
 const ProductsView = () => {
-  const categories = ["Chair", "Bed", "Sofa", "Wardrobe", "Table", "Lamps"];
+  const categories = ["Bed", "Chair", "Wardrobe", "Sofa", "Lamps", "Table"];
   const { dataProducts, params } = useLoaderData();
-  const {name, category} = params
+  const { name, category } = params;
 
   const navigation = useNavigation();
   const isPageLoading = navigation.state === "loading";
@@ -36,15 +36,21 @@ const ProductsView = () => {
           </Link>
           <Form
             method="get"
-            className="d-flex align-items-center gap-1 justify-content-center flex-wrap flex-md-nowrap"
+            className="d-flex align-items-center gap-2 flex-wrap flex-md-nowrap"
           >
-            <Link to="/admin/products" className="btn btn-sm btn-light">
-              <i className="ri-filter-off-line"></i>
-            </Link>
-            <FormSelect name="category" options={categories} defaultValue={category} />
+            <div className="d-flex w-100 gap-1 align-items-center">
+              <Link to="/admin/products" className="btn btn-sm btn-light">
+                <i className="ri-filter-off-line"></i>
+              </Link>
+              <FormSelect
+                name="category"
+                options={categories}
+                defaultValue={category}
+              />
+            </div>  
             <div className="input-group">
               <input
-                name="search"
+                name="name"
                 type="search"
                 placeholder="search"
                 defaultValue={name}

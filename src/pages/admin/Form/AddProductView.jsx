@@ -5,7 +5,7 @@ import customAPI from "../../../api.js";
 import { toast } from "react-toastify";
 
 const AddProductView = () => {
-  const categories = ["Chair", "Bed", "Sofa", "Wardrobe", "Table", "Lamps"]
+  const categories = ["Bed", "Chair", "Wardrobe", "Sofa", "Lamps", "Table"];
   const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();

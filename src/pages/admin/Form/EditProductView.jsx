@@ -11,7 +11,7 @@ import { toast } from "react-toastify";
 import Loading from "../../../components/Loading.jsx";
 
 const EditProductView = () => {
-  const categories = [ "Chair", "Bed", "Sofa", "Wardrobe", "Table", "Lamps"];
+  const categories = ["Bed", "Chair", "Wardrobe", "Sofa", "Lamps", "Table"];
   const [product, setProduct] = useState([]);
 
   const navigate = useNavigate();

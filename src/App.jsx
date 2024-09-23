@@ -35,6 +35,7 @@ import { loader as OrderLoader } from "./pages/OrderHistory.jsx";
 import { loader as ProductsLoader } from "./pages/admin/ProductsView.jsx";
 import { loader as AdminLoader } from "./layouts/AdminLayout.jsx";
 import { loader as DashboardLoader } from "./pages/admin/HomeView.jsx";
+import { loader as AdminProfileLoader } from "./pages/admin/UserView.jsx";
 
 
 
@@ -103,6 +104,7 @@ const router = createBrowserRouter([
       {
         path: "/admin/user",
         element: <UserView />,
+        loader: AdminProfileLoader(store),
       },
       {
         path: "/admin/products",
