@@ -7,7 +7,7 @@ import {
 } from "../components/FormInput.jsx";
 import { Container, Row, Col, Button, Card } from "react-bootstrap";
 import { toast } from "react-toastify";
-import { useNavigate, Link, redirect } from "react-router-dom";
+import { useNavigate, Link, redirect, useRevalidator } from "react-router-dom";
 import BannerHeader from "../common/Banner/BannerHeader.jsx";
 import { clearCartItem } from "../features/cartSlice.js";
 import { logoutUser } from "../features/userSlice.js";
@@ -25,6 +25,7 @@ export const loader = (storage) => () => {
 const ProfilePage = () => {
   const gender = ["Male", "Female"];
   const [identity, setIdentity] = useState([]);
+  const { revalidate } = useRevalidator();
 
   const dispatch = useDispatch();
 
@@ -65,6 +66,7 @@ const ProfilePage = () => {
       );
       
       toast.success("Profile updated successfully!");
+      revalidate();
     } catch (error) {
       const errorMessage = error?.response?.data?.message;
       toast.error(errorMessage);

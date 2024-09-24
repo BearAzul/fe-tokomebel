@@ -25,6 +25,7 @@ import ReportsView from "./pages/admin/ReportsView.jsx";
 
 // Page Not Found / Error
 import NotPage from "./pages/NotPage.jsx";
+import NotFoundView from "./pages/admin/NotFoundView.jsx";
 
 // Loader
 import { loader as SellerLoader } from "./components/Trending/BestSellerSection.jsx";
@@ -94,6 +95,7 @@ const router = createBrowserRouter([
   {
     path: "/admin",
     element: <AdminLayout />,
+    errorElement: <NotFoundView />,
     loader: AdminLoader(store),
     children: [
       {
