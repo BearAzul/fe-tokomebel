@@ -52,7 +52,7 @@ export const CardProductCustomer = ({ product, icons, className }) => {
 
 export const CardProductAdmin = ({ product, icons, className }) => {
   const { revalidate } = useRevalidator();
-  const handleDelete = async (product, revalidate) => {
+  const handleDelete = async (product) => {
     Swal.fire({
       title: "Are you sure?",
       text: `You are about to delete the product: ${product.name}. This action cannot be undone.`,
@@ -67,7 +67,7 @@ export const CardProductAdmin = ({ product, icons, className }) => {
         try {
           await customAPI.delete(`/product/${product._id}`);
           toast.success(`Product ${product.name} deleted successfully`);
-          revalidate(); // Call your revalidation or update function
+          revalidate();
         } catch (error) {
           toast.error("Failed to delete product. Please try again.");
         }
@@ -80,7 +80,7 @@ export const CardProductAdmin = ({ product, icons, className }) => {
         variant="danger"
         size="sm"
         className="position-absolute z-1 m-2"
-        onClick={() => handleDelete(product, revalidate)}
+        onClick={() => handleDelete(product)}
       >
         <i className="ri-delete-bin-5-line fs-6"></i>
       </Button>

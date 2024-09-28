@@ -1,9 +1,9 @@
 import "../styles/index.css";
 import { Row, Col } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link} from "react-router-dom";
 import { formatToIDR } from "../utils/index.jsx";
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { clearCartItem } from "../features/cartSlice.js";
 import { useNavigate } from "react-router-dom";
@@ -23,15 +23,20 @@ const insertSnapScript = () => {
 };
 
 const Checkout = () => {
-  const user = useSelector((state) => state.userState.user);
+  const [currentUser, setCurrentUser] = useState([]);
   const numItems = useSelector((state) => state.cartState.numItemsInCart);
   const carts = useSelector((state) => state.cartState.CartItems);
   const { cartTotal } = useSelector((state) => state.cartState);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const getCurrentUser = async () => {
+    const { data } = await customAPI.get("/auth/getuser");
+    setCurrentUser(data.user);
+  };
 
   useEffect(() => {
+    getCurrentUser()
     insertSnapScript();
   }, []);
 
@@ -51,6 +56,7 @@ const Checkout = () => {
 
     try {
       const response = await customAPI.post("/order", {
+        image: currentUser.image,
         firstName: data.firstName,
         lastName: data.lastName,
         email: data.email,
@@ -104,7 +110,7 @@ const Checkout = () => {
                 name="firstName"
                 id="firstName"
                 className="form-control"
-                defaultValue={user.firstName}
+                defaultValue={currentUser.firstName}
                 readOnly
               />
               <label htmlFor="fullname">First Name</label>
@@ -117,7 +123,7 @@ const Checkout = () => {
                 name="lastName"
                 id="lastName"
                 className="form-control"
-                defaultValue={user.lastName}
+                defaultValue={currentUser.lastName}
                 readOnly
               />
               <label htmlFor="lastName">Last Name</label>
@@ -130,7 +136,7 @@ const Checkout = () => {
                 name="email"
                 id="email"
                 className="form-control"
-                defaultValue={user.email}
+                defaultValue={currentUser.email}
                 readOnly
               />
               <label htmlFor="email">Email</label>
@@ -143,7 +149,7 @@ const Checkout = () => {
                 name="phone"
                 id="phone"
                 className="form-control"
-                defaultValue={user.phone}
+                defaultValue={currentUser.phone}
                 readOnly
               />
               <label htmlFor="phone">No. Telp</label>
@@ -156,7 +162,7 @@ const Checkout = () => {
                 name="city"
                 id="city"
                 className="form-control"
-                defaultValue={user.city}
+                defaultValue={currentUser.city}
                 readOnly
               />
               <label htmlFor="city">City</label>
@@ -168,7 +174,7 @@ const Checkout = () => {
                 name="address"
                 id="address"
                 className="form-control"
-                defaultValue={user.address}
+                defaultValue={currentUser.address}
                 readOnly
                 style={{ height: "100px" }}
               ></textarea>

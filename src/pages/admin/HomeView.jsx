@@ -20,22 +20,22 @@ const HomeView = () => {
   const CardData = [
     {
       path: "/admin/products",
-      title: "Products",
+      title: "Total Products",
       count: countProducts,
       iconClass: "ri-shopping-bag-fill",
       bgClass: "text-bg-primary",
     },
     {
       path: "/admin/orders",
-      title: "Orders",
+      title: "Total Orders",
       count: countOrders,
       iconClass: "ri-shopping-cart-fill",
       bgClass: "text-bg-warning",
     },
     {
       path: "/admin/customers",
-      title: "Customers",
-      count: countUsers,
+      title: "Total Customers",
+      count: countUsers -1,
       iconClass: "ri-user-3-fill",
       bgClass: "text-bg-success",
     },
@@ -51,7 +51,7 @@ const HomeView = () => {
   return (
     <section id="dashboard" className="p-2 fm-2">
       <Container>
-        <Row md="3" lg="4" xs="2" className="g-lg-4 g-2">
+        <Row md="3" lg="4" xs="2" className="g-2">
           {CardData.map((card, index) => (
             <Col key={index}>
               <div className="d-flex align-items-start gap-2 gap-md-3 p-3 border rounded border border-secondary shadow-md flex-column flex-md-row">
@@ -62,7 +62,7 @@ const HomeView = () => {
                   <i className={`${card.iconClass} fs-4 text-white`}></i>
                 </Link>
                 <div className="flex-grow-1">
-                  <h5 className="mb-1">{card.title}</h5>
+                  <h6 className="mb-1">{card.title}</h6>
                   <p className="fs-6 fw-bold">{card.count}</p>
                 </div>
               </div>

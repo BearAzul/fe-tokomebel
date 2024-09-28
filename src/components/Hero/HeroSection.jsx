@@ -56,7 +56,7 @@ const HeroSection = () => {
                   <img  src={HeroImg2}  alt="Chair" className=" w-100 h-100 d-block"/>
               </div>
             </Col>
-          </Row>
+          </Row>    
         </div>
       </section>
     </>

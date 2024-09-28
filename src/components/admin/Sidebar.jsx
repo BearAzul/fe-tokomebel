@@ -12,7 +12,7 @@ const BarMenu = [
     icon: "ri-dashboard-2-line",
   },
   {
-    title: "Admin",
+    title: "Profile",
     path: "/admin/user",
     icon: "ri-admin-line",
   },
@@ -30,11 +30,6 @@ const BarMenu = [
     title: "Orders",
     path: "/admin/orders",
     icon: "ri-shopping-cart-2-line",
-  },
-  {
-    title: "Reports",
-    path: "/admin/reports",
-    icon: "ri-folder-open-line",
   },
 ];
 const Sidebar = ({ openSidebarToggle, OpenSidebar }) => {

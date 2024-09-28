@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import customAPI from "../api.js";
 import {
   FormInput,
@@ -7,38 +6,41 @@ import {
 } from "../components/FormInput.jsx";
 import { Container, Row, Col, Button, Card } from "react-bootstrap";
 import { toast } from "react-toastify";
-import { useNavigate, Link, redirect, useRevalidator } from "react-router-dom";
+import {
+  useNavigate,
+  Link,
+  redirect,
+  useRevalidator,
+  useLoaderData,
+} from "react-router-dom";
 import BannerHeader from "../common/Banner/BannerHeader.jsx";
 import { clearCartItem } from "../features/cartSlice.js";
 import { logoutUser } from "../features/userSlice.js";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
-export const loader = (storage) => () => {
+export const loader = (storage) => async () => {
   const user = storage.getState().userState.user;
   if (!user) {
     toast.warn("Silahkan Login untuk akses halaman Profil");
     return redirect("/login");
   }
-  return null;
+
+  const { data } = await customAPI.get("/auth/getuser");
+
+  const currentUser = data.user;
+
+  return { currentUser };
 };
 
 const ProfilePage = () => {
+  const user = useSelector((state) => state.userState.user);
+  const { currentUser } = useLoaderData();
   const gender = ["Male", "Female"];
-  const [identity, setIdentity] = useState([]);
   const { revalidate } = useRevalidator();
 
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
-
-  const getUserProfile = async () => {
-    const { data } = await customAPI.get("/auth/getuser");
-    setIdentity(data.user);
-  };
-
-  useEffect(() => {
-    getUserProfile();
-  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -48,7 +50,7 @@ const ProfilePage = () => {
 
     try {
       await customAPI.put(
-        `/auth/users/${identity._id}`,
+        `/auth/users/${user._id}`,
         {
           name: data.name,
           email: data.email,
@@ -64,7 +66,7 @@ const ProfilePage = () => {
           },
         }
       );
-      
+
       toast.success("Profile updated successfully!");
       revalidate();
     } catch (error) {
@@ -97,9 +99,9 @@ const ProfilePage = () => {
                 <Card.Img
                   variant="top"
                   src={
-                    identity.image === null
+                    currentUser.image === null
                       ? "https://via.placeholder.com/200x200"
-                      : identity.image
+                      : currentUser.image
                   }
                   className="d-block rounded mx-auto object-fit-cover"
                 />
@@ -107,7 +109,6 @@ const ProfilePage = () => {
                   <input
                     type="file"
                     name="image"
-                    defaultValue={identity.image}
                     className="form-control form-control-sm w-100 fs-7 fw-bold border rounded"
                   />
                 </Card.Body>
@@ -121,22 +122,32 @@ const ProfilePage = () => {
               {/* <Button variant="base" className="fw-bold w-100 border my-3 p-2">
               <i className="ri-key-fill me-3"></i>Change Password
             </Button> */}
-              <div className="d-flex align-items-center gap-2 mt-2 w-100">
-                <Button
-                  variant="danger"
-                  size="sm"
-                  className="fw-medium w-100"
-                  onClick={handleLogout}
-                >
-                  <i className="ri-logout-box-line me-2"></i>Logout
-                </Button>
+
+              {currentUser.role === "owner" ? (
                 <Link
-                  to="/orders"
-                  className="btn btn-primary btn-sm fm-2 border w-100"
+                  to="/admin"
+                  className="btn btn-dark w-100 fm-2 btn-sm mt-2"
                 >
-                  Order History
+                  Admin Panel
                 </Link>
-              </div>
+              ) : (
+                <div className="d-flex align-items-center gap-2 mt-2 w-100">
+                  <Button
+                    variant="danger"
+                    size="sm"
+                    className="fw-medium w-100"
+                    onClick={handleLogout}
+                  >
+                    <i className="ri-logout-box-line me-2"></i>Logout
+                  </Button>
+                  <Link
+                    to="/orders"
+                    className="btn btn-primary btn-sm fm-2 border w-100"
+                  >
+                    Order History
+                  </Link>
+                </div>
+              )}
             </Col>
             <Col lg="8">
               <Card>
@@ -152,7 +163,7 @@ const ProfilePage = () => {
                           type="text"
                           name="firstName"
                           placeHolder="Enter your firstname"
-                          defaultValue={identity.firstName}
+                          defaultValue={currentUser.firstName}
                         />
                       </Col>
                       <Col>
@@ -161,7 +172,7 @@ const ProfilePage = () => {
                           type="text"
                           name="lastName"
                           placeHolder="Enter your lastname"
-                          defaultValue={identity.lastName}
+                          defaultValue={currentUser.lastName}
                         />
                       </Col>
                     </Row>
@@ -170,7 +181,7 @@ const ProfilePage = () => {
                     <FormSelect
                       label="Gender:"
                       name="gender"
-                      defaultValue={identity.gender}
+                      defaultValue={currentUser.gender}
                       options={gender}
                     />
                   </Card.Text>
@@ -185,7 +196,7 @@ const ProfilePage = () => {
                           type="email"
                           name="email"
                           placeHolder="Enter your email address"
-                          defaultValue={identity.email}
+                          defaultValue={currentUser.email}
                         />
                       </Col>
                       <Col>
@@ -199,7 +210,7 @@ const ProfilePage = () => {
                           name="phone"
                           minLength={11}
                           maxLength={13}
-                          defaultValue={identity.phone}
+                          defaultValue={currentUser.phone}
                           placeholder="Enter your phone number"
                         />
                       </Col>
@@ -209,7 +220,7 @@ const ProfilePage = () => {
                           type="text"
                           name="city"
                           placeHolder="Enter your city"
-                          defaultValue={identity.city}
+                          defaultValue={currentUser.city}
                         />
                       </Col>
                       <Col lg="12">
@@ -217,7 +228,7 @@ const ProfilePage = () => {
                           label="Address:"
                           name="address"
                           placeHolder="Enter your address"
-                          defaultValue={identity.address}
+                          defaultValue={currentUser.address}
                           Row={3}
                         />
                       </Col>

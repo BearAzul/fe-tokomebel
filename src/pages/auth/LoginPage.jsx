@@ -2,11 +2,10 @@ import "../../styles/index.css";
 import { Button, Card, Container } from "react-bootstrap";
 import { useState } from "react";
 import imglogin from "../../assets/Image/login-img.svg";
-import { Link } from "react-router-dom";
+import { Link, redirect } from "react-router-dom";
 import { toast } from "react-toastify";
-import { redirect } from "react-router-dom";
 import { loginUser } from "../../features/userSlice.js";
-import { Form } from "react-router-dom"
+import { Form } from "react-router-dom";
 import customAPI from "../../api.js";
 // import IconGoogle from "../../assets/Image/google_icons.webp";
 
@@ -20,14 +19,7 @@ export const action =
       const response = await customAPI.post("/auth/login", data);
       store.dispatch(loginUser(response.data));
       toast.success("Login Success");
-      
-      const userRole = response.data.role;
-
-      if (userRole === "owner") {
-        return redirect("/admin"); 
-      } else {
-        return redirect("/profile");
-      }
+      return redirect("/profile");
     } catch (error) {
       const errorMessage = error?.response?.data?.message;
       toast.error(errorMessage);
