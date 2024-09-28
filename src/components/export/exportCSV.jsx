@@ -4,8 +4,8 @@ import {Button} from "react-bootstrap"
 
 const exportCSV = ({ data }) => {
   const headers = [
-    { label: "ID", key: "_id" },
-    { label: "Name", key: `${data.firstName} ${data.lastName}` },
+    { label: "ID", key: "id" },
+    { label: "Name", key: "fullName" },
     { label: "Email", key: "email" },
     { label: "No. Telp", key: "phone" },
     { label: "Gender", key: "gender" },
@@ -13,8 +13,18 @@ const exportCSV = ({ data }) => {
     { label: "Address", key: "address" },
   ];
 
+  const csvData = data.map((customer) => ({
+    id: customer._id,
+    fullName: `${customer.firstName} ${customer.lastName}`,
+    email: customer.email,
+    phone: customer.phone,
+    gender: customer.gender,
+    city: customer.city,
+    address: customer.address,
+  }));
+
   return (
-    <CSVLink data={data} headers={headers} filename={"customer_data.csv"}>
+    <CSVLink data={csvData} headers={headers} filename={"customer_data.csv"}>
       <Button
         variant="success"
         size="sm"
