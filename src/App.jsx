@@ -22,6 +22,7 @@ import AddProductView from "./pages/admin/Form/AddProductView.jsx";
 import EditProductView from "./pages/admin/Form/EditProductView.jsx";
 import CustomersView from "./pages/admin/CustomersView.jsx";
 import EditCustomersView from "./pages/admin/Form/EditCustomersView.jsx";
+import OrderDetailView from "./pages/admin/OrderDetailView.jsx";
 
 // Page Not Found / Error
 import NotPage from "./pages/NotPage.jsx";
@@ -30,7 +31,7 @@ import NotFoundView from "./pages/admin/NotFoundView.jsx";
 // Loader
 import { loader as SellerLoader } from "./components/Trending/BestSellerSection.jsx";
 import { loader as ShopLoader } from "./pages/ShopPage.jsx";
-import { loader as ProfileLoader} from "./pages/ProfilePage.jsx"
+import { loader as ProfileLoader } from "./pages/ProfilePage.jsx";
 import { loader as PaymentLoader } from "./pages/PaymentPage.jsx";
 import { loader as OrderLoader } from "./pages/OrderHistory.jsx";
 import { loader as ProductsLoader } from "./pages/admin/ProductsView.jsx";
@@ -38,8 +39,7 @@ import { loader as AdminLoader } from "./layouts/AdminLayout.jsx";
 import { loader as DashboardLoader } from "./pages/admin/HomeView.jsx";
 import { loader as AdminProfileLoader } from "./pages/admin/UserView.jsx";
 import { loader as CustomersLoader } from "./pages/admin/CustomersView.jsx";
-
-
+import { loader as OrdersAdminLoader } from "./pages/admin/OrdersView.jsx";
 
 // auth
 import { action as LoginAction } from "./pages/auth/LoginPage.jsx";
@@ -135,6 +135,11 @@ const router = createBrowserRouter([
       {
         path: "/admin/orders",
         element: <OrdersView />,
+        loader: OrdersAdminLoader(store),
+      },
+      {
+        path: "/admin/orders/:id",
+        element: <OrderDetailView />,
       },
     ],
   },

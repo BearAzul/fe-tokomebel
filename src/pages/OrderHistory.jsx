@@ -106,7 +106,7 @@ const OrderHistory = () => {
     <section id="history">
       <BannerHeader bannerTitle="Order History" />
       <Container className="py-3 py-md-5 fm-2">
-        <div className="d-flex justify-content-between align-items-center mb-3">
+        <div className="d-flex justify-content-between align-items-center mb-3 gap-2">
           <Link to="/profile" className="btn btn-primary btn-sm me-auto">
             <i className="ri-arrow-left-circle-line me-2"></i>
             Back

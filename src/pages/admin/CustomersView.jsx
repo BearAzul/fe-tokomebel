@@ -125,8 +125,8 @@ const CustomersView = () => {
   return (
     <section className="fm-2">
       <Container>
-        <div className="d-flex justify-content-between gap-2 align-items-center mb-3 flex-wrap">
-          <h5 className="fm-2 mb-3">All Data Customers</h5>
+        <div className="d-flex justify-content-between gap-3 align-items-center mb-3 flex-wrap">
+          <h5 className="fm-2">All Data Customers</h5>
           <div className="d-flex gap-1 align-items-center">
             <ExportCSV data={dataCustomers} />
             <Button
@@ -159,6 +159,7 @@ const CustomersView = () => {
           highlightOnHover
           fixedHeader
           theme="dark"
+          className="rounded border border-secondary mb-2"
         />
       </Container>
     </section>
