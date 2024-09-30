@@ -126,9 +126,9 @@ const ProfilePage = () => {
               {currentUser.role === "owner" ? (
                 <Link
                   to="/admin"
-                  className="btn btn-dark w-100 fm-2 btn-sm mt-2"
+                  className="btn btn-dark w-100 fm-2 mt-2"
                 >
-                  Admin Panel
+                  Dashboard Admin
                 </Link>
               ) : (
                 <div className="d-flex align-items-center gap-2 mt-2 w-100">

@@ -130,7 +130,7 @@ const OrderDetailView = () => {
                         ? "text-bg-success"
                         : detailOrder.status === "failed"
                         ? "text-bg-danger"
-                        : "text-ng-warning"
+                        : "text-bg-warning"
                     }`}
                   >
                     {detailOrder.status}

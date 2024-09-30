@@ -23,6 +23,7 @@ import EditProductView from "./pages/admin/Form/EditProductView.jsx";
 import CustomersView from "./pages/admin/CustomersView.jsx";
 import EditCustomersView from "./pages/admin/Form/EditCustomersView.jsx";
 import OrderDetailView from "./pages/admin/OrderDetailView.jsx";
+import CategoryView from "./pages/admin/CategoryView.jsx";
 
 // Page Not Found / Error
 import NotPage from "./pages/NotPage.jsx";
@@ -108,6 +109,10 @@ const router = createBrowserRouter([
         path: "/admin/user",
         element: <UserView />,
         loader: AdminProfileLoader(store),
+      },
+      {
+        path: "/admin/category",
+        element: <CategoryView />,
       },
       {
         path: "/admin/products",

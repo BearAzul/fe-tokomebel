@@ -39,19 +39,13 @@ const HomeView = () => {
       iconClass: "ri-user-3-fill",
       bgClass: "text-bg-success",
     },
-    {
-      path: "/admin/reports",
-      title: "Reports",
-      count: 0,
-      iconClass: "ri-folder-chart-fill",
-      bgClass: "text-bg-info",
-    },
+   
   ];
 
   return (
     <section id="dashboard" className="p-2 fm-2">
       <Container>
-        <Row md="3" lg="4" xs="2" className="g-2">
+        <Row md="3" xs="2" className="g-2">
           {CardData.map((card, index) => (
             <Col key={index}>
               <div className="d-flex align-items-start gap-2 gap-md-3 p-3 border rounded border border-secondary shadow-md flex-column flex-md-row">

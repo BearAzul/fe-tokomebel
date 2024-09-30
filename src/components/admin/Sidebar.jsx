@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
-import { NavLink, useNavigate } from "react-router-dom";
-import { Button } from "react-bootstrap"
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { logoutUser } from "../../features/userSlice.js";
 import customAPI from "../../api.js";
@@ -15,6 +15,11 @@ const BarMenu = [
     title: "Profile",
     path: "/admin/user",
     icon: "ri-admin-line",
+  },
+  {
+    title: "Category",
+    path: "/admin/category",
+    icon: "ri-list-view",
   },
   {
     title: "Products",
@@ -32,9 +37,12 @@ const BarMenu = [
     icon: "ri-shopping-cart-2-line",
   },
 ];
+
+
 const Sidebar = ({ openSidebarToggle, OpenSidebar }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleLogout = async () => {
     try {
@@ -65,25 +73,32 @@ const Sidebar = ({ openSidebarToggle, OpenSidebar }) => {
           <i className="ri-close-line"></i>
         </button>
       </div>
-      <ul className="list-unstyled">
+      <div className="d-grid">
         {BarMenu.map((menu, index) => (
-          <li className="sidebar-item p-3" key={index}>
-            <NavLink
-              to={menu.path}
-              className=" text-decoration-none text-light p-3 w-100"
-            >
-              <i className={`${menu.icon} me-2`}></i> {menu.title}
-            </NavLink>
-          </li>
+          <Link
+            key={index}
+            to={menu.path}
+            className={`sidebar-item p-2 text-decoration-none text-light py-3 px-4 w-100 ${location.pathname === menu.path ? "text-bg-secondary" : ""
+              }`}
+          >
+            <i className={`${menu.icon} me-2`}></i> {menu.title}
+          </Link>
         ))}
-      </ul>
+      </div>
       <hr />
-      <Button variant="danger" size="sm" className="m-3 w-75" onClick={handleLogout}>
+      <Button
+        variant="danger"
+        size="sm"
+        className="m-3 w-75"
+        onClick={handleLogout}
+      >
         Logout
         <i className="ri-logout-circle-r-line ms-2"></i>
       </Button>
       <hr />
-      <p className="fs-7 text-center fm-3">All Right Reserved. <br /> Toko Mebel 2024</p>
+      <p className="fs-7 text-center fm-3">
+        All Right Reserved. <br /> Toko Mebel 2024
+      </p>
     </aside>
   );
 };

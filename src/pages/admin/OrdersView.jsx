@@ -119,12 +119,6 @@ const OrdersView = () => {
           <Link to={`/admin/orders/${row._id}`} className="btn btn-info btn-sm">
             <i className="ri-user-search-line"></i>
           </Link>
-          <Link
-            to={`/admin/orders/${row._id}/edit`}
-            className="btn btn-warning btn-sm"
-          >
-            <i className="ri-pencil-line"></i>
-          </Link>
           <Button variant="danger" size="sm">
             <i className="ri-delete-bin-line"></i>
           </Button>
