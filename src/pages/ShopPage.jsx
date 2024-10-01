@@ -2,7 +2,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import "../styles/index.css";
 import { Container, Row, Col, Button } from "react-bootstrap";
-import Categories from "../assets/data/Category.jsx";
 import BannerHeader from "../common/Banner/BannerHeader.jsx";
 import { useState, useEffect } from "react";
 import customAPI from "../api.js";
@@ -21,16 +20,19 @@ export const loader = async ({ request }) => {
     ...new URL(request.url).searchParams.entries(),
   ]);
   const { data } = await customAPI.get("/product", { params: params });
+  const response = await customAPI.get("/category")
   const dataProducts = data.data;
+
+  const categories = response.data.data;
   const pagination = data.pagination;
 
-  return { dataProducts, params, pagination };
+  return { dataProducts, params, pagination, categories };
 };
 
 const ShopPage = () => {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [filteredProducts, setFilteredProducts] = useState([]);
-  const { dataProducts, pagination, params } = useLoaderData();
+  const { dataProducts, pagination, params, categories } = useLoaderData();
   const { page, totalPage } = pagination;
   const { name } = params;
   const { search, pathname } = useLocation();
@@ -51,7 +53,7 @@ const ShopPage = () => {
   const filterProducts = () => {
     const filtered = dataProducts.filter(
       (product) =>
-        (selectedCategory ? product.category === selectedCategory : true)
+        (selectedCategory ? product.category.name === selectedCategory : true)
     );
     setFilteredProducts(filtered);
   };
@@ -84,20 +86,20 @@ const ShopPage = () => {
               <div className="category__product">
                 <h1 className="fw-semibold fs-5 fm-4 mb-1">Categories:</h1>
                 <Row md="1" className="g-1 g-lg-2">
-                  {Categories.map((category, index) => (
-                    <Col key={index}>
+                  {categories.map((category) => (
+                    <Col key={category._id}>
                       <Button
                         variant="dark"
                         size="md"
                         className={`w-100 border-0 px-3 rounded-2 fw-medium ${
-                          selectedCategory === category.title
+                          selectedCategory === category.name
                             ? "bg-warning text-dark fw-semibold"
                             : ""
                         }`}
-                        onClick={() => handleCategory(category.title)}
+                        onClick={() => handleCategory(category.name)}
                       >
-                        <i className={category.icons}></i>
-                        <span className="ms-2 fs-7 fm-2">{category.title}</span>
+                        <i className={category.icon}></i>
+                        <span className="ms-2 fs-7 fm-2">{category.name}</span>
                       </Button>
                     </Col>
                   ))}

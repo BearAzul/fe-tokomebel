@@ -3,10 +3,21 @@ import { Container, Row, Col, Button } from "react-bootstrap";
 import { FormInput, FormTextarea, FormSelect } from "../../../components/FormInput.jsx";
 import customAPI from "../../../api.js";
 import { toast } from "react-toastify";
+import { useEffect, useState } from "react";
 
 const AddProductView = () => {
-  const categories = ["Bed", "Chair", "Wardrobe", "Sofa", "Lamps", "Table"];
+  const [categories, setCategories] = useState([]); 
   const navigate = useNavigate();
+
+  const getCategories = async () => {
+    const { data } = await customAPI.get("/category");
+    setCategories(data.data);
+  };
+
+  useEffect(() => {
+    getCategories();
+  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const form = e.target;
@@ -85,7 +96,10 @@ const AddProductView = () => {
               <FormSelect
                 name="category"
                 label="Category:"
-                options={categories}
+                options={categories.map((category) => ({
+                  value: category._id,
+                  label: category.name,
+                }))}
               />
             </Col>
             <Col md="12" lg="8">

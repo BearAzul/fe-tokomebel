@@ -14,10 +14,10 @@ export const CardProductCustomer = ({ product, icons, className }) => {
         <div className="position-relative">
           <Card.Img
             variant="top"
-            src={product.image}
+            src={product.image === null ? "https://via.placeholder.com/400x500" : product.image}
             alt={product.name}
             className={`d-block w-100 rounded-0 ${
-              product.category === "Bed"
+              product.category.name === "Bed"
                 ? "object-fit-cover"
                 : "object-fit-contain"
             }`}
@@ -88,10 +88,14 @@ export const CardProductAdmin = ({ product, icons, className }) => {
         <div className="">
           <Card.Img
             variant="top"
-            src={product.image}
+            src={
+              product.image === null
+                ? "https://via.placeholder.com/400x500"
+                : product.image
+            }
             alt={product.name}
             className={`d-block w-100 rounded-0 ${
-              product.category === "Bed"
+              product.category.name === "Bed"
                 ? "object-fit-cover"
                 : "object-fit-contain"
             }`}
@@ -122,12 +126,14 @@ export const CardProductAdmin = ({ product, icons, className }) => {
 CardProductCustomer.propTypes = {
   product: PropTypes.shape({
     _id: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired,
+    image: PropTypes.string,
     name: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
     stock: PropTypes.number.isRequired,
     summary: PropTypes.string.isRequired,
-    category: PropTypes.string,
+    category: PropTypes.shape({
+      name: PropTypes.string.isRequired,
+    }),
   }).isRequired,
   icons: PropTypes.string.isRequired,
   className: PropTypes.string,
@@ -136,11 +142,13 @@ CardProductCustomer.propTypes = {
 CardProductAdmin.propTypes = {
   product: PropTypes.shape({
     _id: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired,
+    image: PropTypes.string,
     name: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
     summary: PropTypes.string.isRequired,
-    category: PropTypes.string,
+    category: PropTypes.shape({
+      name: PropTypes.string.isRequired,
+    }),
   }).isRequired,
   icons: PropTypes.string.isRequired,
   className: PropTypes.string,

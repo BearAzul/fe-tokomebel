@@ -160,6 +160,7 @@ const CustomersView = () => {
           fixedHeader
           theme="dark"
           className="rounded border border-secondary mb-2"
+          persistTableHead
         />
       </Container>
     </section>

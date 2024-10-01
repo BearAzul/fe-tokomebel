@@ -39,10 +39,14 @@ export const FormSelect = ({ label, name, options, defaultValue, className }) =>
         name={name}
         defaultValue={defaultValue}
       >
-        <option value="" disabled className="text-capitalize">{`-- Choose ${name} --` }</option>
+        <option
+          value=""
+          disabled
+          className="text-capitalize"
+        >{`-- Choose ${name} --`}</option>
         {options.map((option) => (
-          <option key={option} value={option}>
-            {option}
+          <option key={option.key} value={option.value}>
+            {option.label}
           </option>
         ))}
       </select>

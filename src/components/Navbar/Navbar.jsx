@@ -1,7 +1,6 @@
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import FreeShipping from "./FreeShipping.jsx";
 import "./Navbar.css";
 import { HashLink } from "react-router-hash-link";
 import { NavLink } from "react-router-dom";
@@ -13,7 +12,6 @@ const NavbarPage = () => {
 
   return (
     <>
-      <FreeShipping />
       <Navbar
         expand="lg"
         sticky="top"

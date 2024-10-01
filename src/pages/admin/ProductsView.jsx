@@ -11,19 +11,22 @@ export const loader = async ({ request }) => {
     ...new URL(request.url).searchParams.entries(),
   ]);
   const { data } = await customAPI.get("/product", { params: params });
+  const resCategory = await customAPI.get("/category");
   const dataProducts = data.data;
   const pagination = data.pagination;
+  const categories = resCategory.data.data
 
-  return { dataProducts, params, pagination };
+  return { dataProducts, params, pagination, categories};
 };
 
 const ProductsView = () => {
-  const categories = ["Bed", "Chair", "Wardrobe", "Sofa", "Lamps", "Table"];
   const { dataProducts, params } = useLoaderData();
+  const {categories} = useLoaderData([]);
   const { name, category } = params;
 
   const navigation = useNavigation();
   const isPageLoading = navigation.state === "loading";
+
 
   return (
     <section id="product" className="fm-2">
@@ -43,9 +46,13 @@ const ProductsView = () => {
                 <i className="ri-filter-off-line"></i>
               </Link>
               <FormSelect
-                name="category"
-                options={categories}
-                defaultValue={category}
+                  name="category"
+                  defaultValue={category}
+                options={categories.map((category) => ({
+                    key: category._id,
+                    value: category.name,
+                    label: category.name,
+                  }))}
               />
             </div>  
             <div className="input-group">

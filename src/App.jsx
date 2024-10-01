@@ -24,6 +24,8 @@ import CustomersView from "./pages/admin/CustomersView.jsx";
 import EditCustomersView from "./pages/admin/Form/EditCustomersView.jsx";
 import OrderDetailView from "./pages/admin/OrderDetailView.jsx";
 import CategoryView from "./pages/admin/CategoryView.jsx";
+import AddCategoryView from "./pages/admin/Form/AddCategoryView.jsx";
+import EditCategoryView from "./pages/admin/Form/EditCategoryView.jsx";
 
 // Page Not Found / Error
 import NotPage from "./pages/NotPage.jsx";
@@ -41,6 +43,7 @@ import { loader as DashboardLoader } from "./pages/admin/HomeView.jsx";
 import { loader as AdminProfileLoader } from "./pages/admin/UserView.jsx";
 import { loader as CustomersLoader } from "./pages/admin/CustomersView.jsx";
 import { loader as OrdersAdminLoader } from "./pages/admin/OrdersView.jsx";
+import { loader as CategoryLoader } from "./pages/admin/CategoryView.jsx";
 
 // auth
 import { action as LoginAction } from "./pages/auth/LoginPage.jsx";
@@ -113,6 +116,15 @@ const router = createBrowserRouter([
       {
         path: "/admin/category",
         element: <CategoryView />,
+        loader: CategoryLoader,
+      },
+      {
+        path: "/admin/category/add",
+        element: <AddCategoryView />,
+      },
+      {
+        path: "/admin/category/:id/edit",
+        element: <EditCategoryView />,
       },
       {
         path: "/admin/products",

@@ -140,7 +140,8 @@ const OrderHistory = () => {
             pagination
             highlightOnHover
             fixedHeader
-            theme="dark"
+              theme="dark"
+              className="rounded border border-secondary mb-2"
           />
         )}
       </Container>

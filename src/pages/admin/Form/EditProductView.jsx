@@ -10,9 +10,10 @@ import { Container, Row, Col, Button } from "react-bootstrap";
 import { toast } from "react-toastify";
 import Loading from "../../../components/Loading.jsx";
 
+
 const EditProductView = () => {
-  const categories = ["Bed", "Chair", "Wardrobe", "Sofa", "Lamps", "Table"];
   const [product, setProduct] = useState([]);
+  const [categories, setCategories] = useState([]); 
 
   const navigate = useNavigate();
 
@@ -23,8 +24,14 @@ const EditProductView = () => {
     setProduct(data.data);
   };
 
+  const getCategories = async () => {
+    const { data } = await customAPI.get("/category");
+    setCategories(data.data);
+  };
+
   useEffect(() => {
     getProduct();
+    getCategories();
   }, []);
 
   const handleUpdate = async (e) => {
@@ -113,8 +120,11 @@ const EditProductView = () => {
                 <FormSelect
                   name="category"
                   label="Category:"
-                  defaultValue={product.category}
-                  options={categories}
+                  defaultValue={product.category?._id}
+                  options={categories.map((category) => ({
+                    value: category._id,
+                    label: category.name,
+                  }))}
                 />
               </Col>
               <Col md="12" lg="8">

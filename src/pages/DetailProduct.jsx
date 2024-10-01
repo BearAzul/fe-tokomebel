@@ -7,9 +7,10 @@ import customAPI from "../api.js";
 import { generateSelectAmount, formatToIDR } from "../utils/index.jsx";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../features/cartSlice.js";
+import Loading from "../components/Loading.jsx";
 
 const DetailProduct = () => {
-  const [detailProducts, setDetailProducts] = useState([]);
+  const [detailProducts, setDetailProducts] = useState();
   const [amount, setAmount] = useState(1);
   const dispatch = useDispatch();
 
@@ -22,18 +23,13 @@ const DetailProduct = () => {
 
   useEffect(() => {
     getDetails();
-  });
+  },[]);
 
   if (!detailProducts) {
     return (
-      <Container className="py-5 mt-5 text-center fm-2">
-        <h1>Product not found</h1>
-        <p>The product you are looking for does not exist.</p>
-        <Button variant="primary" onClick={() => window.history.back()}>
-          <i className="ri-arrow-left-line me-2"></i>
-          Go Back
-        </Button>
-      </Container>
+      <>
+        <Loading />
+      </>
     );
   }
 
@@ -41,9 +37,9 @@ const DetailProduct = () => {
     cartId: detailProducts._id + detailProducts.name,
     productId: detailProducts._id,
     image: detailProducts.image,
-    name: detailProducts.name,
+    name: detailProducts.name,  
     summary: detailProducts.summary,
-    category: detailProducts.category,
+    category: detailProducts.category.name,
     price: detailProducts.price,
     stock: detailProducts.stock,
     amount,
@@ -73,7 +69,7 @@ const DetailProduct = () => {
                     src={detailProducts.image}
                     alt={detailProducts.name}
                     className={`w-100 h-100 d-block mx-auto ${
-                      detailProducts.category === "Bed"
+                      detailProducts.category.name === "Bed"
                         ? "object-fit-cover"
                         : "object-fit-contain"
                     }`}
@@ -103,7 +99,7 @@ const DetailProduct = () => {
                     (0.0)
                   </div>
                   <div className="fm-3 fs-7 fw-semibold text-bg-dark max-content py-1 px-2 rounded mb-3">
-                    {detailProducts.category}
+                    {detailProducts.category.name}
                   </div>
                   <p className="fm-2 fs-6 fw-semibold">
                     Stock: {detailProducts.stock}

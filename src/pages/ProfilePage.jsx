@@ -35,7 +35,13 @@ export const loader = (storage) => async () => {
 const ProfilePage = () => {
   const user = useSelector((state) => state.userState.user);
   const { currentUser } = useLoaderData();
-  const gender = ["Male", "Female"];
+  const genders = [{
+    value: "Male",
+    label: "Male",
+  }, {
+    value: "Female",
+    label: "Female",
+  }];
   const { revalidate } = useRevalidator();
 
   const dispatch = useDispatch();
@@ -124,10 +130,7 @@ const ProfilePage = () => {
             </Button> */}
 
               {currentUser.role === "owner" ? (
-                <Link
-                  to="/admin"
-                  className="btn btn-dark w-100 fm-2 mt-2"
-                >
+                <Link to="/admin" className="btn btn-dark w-100 fm-2 mt-2">
                   Dashboard Admin
                 </Link>
               ) : (
@@ -182,7 +185,10 @@ const ProfilePage = () => {
                       label="Gender:"
                       name="gender"
                       defaultValue={currentUser.gender}
-                      options={gender}
+                      options={genders.map((gender) => ({
+                        value: gender.value,
+                        label: gender.label,
+                      }))}
                     />
                   </Card.Text>
                   <Card.Title className="fw-bold border-bottom border-top p-3">

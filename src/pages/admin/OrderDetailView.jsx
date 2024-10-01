@@ -67,7 +67,10 @@ const OrderDetailView = () => {
           <h6>
             Order ID: <span className="text-warning">#{detailOrder._id}</span>
           </h6>
-          <Link to="/admin/orders" className="btn btn-primary btn-sm me-auto me-md-0">
+          <Link
+            to="/admin/orders"
+            className="btn btn-primary btn-sm me-auto me-md-0"
+          >
             <i className="ri-arrow-left-circle-line me-2"></i>
             Back
           </Link>
@@ -107,44 +110,56 @@ const OrderDetailView = () => {
           </Col>
           <Col lg="4">
             <Card className="text-bg-dark border border-secondary mb-3">
-              <Card.Body className="d-flex gap-3">
-                <figure
-                  style={{ width: "80px", height: "80px" }}
-                  className="overflow-hidden rounded border border-secondary m-0"
-                >
-                  <img
-                    src={`${
-                      detailOrder.image === null
-                        ? "https://via.placeholder.com/300x300"
-                        : detailOrder.image
-                    }`}
-                    alt={detailOrder.firstName}
-                    className="d-block w-100 h-100 object-fit-cover"
-                  />
-                </figure>
-                <div>
-                  <h6 className="mb-3">{`${detailOrder.firstName} ${detailOrder.lastName} `}</h6>
-                  <span
-                    className={`rounded py-1 px-2 ${
-                      detailOrder.status === "success"
-                        ? "text-bg-success"
-                        : detailOrder.status === "failed"
-                        ? "text-bg-danger"
-                        : "text-bg-warning"
-                    }`}
+              <Card.Body>
+                <Card.Title className="border-bottom border-secondary pb-2">
+                  Status Payment
+                </Card.Title>
+                <div className="d-flex gap-3">
+                  <figure
+                    style={{ width: "80px", height: "80px" }}
+                    className="overflow-hidden rounded border border-secondary m-0"
                   >
-                    {detailOrder.status}
-                  </span>
+                    <img
+                      src={`${
+                        detailOrder.image === null
+                          ? "https://via.placeholder.com/300x300"
+                          : detailOrder.image
+                      }`}
+                      alt={detailOrder.firstName}
+                      className="d-block w-100 h-100 object-fit-cover"
+                    />
+                  </figure>
+                  <div>
+                    <h6 className="mb-3">{`${detailOrder.firstName} ${detailOrder.lastName} `}</h6>
+                    <span
+                      className={`rounded py-1 px-2 ${
+                        detailOrder.status === "success"
+                          ? "text-bg-success"
+                          : detailOrder.status === "failed"
+                          ? "text-bg-danger"
+                          : "text-bg-warning"
+                      }`}
+                    >
+                      {detailOrder.status}
+                    </span>
+                  </div>
                 </div>
               </Card.Body>
             </Card>
             <Card className="border border-secondary text-bg-dark mb-3">
               <Card.Body>
                 <Card.Title className="border-bottom border-secondary pb-2">
-                  Order Summary
+                  Order Summary <span className="text-bg-warning fs-7 px-2 py-1 rounded ms-2">On The Way</span>
                 </Card.Title>
-                <table className="w-100">
+                <table className="w-100 fs-7">
                   <tbody>
+                    <tr>
+                      <td>Order Created</td>
+                      <td>:</td>
+                      <td className="text-end">
+                        {new Date(detailOrder.createdAt).toLocaleString()}
+                      </td>
+                    </tr>
                     <tr>
                       <td>Subtotal</td>
                       <td>:</td>

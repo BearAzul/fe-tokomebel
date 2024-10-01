@@ -6,18 +6,28 @@ export const loader = async () => {
   const resProducts = await customAPI.get("/product");
   const resOrders = await customAPI.get("/order");
   const resUsers = await customAPI.get("/auth/users");
+  const resCategory = await customAPI.get("/auth/users");
 
   const countProducts = resProducts.data.pagination.totalProduct;
   const countOrders = resOrders.data.count;
   const countUsers = resUsers.data.count;
+  const countCategory = resCategory.data.count;
 
-  return { countProducts, countOrders, countUsers };
+  return { countProducts, countOrders, countUsers, countCategory };
 };
 
 const HomeView = () => {
-  const { countProducts, countOrders, countUsers } = useLoaderData();
+  const { countProducts, countOrders, countUsers, countCategory } = useLoaderData();
 
   const CardData = [
+    {
+      path: "/admin/category",
+      title: "Total Categories",
+      count: countCategory,
+      iconClass: "ri-folder-open-fill",
+      bgClass: "text-bg-danger",
+      
+    },
     {
       path: "/admin/products",
       title: "Total Products",
@@ -45,7 +55,7 @@ const HomeView = () => {
   return (
     <section id="dashboard" className="p-2 fm-2">
       <Container>
-        <Row md="3" xs="2" className="g-2">
+        <Row md="3" xs="2" lg="4" className="g-2">
           {CardData.map((card, index) => (
             <Col key={index}>
               <div className="d-flex align-items-start gap-2 gap-md-3 p-3 border rounded border border-secondary shadow-md flex-column flex-md-row">
