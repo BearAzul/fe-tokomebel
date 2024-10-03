@@ -46,7 +46,7 @@ const AddCategoryView = () => {
               <FormInput
                 label="Category Name:"
                 type="text"
-                name="category"
+                name="name"
                 placeHolder="Enter Category Name"
               />
             </Col>

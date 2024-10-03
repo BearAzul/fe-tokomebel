@@ -83,7 +83,6 @@ const OrdersView = () => {
       name: "No.",
       selector: (row, index) => index + 1,
       width: "70px",
-      center: true,
     },
     {
       name: "Image",
@@ -117,13 +116,11 @@ const OrdersView = () => {
       selector: (row) =>
         `x${row.itemsDetail.reduce((total, item) => total + item.quantity, 0)}`,
       width: "100px",
-      center: true,
     },
     {
       name: "Total Price",
       selector: (row) => formatToIDR(row.total),
       width: "150px",
-      center: true,
     },
     {
       name: "Status Payment",
@@ -155,7 +152,6 @@ const OrdersView = () => {
           }`}
         </div>
       ),
-      center: true,
       width: "150px",
     },
     {
@@ -171,7 +167,6 @@ const OrdersView = () => {
         </div>
       ),
       width: "150px",
-      center: true,
     },
   ];
 

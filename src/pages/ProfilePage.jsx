@@ -36,9 +36,11 @@ const ProfilePage = () => {
   const user = useSelector((state) => state.userState.user);
   const { currentUser } = useLoaderData();
   const genders = [{
+    key: 1,
     value: "Male",
     label: "Male",
   }, {
+    key: 2,
     value: "Female",
     label: "Female",
   }];
@@ -186,6 +188,7 @@ const ProfilePage = () => {
                       name="gender"
                       defaultValue={currentUser.gender}
                       options={genders.map((gender) => ({
+                        key: gender.key,
                         value: gender.value,
                         label: gender.label,
                       }))}

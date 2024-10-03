@@ -74,7 +74,11 @@ FormTextarea.propTypes = {
 FormSelect.propTypes = {
   label: PropTypes.string,
   name: PropTypes.string.isRequired,
-  options: PropTypes.arrayOf(PropTypes.string).isRequired,
   defaultValue: PropTypes.string,
   className: PropTypes.string,
+  options: PropTypes.arrayOf(PropTypes.shape({
+    key: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    label: PropTypes.string,
+  })),
 }
