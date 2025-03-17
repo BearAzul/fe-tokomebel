@@ -1,8 +1,7 @@
 import "./BestSeller.css";
 import "../../styles/index.css";
 import { Container, Row, Col} from "react-bootstrap";
-import Categories from "../../assets/data/Category.jsx";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useLoaderData } from "react-router-dom";
 import { CardProductCustomer } from "../CardProduct.jsx";
 import customAPI from "../../api.js";
@@ -10,17 +9,27 @@ import customAPI from "../../api.js";
 export const loader = async () => {
   
   const { data } = await customAPI.get("/product");
-  const filterProducts = data.data;
-  return { filterProducts };
+  const dataProducts = data.data;
+  const response = await customAPI.get("/category");
+  const categories = response.data.data
+  return { dataProducts, categories };
 };
 
-const BestSellerSection = () => {
-  const [selectedCategory, setSelectedCategory] = useState("Chair");
-  const { filterProducts } = useLoaderData();
+const BestSellerSection = () => {  
+  const [selectedCategory, setSelectedCategory] = useState("Sofa");
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const { dataProducts, categories } = useLoaderData();
+   const filterProducts = () => {
+     const filtered = dataProducts.filter((product) =>
+       selectedCategory ? product.category.name === selectedCategory : true
+     );
+     setFilteredProducts(filtered);
+  };
 
-  const filteredProducts = selectedCategory
-    ? filterProducts.filter((product) => product.category === selectedCategory)
-    : filterProducts;
+  useEffect(() => {
+    filterProducts();
+  }, [dataProducts, selectedCategory]);
+
   return (
     <>
       <section id="bestseller" className="py-5 bg-light">
@@ -37,17 +46,16 @@ const BestSellerSection = () => {
           <div className="p-2">
             <div className="category__btn ">
               <Row className="g-2">
-                {Categories.map((category, index) => (
+                {categories.map((category, index) => (
                   <Col key={index}>
                     <button
                       className={`fm-2 w-100 fw-semibold border-0  py-2 ${
-                        category.title === selectedCategory ? "active" : ""
+                        category.name === selectedCategory ? "active" : ""
                       }`}
-                      data-aos="zoom-out-down"
-                      onClick={() => setSelectedCategory(`${category.title}`)}
+                      onClick={() => setSelectedCategory(`${category.name}`)}
                     >
-                      <i className={`${category.icons} fs-5`}></i>
-                      <span className="ms-2">{category.title}</span>
+                      <i className={`${category.icon} fs-5`}></i>
+                      <span className="ms-2">{category.name}</span>
                     </button>
                   </Col>
                 ))}

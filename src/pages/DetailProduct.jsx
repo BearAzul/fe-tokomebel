@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import NavDescription from "../common/NavTabs/NavDescription.jsx";
 import customAPI from "../api.js";
-import { generateSelectAmount, formatToIDR } from "../utils/index.jsx";
+import { formatToIDR } from "../utils/index.jsx";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../features/cartSlice.js";
 import Loading from "../components/Loading.jsx";
@@ -23,7 +23,7 @@ const DetailProduct = () => {
 
   useEffect(() => {
     getDetails();
-  },[]);
+  }, []);
 
   if (!detailProducts) {
     return (
@@ -37,7 +37,7 @@ const DetailProduct = () => {
     cartId: detailProducts._id + detailProducts.name,
     productId: detailProducts._id,
     image: detailProducts.image,
-    name: detailProducts.name,  
+    name: detailProducts.name,
     summary: detailProducts.summary,
     category: detailProducts.category.name,
     price: detailProducts.price,
@@ -45,9 +45,18 @@ const DetailProduct = () => {
     amount,
   };
 
-  const handleAmount = (e) => {
-    setAmount(parseInt(e.target.value));
+  const handleIncrement = () => {
+    if (amount < detailProducts.stock) {
+      setAmount((prev) => prev + 1);
+    }
   };
+
+  const handleDecrement = () => {
+    if (amount > 1) {
+      setAmount((prev) => prev - 1);
+    }
+  };
+
 
   const handleAddToCart = () => {
     dispatch(addToCart({ product: productCart }));
@@ -105,15 +114,35 @@ const DetailProduct = () => {
                     Stock: {detailProducts.stock}
                   </p>
                   {detailProducts.stock > 0 && (
-                    <div className="d-flex gap-3 align-items-center mt-4">
-                      <select
-                        name="amount"
-                        className="form-select text-bg-warning text-center select select-bordered"
-                        style={{ width: "80px" }}
-                        onChange={handleAmount}
-                      >
-                        {generateSelectAmount(detailProducts.stock)}
-                      </select>
+                    <>
+                      <div className="qty__items d-flex align-items-center gap-3 mt-3 mb-4">
+                        <div className="d-flex align-items-center">
+                          <button
+                            type="button"
+                            className="rounded-1 fw-bold rounded-end-0 border-0 btn btn-warning btn-sm"
+                            onClick={handleDecrement}
+                            disabled={amount === 1}
+                          >
+                            <i className="ri-subtract-fill"></i>
+                          </button>
+                          <input
+                            type="text"
+                            className="form-control form-control-sm text-center fw-semibold border-0 rounded-0"
+                            readOnly
+                            value={amount}
+                            style={{ maxWidth: "40px" }}
+                          />
+                          <button
+                            type="button"
+                            className="rounded-1 fw-bold rounded-start-0 border-0 btn btn-warning btn-sm"
+                            onClick={handleIncrement}
+                            disabled={amount === detailProducts.stock}
+                          >
+                            <i className="ri-add-fill"></i>
+                          </button>
+                        </div>
+                        <p className="mb-0 fw-semibold">Qty</p>
+                      </div>
                       <Button
                         variant="warning"
                         className="fs-7 fw-semibold rounded-1 btn__cart"
@@ -122,7 +151,7 @@ const DetailProduct = () => {
                         Add to Cart
                         <i className="ri-shopping-cart-2-line ms-2"></i>
                       </Button>
-                    </div>
+                    </>
                   )}
                 </div>
               </Col>

@@ -1,5 +1,5 @@
 import { Row, Col, Button, Image } from "react-bootstrap";
-import { generateSelectAmount, formatToIDR } from "../utils/index.jsx";
+import { formatToIDR } from "../utils/index.jsx";
 import { Link } from "react-router-dom"
 import PropTypes from "prop-types"
 import { useDispatch } from "react-redux"
@@ -9,9 +9,20 @@ const CartItems = ({ cartItem }) => {
   const { cartId, name, summary, category, price, image, amount, productId, stock } = cartItem;
   const dispatch = useDispatch()
 
-  const handleAmount = (e) => {
-    dispatch(editItem({cartId, amount: parseInt(e.target.value)}))
-  }
+
+  const handleIncrement = () => {
+    if (amount < stock) {
+      dispatch(editItem({ cartId, amount: amount + 1 }));
+    }
+  };
+
+  const handleDecrement = () => {
+    if (amount > 1) {
+      dispatch(editItem({ cartId, amount: amount - 1 }));
+    }
+  };
+
+  
 
   const handleRemoveItem = () => {
     dispatch(removeItem({cartId}))
@@ -36,16 +47,37 @@ const CartItems = ({ cartItem }) => {
             </p>
           </Link>
           <div className="d-flex gap-2">
-            <select
-              name="amount"
-              className="form-select border-0 text-bg-warning text-center select select-bordered"
-              style={{ width: "80px" }}
-              value={amount}
-              onChange={handleAmount}
+            <div className="d-flex align-items-center">
+              <button
+                type="button"
+                className="rounded-1 fw-bold rounded-end-0 border-0 btn btn-warning btn-sm"
+                onClick={handleDecrement}
+                disabled={amount === 1}
+              >
+                <i className="ri-subtract-fill"></i>
+              </button>
+              <input
+                type="text"
+                className="form-control form-control-sm text-center fw-semibold border-0 rounded-0"
+                readOnly
+                value={amount}
+                style={{ maxWidth: "40px" }}
+              />
+              <button
+                type="button"
+                className="rounded-1 fw-bold rounded-start-0 border-0 btn btn-warning btn-sm"
+                onClick={handleIncrement}
+                disabled={amount === stock}
+              >
+                <i className="ri-add-fill"></i>
+              </button>
+            </div>
+            <Button
+              variant="danger"
+              size="sm"
+              className="fs-7"
+              onClick={handleRemoveItem}
             >
-              {generateSelectAmount(stock)}
-            </select>
-            <Button variant="danger" size="sm" className="fs-7" onClick={handleRemoveItem}>
               <i className="ri-delete-bin-6-line"></i>
             </Button>
           </div>
