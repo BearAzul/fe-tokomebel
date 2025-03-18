@@ -5,6 +5,7 @@ import "./Navbar.css";
 import { HashLink } from "react-router-hash-link";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { LoginButton } from "../Button.jsx";
 
 const NavbarPage = () => {
   const user = useSelector((state) => state.userState.user);
@@ -32,16 +33,14 @@ const NavbarPage = () => {
                 <i className="ri-user-fill fs-6"></i>
               </NavLink>
             ) : (
-              <NavLink to="/login" className="nav-link">
-                <i className="ri-user-fill fs-6"></i>
-              </NavLink>
+              <LoginButton link="login" />
             )}
 
             <NavLink to="/cart" className="nav-link position-relative">
               <i className="ri-shopping-cart-2-fill fs-6 "></i>
               <span
                 className={`indicator__cart ${
-                  !countCart ? "d-none" : "d-flex"
+                  !countCart && "d-none"
                 }`}
               >
                 {countCart}
@@ -71,16 +70,14 @@ const NavbarPage = () => {
                 <i className="ri-user-fill fs-6"></i>
               </NavLink>
             ) : (
-              <NavLink to="/login" className="nav-link">
-                <i className="ri-user-fill fs-6"></i>
-              </NavLink>
+              <LoginButton link="login" />
             )}
             <span className="text-white">l</span>
             <NavLink to="/cart" className="nav-link me-auto position-relative">
               <i className="ri-shopping-cart-2-fill fs-6 "></i>
               <span
                 className={`indicator__cart ${
-                  !countCart ? "d-none" : "d-flex"
+                  !countCart && "d-none"
                 }`}
               >
                 {countCart}

@@ -8,6 +8,7 @@ import { formatToIDR } from "../utils/index.jsx";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../features/cartSlice.js";
 import Loading from "../components/Loading.jsx";
+import QuantitySelector from "../components/QuantitySelector.jsx";
 
 const DetailProduct = () => {
   const [detailProducts, setDetailProducts] = useState();
@@ -116,32 +117,8 @@ const DetailProduct = () => {
                   {detailProducts.stock > 0 && (
                     <>
                       <div className="qty__items d-flex align-items-center gap-3 mt-3 mb-4">
-                        <div className="d-flex align-items-center">
-                          <button
-                            type="button"
-                            className="rounded-1 fw-bold rounded-end-0 border-0 btn btn-warning btn-sm"
-                            onClick={handleDecrement}
-                            disabled={amount === 1}
-                          >
-                            <i className="ri-subtract-fill"></i>
-                          </button>
-                          <input
-                            type="text"
-                            className="form-control form-control-sm text-center fw-semibold border-0 rounded-0"
-                            readOnly
-                            value={amount}
-                            style={{ maxWidth: "40px" }}
-                          />
-                          <button
-                            type="button"
-                            className="rounded-1 fw-bold rounded-start-0 border-0 btn btn-warning btn-sm"
-                            onClick={handleIncrement}
-                            disabled={amount === detailProducts.stock}
-                          >
-                            <i className="ri-add-fill"></i>
-                          </button>
-                        </div>
-                        <p className="mb-0 fw-semibold">Qty</p>
+                        <QuantitySelector handleIncrement={handleIncrement} handleDecrement={handleDecrement} stock={detailProducts.stock} amount={amount} />
+                        <span className="mb-0 fw-semibold">Qty</span>
                       </div>
                       <Button
                         variant="warning"
