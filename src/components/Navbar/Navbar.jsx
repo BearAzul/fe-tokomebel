@@ -50,8 +50,8 @@ const NavbarPage = () => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav" className="mt-4 mt-lg-0">
             <Nav className="mx-auto w-50 text-center text-uppercase">
-              <HashLink to="/#bestseller" className="nav-link">
-                Best Seller
+              <HashLink to="/#home" className="nav-link">
+                Home
               </HashLink>
               <NavLink to="/shop" className="nav-link">
                 Shop
@@ -72,7 +72,7 @@ const NavbarPage = () => {
             ) : (
               <LoginButton link="login" />
             )}
-            <span className="text-white">l</span>
+            <span className="line_split"></span>
             <NavLink to="/cart" className="nav-link me-auto position-relative">
               <i className="ri-shopping-cart-2-fill fs-6 "></i>
               <span

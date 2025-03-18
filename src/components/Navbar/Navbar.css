@@ -79,6 +79,13 @@ nav .indicator__cart{
   font-size: 10px;
 }
 
+nav .line_split{
+  width: 1.2px;
+  height: 24px;
+  background: #fefefe;
+  border-radius: 10px;
+}
+
 header p, header i {
   font-size: .8rem;
 }
