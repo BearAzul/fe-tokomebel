@@ -65,7 +65,7 @@ const OrderDetailView = () => {
     <section className="fm-2">
       <Container>
         <DetailOrderDirect />
-        <h6>
+        <h6 className="mb-2">
           Order ID: <span className="text-warning">#{detailOrder._id}</span>
         </h6>
         <Row lg="2" className="g-3">
