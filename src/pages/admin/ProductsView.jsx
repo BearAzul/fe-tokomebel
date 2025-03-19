@@ -1,8 +1,15 @@
 import { Container, Row, Col, Button } from "react-bootstrap";
-import { Link, useLoaderData, useNavigation, Form, useNavigate } from "react-router-dom";
+import {
+  Link,
+  useLoaderData,
+  useNavigation,
+  Form,
+  useNavigate,
+} from "react-router-dom";
 import customAPI from "../../api.js";
 import { CardProductAdmin } from "../../components/CardProduct.jsx";
 import Loading from "../../components/Loading.jsx";
+import { ProductsDirect } from "../../components/Directlink.jsx";
 import "../../styles/index.css";
 import { useEffect, useState } from "react";
 
@@ -14,9 +21,9 @@ export const loader = async ({ request }) => {
   const resCategory = await customAPI.get("/category");
   const dataProducts = data.data;
   const pagination = data.pagination;
-  const categories = resCategory.data.data
+  const categories = resCategory.data.data;
 
-  return { dataProducts, params, pagination, categories};
+  return { dataProducts, params, pagination, categories };
 };
 
 const ProductsView = () => {
@@ -24,7 +31,7 @@ const ProductsView = () => {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const navigate = useNavigate();
   const { dataProducts, params } = useLoaderData();
-  const {categories} = useLoaderData([]);
+  const { categories } = useLoaderData([]);
   const { name } = params;
 
   const navigation = useNavigation();
@@ -53,9 +60,10 @@ const ProductsView = () => {
   return (
     <section id="product" className="fm-2">
       <Container>
+        <ProductsDirect />
         <h5 className="fm-2 mb-3">Products</h5>
         <div className="d-flex justify-content-between align-items-start align-items-md-center flex-column flex-md-row gap-3 gap-md-0 mb-3">
-          <Link to="/admin/products/add" className="btn btn-success btn-sm" >
+          <Link to="/admin/products/add" className="btn btn-success btn-sm">
             <i className="ri-add-circle-line me-1"></i>
             Add New Product
           </Link>
@@ -67,7 +75,11 @@ const ProductsView = () => {
               <Button variant="light" size="sm" onClick={handleClear}>
                 <i className="ri-filter-off-line"></i>
               </Button>
-              <select name="category" className="form-select form-select-sm fs-7" onChange={handleCategory}>
+              <select
+                name="category"
+                className="form-select form-select-sm fs-7"
+                onChange={handleCategory}
+              >
                 <option value="">-- Choose Category --</option>
                 {categories.map((category) => (
                   <option key={category._id} value={category.name}>
@@ -75,7 +87,7 @@ const ProductsView = () => {
                   </option>
                 ))}
               </select>
-            </div>  
+            </div>
             <div className="input-group">
               <input
                 name="name"

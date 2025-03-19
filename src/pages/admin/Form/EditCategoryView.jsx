@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import customAPI from "../../../api.js";
-import {
-  FormInput,
-  FormTextarea,
-} from "../../../components/FormInput";
+import { FormInput, FormTextarea } from "../../../components/FormInput";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import { toast } from "react-toastify";
+import { EditCategoryDirect } from "../../../components/Directlink.jsx";
 import Loading from "../../../components/Loading.jsx";
 
 const EditCategoryView = () => {
@@ -35,7 +33,7 @@ const EditCategoryView = () => {
       await customAPI.put(`/category/${id}`, {
         name: data.name,
         description: data.description,
-        icon: data.icon
+        icon: data.icon,
       });
 
       toast.success("Update Category Data Successfully");
@@ -48,10 +46,7 @@ const EditCategoryView = () => {
   return (
     <section className="fm-2">
       <Container>
-        <Link to="/admin/category" className="btn btn-primary btn-sm">
-          <i className="ri-arrow-left-circle-line me-1"></i>
-          Back
-        </Link>
+        <EditCategoryDirect />
         <h5 className="my-3">Edit a Category Data</h5>
         {category ? (
           <form

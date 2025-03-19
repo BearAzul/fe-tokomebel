@@ -1,29 +1,28 @@
-import { Container } from "react-bootstrap"
-import DataTable from "react-data-table-component"
-import customAPI from "../../api.js"
-import {useLoaderData, Link, useRevalidator} from "react-router-dom"
-import { useState } from "react"
-import Swal from "sweetalert2"
-import {toast} from "react-toastify"
+import { Container } from "react-bootstrap";
+import DataTable from "react-data-table-component";
+import customAPI from "../../api.js";
+import { useLoaderData, Link, useRevalidator } from "react-router-dom";
+import { useState } from "react";
+import Swal from "sweetalert2";
+import { toast } from "react-toastify";
+import { CategoryDirect } from "../../components/Directlink.jsx";
 
 export const loader = async () => {
-  const { data } = await customAPI.get("/category")
-  const dataCategory = data.data
+  const { data } = await customAPI.get("/category");
+  const dataCategory = data.data;
 
-  return { dataCategory }
-}
-
-
+  return { dataCategory };
+};
 
 const CategoryView = () => {
-  const { dataCategory } = useLoaderData()
+  const { dataCategory } = useLoaderData();
   const [records, setRecords] = useState(dataCategory);
 
   const handleSearch = (e) => {
     const newData = dataCategory.filter(
       (row) =>
         row.name.toLowerCase().includes(e.target.value.toLowerCase()) ||
-        row.description.toLowerCase().includes(e.target.value.toLowerCase()) 
+        row.description.toLowerCase().includes(e.target.value.toLowerCase())
     );
     setRecords(newData);
   };
@@ -44,9 +43,7 @@ const CategoryView = () => {
       if (result.isConfirmed) {
         try {
           await customAPI.delete(`/category/${row._id}`);
-          toast.success(
-            `Category with name ${row.name} deleted successfully`
-          );
+          toast.success(`Category with name ${row.name} deleted successfully`);
           setRecords((prevRecords) =>
             prevRecords.filter((record) => record._id !== row._id)
           );
@@ -58,7 +55,6 @@ const CategoryView = () => {
       }
     });
   };
-
 
   const columns = [
     {
@@ -117,6 +113,7 @@ const CategoryView = () => {
   return (
     <section className="fm-2">
       <Container>
+        <CategoryDirect />
         <h5 className="mb-3">All Data Categories</h5>
         <div className="d-flex justify-content-between gap-2 align-items-center flex-column mb-2 w-100 flex-md-row">
           <Link
@@ -151,6 +148,6 @@ const CategoryView = () => {
       </Container>
     </section>
   );
-}
+};
 
-export default CategoryView
+export default CategoryView;

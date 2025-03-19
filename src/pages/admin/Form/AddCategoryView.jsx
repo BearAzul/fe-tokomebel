@@ -1,13 +1,14 @@
-import { Container, Row, Col, Button } from "react-bootstrap"
-import { FormInput, FormTextarea } from "../../../components/FormInput.jsx"
-import { Link, useNavigate } from "react-router-dom"
-import { toast } from "react-toastify"
-import customAPI from "../../../api.js"
+import { Container, Row, Col, Button } from "react-bootstrap";
+import { FormInput, FormTextarea } from "../../../components/FormInput.jsx";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { AddCategoryDirect } from "../../../components/Directlink.jsx";
+import customAPI from "../../../api.js";
 
 const AddCategoryView = () => {
   const navigate = useNavigate();
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const form = e.target;
     const formData = new FormData(form);
@@ -26,16 +27,12 @@ const AddCategoryView = () => {
       const errorMessage = error?.response?.data?.message;
       toast.error(errorMessage);
     }
-
-  }
+  };
 
   return (
     <section className="fm-2">
       <Container>
-        <Link to="/admin/category" className="btn btn-primary btn-sm mb-3">
-          <i className="ri-arrow-left-circle-line me-1"></i>
-          Back
-        </Link>
+        <AddCategoryDirect />
         <h5 className="mb-3">Add New Category</h5>
         <form
           onSubmit={handleSubmit}
@@ -84,6 +81,6 @@ const AddCategoryView = () => {
       </Container>
     </section>
   );
-}
+};
 
-export default AddCategoryView
+export default AddCategoryView;

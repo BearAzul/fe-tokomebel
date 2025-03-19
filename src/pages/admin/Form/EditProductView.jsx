@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams, Link} from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import customAPI from "../../../api.js";
 import {
   FormInput,
@@ -8,12 +8,12 @@ import {
 } from "../../../components/FormInput";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import { toast } from "react-toastify";
+import { EditProductDirect } from "../../../components/Directlink.jsx";
 import Loading from "../../../components/Loading.jsx";
-
 
 const EditProductView = () => {
   const [product, setProduct] = useState([]);
-  const [categories, setCategories] = useState([]); 
+  const [categories, setCategories] = useState([]);
 
   const navigate = useNavigate();
 
@@ -77,10 +77,7 @@ const EditProductView = () => {
   return (
     <section className="fm-2">
       <Container>
-        <Link to="/admin/products" className="btn btn-primary btn-sm">
-          <i className="ri-arrow-left-circle-line me-1"></i>
-          Back
-        </Link>
+        <EditProductDirect />
         <h5 className="my-3">Edit a Product</h5>
         {product ? (
           <form

@@ -1,12 +1,17 @@
-import {Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Container, Row, Col, Button } from "react-bootstrap";
-import { FormInput, FormTextarea, FormSelect } from "../../../components/FormInput.jsx";
+import {
+  FormInput,
+  FormTextarea,
+  FormSelect,
+} from "../../../components/FormInput.jsx";
 import customAPI from "../../../api.js";
 import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
+import { AddProductDirect } from "../../../components/Directlink.jsx";
 
 const AddProductView = () => {
-  const [categories, setCategories] = useState([]); 
+  const [categories, setCategories] = useState([]);
   const navigate = useNavigate();
 
   const getCategories = async () => {
@@ -57,10 +62,7 @@ const AddProductView = () => {
   return (
     <section className="fm-2">
       <Container>
-        <Link to="/admin/products" className="btn btn-primary btn-sm">
-          <i className="ri-arrow-left-circle-line me-1"></i>
-          Back
-        </Link>
+        <AddProductDirect />
         <h5 className="my-3">Add a New Product</h5>
         <form
           className="border border-secondary rounded p-3"

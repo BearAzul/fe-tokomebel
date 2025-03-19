@@ -9,8 +9,9 @@ import DataTable from "react-data-table-component";
 import { Container, Button } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { formatToIDR } from "../../utils/index.jsx";
-import { useState } from "react"
-import Swal from "sweetalert2"
+import { OrdersDirect } from "../../components/Directlink.jsx";
+import { useState } from "react";
+import Swal from "sweetalert2";
 
 export const loader = (storage) => async () => {
   const user = storage.getState().userState.user;
@@ -31,20 +32,19 @@ export const loader = (storage) => async () => {
 };
 const OrdersView = () => {
   const { orders } = useLoaderData();
-  const [records, setRecords] = useState(orders)
+  const [records, setRecords] = useState(orders);
 
-
-   const handleSearch = (e) => {
-     const newData = orders.filter(
-       (row) =>
-         row.email.toLowerCase().includes(e.target.value.toLowerCase()) ||
-         row.firstName.toLowerCase().includes(e.target.value.toLowerCase()) ||
-         row.lastName.toLowerCase().includes(e.target.value.toLowerCase()) ||
-         row.status.toLowerCase().includes(e.target.value.toLowerCase())
-     );
-     setRecords(newData);
+  const handleSearch = (e) => {
+    const newData = orders.filter(
+      (row) =>
+        row.email.toLowerCase().includes(e.target.value.toLowerCase()) ||
+        row.firstName.toLowerCase().includes(e.target.value.toLowerCase()) ||
+        row.lastName.toLowerCase().includes(e.target.value.toLowerCase()) ||
+        row.status.toLowerCase().includes(e.target.value.toLowerCase())
+    );
+    setRecords(newData);
   };
-  
+
   const { revalidate } = useRevalidator();
 
   const handleDelete = async (row) => {
@@ -76,7 +76,6 @@ const OrdersView = () => {
       }
     });
   };
-
 
   const columns = [
     {
@@ -173,6 +172,7 @@ const OrdersView = () => {
   return (
     <section className="fm-2">
       <Container>
+        <OrdersDirect />
         <div className="d-flex align-items-center gap-3 flex-md-row justify-content-between flex-column mb-3">
           <h5 className="w-100">Order List</h5>
           <div className="input-group input-group-sm">

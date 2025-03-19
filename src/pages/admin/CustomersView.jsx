@@ -4,9 +4,10 @@ import customAPI from "../../api.js";
 import DataTable from "react-data-table-component";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import { CustomersDirect } from "../../components/Directlink.jsx";
 import Swal from "sweetalert2";
 import ExportCSV from "../../components/export/exportCSV.jsx";
-import { exportPDF } from "../../components/export/exportPDF.jsx"; 
+import { exportPDF } from "../../components/export/exportPDF.jsx";
 
 export const loader = async () => {
   const { data } = await customAPI.get("/auth/users");
@@ -68,9 +69,12 @@ const CustomersView = () => {
     {
       name: "Image",
       selector: (row) => (
-        <figure className="overflow-hidden rounded m-auto" style={{width: "40px", height: "40px"}}>
+        <figure
+          className="overflow-hidden rounded m-auto"
+          style={{ width: "40px", height: "40px" }}
+        >
           <img
-            src={!row.image ? "https://via.placeholder.com/300x300": row.image}
+            src={!row.image ? "https://via.placeholder.com/300x300" : row.image}
             alt={row.firstName}
             className="d-block w-100 h-100 object-fit-cover"
           />
@@ -125,6 +129,7 @@ const CustomersView = () => {
   return (
     <section className="fm-2">
       <Container>
+        <CustomersDirect />
         <div className="d-flex justify-content-between gap-3 align-items-center mb-3 flex-wrap">
           <h5 className="fm-2">All Data Customers</h5>
           <div className="d-flex gap-1 align-items-center">

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams, Link } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import customAPI from "../../../api.js";
 import {
   FormInput,
@@ -8,10 +8,22 @@ import {
 } from "../../../components/FormInput";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import { toast } from "react-toastify";
+import { EditCustomerDirect } from "../../../components/Directlink.jsx";
 import Loading from "../../../components/Loading.jsx";
 
 const EditCustomersView = () => {
-  const genders = ["Male", "Female"];
+  const genders = [
+    {
+      key: 1,
+      value: "Male",
+      label: "Male",
+    },
+    {
+      key: 2,
+      value: "Female",
+      label: "Female",
+    },
+  ];
   const [customer, setCustomer] = useState([]);
 
   const navigate = useNavigate();
@@ -54,10 +66,7 @@ const EditCustomersView = () => {
   return (
     <section className="fm-2">
       <Container>
-        <Link to="/admin/customers" className="btn btn-primary btn-sm">
-          <i className="ri-arrow-left-circle-line me-1"></i>
-          Back
-        </Link>
+        <EditCustomerDirect />
         <h5 className="my-3">Edit a Customer Data</h5>
         {customer ? (
           <form

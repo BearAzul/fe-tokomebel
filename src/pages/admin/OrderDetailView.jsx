@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { Container, Row, Col, Card, Table } from "react-bootstrap";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import customAPI from "../../api.js";
 import DataTable from "react-data-table-component";
 import { formatToIDR } from "../../utils";
+import { DetailOrderDirect } from "../../components/Directlink.jsx";
 
 const OrderDetailView = () => {
   const [detailOrder, setDetailOrder] = useState([]);
@@ -63,18 +64,10 @@ const OrderDetailView = () => {
   return (
     <section className="fm-2">
       <Container>
-        <div className="d-flex justify-content-between mb-3 align-items-center gap-3 flex-column-reverse flex-md-row">
-          <h6>
-            Order ID: <span className="text-warning">#{detailOrder._id}</span>
-          </h6>
-          <Link
-            to="/admin/orders"
-            className="btn btn-primary btn-sm me-auto me-md-0"
-          >
-            <i className="ri-arrow-left-circle-line me-2"></i>
-            Back
-          </Link>
-        </div>
+        <DetailOrderDirect />
+        <h6>
+          Order ID: <span className="text-warning">#{detailOrder._id}</span>
+        </h6>
         <Row lg="2" className="g-3">
           <Col lg="8">
             <DataTable
@@ -149,7 +142,10 @@ const OrderDetailView = () => {
             <Card className="border border-secondary text-bg-dark mb-3">
               <Card.Body>
                 <Card.Title className="border-bottom border-secondary pb-2">
-                  Order Summary <span className="text-bg-warning fs-7 px-2 py-1 rounded ms-2">On The Way</span>
+                  Order Summary{" "}
+                  <span className="text-bg-warning fs-7 px-2 py-1 rounded ms-2">
+                    On The Way
+                  </span>
                 </Card.Title>
                 <table className="w-100 fs-7">
                   <tbody>

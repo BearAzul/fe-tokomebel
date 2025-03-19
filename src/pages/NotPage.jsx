@@ -8,7 +8,7 @@ const NotPage = () => {
       <section className="py-3 bg-secondary-subtle">
         <Container>
           <div>
-            <Link to="/" className="btn btn-primary btn-sm">
+            <Link to="/#home" className="btn btn-primary btn-sm">
               <i className="ri-arrow-left-line me-2"></i>
               Back to Home
             </Link>

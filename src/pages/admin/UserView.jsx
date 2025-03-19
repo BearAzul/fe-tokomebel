@@ -19,7 +19,18 @@ export const loader = (storage) => () => {
 };
 
 const UserView = () => {
-  const gender = ["Male", "Female"];
+   const gender = [
+     {
+       key: 1,
+       value: "Male",
+       label: "Male",
+     },
+     {
+       key: 2,
+       value: "Female",
+       label: "Female",
+     },
+   ];
   const [identity, setIdentity] = useState("");
 
   const getUserProfile = async () => {
