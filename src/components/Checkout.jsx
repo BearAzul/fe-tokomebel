@@ -94,7 +94,7 @@ const Checkout = () => {
   return (
     <>
       <div className="d-flex align-items-center gap-3">
-        <Link to="/cart" className="btn btn-primary fm-2">
+        <Link to="/cart" className="btn btn-primary fm-2 btn-sm">
           <i className="ri-arrow-left-circle-line me-2"></i>
           Back
         </Link>

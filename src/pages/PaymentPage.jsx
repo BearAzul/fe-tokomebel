@@ -3,6 +3,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import Checkout from "../components/Checkout.jsx";
 import { toast } from "react-toastify"
 import { redirect } from "react-router-dom";
+import { CheckoutDirect } from "../components/Directlink.jsx";
 
 export const loader = (storage) => () => {
   const user = storage.getState().userState.user
@@ -24,6 +25,7 @@ const PaymentPage = () => {
             "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0, 0.1)",
         }}
       >
+        <CheckoutDirect />
         <Row md="2" className="g-2">
           <Col lg="8">
             <Checkout />

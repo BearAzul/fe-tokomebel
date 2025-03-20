@@ -7,6 +7,7 @@ import customAPI from "../api";
 import DataTable from "react-data-table-component";
 import EmptyOrderIcon from "../assets/Image/empty_order.png";
 import { useState } from "react";
+import { HistoryDirect } from "../components/Directlink";
 
 export const loader = (storage) => async () => {
   const user = storage.getState().userState.user;
@@ -106,6 +107,7 @@ const OrderHistory = () => {
     <section id="history">
       <BannerHeader bannerTitle="Order History" />
       <Container className="py-3 py-md-5 fm-2">
+        <HistoryDirect />
         <div className="d-flex justify-content-between align-items-center mb-3 gap-2">
           <Link to="/profile" className="btn btn-primary btn-sm me-auto">
             <i className="ri-arrow-left-circle-line me-2"></i>

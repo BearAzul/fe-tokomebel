@@ -7,7 +7,7 @@ export function CategoryDirect() {
         Dashboard
       </Link>
       <span> &gt; </span>
-      <p>Category</p>
+      <p>Categories</p>
     </div>
   );
 }
@@ -19,10 +19,10 @@ export function AddCategoryDirect() {
       </Link>
       <span> &gt; </span>
       <Link to="/admin/category" className="text-white-50 text-decoration-none">
-        Products
+        Categories
       </Link>
       <span> &gt; </span>
-      <p>Add Product</p>
+      <p>Add Category</p>
     </div>
   );
 }
@@ -34,10 +34,10 @@ export function EditCategoryDirect() {
       </Link>
       <span> &gt; </span>
       <Link to="/admin/category" className="text-white-50 text-decoration-none">
-        Products
+        Categories
       </Link>
       <span> &gt; </span>
-      <p>Edit Product</p>
+      <p>Edit Category</p>
     </div>
   );
 }
@@ -147,3 +147,91 @@ export function EditCustomerDirect() {
   );
 }
 //=========================================
+
+
+//================ Shop ===================
+export function ShopDirect() {
+  return (
+    <div className="d-flex gap-2 fm-2 fs-7 mb-3 text-dark">
+      <Link to="/" className="text-body-secondary text-decoration-none">
+        Home
+      </Link>
+      <span> &gt; </span>
+      <p>Shop</p>
+    </div>
+  );
+}
+export function ProductDetailDirect() {
+  return (
+    <div className="d-flex gap-2 fm-2 fs-7 mb-3 text-dark">
+      <Link to="/" className="text-body-secondary text-decoration-none">
+        Home
+      </Link>
+      <span> &gt; </span>
+      <Link to="/shop" className="text-body-secondary text-decoration-none">
+        Shop
+      </Link>
+      <span> &gt; </span>
+      <p>Detail</p>
+    </div>
+  );
+}
+//==========================================
+
+//============ Profile =====================
+export function ProfileDirect() {
+  return (
+    <div className="d-flex gap-2 fm-2 fs-7 mb-3 text-dark">
+      <Link to="/" className="text-body-secondary text-decoration-none">
+        Home
+      </Link>
+      <span> &gt; </span>
+      <p>Profile</p>
+    </div>
+  );
+}
+export function HistoryDirect() {
+  return (
+    <div className="d-flex gap-2 fm-2 fs-7 mb-3 text-dark">
+      <Link to="/" className="text-body-secondary text-decoration-none">
+        Home
+      </Link>
+      <span> &gt; </span>
+      <Link to="/profile" className="text-body-secondary text-decoration-none">
+        Profile
+      </Link>
+      <span> &gt; </span>
+      <p>Order History</p>
+    </div>
+  );
+}
+//=====================================
+
+//=============== Checkout ============
+export function CartDirect() {
+  return (
+    <div className="d-flex gap-2 fm-2 fs-7 mb-3 text-dark">
+      <Link to="/shop" className="text-body-secondary text-decoration-none">
+        Shop
+      </Link>
+      <span> &gt; </span>
+      <p>Cart</p>
+    </div>
+  );
+}
+export function CheckoutDirect() {
+  return (
+    <div className="d-flex gap-2 fm-2 fs-7 mb-3 text-dark">
+      <Link to="/shop" className="text-body-secondary text-decoration-none">
+        Shop
+      </Link>
+      <span> &gt; </span>
+      <Link to="/cart" className="text-body-secondary text-decoration-none">
+        Cart
+      </Link>
+      <span> &gt; </span>
+      <p>Payment</p>
+    </div>
+  );
+}
+//=====================================

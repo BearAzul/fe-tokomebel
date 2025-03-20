@@ -17,6 +17,7 @@ import BannerHeader from "../common/Banner/BannerHeader.jsx";
 import { clearCartItem } from "../features/cartSlice.js";
 import { logoutUser } from "../features/userSlice.js";
 import { useDispatch, useSelector } from "react-redux";
+import { ProfileDirect } from "../components/Directlink.jsx";
 
 export const loader = (storage) => async () => {
   const user = storage.getState().userState.user;
@@ -100,6 +101,7 @@ const ProfilePage = () => {
     <section id="profile" className="bg-white overflow-hidden">
       <BannerHeader bannerTitle="Your Profile" />
       <Container className="py-3 py-md-5">
+        <ProfileDirect />
         <form onSubmit={handleSubmit} encType="multipart/form-data">
           <Row lg="2" className="g-2">
             <Col lg="4">

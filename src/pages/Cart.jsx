@@ -5,6 +5,7 @@ import "../styles/index.css";
 import { useSelector } from "react-redux";
 import { formatToIDR } from "../utils/index.jsx";
 import CartItems from "../components/CartItems.jsx"
+import { CartDirect } from "../components/Directlink.jsx";
 
 const TableHeader = [
   {
@@ -50,6 +51,7 @@ const Cart = () => {
               "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0, 0.1)",
           }}
         >
+          <CartDirect />
           <Row lg="2" className="gx-2 g-md-0 h-max-content">
             <Col lg="8" className="p-3 bg-white">
               <div className="title__cart d-flex justify-content-between align-items-center w-100 pb-3 mb-3 border-bottom border-2 border-secondary-subtle">

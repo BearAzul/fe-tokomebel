@@ -14,6 +14,7 @@ import {
   useNavigation,
 } from "react-router-dom";
 import Loading from "../components/Loading.jsx";
+import { ShopDirect } from "../components/Directlink.jsx";
 
 export const loader = async ({ request }) => {
   const params = Object.fromEntries([
@@ -76,6 +77,7 @@ const ShopPage = () => {
       <section id="shop" className="bg-light pb-4 overflow-hidden">
         <BannerHeader bannerTitle="SHOP" />
         <Container className="my-4">
+          <ShopDirect />
           <Row md="2" className="g-0 g-md-3 g-lg-5 ">
             <Col
               md="3"

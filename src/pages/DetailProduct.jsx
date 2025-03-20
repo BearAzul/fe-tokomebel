@@ -9,6 +9,7 @@ import { useDispatch } from "react-redux";
 import { addToCart } from "../features/cartSlice.js";
 import Loading from "../components/Loading.jsx";
 import QuantitySelector from "../components/QuantitySelector.jsx";
+import { ProductDetailDirect } from "../components/Directlink.jsx";
 
 const DetailProduct = () => {
   const [detailProducts, setDetailProducts] = useState();
@@ -68,6 +69,7 @@ const DetailProduct = () => {
       <section id="detailProduct" className="bg-secondary-subtle">
         <BannerHeader bannerTitle="Detail Product" />
         <Container className="pt-5 pb-5">
+          <ProductDetailDirect />
           <div className="detail__items">
             <Row lg="2" className="g-3 gy-5">
               <Col md="6" className="d-flex">
