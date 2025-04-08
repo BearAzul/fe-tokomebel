@@ -160,7 +160,7 @@ const OrderDetailView = () => {
                       <td>Subtotal</td>
                       <td>:</td>
                       <td className="text-end">
-                        {formatToIDR(detailOrder.total)}
+                        {formatToIDR(detailOrder.total - 120000)}
                       </td>
                     </tr>
                     <tr>
@@ -172,7 +172,7 @@ const OrderDetailView = () => {
                       <td>Total</td>
                       <td>:</td>
                       <td className="text-end">
-                        {formatToIDR(detailOrder.total + 120000)}
+                        {formatToIDR(detailOrder.total)}
                       </td>
                     </tr>
                   </tbody>
