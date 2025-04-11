@@ -1,6 +1,9 @@
 import { Row, Col, Container } from "react-bootstrap";
 import customAPI from "../../api.js";
 import { useLoaderData, Link } from "react-router-dom";
+// import { Line } from "react-chartjs-2";
+// import { useState, useEffect } from "react";
+// import { formatLineChart } from "../../utils/index.jsx";
 
 export const loader = async () => {
   const resProducts = await customAPI.get("/product");
@@ -13,11 +16,13 @@ export const loader = async () => {
   const countUsers = resUsers.data.count;
   const countCategory = resCategory.data.count;
 
-  return { countProducts, countOrders, countUsers, countCategory };
+  return { countProducts, countOrders, countUsers, countCategory};
 };
 
 const HomeView = () => {
-  const { countProducts, countOrders, countUsers, countCategory } = useLoaderData();
+  const { countProducts, countOrders, countUsers, countCategory} =
+    useLoaderData();
+  // const [chartData, setChartData] = useState(null);
 
   const CardData = [
     {
@@ -26,7 +31,6 @@ const HomeView = () => {
       count: countCategory,
       iconClass: "ri-folder-open-fill",
       bgClass: "text-bg-danger",
-      
     },
     {
       path: "/admin/products",
@@ -45,21 +49,26 @@ const HomeView = () => {
     {
       path: "/admin/customers",
       title: "Total Customers",
-      count: countUsers -1,
+      count: countUsers,
       iconClass: "ri-user-3-fill",
       bgClass: "text-bg-success",
     },
-   
   ];
+
+  // useEffect(() => {
+  //   const formatted = formatLineChart(resOrders.data.data);
+  //   setChartData(formatted);
+  // }, [resOrders]);
 
   return (
     <section id="dashboard" className="p-2 fm-2">
       <Container>
-        <Row md="3" xs="2" lg="4" className="g-2">
+        <Row md="3" xs="1" lg="4" className="g-2">
           {CardData.map((card, index) => (
             <Col key={index}>
-              <div className="d-flex align-items-start gap-2 gap-md-3 p-3 border rounded border border-secondary shadow-md flex-column flex-md-row">
-                <Link to={card.path}
+              <div className="d-flex align-items-start gap-2 gap-md-3 p-3 border rounded border border-secondary shadow-md">
+                <Link
+                  to={card.path}
                   className={`flex-shrink-0 ${card.bgClass} text-decoration-none rounded d-flex align-items-center justify-content-center`}
                   style={{ width: "50px", height: "50px" }}
                 >
@@ -73,6 +82,17 @@ const HomeView = () => {
             </Col>
           ))}
         </Row>
+
+        {/* <Row className="mt-5">
+          <Col>
+            {chartData && (
+              <div>
+                <h5 className="mb-3 fw-semibold">Grafik Total Transaksi</h5>
+                <Line key={JSON.stringify(chartData)} data={chartData} />
+              </div>
+            )}
+          </Col>
+        </Row> */}
       </Container>
     </section>
   );
