@@ -2,12 +2,13 @@ import { useState } from "react";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import customAPI from "../../api.js";
 import { toast } from "react-toastify";
-import { redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import VerifyImages from "../../assets/Image/Authentication-cuate.svg";
 
 const VerifyAccountPage = () => {
   const [verifyCode, setVerifyCode] = useState("");
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate()
 
   const handleVerify = async (e) => {
     e.preventDefault();
@@ -17,7 +18,7 @@ const VerifyAccountPage = () => {
       const res = await customAPI.post("/auth/verify-email", { verifyCode });
       toast.success(res.data.message || "Verifikasi berhasil, Silahkan login!");
       setVerifyCode("");
-      return redirect("/profile");
+      navigate("/login")
     } catch (error) {
       toast.error(
         error.response?.data?.message || "Terjadi kesalahan saat verifikasi"

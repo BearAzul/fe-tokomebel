@@ -10,6 +10,7 @@ import { LoginButton } from "../Button.jsx";
 const NavbarPage = () => {
   const user = useSelector((state) => state.userState.user);
   const countCart = useSelector((state) => state.cartState.numItemsInCart);
+  const isVerified = user?.isVerified;
 
   return (
     <>
@@ -28,7 +29,7 @@ const NavbarPage = () => {
             <span className="text-color-logo2">Mebel</span>
           </HashLink>
           <div className="ms-auto me-3 d-flex d-lg-none gap-3 align-items-center justify-content-center">
-            {user ? (
+            {isVerified ? (
               <NavLink to="/profile" className="nav-link">
                 <i className="ri-user-fill fs-6"></i>
               </NavLink>
@@ -65,7 +66,7 @@ const NavbarPage = () => {
             </Nav>
           </Navbar.Collapse>
           <div className="d-none ms-lg-5 d-lg-flex gap-3 align-items-center justify-content-center">
-            {user ? (
+            {isVerified ? (
               <NavLink to="/profile" className="nav-link">
                 <i className="ri-user-fill fs-6"></i>
               </NavLink>
