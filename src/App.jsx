@@ -48,9 +48,14 @@ import { loader as CategoryLoader } from "./pages/admin/CategoryView.jsx";
 // auth
 import { action as LoginAction } from "./pages/auth/LoginPage.jsx";
 import { action as RegisterAction } from "./pages/auth/RegisterPage.jsx";
+import VerifyAccountPage from "./pages/auth/VerifyAccountPage.jsx";
+import ForgotPasswordPage from "./pages/auth/ForgotPasswordPage.jsx";
 
 // storage
 import { store } from "./store.js";
+import UpdatePasswordPage from "./pages/auth/UpdatePasswordPage.jsx";
+
+
 
 const router = createBrowserRouter([
   {
@@ -94,6 +99,19 @@ const router = createBrowserRouter([
         path: "checkout",
         element: <PaymentPage />,
         loader: PaymentLoader(store),
+      },
+      {
+        path: "forgot-password",
+        element: <ForgotPasswordPage />,
+      },
+      {
+        path: "verify-email",
+        element: <VerifyAccountPage />,
+      },
+
+      {
+        path: "reset-password/:token",
+        element: <UpdatePasswordPage />,
       },
     ],
   },

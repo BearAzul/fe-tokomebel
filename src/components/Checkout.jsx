@@ -1,6 +1,6 @@
 import "../styles/index.css";
 import { Row, Col } from "react-bootstrap";
-import { Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import { formatToIDR } from "../utils/index.jsx";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
@@ -15,7 +15,7 @@ const insertSnapScript = () => {
     script.src = "https://app.sandbox.midtrans.com/snap/snap.js";
     script.setAttribute(
       "data-client-key",
-      import.meta.env.VITE_CLIENT_MIDTRANS
+      import.meta.env.MIDTRANS_CLIENT_KEY
     );
     script.onload = () => resolve();
     document.body.appendChild(script);
@@ -36,7 +36,7 @@ const Checkout = () => {
   };
 
   useEffect(() => {
-    getCurrentUser()
+    getCurrentUser();
     insertSnapScript();
   }, []);
 
@@ -90,6 +90,13 @@ const Checkout = () => {
       toast.error(errorMessage);
     }
   };
+
+  let delivery;
+  if (!numItems) {
+    delivery = 0;
+  } else {
+    delivery = 80000;
+  }
 
   return (
     <>
@@ -193,12 +200,12 @@ const Checkout = () => {
               <tr>
                 <td className="fw-medium">Delivery</td>
                 <td>:</td>
-                <td className="text-end">{formatToIDR(120000)}</td>
+                <td className="text-end">{formatToIDR(delivery)}</td>
               </tr>
               <tr>
                 <td className="fw-medium">Total</td>
                 <td>:</td>
-                <td className="text-end">{formatToIDR(cartTotal + 120000)}</td>
+                <td className="text-end">{formatToIDR(cartTotal + delivery)}</td>
               </tr>
             </tbody>
           </table>

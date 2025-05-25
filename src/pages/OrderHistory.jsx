@@ -104,7 +104,7 @@ const OrderHistory = () => {
     setRecords(newData);
   };
   return (
-    <section id="history">
+    <section id="history" className="bg-body-secondary">
       <BannerHeader bannerTitle="Order History" />
       <Container className="py-3 py-md-5 fm-2">
         <HistoryDirect />
@@ -142,8 +142,8 @@ const OrderHistory = () => {
             pagination
             highlightOnHover
             fixedHeader
-              theme="dark"
-              className="rounded border border-secondary mb-2"
+            theme="dark"
+            className="rounded border border-secondary mb-2"
           />
         )}
       </Container>

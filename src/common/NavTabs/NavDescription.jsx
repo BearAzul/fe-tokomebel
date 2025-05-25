@@ -1,9 +1,11 @@
 import { Nav, Card, Form, Button } from "react-bootstrap";
 import { useState } from "react";
 import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 
 const NavDescription = ({ description }) => {
   const [activeTab, setActiveTab] = useState("description");
+   const user = useSelector((state) => state.userState.user);
   return (
     <>
       <Nav
@@ -58,7 +60,7 @@ const NavDescription = ({ description }) => {
             <Form className="w-100">
               <Form.Group className="mb-2">
                 <Form.Label className="fw-semibold">Your Name</Form.Label>
-                <Form.Control type="text" />
+                <Form.Control type="text" className="fm-2 fw-medium" disabled readOnly value={`${user.firstName} ${user.lastName}`} />
               </Form.Group>
               <Form.Group className="mb-2">
                 <Form.Label className="fw-semibold">Your Comments</Form.Label>
@@ -70,10 +72,6 @@ const NavDescription = ({ description }) => {
                 <i className="ri-star-line"></i>
                 <i className="ri-star-line"></i>
                 <i className="ri-star-line"></i>
-              </Form.Group>
-            
-              <Form.Group className="mb-3">
-                <Form.Control type="file" size="sm" />
               </Form.Group>
               <Form.Group className="mb-2">
                 <Button variant="success">Send</Button>

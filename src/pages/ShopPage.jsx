@@ -142,7 +142,6 @@ const ShopPage = () => {
               </div>
               <div
                 className="furniture__product mt-3 mt-md-2 mt-lg-4"
-                style={{ minHeight: "100vh" }}
               >
                 <Row xs="2" md="3" lg="4" className="g-2 g-lg-4">
                   {isPageLoading ? (

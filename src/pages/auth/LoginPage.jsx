@@ -76,12 +76,12 @@ const LoginPage = () => {
                   </Button>
                 </div>
                 <div className="mb-3 text-keep input-group">
-                  <a
-                    href="#"
+                  <Link
+                    to={"/forgot-password"}
                     className="fm-2 fs-7 text-link fw-medium  btn-link"
                   >
                     Forgot password?
-                  </a>
+                  </Link>
                 </div>
                 <div className="mb-4 fm-3 text-center input-group">
                   <Button

@@ -38,7 +38,7 @@ const Cart = () => {
   if (!numItems) {
     delivery = 0
   } else {
-    delivery = 120000;
+    delivery = 80000;
   }
   return (
     <>

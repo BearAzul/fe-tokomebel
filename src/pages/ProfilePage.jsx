@@ -18,9 +18,12 @@ import { clearCartItem } from "../features/cartSlice.js";
 import { logoutUser } from "../features/userSlice.js";
 import { useDispatch, useSelector } from "react-redux";
 import { ProfileDirect } from "../components/Directlink.jsx";
+import { useState } from "react";
+import BlankImages from "../assets/Image/blank_user.png"
 
 export const loader = (storage) => async () => {
   const user = storage.getState().userState.user;
+  
   if (!user) {
     toast.warn("Silahkan Login untuk akses halaman Profil");
     return redirect("/login");
@@ -35,16 +38,20 @@ export const loader = (storage) => async () => {
 
 const ProfilePage = () => {
   const user = useSelector((state) => state.userState.user);
+  const [edit, setEdit] = useState(false);
   const { currentUser } = useLoaderData();
-  const genders = [{
-    key: 1,
-    value: "Male",
-    label: "Male",
-  }, {
-    key: 2,
-    value: "Female",
-    label: "Female",
-  }];
+  const genders = [
+    {
+      key: 1,
+      value: "Male",
+      label: "Male",
+    },
+    {
+      key: 2,
+      value: "Female",
+      label: "Female",
+    },
+  ];
   const { revalidate } = useRevalidator();
 
   const dispatch = useDispatch();
@@ -97,9 +104,20 @@ const ProfilePage = () => {
     }
   };
 
+  const handleEdit = () => {
+    setEdit(true);
+  };
+
+  const handleCancel = () => {
+    setEdit(false);
+  };
+
   return (
-    <section id="profile" className="bg-white overflow-hidden">
-      <BannerHeader bannerTitle="Your Profile" />
+    <section
+      id="profile"
+      className="bg-white overflow-hidden bg-body-secondary"
+    >
+      <BannerHeader bannerTitle="Profile" />
       <Container className="py-3 py-md-5">
         <ProfileDirect />
         <form onSubmit={handleSubmit} encType="multipart/form-data">
@@ -109,9 +127,7 @@ const ProfilePage = () => {
                 <Card.Img
                   variant="top"
                   src={
-                    currentUser.image === null
-                      ? "https://via.placeholder.com/200x200"
-                      : currentUser.image
+                    currentUser.image === null ? BlankImages : currentUser.image
                   }
                   className="d-block rounded mx-auto object-fit-cover"
                 />
@@ -120,6 +136,7 @@ const ProfilePage = () => {
                     type="file"
                     name="image"
                     className="form-control form-control-sm w-100 fs-7 fw-bold border rounded"
+                    disabled={!edit}
                   />
                 </Card.Body>
                 <Card.Footer className="px-0 bg-transparent border-0">
@@ -159,7 +176,7 @@ const ProfilePage = () => {
             <Col lg="8">
               <Card>
                 <Card.Body className="fm-2 p-0">
-                  <Card.Title className="fw-bold border-bottom p-3">
+                  <Card.Title className="fw-bold border-bottom p-3 text-dark-green text-white">
                     Personal Information
                   </Card.Title>
                   <Card.Text className="fs-7 px-3 mb-2">
@@ -171,6 +188,7 @@ const ProfilePage = () => {
                           name="firstName"
                           placeHolder="Enter your firstname"
                           defaultValue={currentUser.firstName}
+                          disabled={!edit}
                         />
                       </Col>
                       <Col>
@@ -180,6 +198,7 @@ const ProfilePage = () => {
                           name="lastName"
                           placeHolder="Enter your lastname"
                           defaultValue={currentUser.lastName}
+                          disabled={!edit}
                         />
                       </Col>
                     </Row>
@@ -194,11 +213,9 @@ const ProfilePage = () => {
                         value: gender.value,
                         label: gender.label,
                       }))}
+                      disabled={!edit}
                     />
                   </Card.Text>
-                  <Card.Title className="fw-bold border-bottom border-top p-3">
-                    Contact
-                  </Card.Title>
                   <Card.Text className="fs-7 px-3 mb-2">
                     <Row lg="2" className="g-2">
                       <Col>
@@ -208,6 +225,7 @@ const ProfilePage = () => {
                           name="email"
                           placeHolder="Enter your email address"
                           defaultValue={currentUser.email}
+                          disabled={!edit}
                         />
                       </Col>
                       <Col>
@@ -223,6 +241,7 @@ const ProfilePage = () => {
                           maxLength={13}
                           defaultValue={currentUser.phone}
                           placeholder="Enter your phone number"
+                          disabled={!edit}
                         />
                       </Col>
                       <Col lg="12">
@@ -232,6 +251,7 @@ const ProfilePage = () => {
                           name="city"
                           placeHolder="Enter your city"
                           defaultValue={currentUser.city}
+                          disabled={!edit}
                         />
                       </Col>
                       <Col lg="12">
@@ -241,16 +261,40 @@ const ProfilePage = () => {
                           placeHolder="Enter your address"
                           defaultValue={currentUser.address}
                           Row={3}
+                          disabled={!edit}
                         />
                       </Col>
                     </Row>
                   </Card.Text>
                 </Card.Body>
                 <Card.Footer className="fm-2 d-flex gap-2">
-                  <Button type="submit" variant="success">
-                    <i className="ri-save-3-line me-2"></i>
-                    Save
-                  </Button>
+                  {!edit ? (
+                    <Button
+                      type="button"
+                      variant="warning"
+                      onClick={handleEdit}
+                      size="sm"
+                    >
+                      <i className="ri-edit-circle-fill me-2"></i>
+                      Edit
+                    </Button>
+                  ) : (
+                    <>
+                      <Button
+                        type="button"
+                        variant="danger"
+                        onClick={handleCancel}
+                        size="sm"
+                      >
+                        <i className="ri-close-circle-line me-2"></i>
+                        Cancel
+                      </Button>
+                      <Button type="submit" variant="success" size="sm">
+                        <i className="ri-save-3-line me-2"></i>
+                        Save
+                      </Button>
+                    </>
+                  )}
                 </Card.Footer>
               </Card>
             </Col>

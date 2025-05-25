@@ -16,8 +16,8 @@ export const action =
     try {
       const response = await customAPI.post("/auth/register", data);
       store.dispatch(registerUser(response.data));
-      toast.success("Register Success, please login!");
-      return redirect("/login");
+      toast.success("Register Success, please verification Code!");
+      return redirect("/verify-email");
     } catch (error) {
       const errorMessage = error?.response?.data?.message;
       toast.error(errorMessage);
