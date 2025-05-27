@@ -12,6 +12,7 @@ import { formatToIDR } from "../../utils/index.jsx";
 import { OrdersDirect } from "../../components/Directlink.jsx";
 import { useState } from "react";
 import Swal from "sweetalert2";
+import BlankImages from "../../assets/Image/blank_user.png"
 
 export const loader = (storage) => async () => {
   const user = storage.getState().userState.user;
@@ -91,7 +92,7 @@ const OrdersView = () => {
           style={{ width: "40px", height: "40px" }}
         >
           <img
-            src={!row.image ? "https://via.placeholder.com/300x300" : row.image}
+            src={!row.image ? BlankImages : row.image}
             alt={row.firstName}
             className="d-block w-100 h-100 object-fit-cover"
           />

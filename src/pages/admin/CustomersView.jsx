@@ -8,6 +8,7 @@ import { CustomersDirect } from "../../components/Directlink.jsx";
 import Swal from "sweetalert2";
 import ExportCSV from "../../components/export/exportCSV.jsx";
 import { exportPDF } from "../../components/export/exportPDF.jsx";
+import BlankImages from "../../assets/Image/blank_user.png"
 
 export const loader = async () => {
   const { data } = await customAPI.get("/auth/users");
@@ -74,7 +75,7 @@ const CustomersView = () => {
           style={{ width: "40px", height: "40px" }}
         >
           <img
-            src={!row.image ? "https://via.placeholder.com/300x300" : row.image}
+            src={!row.image ? BlankImages : row.image}
             alt={row.firstName}
             className="d-block w-100 h-100 object-fit-cover"
           />

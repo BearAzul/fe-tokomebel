@@ -5,6 +5,7 @@ import customAPI from "../../api.js";
 import DataTable from "react-data-table-component";
 import { formatToIDR } from "../../utils";
 import { DetailOrderDirect } from "../../components/Directlink.jsx";
+import BlankImages from "../../assets/Image/blank_user.png"
 
 const OrderDetailView = () => {
   const [detailOrder, setDetailOrder] = useState([]);
@@ -115,7 +116,7 @@ const OrderDetailView = () => {
                     <img
                       src={`${
                         detailOrder.image === null
-                          ? "https://via.placeholder.com/300x300"
+                          ? BlankImages
                           : detailOrder.image
                       }`}
                       alt={detailOrder.firstName}
