@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import {
   FormInput,
-  FormTextarea,
+  FormEditor,
   FormSelect,
 } from "../../../components/FormInput.jsx";
 import customAPI from "../../../api.js";
@@ -13,6 +13,7 @@ import { AddProductDirect } from "../../../components/Directlink.jsx";
 const AddProductView = () => {
   const [categories, setCategories] = useState([]);
   const navigate = useNavigate();
+  const [desc, setDesc] = useState("");
 
   const getCategories = async () => {
     const { data } = await customAPI.get("/category");
@@ -45,7 +46,7 @@ const AddProductView = () => {
       await customAPI.post("/product", {
         name: data.name,
         summary: data.summary,
-        description: data.description,
+        description: desc,
         price: data.price,
         stock: data.stock,
         image: uploadImage.data.url,
@@ -113,11 +114,11 @@ const AddProductView = () => {
               />
             </Col>
             <Col md="12" lg="12">
-              <FormTextarea
-                name="description"
+              <FormEditor
                 label="Description:"
+                value={desc}
+                onChange={setDesc}
                 placeHolder="Enter Product Description"
-                Row={3}
               />
             </Col>
             <Col lg="8">

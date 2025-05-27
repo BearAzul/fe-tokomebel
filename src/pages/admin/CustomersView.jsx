@@ -1,4 +1,4 @@
-import { Container, Button } from "react-bootstrap";
+import { Container, Button, Badge } from "react-bootstrap";
 import { useLoaderData, Link, useRevalidator } from "react-router-dom";
 import customAPI from "../../api.js";
 import DataTable from "react-data-table-component";
@@ -71,7 +71,7 @@ const CustomersView = () => {
       name: "Image",
       selector: (row) => (
         <figure
-          className="overflow-hidden rounded m-auto"
+          className="overflow-hidden rounded m-auto bg-white"
           style={{ width: "40px", height: "40px" }}
         >
           <img
@@ -104,6 +104,15 @@ const CustomersView = () => {
       selector: (row) => row.gender,
       sortable: true,
       width: "100px",
+    },
+    {
+      name: "Verified",
+      cell: (row) =>
+        row.isVerified ? (
+          <Badge bg="success">Verified</Badge>
+        ) : (
+          <Badge bg="danger">Not Verified</Badge>
+        ),
     },
     {
       name: "Action",

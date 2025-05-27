@@ -73,7 +73,6 @@ const NavbarPage = () => {
             ) : (
               <LoginButton link="login" />
             )}
-            <span className="line_split"></span>
             <NavLink to="/cart" className="nav-link me-auto position-relative">
               <i className="ri-shopping-cart-2-fill fs-6 "></i>
               <span

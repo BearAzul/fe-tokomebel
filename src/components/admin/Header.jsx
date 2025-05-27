@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import BlankImages from "../../assets/Image/blank_user.png"
 
 const Header = ({ OpenSidebar }) => {
   const user = useSelector((state) => state.userState.user);
@@ -42,10 +43,10 @@ const Header = ({ OpenSidebar }) => {
           </p>
           <div
             style={{ width: "35px", height: "35px" }}
-            className="rounded-circle border-2 border border-secondary overflow-hidden"
+            className="rounded-circle border-2 border border-secondary overflow-hidden bg-secondary"
           >
             <img
-              src={user.image}
+              src={!user.image ? BlankImages : user.image}
               alt={`${user.firstName} ${user.lastName}`}
               className="d-block object-fit-cover w-100 h-100"
             />

@@ -4,10 +4,11 @@ import {
   FormSelect,
   FormTextarea,
 } from "../../components/FormInput";
-import { toast } from "react-toastify"
+import { toast } from "react-toastify";
 import customAPI from "../../api.js";
-import { useEffect, useState } from "react"
-import {redirect} from "react-router-dom"
+import { useEffect, useState } from "react";
+import { redirect } from "react-router-dom";
+import BlankImages from "../../assets/Image/blank_user.png"
 
 export const loader = (storage) => () => {
   const user = storage.getState().userState.user;
@@ -19,18 +20,18 @@ export const loader = (storage) => () => {
 };
 
 const UserView = () => {
-   const gender = [
-     {
-       key: 1,
-       value: "Male",
-       label: "Male",
-     },
-     {
-       key: 2,
-       value: "Female",
-       label: "Female",
-     },
-   ];
+  const gender = [
+    {
+      key: 1,
+      value: "Male",
+      label: "Male",
+    },
+    {
+      key: 2,
+      value: "Female",
+      label: "Female",
+    },
+  ];
   const [identity, setIdentity] = useState("");
 
   const getUserProfile = async () => {
@@ -81,15 +82,11 @@ const UserView = () => {
           <Card className="border border-secondary text-bg-dark p-4">
             <div className="d-flex gap-3 align-items-start flex-wrap mb-3 mb-md-0">
               <figure
-                className="overflow-hidden rounded border border-2 border-secondary mx-auto mx-md-0"
+                className="overflow-hidden rounded border border-2 border-secondary mx-auto mx-md-0 bg-secondary"
                 style={{ width: "120px", height: "120px" }}
               >
                 <img
-                  src={
-                    identity.image === null
-                      ? "https://via.placeholder.com/200x200"
-                      : identity.image
-                  }
+                  src={identity.image === null ? BlankImages : identity.image}
                   alt=""
                   className="w-100 h-100 d-block object-fit-cover"
                 />

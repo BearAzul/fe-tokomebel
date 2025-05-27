@@ -1,4 +1,25 @@
 import PropTypes from "prop-types"
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
+
+const modules = {
+  toolbar: [
+    [{ header: [1, 2, 3, false] }],
+    ["bold", "italic", "underline", "strike"],
+    [{ color: [] }, { background: [] }],
+    [{ script: "sub" }, { script: "super" }],
+    [
+      { list: "ordered" },
+      { list: "bullet" },
+      { indent: "-1" },
+      { indent: "+1" },
+    ],
+    [{ align: [] }],
+    ["link"],
+    ["clean"],
+  ],
+};
+
 
 export const FormInput = ({label, name, type, defaultValue, placeHolder, className, disabled = false}) => {
   return (
@@ -71,6 +92,23 @@ export const FormSelect = ({
   );
 };
 
+export const FormEditor = ({ label, value, onChange, className, placeHolder }) => {
+  return (
+    <div className={`form-editor ${className}`}>
+      <label className="form-label">{label}</label>
+      <ReactQuill
+        theme="snow"
+        value={value}
+        onChange={onChange}
+        modules={modules}
+        className="quill-editor"
+        placeholder={placeHolder}
+      />
+    </div>
+  );
+};
+
+
 FormInput.propTypes = {
   label: PropTypes.string,
   name: PropTypes.string.isRequired,
@@ -103,4 +141,12 @@ FormSelect.propTypes = {
     })
   ),
   disabled: PropTypes.bool,
+};
+
+FormEditor.propTypes = {
+  label: PropTypes.string,
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  placeHolder: PropTypes.string.isRequired,
+  className: PropTypes.string,
 };

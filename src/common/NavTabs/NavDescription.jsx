@@ -42,7 +42,9 @@ const NavDescription = ({ description }) => {
           }`}
         >
           <Card.Body>
-            <Card.Text className="fm-2">{description}</Card.Text>
+            <Card.Text className="fm-2">
+              <div dangerouslySetInnerHTML={{ __html: description }} />
+            </Card.Text>
           </Card.Body>
         </Card>
       )}
@@ -60,7 +62,13 @@ const NavDescription = ({ description }) => {
             <Form className="w-100">
               <Form.Group className="mb-2">
                 <Form.Label className="fw-semibold">Your Name</Form.Label>
-                <Form.Control type="text" className="fm-2 fw-medium" disabled readOnly value={`${user.firstName} ${user.lastName}`} />
+                <Form.Control
+                  type="text"
+                  className="fm-2 fw-medium"
+                  disabled
+                  readOnly
+                  value={`${user.firstName} ${user.lastName}`}
+                />
               </Form.Group>
               <Form.Group className="mb-2">
                 <Form.Label className="fw-semibold">Your Comments</Form.Label>

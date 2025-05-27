@@ -74,7 +74,9 @@ const CategoryView = () => {
     },
     {
       name: "Description",
-      selector: (row) => row.description,
+      selector: (row) => (
+        <div dangerouslySetInnerHTML={{ __html: row.description }} />
+      ),
       sortable: true,
     },
     {

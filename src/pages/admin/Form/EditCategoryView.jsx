@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import customAPI from "../../../api.js";
-import { FormInput, FormTextarea } from "../../../components/FormInput";
+import { FormInput, FormEditor } from "../../../components/FormInput";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { EditCategoryDirect } from "../../../components/Directlink.jsx";
@@ -9,14 +9,14 @@ import Loading from "../../../components/Loading.jsx";
 
 const EditCategoryView = () => {
   const [category, setCategory] = useState([]);
-
   const navigate = useNavigate();
-
   const { id } = useParams();
+  const [desc, setDesc] = useState("");
 
   const getCategory = async () => {
     const { data } = await customAPI.get(`/category/${id}`);
     setCategory(data.data);
+    setDesc(data.data.description);
   };
 
   useEffect(() => {
@@ -32,7 +32,7 @@ const EditCategoryView = () => {
     try {
       await customAPI.put(`/category/${id}`, {
         name: data.name,
-        description: data.description,
+        description: desc,
         icon: data.icon,
       });
 
@@ -82,12 +82,11 @@ const EditCategoryView = () => {
                 </p>
               </Col>
               <Col sm="12">
-                <FormTextarea
-                  label="Description"
-                  Row={3}
-                  name="description"
+                <FormEditor
+                  label="Description:"
+                  value={desc}
+                  onChange={setDesc}
                   placeHolder="Enter Description for Category"
-                  defaultValue={category.description}
                 />
               </Col>
             </Row>

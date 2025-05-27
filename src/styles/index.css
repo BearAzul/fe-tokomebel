@@ -29,10 +29,6 @@
   font-size: .5rem !important;
 }
 
-
-
-
-
 .bg-dark-green {
   background-color: #135961 !important;
 }
@@ -128,6 +124,7 @@ h1, h2, h3, h4, h5, h6, p {
 #shop .card__container .card img {
   height: 250px;
 }
+
 #product .card__container .card img {
   height: 220px;
 }
@@ -222,7 +219,32 @@ main {
   font-weight: 600;
 }
 
+.quill-editor .ql-toolbar,
+.quill-editor .ql-picker,
+.quill-editor .ql-picker-label,
+.quill-editor .ql-picker-options,
+.quill-editor .ql-toolbar button,
+.quill-editor .ql-formats {
+  font-family: 'Poppins', sans-serif !important;
+  background: #f8f9fa;
+  border-radius: 10px 10px 0 0;
+}
+
+.ql-container{
+  border: none;
+}
+
+.quill-editor .ql-editor {
+  font-family: 'Poppins', sans-serif;
+  min-height: 150px;
+  background: #f8f9fa;
+  color: #212529;
+  font-size: 14px;
+}
+
+
 @media(max-width: 576px) {
+
   #product .card__container .card img,
   #shop .card__container .card img {
     height: 175px !important;

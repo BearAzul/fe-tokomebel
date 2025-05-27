@@ -1,5 +1,6 @@
+import {useState} from "react"
 import { Container, Row, Col, Button } from "react-bootstrap";
-import { FormInput, FormTextarea } from "../../../components/FormInput.jsx";
+import { FormInput, FormEditor } from "../../../components/FormInput.jsx";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { AddCategoryDirect } from "../../../components/Directlink.jsx";
@@ -7,6 +8,7 @@ import customAPI from "../../../api.js";
 
 const AddCategoryView = () => {
   const navigate = useNavigate();
+  const [desc, setDesc] = useState("")
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -17,7 +19,7 @@ const AddCategoryView = () => {
     try {
       await customAPI.post("/category", {
         name: data.name,
-        description: data.description,
+        description: desc,
         icon: data.icon,
       });
 
@@ -49,13 +51,13 @@ const AddCategoryView = () => {
             </Col>
             <Col sm="6">
               <FormInput
-                label="Parameters Icon Category"
+                label="Parameters Icon Category:"
                 type="text"
                 name="icon"
                 placeHolder="Enter Parameters Icon Category"
               />
               <p className="text-warning fs-7 m-0">
-                example: ` ri-table-line `.{" "}
+                example: ` ri-table-line `.
                 <Link
                   to="https://remixicon.com"
                   className="text-warning m-0 fs-7"
@@ -65,10 +67,10 @@ const AddCategoryView = () => {
               </p>
             </Col>
             <Col sm="12">
-              <FormTextarea
-                label="Description"
-                Row={3}
-                name="description"
+              <FormEditor
+                label="Description:"
+                value={desc}
+                onChange={setDesc}
                 placeHolder="Enter Description for Category"
               />
             </Col>

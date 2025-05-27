@@ -1,19 +1,17 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import customAPI from "../../../api.js";
-import {
-  FormInput,
-  FormTextarea,
-  FormSelect,
-} from "../../../components/FormInput";
+import { FormInput, FormSelect, FormEditor } from "../../../components/FormInput";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { EditProductDirect } from "../../../components/Directlink.jsx";
 import Loading from "../../../components/Loading.jsx";
 
+
 const EditProductView = () => {
   const [product, setProduct] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [desc, setDesc] = useState("");
 
   const navigate = useNavigate();
 
@@ -22,6 +20,7 @@ const EditProductView = () => {
   const getProduct = async () => {
     const { data } = await customAPI.get(`/product/${id}`);
     setProduct(data.data);
+    setDesc(data.data.description);
   };
 
   const getCategories = async () => {
@@ -63,7 +62,7 @@ const EditProductView = () => {
         price: data.price,
         category: data.category,
         summary: data.summary,
-        description: data.description,
+        description: desc,
         image: imageUrl,
       });
 
@@ -74,6 +73,7 @@ const EditProductView = () => {
       toast.error(errorMessage);
     }
   };
+
   return (
     <section className="fm-2">
       <Container>
@@ -134,12 +134,11 @@ const EditProductView = () => {
                 />
               </Col>
               <Col md="12" lg="12">
-                <FormTextarea
-                  name="description"
+                <FormEditor
                   label="Description:"
+                  value={desc}
+                  onChange={setDesc}
                   placeHolder="Enter Product Description"
-                  defaultValue={product.description}
-                  Row={3}
                 />
               </Col>
               <Col lg="8">
