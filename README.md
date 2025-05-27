@@ -1,8 +1,24 @@
-# React + Vite
+# 🛍️ Mebel Amanah Frontend - React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Frontend untuk aplikasi furniture **Mebel Amanah**, dibangun menggunakan **React.js** dan bundler **Vite** untuk performa optimal, modularitas, dan kemudahan pengembangan.
 
-Currently, two official plugins are available:
+![React](https://img.shields.io/badge/React-18+-blue)
+![Vite](https://img.shields.io/badge/Vite-4+-yellow)
+![License](https://img.shields.io/badge/License-MIT-green)
+![Deployment](https://img.shields.io/badge/Deployed-Vercel-black)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 📁 Struktur Proyek
+
+
+## 🚀 Teknologi yang Digunakan
+
+| Teknologi | Keterangan |
+|----------|------------|
+| ⚛️ React | Library utama untuk UI |
+| ⚡ Vite | Bundler modern yang cepat |
+| 🛒 Redux | Manajemen state aplikasi |
+| 🎨 Bootstrap CSS | Components CSS framework |
+| 🔁 Axios | Permintaan API |
+| 💡 ESLint & Prettier | Standarisasi penulisan kode |
+| 🌍 Vercel | Deployment otomatis |
+
