@@ -16,9 +16,9 @@ Frontend untuk aplikasi furniture **Mebel Amanah**, dibangun menggunakan **React
 |----------|------------|
 | ⚛️ React | Library utama untuk UI |
 | ⚡ Vite | Bundler modern yang cepat |
-| 🛒 Zustand / Redux | Manajemen state aplikasi |
-| 🎨 Tailwind CSS | Utility-first CSS framework |
-| 🔁 Axios / Fetch | Permintaan API |
+| 🛒 Redux | Manajemen state aplikasi |
+| 🎨 Bootstrap CSS | Components CSS framework |
+| 🔁 Axios | Permintaan API |
 | 💡 ESLint & Prettier | Standarisasi penulisan kode |
 | 🌍 Vercel | Deployment otomatis |
 
