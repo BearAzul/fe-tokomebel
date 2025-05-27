@@ -22,9 +22,3 @@ Frontend untuk aplikasi furniture **Mebel Amanah**, dibangun menggunakan **React
 | 💡 ESLint & Prettier | Standarisasi penulisan kode |
 | 🌍 Vercel | Deployment otomatis |
 
-## ⚙️ Instalasi
-
-1. Clone repo:
-   ```bash
-   git clone https://github.com/username/nama-repo.git
-   cd nama-repo/client
