@@ -13,6 +13,10 @@ import { ToastContainer } from "react-toastify";
 import { store } from "./store.js";
 import { Provider } from "react-redux";
 
+import { registerSW } from 'virtual:pwa-register';
+
+registerSW();
+
 AOS.init();
 AOS.init({
   duration: 1200,
