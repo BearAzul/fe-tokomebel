@@ -12,8 +12,8 @@ export default defineConfig({
         name: "Toko Mebel App",
         short_name: "Mebel",
         description: "Aplikasi toko mebel berbasis PWA",
-        theme_color: "#febd59",
-        background_color: "#febd59",
+        theme_color: "#135961",
+        background_color: "#135961",
         display: "standalone",
         start_url: "/",
         icons: [
