@@ -10,7 +10,7 @@ export default defineConfig({
       registerType: "autoUpdate",
       manifest: {
         name: "Toko Mebel App",
-        short_name: "Mebel",
+        short_name: "Toko Mebel App",
         description: "Aplikasi toko mebel berbasis PWA",
         theme_color: "#135961",
         background_color: "#135961",

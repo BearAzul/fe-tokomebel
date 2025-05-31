@@ -20,6 +20,7 @@ const OrderDetailView = () => {
     getDetailOrder(id);
   }, []);
 
+  let delivery = 80000;
   const columns = [
     {
       name: "Product",
@@ -161,13 +162,13 @@ const OrderDetailView = () => {
                       <td>Subtotal</td>
                       <td>:</td>
                       <td className="text-end">
-                        {formatToIDR(detailOrder.total - 120000)}
+                        {formatToIDR(detailOrder.total - delivery)}
                       </td>
                     </tr>
                     <tr>
                       <td>Delivery Fee</td>
                       <td>:</td>
-                      <td className="text-end">{formatToIDR(120000)}</td>
+                      <td className="text-end">{formatToIDR(delivery)}</td>
                     </tr>
                     <tr>
                       <td>Total</td>
