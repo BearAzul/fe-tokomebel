@@ -105,6 +105,7 @@ const CustomSection = () => {
                       src={currentImage}
                       style={{ width: "100%" }}
                       className="mx-auto d-block img__card"
+                      alt="image Customize"
                     />
                     <Card.Footer className="d-flex align-items-center justify-content-between fm-2 p-0 border-dark">
                       <p className="m-0 fw-semibold ps-lg-4 ps-md-3 ps-3">
@@ -130,6 +131,7 @@ const CustomSection = () => {
                   thumbnail
                   className="border-dark border-4 rounded-4 mx-auto object-fit-contain"
                   style={{ width: "max-content", height: "max-content" }}
+                  alt="Image Sketch"
                 />
                 <div className="position-absolute top-0 start-50 translate-middle text-bg-dark fm-4 py-1 px-2">
                   <p className="m-0 fs-7">Sketching</p>
