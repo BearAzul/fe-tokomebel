@@ -12,8 +12,9 @@ import ButtonTop from "./common/ButtonTop/ButtonTop.jsx";
 import { ToastContainer } from "react-toastify";
 import { store } from "./store.js";
 import { Provider } from "react-redux";
+import { HelmetProvider } from "react-helmet-async";
 
-import { registerSW } from 'virtual:pwa-register';
+import { registerSW } from "virtual:pwa-register";
 
 registerSW();
 
@@ -25,20 +26,22 @@ AOS.init({
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <Provider store={store}>
-      <ToastContainer
-        position="bottom-right"
-        autoClose={3000}
-        hideProgressBar={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss={false}
-        draggable
-        pauseOnHover={false}
-        theme="dark"
-      />
-      <App />
-      <ButtonTop />
-    </Provider>
+    <HelmetProvider>
+      <Provider store={store}>
+        <ToastContainer
+          position="bottom-right"
+          autoClose={3000}
+          hideProgressBar={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss={false}
+          draggable
+          pauseOnHover={false}
+          theme="dark"
+        />
+        <App />
+        <ButtonTop />
+      </Provider>
+    </HelmetProvider>
   </React.StrictMode>
 );
