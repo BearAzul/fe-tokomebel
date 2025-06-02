@@ -26,7 +26,7 @@ const PublicLayout = () => {
           content="Aplikasi Toko Mebel, Mebel Amanah, furniture, mebel berkualitas, pengiriman cepat, perabotan rumah, sofa, meja, kursi, lemari"
         />
         <meta name="author" content="Fullstack Dev. - Adya Abdu Azizul Hakim" />
-        <meta name="robots" content="index, follow" />
+        <meta name="robots" content="noindex" />
         <meta
           name="og:street-address"
           content="Dk. Plebean, Ds. Plelen Rt.04/Rw.04"
@@ -43,6 +43,7 @@ const PublicLayout = () => {
           itemProp="image"
           content="https://raw.githubusercontent.com/BearAzul/fe-tokomebel/refs/heads/client/src/assets/Image/logo_toko_mebel.png"
         />
+        <link rel="canonical" href="/" />
       </Helmet>
       <Navbar />
       {isPageLoading ? <Loading /> : <Outlet />}
