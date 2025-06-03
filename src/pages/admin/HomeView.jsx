@@ -29,17 +29,22 @@ export const loader = async () => {
   const countUsers = resUsers.data.count;
   const countCategory = resCategory.data.count;
 
+  const orders = resOrders.data.data;
+
+  const totalEarnings = orders.reduce((acc, order) => acc + order.total, 0);
+
   return {
     countProducts,
     countOrders,
     countUsers,
     countCategory,
-    orders: resOrders.data.data,
+    orders,
+    totalEarnings
   };
 };
 
 const HomeView = () => {
-  const { countProducts, countOrders, countUsers, countCategory, orders } =
+  const { countProducts, countOrders, countUsers, countCategory, orders, totalEarnings } =
     useLoaderData();
 
   const CardData = [
@@ -84,9 +89,9 @@ const HomeView = () => {
       });
       map[date] = (map[date] || 0) + 1;
     });
-    return Object.entries(map).map(([date, count]) => ({
+    return Object.entries(map).map(([date, TotalOrder]) => ({
       date,
-      count,
+      TotalOrder,
     }));
   }, [orders]);
 
@@ -113,10 +118,24 @@ const HomeView = () => {
   return (
     <section id="dashboard" className="p-2 fm-2">
       <Container>
-        <Row md="3" xs="1" lg="4" className="g-2">
+        <div className="d-flex align-items-start gap-3 p-3 rounded border border-secondary shadow-md mb-3">
+          <div
+            className="flex-shrink-0 bg-secondary text-decoration-none rounded d-flex align-items-center justify-content-center"
+            style={{ width: "50px", height: "50px" }}
+          >
+            <i className="ri-wallet-3-line fs-4 text-white"></i>
+          </div>
+          <div className="flex-grow-1">
+            <h6 className="mb-1">Total Earnings</h6>
+            <p className="fs-6 fw-bold">
+              Rp. {totalEarnings.toLocaleString("id-ID")},00
+            </p>
+          </div>
+        </div>
+        <Row md="2" xs="1" lg="4" className="g-3 g-lg-2">
           {CardData.map((card, index) => (
             <Col key={index}>
-              <div className="d-flex align-items-start gap-2 gap-md-3 p-3 rounded border border-secondary shadow-md">
+              <div className="d-flex align-items-start gap-3 gap p-3 rounded border border-secondary shadow-md">
                 <Link
                   to={card.path}
                   className={`flex-shrink-0 ${card.bgClass} text-decoration-none rounded d-flex align-items-center justify-content-center`}
@@ -137,21 +156,20 @@ const HomeView = () => {
           <Col lg={8} xs={12}>
             <div className="p-3 border rounded shadow-sm h-100 border-secondary ">
               <h6 className="mb-3">Orders by Date</h6>
-                <ResponsiveContainer width="100%" height={300}>
-                  <LineChart data={orderPerDate}>
-                    <CartesianGrid strokeDasharray="2 2" />
-                    <XAxis dataKey="date" />
-                    <YAxis allowDecimals={false} />
-                    <Tooltip />
-                    <Line
-                      type="monotone"
-                      dataKey="count"
-                      stroke="#FE5D26"
-                      strokeWidth={2}
-                    />
-                  </LineChart>
-                </ResponsiveContainer>
-      
+              <ResponsiveContainer width="100%" height={300}>
+                <LineChart data={orderPerDate}>
+                  <CartesianGrid strokeDasharray="2 2" />
+                  <XAxis dataKey="date" />
+                  <YAxis allowDecimals={false} />
+                  <Tooltip />
+                  <Line
+                    type="monotone"
+                    dataKey="TotalOrder"
+                    stroke="#FE5D26"
+                    strokeWidth={2}
+                  />
+                </LineChart>
+              </ResponsiveContainer>
             </div>
           </Col>
 
