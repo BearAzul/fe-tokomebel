@@ -44,6 +44,7 @@ const PublicLayout = () => {
           content="https://raw.githubusercontent.com/BearAzul/fe-tokomebel/refs/heads/client/src/assets/Image/logo_toko_mebel.png"
         />
         <link rel="canonical" href="https://fe-tokomebel.vercel.app" />
+        <meta property="og:type" content="website" />
       </Helmet>
       <Navbar />
       {isPageLoading ? <Loading /> : <Outlet />}
