@@ -1,13 +1,14 @@
 import { toast } from "react-toastify";
 import { redirect, useLoaderData, Link } from "react-router-dom";
 import BannerHeader from "../common/Banner/BannerHeader";
-import { Container } from "react-bootstrap";
+import { Container, Badge } from "react-bootstrap";
 import { formatToIDR } from "../utils";
 import customAPI from "../api";
 import DataTable from "react-data-table-component";
 import EmptyOrderIcon from "../assets/Image/empty_order.png";
 import { useState } from "react";
 import { HistoryDirect } from "../components/Directlink";
+import NotAwailableImg from "../assets/Image/landscape-placeholder.svg";
 
 export const loader = (storage) => async () => {
   const user = storage.getState().userState.user;
@@ -20,6 +21,8 @@ export const loader = (storage) => async () => {
   const orders = data.data;
   return { orders };
 };
+
+
 const columns = [
   {
     name: "No.",
@@ -48,19 +51,14 @@ const columns = [
               style={{ width: "70px", height: "70px" }}
             >
               <img
-                src={
-                  !itemProduct.image
-                    ? "https://via.placeholder.com/300x300"
-                    : itemProduct.image
-                }
+                src={!itemProduct.image ? NotAwailableImg : itemProduct.image}
                 alt={itemProduct.name}
                 className="d-block w-100 h-100 object-fit-cover"
               />
             </figure>
             <div>
-              <h6>
-                <b>{itemProduct.name}</b> - {itemProduct.category}
-              </h6>
+              <h6 className="fw-semibold">{itemProduct.name}</h6>
+              <Badge bg="success">{itemProduct.category}</Badge>
               <p>
                 {formatToIDR(itemProduct.price)} x{itemProduct.quantity}
               </p>
@@ -92,14 +90,23 @@ const columns = [
     ),
     sortable: true,
   },
+  {
+    name: "Date",
+    selector: (row) => (new Date(row.createdAt).toLocaleDateString("id-ID", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    }))
+  }
 ];
 
 const OrderHistory = () => {
   const { orders } = useLoaderData();
   const [records, setRecords] = useState(orders);
   const handleSearch = (e) => {
-    const newData = orders.filter((row) =>
-      row.status.toLowerCase().includes(e.target.value.toLowerCase())
+    const newData = orders.filter(
+      (row) =>
+        row.status.toLowerCase().includes(e.target.value.toLowerCase())
     );
     setRecords(newData);
   };
@@ -142,8 +149,8 @@ const OrderHistory = () => {
             pagination
             highlightOnHover
             fixedHeader
-            theme="dark"
-            className="rounded border border-secondary mb-2"
+            theme="light"
+            className="rounded border border-2 border-success mb-2"
           />
         )}
       </Container>

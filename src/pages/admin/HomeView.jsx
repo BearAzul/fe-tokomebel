@@ -1,28 +1,46 @@
 import { Row, Col, Container } from "react-bootstrap";
 import customAPI from "../../api.js";
 import { useLoaderData, Link } from "react-router-dom";
-// import { Line } from "react-chartjs-2";
-// import { useState, useEffect } from "react";
-// import { formatLineChart } from "../../utils/index.jsx";
+import { useMemo } from "react";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  PieChart,
+  Pie,
+  Cell,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
 
 export const loader = async () => {
-  const resProducts = await customAPI.get("/product");
-  const resOrders = await customAPI.get("/order");
-  const resUsers = await customAPI.get("/auth/users");
-  const resCategory = await customAPI.get("/auth/users");
+  const [resProducts, resOrders, resUsers, resCategory] = await Promise.all([
+    customAPI.get("/product"),
+    customAPI.get("/order"),
+    customAPI.get("/auth/users"),
+    customAPI.get("/category"),
+  ]);
 
   const countProducts = resProducts.data.pagination.totalProduct;
   const countOrders = resOrders.data.count;
   const countUsers = resUsers.data.count;
   const countCategory = resCategory.data.count;
 
-  return { countProducts, countOrders, countUsers, countCategory};
+  return {
+    countProducts,
+    countOrders,
+    countUsers,
+    countCategory,
+    orders: resOrders.data.data,
+  };
 };
 
 const HomeView = () => {
-  const { countProducts, countOrders, countUsers, countCategory} =
+  const { countProducts, countOrders, countUsers, countCategory, orders } =
     useLoaderData();
-  // const [chartData, setChartData] = useState(null);
 
   const CardData = [
     {
@@ -55,10 +73,42 @@ const HomeView = () => {
     },
   ];
 
-  // useEffect(() => {
-  //   const formatted = formatLineChart(resOrders.data.data);
-  //   setChartData(formatted);
-  // }, [resOrders]);
+  // LineChart: Order per tannggal
+  const orderPerDate = useMemo(() => {
+    const map = {};
+    orders.forEach((order) => {
+      const date = new Date(order.createdAt).toLocaleDateString("id-ID", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+      });
+      map[date] = (map[date] || 0) + 1;
+    });
+    return Object.entries(map).map(([date, count]) => ({
+      date,
+      count,
+    }));
+  }, [orders]);
+
+  // PieChart: Produk per kategori
+  const soldByCategory = useMemo(() => {
+    const categoryCount = {};
+
+    orders.forEach((order) => {
+      order.itemsDetail.forEach((item) => {
+        const category = item.category;
+        categoryCount[category] =
+          (categoryCount[category] || 0) + item.quantity;
+      });
+    });
+
+    return Object.entries(categoryCount).map(([name, value]) => ({
+      name,
+      value,
+    }));
+  }, [orders]);
+
+  const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#B25DFF"];
 
   return (
     <section id="dashboard" className="p-2 fm-2">
@@ -66,7 +116,7 @@ const HomeView = () => {
         <Row md="3" xs="1" lg="4" className="g-2">
           {CardData.map((card, index) => (
             <Col key={index}>
-              <div className="d-flex align-items-start gap-2 gap-md-3 p-3 border rounded border border-secondary shadow-md">
+              <div className="d-flex align-items-start gap-2 gap-md-3 p-3 rounded border border-secondary shadow-md">
                 <Link
                   to={card.path}
                   className={`flex-shrink-0 ${card.bgClass} text-decoration-none rounded d-flex align-items-center justify-content-center`}
@@ -83,16 +133,57 @@ const HomeView = () => {
           ))}
         </Row>
 
-        {/* <Row className="mt-5">
-          <Col>
-            {chartData && (
-              <div>
-                <h5 className="mb-3 fw-semibold">Grafik Total Transaksi</h5>
-                <Line key={JSON.stringify(chartData)} data={chartData} />
-              </div>
-            )}
+        <Row className="mt-1 g-3">
+          <Col lg={8} xs={12}>
+            <div className="p-3 border rounded shadow-sm h-100 border-secondary ">
+              <h6 className="mb-3">Orders by Date</h6>
+                <ResponsiveContainer width="100%" height={300}>
+                  <LineChart data={orderPerDate}>
+                    <CartesianGrid strokeDasharray="2 2" />
+                    <XAxis dataKey="date" />
+                    <YAxis allowDecimals={false} />
+                    <Tooltip />
+                    <Line
+                      type="monotone"
+                      dataKey="count"
+                      stroke="#FE5D26"
+                      strokeWidth={2}
+                    />
+                  </LineChart>
+                </ResponsiveContainer>
+      
+            </div>
           </Col>
-        </Row> */}
+
+          <Col lg={4} xs={12}>
+            <div className="p-3 border rounded shadow-sm h-100 border-secondary ">
+              <h6 className="mb-3">Sold by Category</h6>
+              <ResponsiveContainer width="100%" height={300}>
+                <PieChart width={400} height={300}>
+                  <Pie
+                    data={soldByCategory}
+                    dataKey="value"
+                    nameKey="name"
+                    cx="50%"
+                    cy="50%"
+                    outerRadius={100}
+                    fill="#8884d8"
+                    label
+                  >
+                    {soldByCategory.map((entry, index) => (
+                      <Cell
+                        key={`cell-${index}`}
+                        fill={COLORS[index % COLORS.length]}
+                      />
+                    ))}
+                  </Pie>
+                  <Legend />
+                  <Tooltip />
+                </PieChart>
+              </ResponsiveContainer>
+            </div>
+          </Col>
+        </Row>
       </Container>
     </section>
   );

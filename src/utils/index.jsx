@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react";
+
 // export const generateSelectAmount = (amount) => {
 //   return Array.from({ length: amount }, (_, index) => {
 //     const amount = index + 1
@@ -9,6 +11,7 @@
 //   })
 // }
 
+
 export const formatToIDR = (price) => {
   return new Intl.NumberFormat("id-ID", {
     style: "currency",
@@ -16,36 +19,27 @@ export const formatToIDR = (price) => {
   }).format(price);
 };
 
-export const formatLineChart = (orders) => {
-  const filtered = orders.filter((order) => order.status === "success");
+export const RealTimeClock = () => {
+  const [time, setTime] = useState("");
 
-  const labels = [];
-  const data = [];
+  useEffect(() => {
+    const updateTime = () => {
+      const now = new Date();
+      const formattedTime = now.toLocaleTimeString("en-GB", {
+        hour12: false, // 24 jam format
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+      });
+      setTime(formattedTime);
+    };
 
-  filtered.forEach((order) => {
-    const date = new Date(order.createdAt);
-    const label = date.toLocaleDateString("id-ID", {
-      day: "numeric",
-      month: "long",
-      year: "numeric",
-    });
+    updateTime(); // set waktu saat komponen mount
+    const intervalId = setInterval(updateTime, 1000); // update tiap detik
 
-    labels.push(label);
-    data.push(order.total);
-  });
+    return () => clearInterval(intervalId); // bersihkan interval saat unmount
+  }, []);
 
-  return {
-    labels,
-    datasets: [
-      {
-        label: "Total Transaksi Harian",
-        data,
-        borderColor: "rgba(75, 192, 192, 1)",
-        fill: false,
-        tension: 0.3,
-      },
-    ],
-  };
+  return <h5 className="fm-2 p-0 ms-3">{time}</h5>;
 };
-
 

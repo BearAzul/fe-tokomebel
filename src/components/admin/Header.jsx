@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import BlankImages from "../../assets/Image/blank_user.png"
+import { RealTimeClock } from "../../utils";
 
 const Header = ({ OpenSidebar }) => {
   const user = useSelector((state) => state.userState.user);
@@ -25,7 +26,7 @@ const Header = ({ OpenSidebar }) => {
         <button className="d-lg-none border-0 bg-transparent p-0 text-white">
           <i className="ri-menu-line" onClick={OpenSidebar}></i>
         </button>
-
+        <RealTimeClock />
         <div className="header-right d-flex ms-auto align-items-center">
           <button
             onClick={toggleFullScreen}
@@ -38,6 +39,7 @@ const Header = ({ OpenSidebar }) => {
               }
             ></i>
           </button>
+
           <p className="m-0 fm-2 fs-6 me-2 d-lg-block d-none">
             Welcome, {`${user.firstName} ${user.lastName}`}
           </p>

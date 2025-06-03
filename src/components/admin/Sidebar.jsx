@@ -78,8 +78,9 @@ const Sidebar = ({ openSidebarToggle, OpenSidebar }) => {
           <Link
             key={index}
             to={menu.path}
-            className={`sidebar-item p-2 text-decoration-none text-light py-3 px-4 w-100 ${location.pathname === menu.path ? "text-bg-secondary" : ""
-              }`}
+            className={`sidebar-item p-2 text-decoration-none text-light py-3 px-4 w-100 ${
+              location.pathname === menu.path ? "text-bg-secondary" : ""
+            }`}
           >
             <i className={`${menu.icon} me-2`}></i> {menu.title}
           </Link>
@@ -97,7 +98,7 @@ const Sidebar = ({ openSidebarToggle, OpenSidebar }) => {
       </Button>
       <hr />
       <p className="fs-7 text-center fm-3">
-        All Right Reserved. <br /> Toko Mebel 2024
+        All Right Reserved. <br /> Toko Mebel {new Date().getFullYear()}
       </p>
     </aside>
   );
