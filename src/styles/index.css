@@ -76,6 +76,7 @@ section {
   min-height: 100vh;
 }
 
+
 h1, h2, h3, h4, h5, h6, p {
   margin-bottom: 0;
 }
@@ -231,7 +232,7 @@ main {
   border-radius: 10px 10px 0 0;
 }
 
-.ql-container{
+.ql-container {
   border: none;
 }
 
@@ -267,7 +268,10 @@ main {
   }
 
   #register,
-  #login {
+  #login,
+  #verify,
+  #forgot,
+  #updatePassword {
     min-height: auto !important;
   }
 
@@ -307,6 +311,26 @@ main {
   .order__history>img {
     width: 50% !important;
   }
+
+  #register,
+  #login,
+  #verify,
+  #forgot,
+  #updatePassword {
+    min-height: 55dvh !important;
+  }
+
+}
+@media (min-width: 800px) {
+
+  #register,
+  #login,
+  #verify,
+  #forgot,
+  #updatePassword {
+    min-height: 60dvh !important;
+  }
+
 }
 
 @media (min-width: 1114px) {

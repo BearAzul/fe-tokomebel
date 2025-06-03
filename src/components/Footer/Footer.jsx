@@ -3,7 +3,7 @@ const Footer = () => {
   return (
     <footer
       id="footer"
-      className=" text-white text-center text-lg-start"
+      className="text-white text-center text-lg-start"
       style={{ backgroundColor: "#212529" }}
     >
       <div className="container p-4 pt-5">
