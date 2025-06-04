@@ -10,13 +10,13 @@ import { CartDirect } from "../components/Directlink.jsx";
 const TableHeader = [
   {
     id: 0,
-    title: "Product Details",
+    title: "Produk Detail",
     col: 6,
     align: "start",
   },
   {
     id: 1,
-    title: "Price",
+    title: "Harga",
     col: 3,
     align: "center",
   },
@@ -43,7 +43,7 @@ const Cart = () => {
   return (
     <>
       <section id="cart" className="pb-5 bg-secondary-subtle overflow-hidden">
-        <BannerHeader bannerTitle="CART" />
+        <BannerHeader bannerTitle="KERANJANG" />
         <Container
           className="my-5"
           style={{
@@ -55,7 +55,7 @@ const Cart = () => {
           <Row lg="2" className="gx-2 g-md-0 h-max-content">
             <Col lg="8" className="p-3 bg-white">
               <div className="title__cart d-flex justify-content-between align-items-center w-100 pb-3 mb-3 border-bottom border-2 border-secondary-subtle">
-                <h1 className="m-0 fs-5 fw-bold fm-2">Shopping Cart</h1>
+                <h1 className="m-0 fs-5 fw-bold fm-2">Keranjang Belanja</h1>
                 <p className="m-0 fw-semibold fm-2">{numItems} items</p>
               </div>
               <Row
@@ -72,7 +72,7 @@ const Cart = () => {
                 <Row>
                   <Col xs="12">
                     <h1 className="text-center py-5 fs-6 fw-semibold m-0 fst-italic">
-                      Your Cart is empty
+                      Keranjang Anda Kosong
                     </h1>
                   </Col>
                 </Row>
@@ -84,7 +84,7 @@ const Cart = () => {
             </Col>
             <Col lg="4" className="p-3 bg-dark-subtle h-max-content">
               <div className="title__shipping d-flex justify-content-between align-items-center w-100 pb-3 mb-3 border-bottom border-2 border-secondary">
-                <h1 className="m-0 fs-5 fw-bold fm-2">Order Summary</h1>
+                <h1 className="m-0 fs-5 fw-bold fm-2">Ringkasan Pesanan</h1>
               </div>
               <div className="order__summary fm-2">
                 <table className="w-100">

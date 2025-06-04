@@ -1,4 +1,4 @@
-import PropTypes from "prop-types"
+import PropTypes from "prop-types";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
@@ -20,15 +20,32 @@ const modules = {
   ],
 };
 
-
-export const FormInput = ({label, name, type, defaultValue, placeHolder, className, disabled = false}) => {
+export const FormInput = ({
+  label,
+  name,
+  type,
+  defaultValue,
+  placeHolder,
+  className,
+  disabled = false,
+}) => {
   return (
     <>
-      <label htmlFor={name} className="form-label">{label}</label>
-      <input type={type} className={`form-control form-control-sm ${className}`} id={name} name={name} defaultValue={defaultValue} placeholder={placeHolder} disabled={disabled} />
+      <label htmlFor={name} className="form-label">
+        {label} <span className="text-danger">*</span>
+      </label>
+      <input
+        type={type}
+        className={`form-control form-control-sm ${className}`}
+        id={name}
+        name={name}
+        defaultValue={defaultValue}
+        placeholder={placeHolder}
+        disabled={disabled}
+      />
     </>
-  )
-}
+  );
+};
 
 export const FormTextarea = ({
   label,
@@ -42,7 +59,7 @@ export const FormTextarea = ({
   return (
     <>
       <label htmlFor={name} className="form-label">
-        {label}
+        {label} <span className="text-danger">*</span>
       </label>
       <textarea
         className={`form-control form-control-sm ${className}`}
@@ -68,7 +85,7 @@ export const FormSelect = ({
   return (
     <>
       <label htmlFor={name} className="form-label">
-        {label}
+        {label} <span className="text-danger">*</span>
       </label>
       <select
         className={`form-select form-select-sm ${className}`}
@@ -92,10 +109,18 @@ export const FormSelect = ({
   );
 };
 
-export const FormEditor = ({ label, value, onChange, className, placeHolder }) => {
+export const FormEditor = ({
+  label,
+  value,
+  onChange,
+  className,
+  placeHolder,
+}) => {
   return (
     <div className={`form-editor ${className}`}>
-      <label className="form-label">{label}</label>
+      <label className="form-label">
+        {label} <span className="text-danger">*</span>
+      </label>
       <ReactQuill
         theme="snow"
         value={value}
@@ -108,7 +133,6 @@ export const FormEditor = ({ label, value, onChange, className, placeHolder }) =
   );
 };
 
-
 FormInput.propTypes = {
   label: PropTypes.string,
   name: PropTypes.string.isRequired,
@@ -116,7 +140,7 @@ FormInput.propTypes = {
   placeHolder: PropTypes.string.isRequired,
   defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   className: PropTypes.string,
-  disabled: PropTypes.bool
+  disabled: PropTypes.bool,
 };
 FormTextarea.propTypes = {
   label: PropTypes.string,

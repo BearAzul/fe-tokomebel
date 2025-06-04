@@ -7,7 +7,7 @@ export function CategoryDirect() {
         Dashboard
       </Link>
       <span> &gt; </span>
-      <p>Categories</p>
+      <p>Kategori</p>
     </div>
   );
 }
@@ -19,10 +19,10 @@ export function AddCategoryDirect() {
       </Link>
       <span> &gt; </span>
       <Link to="/admin/category" className="text-white-50 text-decoration-none">
-        Categories
+        Kategori
       </Link>
       <span> &gt; </span>
-      <p>Add Category</p>
+      <p>Tambah Kategori</p>
     </div>
   );
 }
@@ -34,10 +34,10 @@ export function EditCategoryDirect() {
       </Link>
       <span> &gt; </span>
       <Link to="/admin/category" className="text-white-50 text-decoration-none">
-        Categories
+        Kategori
       </Link>
       <span> &gt; </span>
-      <p>Edit Category</p>
+      <p>Edit Kategori</p>
     </div>
   );
 }
@@ -51,7 +51,7 @@ export function ProductsDirect() {
         Dashboard
       </Link>
       <span> &gt; </span>
-      <p>Products</p>
+      <p>Produk Mebel</p>
     </div>
   );
 }
@@ -63,10 +63,10 @@ export function AddProductDirect() {
       </Link>
       <span> &gt; </span>
       <Link to="/admin/products" className="text-white-50 text-decoration-none">
-        Products
+        Produk Mebel
       </Link>
       <span> &gt; </span>
-      <p>Add Product</p>
+      <p>Tambah Mebel</p>
     </div>
   );
 }
@@ -78,10 +78,10 @@ export function EditProductDirect() {
       </Link>
       <span> &gt; </span>
       <Link to="/admin/products" className="text-white-50 text-decoration-none">
-        Products
+        Produk Mebel
       </Link>
       <span> &gt; </span>
-      <p>Edit Product</p>
+      <p>Edit Mebel</p>
     </div>
   );
 }
@@ -95,7 +95,7 @@ export function OrdersDirect() {
         Dashboard
       </Link>
       <span> &gt; </span>
-      <p>Orders</p>
+      <p>Daftar Pesanan</p>
     </div>
   );
 }
@@ -107,10 +107,10 @@ export function DetailOrderDirect() {
       </Link>
       <span> &gt; </span>
       <Link to="/admin/orders" className="text-white-50 text-decoration-none">
-        Orders
+        Daftar Pesanan
       </Link>
       <span> &gt; </span>
-      <p>Order Detail</p>
+      <p>Detail Pesanan</p>
     </div>
   );
 }
@@ -124,7 +124,7 @@ export function CustomersDirect() {
         Dashboard
       </Link>
       <span> &gt; </span>
-      <p>Customers</p>
+      <p>Daftar Pelanggan</p>
     </div>
   );
 }
@@ -139,10 +139,10 @@ export function EditCustomerDirect() {
         to="/admin/customers"
         className="text-white-50 text-decoration-none"
       >
-        Customers
+        Daftar Pelanggan
       </Link>
       <span> &gt; </span>
-      <p>Edit Customers</p>
+      <p>Edit Pelanggan</p>
     </div>
   );
 }
@@ -154,10 +154,10 @@ export function ShopDirect() {
   return (
     <div className="d-flex gap-2 fm-2 fs-7 mb-3 text-dark">
       <Link to="/" className="text-body-secondary text-decoration-none">
-        Home
+        Beranda
       </Link>
       <span> &gt; </span>
-      <p>Shop</p>
+      <p>Katalog</p>
     </div>
   );
 }
@@ -165,11 +165,11 @@ export function ProductDetailDirect() {
   return (
     <div className="d-flex gap-2 fm-2 fs-7 mb-3 text-dark">
       <Link to="/" className="text-body-secondary text-decoration-none">
-        Home
+        Beranda
       </Link>
       <span> &gt; </span>
       <Link to="/shop" className="text-body-secondary text-decoration-none">
-        Shop
+        Katalog
       </Link>
       <span> &gt; </span>
       <p>Detail</p>
@@ -183,10 +183,10 @@ export function ProfileDirect() {
   return (
     <div className="d-flex gap-2 fm-2 fs-7 mb-3 text-dark">
       <Link to="/" className="text-body-secondary text-decoration-none">
-        Home
+        Beranda
       </Link>
       <span> &gt; </span>
-      <p>Profile</p>
+      <p>Profil</p>
     </div>
   );
 }
@@ -194,14 +194,14 @@ export function HistoryDirect() {
   return (
     <div className="d-flex gap-2 fm-2 fs-7 mb-3 text-dark">
       <Link to="/" className="text-body-secondary text-decoration-none">
-        Home
+        Beranda
       </Link>
       <span> &gt; </span>
       <Link to="/profile" className="text-body-secondary text-decoration-none">
-        Profile
+        Profil
       </Link>
       <span> &gt; </span>
-      <p>Order History</p>
+      <p>Riwayat Pesanan</p>
     </div>
   );
 }
@@ -212,10 +212,10 @@ export function CartDirect() {
   return (
     <div className="d-flex gap-2 fm-2 fs-7 mb-3 text-dark">
       <Link to="/shop" className="text-body-secondary text-decoration-none">
-        Shop
+        Katalog
       </Link>
       <span> &gt; </span>
-      <p>Cart</p>
+      <p>Keranjang</p>
     </div>
   );
 }
@@ -223,14 +223,14 @@ export function CheckoutDirect() {
   return (
     <div className="d-flex gap-2 fm-2 fs-7 mb-3 text-dark">
       <Link to="/shop" className="text-body-secondary text-decoration-none">
-        Shop
+        Katalog
       </Link>
       <span> &gt; </span>
       <Link to="/cart" className="text-body-secondary text-decoration-none">
-        Cart
+        Keranjang
       </Link>
       <span> &gt; </span>
-      <p>Payment</p>
+      <p>Pembayaran</p>
     </div>
   );
 }

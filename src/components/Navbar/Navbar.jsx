@@ -52,16 +52,16 @@ const NavbarPage = () => {
           <Navbar.Collapse id="basic-navbar-nav" className="mt-4 mt-lg-0">
             <Nav className="mx-auto w-50 text-center text-uppercase">
               <HashLink to="/#home" className="nav-link">
-                Home
+                Beranda
               </HashLink>
               <NavLink to="/shop" className="nav-link">
-                Shop
+                Katalog
               </NavLink>
               <HashLink to="/#customize" className="nav-link">
-                Customize
+                Desain
               </HashLink>
               <HashLink smooth to="/#recent" className="nav-link">
-                Style Guide
+                Setup Ruangan
               </HashLink>
             </Nav>
           </Navbar.Collapse>

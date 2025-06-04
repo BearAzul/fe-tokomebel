@@ -41,7 +41,7 @@ const Header = ({ OpenSidebar }) => {
           </button>
 
           <p className="m-0 fm-2 fs-6 me-2 d-lg-block d-none">
-            Welcome, {`${user.firstName} ${user.lastName}`}
+            Selamat Datang, {`${user.firstName} ${user.lastName}`}
           </p>
           <div
             style={{ width: "35px", height: "35px" }}

@@ -75,7 +75,7 @@ const ShopPage = () => {
   return (
     <>
       <section id="shop" className="bg-light pb-4 overflow-hidden">
-        <BannerHeader bannerTitle="SHOP" />
+        <BannerHeader bannerTitle="KATALOG" />
         <Container className="my-4">
           <ShopDirect />
           <Row md="2" className="g-0 g-md-3 g-lg-5 ">

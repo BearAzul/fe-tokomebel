@@ -32,7 +32,7 @@ const RecentSection = () => {
             <p className="text-orange py-1 px-2 border border-secondary max-content mx-auto fm-1 fs-7 fw-bold fst-italic mb-1">
               Recently
             </p>
-            <h3 className="text-dark-dark fm-2 fs-4 fw-bold">Recent Project</h3>
+            <h3 className="text-dark-dark fm-2 fs-4 fw-bold">TATA LETAK RUANGAN</h3>
           </div>
           <Row
             md="2"
@@ -49,7 +49,7 @@ const RecentSection = () => {
                     <div className="text-dark-dark d-flex gap-2">
                       <span>01.</span>
                       <p className="text-dark-dark m-0 text-start">
-                        GUEST SITTING ROOM
+                        PENGATURAN RUANG TAMU
                       </p>
                     </div>
                     <i className="text-dark-dark ri-arrow-right-up-fill"></i>
@@ -62,7 +62,7 @@ const RecentSection = () => {
                     <div className="text-dark-dark d-flex gap-2">
                       <span>02.</span>
                       <p className="text-dark-dark m-0 text-start">
-                        CONVENTION HALL DECORATION
+                        DEKORASI GEDUNG KONVENSI
                       </p>
                     </div>
                     <i className="text-dark-dark ri-arrow-right-up-fill"></i>
@@ -75,7 +75,7 @@ const RecentSection = () => {
                     <div className="text-dark-dark d-flex gap-2">
                       <span>03.</span>
                       <p className="text-dark-dark m-0 text-start">
-                        RYLIC INTERIOR STUDIO SETUP
+                        PENATAAN INTERIOR STUDIO
                       </p>
                     </div>
                     <i className="text-dark-dark ri-arrow-right-up-fill"></i>
@@ -97,7 +97,7 @@ const RecentSection = () => {
                     alt="Image Project 1"
                   />
                   <Carousel.Caption className="fm-3 bg-dark py-1 px-2">
-                    <p className="m-0">01. GUEST SITTING ROOM</p>
+                    <p className="m-0">01. PENGATURAN RUANG TAMU</p>
                   </Carousel.Caption>
                 </Carousel.Item>
                 <Carousel.Item>
@@ -107,7 +107,7 @@ const RecentSection = () => {
                     alt="Image Project 2"
                   />
                   <Carousel.Caption className="fm-3 bg-dark py-1 px-2">
-                    <p className="m-0">02. CONVENTION HALL DECORATION</p>
+                    <p className="m-0">02. DEKORASI GEDUNG KONVENSI</p>
                   </Carousel.Caption>
                 </Carousel.Item>
                 <Carousel.Item>
@@ -117,7 +117,7 @@ const RecentSection = () => {
                     alt="Image Project 3"
                   />
                   <Carousel.Caption className="fm-3 bg-dark py-1 px-2">
-                    <p className="m-0">03. RYLIC INTERIOR STUDIO SETUP</p>
+                    <p className="m-0">03. PENATAAN INTERIOR STUDIO</p>
                   </Carousel.Caption>
                 </Carousel.Item>
               </Carousel>

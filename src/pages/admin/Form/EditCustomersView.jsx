@@ -67,7 +67,7 @@ const EditCustomersView = () => {
     <section className="fm-2">
       <Container>
         <EditCustomerDirect />
-        <h5 className="my-3">Edit a Customer Data</h5>
+        <h5 className="my-3">Edit Profil Pelanggan</h5>
         {customer ? (
           <form
             className="border border-secondary rounded p-3"
@@ -79,8 +79,8 @@ const EditCustomersView = () => {
                 <FormInput
                   name="firstName"
                   type="text"
-                  label="First Name:"
-                  placeHolder="Enter Customer First Name"
+                  label="Nama Depan:"
+                  placeHolder="Masukkan Nama Depan Pelanggan"
                   defaultValue={customer.firstName}
                 />
               </Col>
@@ -88,8 +88,8 @@ const EditCustomersView = () => {
                 <FormInput
                   name="lastName"
                   type="text"
-                  label="Last Name:"
-                  placeHolder="Enter Customer Last Name"
+                  label="Nama Belakang:"
+                  placeHolder="Masukkan Nama Belakang Pelanggan"
                   defaultValue={customer.lastName}
                 />
               </Col>
@@ -98,7 +98,7 @@ const EditCustomersView = () => {
                   name="phone"
                   type="number"
                   label="No. Telp:"
-                  placeHolder="Enter Customer Phone"
+                  placeHolder="Masukkan No. Telp Pelanggan"
                   readOnly
                   defaultValue={customer.phone}
                 />
@@ -108,7 +108,7 @@ const EditCustomersView = () => {
                   name="email"
                   type="email"
                   label="Email:"
-                  placeHolder="Enter Customer Email"
+                  placeHolder="Masukkan Email Valid Pelanggan"
                   readOnly
                   defaultValue={customer.email}
                 />
@@ -116,7 +116,7 @@ const EditCustomersView = () => {
               <Col>
                 <FormSelect
                   name="gender"
-                  label="Gender:"
+                  label="Jenis Kelamin:"
                   defaultValue={customer.gender}
                   options={genders}
                 />
@@ -125,16 +125,16 @@ const EditCustomersView = () => {
                 <FormInput
                   name="city"
                   type="text"
-                  label="City:"
-                  placeHolder="Enter Customer City"
+                  label="Kabupaten/Kota:"
+                  placeHolder="Masukkan Kabupaten/Kota Pelanggan"
                   defaultValue={customer.city}
                 />
               </Col>
               <Col md="12" lg="12">
                 <FormTextarea
                   name="address"
-                  label="Address:"
-                  placeHolder="Enter Customer Address"
+                  label="Alamat Lengkap:"
+                  placeHolder="Masukkan Alamat Lengkap Pelanggan"
                   defaultValue={customer.address}
                   Row={3}
                 />

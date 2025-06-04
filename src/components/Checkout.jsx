@@ -13,10 +13,7 @@ const insertSnapScript = () => {
   return new Promise((resolve) => {
     const script = document.createElement("script");
     script.src = "https://app.sandbox.midtrans.com/snap/snap.js";
-    script.setAttribute(
-      "data-client-key",
-      import.meta.env.MIDTRANS_CLIENT_KEY
-    );
+    script.setAttribute("data-client-key", import.meta.env.MIDTRANS_CLIENT_KEY);
     script.onload = () => resolve();
     document.body.appendChild(script);
   });
@@ -103,9 +100,9 @@ const Checkout = () => {
       <div className="d-flex align-items-center gap-3">
         <Link to="/cart" className="btn btn-primary fm-2 btn-sm">
           <i className="ri-arrow-left-circle-line me-2"></i>
-          Back
+          Kembali
         </Link>
-        <p className="m-0 fs-5 fw-semibold fm-4">Shipping Information</p>
+        <p className="m-0 fs-5 fw-semibold fm-4">Informasi Pengiriman</p>
       </div>
       <hr />
       <form method="POST" onSubmit={handlePayment} className="fm-2">
@@ -120,7 +117,10 @@ const Checkout = () => {
                 defaultValue={currentUser.firstName}
                 readOnly
               />
-              <label htmlFor="fullname">First Name</label>
+              <label htmlFor="fullname">
+                Nama Depan
+                <span className="text-danger">*</span>
+              </label>
             </div>
           </Col>
           <Col>
@@ -133,7 +133,10 @@ const Checkout = () => {
                 defaultValue={currentUser.lastName}
                 readOnly
               />
-              <label htmlFor="lastName">Last Name</label>
+              <label htmlFor="lastName">
+                Nama Belakang
+                <span className="text-danger">*</span>
+              </label>
             </div>
           </Col>
           <Col md="12">
@@ -146,7 +149,10 @@ const Checkout = () => {
                 defaultValue={currentUser.email}
                 readOnly
               />
-              <label htmlFor="email">Email</label>
+              <label htmlFor="email">
+                Email
+                <span className="text-danger">*</span>
+              </label>
             </div>
           </Col>
           <Col>
@@ -159,7 +165,10 @@ const Checkout = () => {
                 defaultValue={currentUser.phone}
                 readOnly
               />
-              <label htmlFor="phone">No. Telp</label>
+              <label htmlFor="phone">
+                No. Telp
+                <span className="text-danger">*</span>
+              </label>
             </div>
           </Col>
           <Col>
@@ -172,7 +181,10 @@ const Checkout = () => {
                 defaultValue={currentUser.city}
                 readOnly
               />
-              <label htmlFor="city">City</label>
+              <label htmlFor="city">
+                Kabupaten/Kota
+                <span className="text-danger">*</span>
+              </label>
             </div>
           </Col>
           <Col md="12">
@@ -185,7 +197,10 @@ const Checkout = () => {
                 readOnly
                 style={{ height: "100px" }}
               ></textarea>
-              <label htmlFor="address">Address</label>
+              <label htmlFor="address">
+                Alamat Lengkap
+                <span className="text-danger">*</span>
+              </label>
             </div>
           </Col>
         </Row>
@@ -205,7 +220,9 @@ const Checkout = () => {
               <tr>
                 <td className="fw-medium">Total</td>
                 <td>:</td>
-                <td className="text-end">{formatToIDR(cartTotal + delivery)}</td>
+                <td className="text-end">
+                  {formatToIDR(cartTotal + delivery)}
+                </td>
               </tr>
             </tbody>
           </table>

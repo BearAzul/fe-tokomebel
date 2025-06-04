@@ -23,7 +23,7 @@ const OrderDetailView = () => {
   let delivery = 80000;
   const columns = [
     {
-      name: "Product",
+      name: "Produk Mebel",
       selector: (row) => (
         <div className="d-inline-flex gap-2 p-2 fm-2">
           <figure
@@ -52,7 +52,7 @@ const OrderDetailView = () => {
       center: true,
     },
     {
-      name: "Price",
+      name: "Harga",
       selector: (row) => formatToIDR(row.price),
       width: "150px",
     },
@@ -68,7 +68,7 @@ const OrderDetailView = () => {
       <Container>
         <DetailOrderDirect />
         <h6 className="mb-2">
-          Order ID: <span className="text-warning">#{detailOrder._id}</span>
+          ID Pesanan: <span className="text-warning">#{detailOrder._id}</span>
         </h6>
         <Row lg="2" className="g-3">
           <Col lg="8">
@@ -81,21 +81,24 @@ const OrderDetailView = () => {
             <Card className="border border-secondary text-bg-dark">
               <Card.Body>
                 <Card.Title className="border-bottom pb-2 border-secondary">
-                  Customer Detail
+                  Detail Pelanggan
                 </Card.Title>
 
                 <Table responsive className="table-dark">
                   <tbody>
                     <tr>
-                      <td>Name</td>
+                      <td>Nama Lengkap</td>
+                      <td>:</td>
                       <td className="text-end">{`${detailOrder.firstName} ${detailOrder.lastName} `}</td>
                     </tr>
                     <tr>
                       <td>No.Telp</td>
+                      <td>:</td>
                       <td className="text-end">{detailOrder.phone}</td>
                     </tr>
                     <tr>
                       <td>Email</td>
+                      <td>:</td>
                       <td className="text-end">{detailOrder.email}</td>
                     </tr>
                   </tbody>
@@ -107,7 +110,7 @@ const OrderDetailView = () => {
             <Card className="text-bg-dark border border-secondary mb-3">
               <Card.Body>
                 <Card.Title className="border-bottom border-secondary pb-2">
-                  Status Payment
+                  Status Pembayaran
                 </Card.Title>
                 <div className="d-flex gap-3">
                   <figure
@@ -144,15 +147,15 @@ const OrderDetailView = () => {
             <Card className="border border-secondary text-bg-dark mb-3">
               <Card.Body>
                 <Card.Title className="border-bottom border-secondary pb-2">
-                  Order Summary{" "}
+                 Ringkasan
                   <span className="text-bg-warning fs-7 px-2 py-1 rounded ms-2">
-                    On The Way
+                    Dalam Perjalanan
                   </span>
                 </Card.Title>
                 <table className="w-100 fs-7">
                   <tbody>
                     <tr>
-                      <td>Order Created</td>
+                      <td>Pesanan Dibuat</td>
                       <td>:</td>
                       <td className="text-end">
                         {new Date(detailOrder.createdAt).toLocaleString()}
@@ -166,7 +169,7 @@ const OrderDetailView = () => {
                       </td>
                     </tr>
                     <tr>
-                      <td>Delivery Fee</td>
+                      <td>Ongkos Kirim</td>
                       <td>:</td>
                       <td className="text-end">{formatToIDR(delivery)}</td>
                     </tr>
@@ -184,7 +187,7 @@ const OrderDetailView = () => {
             <Card className="border border-secondary text-bg-dark">
               <Card.Body>
                 <Card.Title className="border-bottom pb-2 border-secondary">
-                  Delivery Address
+                  Alamat Pelanggan
                 </Card.Title>
                 <p>{detailOrder.city}</p>
                 <p>{detailOrder.address}</p>

@@ -117,7 +117,7 @@ const ProfilePage = () => {
       id="profile"
       className="bg-white overflow-hidden bg-body-secondary"
     >
-      <BannerHeader bannerTitle="Profile" />
+      <BannerHeader bannerTitle="PROFIL" />
       <Container className="py-3 py-md-5">
         <ProfileDirect />
         <form onSubmit={handleSubmit} encType="multipart/form-data">
@@ -168,7 +168,7 @@ const ProfilePage = () => {
                     to="/orders"
                     className="btn btn-primary btn-sm fm-2 border w-100"
                   >
-                    Order History
+                    Riwayat Pesanan
                   </Link>
                 </div>
               )}
@@ -177,26 +177,26 @@ const ProfilePage = () => {
               <Card>
                 <Card.Body className="fm-2 p-0">
                   <Card.Title className="fw-bold border-bottom p-3 text-dark-green text-white">
-                    Personal Information
+                    Informasi Pribadi
                   </Card.Title>
                   <Card.Text className="fs-7 px-3 mb-2">
                     <Row md="2" className="g-2">
                       <Col>
                         <FormInput
-                          label="First Name:"
+                          label="Nama Depan:"
                           type="text"
                           name="firstName"
-                          placeHolder="Enter your firstname"
+                          placeHolder="Masukkan Nama Depan Anda"
                           defaultValue={currentUser.firstName}
                           disabled={!edit}
                         />
                       </Col>
                       <Col>
                         <FormInput
-                          label="Last Name:"
+                          label="Nama Belakang:"
                           type="text"
                           name="lastName"
-                          placeHolder="Enter your lastname"
+                          placeHolder="Masukkan Nama Belakang Anda"
                           defaultValue={currentUser.lastName}
                           disabled={!edit}
                         />
@@ -205,7 +205,7 @@ const ProfilePage = () => {
                   </Card.Text>
                   <Card.Text className="fs-7 px-3 mb-3">
                     <FormSelect
-                      label="Gender:"
+                      label="Jenis Kelamin:"
                       name="gender"
                       defaultValue={currentUser.gender}
                       options={genders.map((gender) => ({
@@ -223,14 +223,14 @@ const ProfilePage = () => {
                           label="Email:"
                           type="email"
                           name="email"
-                          placeHolder="Enter your email address"
+                          placeHolder="Masukkan Email Valid Anda"
                           defaultValue={currentUser.email}
                           disabled={!edit}
                         />
                       </Col>
                       <Col>
                         <label htmlFor="phone" className="form-label">
-                          Phone Number:
+                          No. Telepon: <span className="text-danger">*</span>
                         </label>
                         <input
                           type="number"
@@ -240,25 +240,25 @@ const ProfilePage = () => {
                           minLength={11}
                           maxLength={13}
                           defaultValue={currentUser.phone}
-                          placeholder="Enter your phone number"
+                          placeholder="Masukkan No. Telp Anda"
                           disabled={!edit}
                         />
                       </Col>
                       <Col lg="12">
                         <FormInput
-                          label="City:"
+                          label="Kabupaten/Kota:"
                           type="text"
                           name="city"
-                          placeHolder="Enter your city"
+                          placeHolder="Masukkan Kabupaten/Kota Anda"
                           defaultValue={currentUser.city}
                           disabled={!edit}
                         />
                       </Col>
                       <Col lg="12">
                         <FormTextarea
-                          label="Address:"
+                          label="Alamat Lengkap:"
                           name="address"
-                          placeHolder="Enter your address"
+                          placeHolder="Masukkan Alamat Lengkap Anda"
                           defaultValue={currentUser.address}
                           Row={3}
                           disabled={!edit}

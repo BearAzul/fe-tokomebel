@@ -64,7 +64,7 @@ const AddProductView = () => {
     <section className="fm-2">
       <Container>
         <AddProductDirect />
-        <h5 className="my-3">Add a New Product</h5>
+        <h5 className="my-3">Tambah Produk Mebel</h5>
         <form
           className="border border-secondary rounded p-3"
           onSubmit={handleSubmit}
@@ -75,30 +75,30 @@ const AddProductView = () => {
               <FormInput
                 name="name"
                 type="text"
-                label="Product Name:"
-                placeHolder="Enter Product Name"
+                label="Nama Produk Mebel:"
+                placeHolder="Masukkan Nama Produk Mebel"
               />
             </Col>
             <Col>
               <FormInput
                 name="stock"
                 type="number"
-                label="Stock:"
-                placeHolder="Enter Product Stock"
+                label="Stok:"
+                placeHolder="Masukkan Stok Mebel"
               />
             </Col>
             <Col>
               <FormInput
                 name="price"
                 type="number"
-                label="Price:"
-                placeHolder="Enter Product Price"
+                label="Harga:"
+                placeHolder="Masukkan Harga Mebel"
               />
             </Col>
             <Col>
               <FormSelect
                 name="category"
-                label="Category:"
+                label="Kategori:"
                 options={categories.map((category) => ({
                   value: category._id,
                   label: category.name,
@@ -109,21 +109,21 @@ const AddProductView = () => {
               <FormInput
                 name="summary"
                 type="text"
-                label="Summary:"
-                placeHolder="Enter Summary Product"
+                label="Ringkasan:"
+                placeHolder="Masukkan Ringkasan Produk Mebel"
               />
             </Col>
             <Col md="12" lg="12">
               <FormEditor
-                label="Description:"
+                label="Deskripsi:"
                 value={desc}
                 onChange={setDesc}
-                placeHolder="Enter Product Description"
+                placeHolder="Masukkkan Deskripsi Mebel"
               />
             </Col>
             <Col lg="8">
               <label htmlFor="image" className="form-label">
-                choose Images:
+                Pilih Gambar Mebel:
               </label>
               <input
                 type="file"

@@ -10,17 +10,18 @@ const Footer = () => {
         <div className="row mt-4">
           <div className="col-lg-4 col-md-12 mb-4 mb-md-0">
             <h5 className="text-uppercase mb-4 fm-3 fw-bold">
-              About Toko<span className="text-orange">Mebel</span>{" "}
+              Tentang Toko<span className="text-orange">Mebel</span>{" "}
             </h5>
             <p className="fm-2 fs-7 mb-2">
-              We are a TokoMebel committed to bringing comfort and beauty to
-              every home with high-quality products and elegant designs.
-              Bringing comfort and style to your home with premium furniture.
+              Toko Mebel adalah Aplikasi penyedia furniture dari Toko Mebel Amanah yang terpercaya dengan
+              menghadirkan produk mebel berkualitas tinggi dengan harga
+              terjangkau. Kami menyediakan berbagai macam pilihan mebel dari
+              kayu jati, mahoni, dan bahan berkualitas lainnya yang dikerjakan
+              langsung oleh pengrajin berpengalaman.
             </p>
             <p className="fm-2 fs-7">
-              With a vision to become the leading choice in the furniture
-              industry, we constantly strive to deliver the best through design
-              innovation and excellent service.
+              Toko Mebel Amanah juga melayani pemesanan custom sesuai keinginan,
+              serta memberikan pelayanan pengiriman yang aman dan tepat waktu.
             </p>
             {/* <div className="mt-4 d-flex gap-2 media">
               <a type="button" className="btn btn-warning ">
@@ -40,7 +41,7 @@ const Footer = () => {
 
           <div className="col-lg-4 col-md-6 mb-4 mb-md-0">
             <h5 className="text-uppercase mb-4 pb-1 fm-3 fw-bold">
-              Contact Us
+              Kontak Kami
             </h5>
 
             <ul className="list-unstyled fm-2 fs-7">
@@ -57,7 +58,7 @@ const Footer = () => {
                 <span className="fa-li">
                   <i className="ri-mail-line" />
                 </span>
-                <span className="ms-2">wahyono@gmail.com</span>
+                <span className="ms-2">tokoamanahmebel@gmail.com</span>
               </li>
               <li className="mb-3">
                 <span className="fa-li">
@@ -68,20 +69,23 @@ const Footer = () => {
             </ul>
           </div>
           <div className="col-lg-4 col-md-6 mb-4 mb-md-0">
-            <h5 className="text-uppercase mb-4 fm-3 fw-bold">Opening hours</h5>
+            <h5 className="text-uppercase mb-4 fm-3 fw-bold">Buka Pada Jam:</h5>
             <table className="table table-dark">
               <tbody className="font-weight-normal fm-2 fs-7">
                 <tr>
-                  <td>Mon - Thu:</td>
-                  <td>8am - 9pm</td>
+                  <td>Senin - Kamis</td>
+                  <td>:</td>
+                  <td>08:00 - 17:30 WIB</td>
                 </tr>
                 <tr>
-                  <td>Fri - Sat:</td>
-                  <td>8am - 1am</td>
+                  <td>Jum`at - Sabtu:</td>
+                  <td>:</td>
+                  <td>08:00 - 11:00 WIB</td>
                 </tr>
                 <tr>
-                  <td>Sunday:</td>
-                  <td>9am - 10pm</td>
+                  <td>Minggu</td>
+                  <td>:</td>
+                  <td>Libur</td>
                 </tr>
               </tbody>
             </table>

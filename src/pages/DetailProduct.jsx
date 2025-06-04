@@ -67,7 +67,7 @@ const DetailProduct = () => {
   return (
     <>
       <section id="detailProduct" className="bg-secondary-subtle">
-        <BannerHeader bannerTitle="Detail Product" />
+        <BannerHeader bannerTitle="Detail Mebel" />
         <Container className="pt-5 pb-5">
           <ProductDetailDirect />
           <div className="detail__items">
@@ -99,17 +99,17 @@ const DetailProduct = () => {
                     {detailProducts.name}
                   </h1>
                   <p className="mb-2 fs-7">{detailProducts.summary}</p>
-                  <p className="fw-medium">
+                  <p className="fw-medium mb-2">
                     {formatToIDR(detailProducts.price)}
                   </p>
-                  <div className="d-flex align-items-center gap-1 mb-3 fs-7">
+                  {/* <div className="d-flex align-items-center gap-1 mb-3 fs-7">
                     <i className="ri-star-line"></i>
                     <i className="ri-star-line"></i>
                     <i className="ri-star-line"></i>
                     <i className="ri-star-line"></i>
                     <i className="ri-star-line"></i>
                     (0.0)
-                  </div>
+                  </div> */}
                   <div className="fm-3 fs-7 fw-semibold text-bg-dark max-content py-1 px-2 rounded mb-3">
                     {detailProducts.category.name}
                   </div>

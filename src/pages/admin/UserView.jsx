@@ -77,7 +77,7 @@ const UserView = () => {
   return (
     <section className="fm-2">
       <Container>
-        <h5 className="mb-3">Admin Profile</h5>
+        <h5 className="mb-3">Profil Admin</h5>
         <form onSubmit={handleUpdate} encType="multipart/form-data">
           <Card className="border border-secondary text-bg-dark p-4">
             <div className="d-flex gap-3 align-items-start flex-wrap mb-3 mb-md-0">
@@ -106,8 +106,8 @@ const UserView = () => {
                 <FormInput
                   name="firstName"
                   type="text"
-                  label="First Name:"
-                  placeHolder="Enter Your First Name"
+                  label="Nama Depan:"
+                  placeHolder="Masukkan Nama Depan"
                   defaultValue={identity.firstName}
                 />
               </Col>
@@ -115,14 +115,14 @@ const UserView = () => {
                 <FormInput
                   name="lastName"
                   type="text"
-                  label="Last Name"
+                  label="Nama Belakang:"
                   placeHolder="Enter Your Last Name"
                   defaultValue={identity.lastName}
                 />
               </Col>
               <Col>
                 <label htmlFor="phone" className="form-label">
-                  Phone:
+                  No. Telp: <span className="text-danger">*</span>
                 </label>
                 <input
                   type="number"
@@ -132,22 +132,22 @@ const UserView = () => {
                   minLength={11}
                   maxLength={13}
                   defaultValue={identity.phone}
-                  placeholder="Enter your phone number"
+                  placeholder="Masukkan No. Telp (+62)"
                 />
               </Col>
               <Col>
                 <FormInput
                   name="email"
                   type="email"
-                  label="Email"
-                  placeHolder="Enter Your Email Address"
+                  label="Email:"
+                  placeHolder="Masukkan Email Valid"
                   defaultValue={identity.email}
                 />
               </Col>
               <Col xs="6">
                 <FormSelect
                   name="gender"
-                  label="Gender:"
+                  label="Jenis Kelamin:"
                   options={gender}
                   defaultValue={identity.gender}
                 />
@@ -156,16 +156,16 @@ const UserView = () => {
                 <FormInput
                   name="city"
                   type="text"
-                  label="City:"
-                  placeHolder="Enter Your City"
+                  label="Kabupaten/Kota:"
+                  placeHolder="Masukkan Kabupaten/Kota"
                   defaultValue={identity.city}
                 />
               </Col>
               <Col lg="12">
                 <FormTextarea
                   name="address"
-                  label="Address:"
-                  placeHolder="Enter Your Address"
+                  label="Alamat Lengkap:"
+                  placeHolder="Masukkan Alamat Lengkap"
                   Row={3}
                   defaultValue={identity.address}
                 />

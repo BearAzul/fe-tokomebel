@@ -83,16 +83,16 @@ const CustomersView = () => {
       ),
     },
     {
-      name: "Nama Customer",
+      name: "Nama Pelanggan",
       selector: (row) => `${row.firstName} ${row.lastName}`,
       sortable: true,
-      width: "250px",
+      width: "200px",
     },
     {
       name: "Email",
       selector: (row) => row.email,
       sortable: true,
-      width: "300px",
+      width: "250px",
     },
     {
       name: "No. Telp",
@@ -100,22 +100,23 @@ const CustomersView = () => {
       width: "150px",
     },
     {
-      name: "Gender",
+      name: "Jenis Kelamin",
       selector: (row) => row.gender,
       sortable: true,
-      width: "100px",
+      width: "150px",
     },
     {
-      name: "Verified",
+      name: "Terverifikasi",
       cell: (row) =>
         row.isVerified ? (
           <Badge bg="success">Verified</Badge>
         ) : (
           <Badge bg="danger">Not Verified</Badge>
         ),
+      width: "120px",
     },
     {
-      name: "Action",
+      name: "Aksi",
       cell: (row) => (
         <div className="d-flex gap-2 justify-content-center">
           <Link
@@ -141,7 +142,7 @@ const CustomersView = () => {
       <Container>
         <CustomersDirect />
         <div className="d-flex justify-content-between gap-3 align-items-center mb-3 flex-wrap">
-          <h5 className="fm-2">All Data Customers</h5>
+          <h5 className="fm-2">Daftar Pelanggan</h5>
           <div className="d-flex gap-1 align-items-center">
             <ExportCSV data={dataCustomers} />
             <Button

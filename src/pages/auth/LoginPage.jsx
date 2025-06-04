@@ -55,14 +55,14 @@ const LoginPage = () => {
                     type="email"
                     name="email"
                     className="fm-2 border-1 bg-white form-control"
-                    placeholder="Enter email address"
+                    placeholder="Masukkan Email Valid"
                   />
                 </div>
                 <div className="mb-3 d-flex input-group">
                   <input
                     type={isProtect ? "password" : "text"}
                     className="fm-2 bg-white border-end-0  rounded-0 rounded-start form-control"
-                    placeholder="Password"
+                    placeholder="Masukkan Kata Sandi"
                     name="password"
                   />
                   <Button
@@ -80,7 +80,7 @@ const LoginPage = () => {
                     to={"/forgot-password"}
                     className="fm-2 fs-7 text-link fw-medium  btn-link"
                   >
-                    Forgot password?
+                    Lupa Kata Sandi?
                   </Link>
                 </div>
                 <div className="mb-4 fm-3 text-center input-group">

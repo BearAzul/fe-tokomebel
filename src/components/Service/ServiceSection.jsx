@@ -44,7 +44,7 @@ const ServiceSection = () => {
             <p className="py-1 px-2 text-orange border border-secondary max-content ms-auto fm-1 fs-7 fw-bold fst-italic mb-1">
               Service
             </p>
-            <h3 className="fm-2 fs-4 fw-bold text-white">Our Service</h3>
+            <h3 className="fm-2 fs-4 fw-bold text-white">Layanan Kami</h3>
             <span className="d-block bg-white"></span>
           </div>
           <Row md="3" xs="2" lg="4" className="g-2">

@@ -35,7 +35,7 @@ const AddCategoryView = () => {
     <section className="fm-2">
       <Container>
         <AddCategoryDirect />
-        <h5 className="mb-3">Add New Category</h5>
+        <h5 className="mb-3">Tambah Kategori Baru</h5>
         <form
           onSubmit={handleSubmit}
           className="border border-secondary rounded p-3"
@@ -43,22 +43,21 @@ const AddCategoryView = () => {
           <Row className="g-2">
             <Col sm="6">
               <FormInput
-                label="Category Name:"
+                label="Nama Kategori:"
                 type="text"
                 name="name"
-                placeHolder="Enter Category Name"
+                placeHolder="Masukkan Nama Ketegori"
               />
             </Col>
             <Col sm="6">
               <FormInput
-                label="Parameters Icon Category:"
+                label="Parameter Ikon Kategori:"
                 type="text"
                 name="icon"
-                placeHolder="Enter Parameters Icon Category"
+                placeHolder="Masukkan Parameter untuk Ikon Kategori"
               />
               <p className="text-warning fs-7 m-0">
-                example: ` ri-table-line `.
-                <Link
+                contoh: ` ri-table-line `. Diambil dari <Link
                   to="https://remixicon.com"
                   className="text-warning m-0 fs-7"
                 >
@@ -68,10 +67,10 @@ const AddCategoryView = () => {
             </Col>
             <Col sm="12">
               <FormEditor
-                label="Description:"
+                label="Deskripsi Singkat:"
                 value={desc}
                 onChange={setDesc}
-                placeHolder="Enter Description for Category"
+                placeHolder="Masukkan Deskripsi Singkat untuk Kategori"
               />
             </Col>
           </Row>

@@ -90,8 +90,8 @@ const EditProductView = () => {
                 <FormInput
                   name="name"
                   type="text"
-                  label="Product Name:"
-                  placeHolder="Enter Product Name"
+                  label="Nama Produk Mebel:"
+                  placeHolder="Masukkan Nama Produk Mebel"
                   defaultValue={product.name}
                 />
               </Col>
@@ -99,8 +99,8 @@ const EditProductView = () => {
                 <FormInput
                   name="stock"
                   type="number"
-                  label="Stock:"
-                  placeHolder="Enter Product Stock"
+                  label="Stok:"
+                  placeHolder="Masukkan Stok Mebel"
                   defaultValue={product.stock}
                 />
               </Col>
@@ -108,15 +108,15 @@ const EditProductView = () => {
                 <FormInput
                   name="price"
                   type="number"
-                  label="Price:"
-                  placeHolder="Enter Product Price"
+                  label="Harga:"
+                  placeHolder="Masukkan Harga Mebel"
                   defaultValue={product.price}
                 />
               </Col>
               <Col>
                 <FormSelect
                   name="category"
-                  label="Category:"
+                  label="Kategori:"
                   defaultValue={product.category?._id}
                   options={categories.map((category) => ({
                     value: category._id,
@@ -128,22 +128,22 @@ const EditProductView = () => {
                 <FormInput
                   name="summary"
                   type="text"
-                  label="Summary:"
-                  placeHolder="Enter Summary Product"
+                  label="Ringkasan:"
+                  placeHolder="Masukkan Ringkasan Produk Mebel"
                   defaultValue={product.summary}
                 />
               </Col>
               <Col md="12" lg="12">
                 <FormEditor
-                  label="Description:"
+                  label="Deskripsi:"
                   value={desc}
                   onChange={setDesc}
-                  placeHolder="Enter Product Description"
+                  placeHolder="Masukkkan Deskripsi Mebel"
                 />
               </Col>
               <Col lg="8">
                 <label htmlFor="image" className="form-label">
-                  Choose File Images:
+                  Pilih Gambar Mebel:
                 </label>
                 <img
                   src={product.image}

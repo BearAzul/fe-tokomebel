@@ -67,7 +67,7 @@ const NavDescription = ({ description }) => {
                   className="fm-2 fw-medium"
                   disabled
                   readOnly
-                  value={`${user.firstName} ${user.lastName}`}
+                  value={!user ? "" : `${user.firstName} ${user.lastName}`}
                 />
               </Form.Group>
               <Form.Group className="mb-2">

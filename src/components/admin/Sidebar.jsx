@@ -12,27 +12,27 @@ const BarMenu = [
     icon: "ri-dashboard-2-line",
   },
   {
-    title: "Profile",
+    title: "Profil Admin",
     path: "/admin/user",
     icon: "ri-admin-line",
   },
   {
-    title: "Category",
+    title: "Kategori",
     path: "/admin/category",
     icon: "ri-list-view",
   },
   {
-    title: "Products",
+    title: "Produk Mebel",
     path: "/admin/products",
     icon: "ri-box-3-line",
   },
   {
-    title: "Customers",
+    title: "Pelanggan",
     path: "/admin/customers",
     icon: "ri-team-line",
   },
   {
-    title: "Orders",
+    title: "Pesanan",
     path: "/admin/orders",
     icon: "ri-shopping-cart-2-line",
   },

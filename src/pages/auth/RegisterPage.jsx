@@ -63,7 +63,7 @@ const RegisterPage = () => {
                         type="text"
                         name="firstName"
                         className="fm-2 form-control"
-                        placeholder="Enter First Name"
+                        placeholder="Nama Depan"
                       />
                     </div>
                   </Col>
@@ -73,7 +73,7 @@ const RegisterPage = () => {
                         type="text"
                         name="lastName"
                         className="fm-2 form-control"
-                        placeholder="Enter Last Name"
+                        placeholder="Nama Belakang"
                       />
                     </div>
                   </Col>
@@ -83,7 +83,7 @@ const RegisterPage = () => {
                     type="email"
                     name="email"
                     className="fm-2 form-control"
-                    placeholder="Enter email address"
+                    placeholder="Email Valid Anda"
                   />
                 </div>
                 <div className="mb-3 d-flex input-group">
@@ -91,7 +91,7 @@ const RegisterPage = () => {
                     type={isPassword ? "password" : "text"}
                     name="password"
                     className="fm-2 rounded-0 rounded-start border-end-0 form-control"
-                    placeholder="Password"
+                    placeholder="Kata Sandi"
                   />
                   <Button
                     variant="light"
@@ -109,7 +109,7 @@ const RegisterPage = () => {
                       type={isConfirmPassword ? "password" : "text"}
                       name="confirmPassword"
                       className="fm-2 rounded-0 rounded-start border-end-0 form-control"
-                      placeholder="Confirm Password"
+                      placeholder="Konfirmasi Kata Sandi"
                     />
                     <Button
                       variant="light"

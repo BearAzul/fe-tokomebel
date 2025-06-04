@@ -112,13 +112,13 @@ const OrderHistory = () => {
   };
   return (
     <section id="history" className="bg-body-secondary">
-      <BannerHeader bannerTitle="Order History" />
+      <BannerHeader bannerTitle="RIWAYAT PESANAN" />
       <Container className="py-3 py-md-5 fm-2">
         <HistoryDirect />
         <div className="d-flex justify-content-between align-items-center mb-3 gap-2">
           <Link to="/profile" className="btn btn-primary btn-sm me-auto">
             <i className="ri-arrow-left-circle-line me-2"></i>
-            Back
+            Kembali
           </Link>
           <div className="input-group max-content input-group-sm ms-auto">
             <input
@@ -134,7 +134,7 @@ const OrderHistory = () => {
         </div>
         {!orders.length ? (
           <div className="fm-2 text-center order__history">
-            <p>No orders have been received yet.</p>
+            <p>Anda belum melakukan pesanan apapun.</p>
             <hr />
             <img
               src={EmptyOrderIcon}

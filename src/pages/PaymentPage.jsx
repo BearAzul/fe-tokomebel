@@ -17,7 +17,7 @@ export const loader = (storage) => () => {
 const PaymentPage = () => {
   return (
     <section id="checkout" className="pb-5 bg-secondary-subtle overflow-hidden">
-      <BannerHeader bannerTitle="CHECKOUT" />
+      <BannerHeader bannerTitle="PEMBAYARAN" />
       <Container
         className="my-5"
         style={{

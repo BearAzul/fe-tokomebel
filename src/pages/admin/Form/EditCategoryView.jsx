@@ -47,7 +47,7 @@ const EditCategoryView = () => {
     <section className="fm-2">
       <Container>
         <EditCategoryDirect />
-        <h5 className="my-3">Edit a Category Data</h5>
+        <h5 className="my-3">Edit Kategori</h5>
         {category ? (
           <form
             className="border border-secondary rounded p-3"
@@ -56,23 +56,23 @@ const EditCategoryView = () => {
             <Row className="g-2">
               <Col sm="6">
                 <FormInput
-                  label="Category Name:"
+                  label="Nama Kategori:"
                   type="text"
                   name="category"
-                  placeHolder="Enter Category Name"
+                  placeHolder="Masukkan Nama Ketegori"
                   defaultValue={category.name}
                 />
               </Col>
               <Col sm="6">
                 <FormInput
-                  label="Parameters Icon Category"
+                  label="Parameter Ikon Kategori:"
                   type="text"
                   name="icon"
-                  placeHolder="Enter Parameters Icon Category"
+                  placeHolder="Masukkan Parameter untuk Ikon Kategori"
                   defaultValue={category.icon}
                 />
                 <p className="text-warning fs-7 m-0">
-                  example: ` ri-table-line `.{" "}
+                  contoh: ` ri-table-line `. Diambil dari{" "}
                   <Link
                     to="https://remixicon.com"
                     className="text-warning m-0 fs-7"
@@ -83,10 +83,10 @@ const EditCategoryView = () => {
               </Col>
               <Col sm="12">
                 <FormEditor
-                  label="Description:"
+                  label="Deskripsi Singkat:"
                   value={desc}
                   onChange={setDesc}
-                  placeHolder="Enter Description for Category"
+                  placeHolder="Masukkan Deskripsi Singkat untuk Kategori"
                 />
               </Col>
             </Row>

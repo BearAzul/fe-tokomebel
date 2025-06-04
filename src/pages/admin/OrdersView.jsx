@@ -85,7 +85,7 @@ const OrdersView = () => {
       width: "70px",
     },
     {
-      name: "Image",
+      name: "Gambar",
       selector: (row) => (
         <figure
           className="overflow-hidden rounded m-auto"
@@ -100,7 +100,7 @@ const OrdersView = () => {
       ),
     },
     {
-      name: "Customer Name",
+      name: "Nama Pelanggan",
       selector: (row) => `${row.firstName} ${row.lastName}`,
       sortable: true,
       width: "200px",
@@ -112,18 +112,18 @@ const OrdersView = () => {
       width: "250px",
     },
     {
-      name: "Quantity",
+      name: "Kuantitas",
       selector: (row) =>
         `x${row.itemsDetail.reduce((total, item) => total + item.quantity, 0)}`,
       width: "100px",
     },
     {
-      name: "Total Price",
+      name: "Total Harga",
       selector: (row) => formatToIDR(row.total),
       width: "150px",
     },
     {
-      name: "Status Payment",
+      name: "Status Pembayaran",
       selector: (row) => (
         <div
           className={`rounded px-2 py-1 d-flex align-items-center justify-content-center ${
@@ -152,10 +152,10 @@ const OrdersView = () => {
           }`}
         </div>
       ),
-      width: "150px",
+      width: "160px",
     },
     {
-      name: "Action",
+      name: "Aksi",
       selector: (row) => (
         <div className="d-flex gap-2 align-items-center">
           <Link to={`/admin/orders/${row._id}`} className="btn btn-info btn-sm">
@@ -175,7 +175,7 @@ const OrdersView = () => {
       <Container>
         <OrdersDirect />
         <div className="d-flex align-items-center gap-3 flex-md-row justify-content-between flex-column mb-3">
-          <h5 className="w-100">Order List</h5>
+          <h5 className="w-100">Daftar Pelanggan</h5>
           <div className="input-group input-group-sm">
             <input
               type="search"

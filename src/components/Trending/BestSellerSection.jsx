@@ -16,7 +16,7 @@ export const loader = async () => {
 };
 
 const BestSellerSection = () => {  
-  const [selectedCategory, setSelectedCategory] = useState("Sofa");
+  const [selectedCategory, setSelectedCategory] = useState("Kursi");
   const [filteredProducts, setFilteredProducts] = useState([]);
   const { dataProducts, categories } = useLoaderData();
    const filterProducts = () => {
@@ -39,13 +39,13 @@ const BestSellerSection = () => {
             data-aos="fade-left"
           >
             <p className="py-1 px-2 text-orange border border-secondary max-content mx-auto fm-1 fs-7 fw-bold fst-italic mb-1">
-              Best Seller
+              Best Mebel
             </p>
-            <h3 className="fm-2 fs-4 fw-bold text-dark-dark">Home Decor</h3>
+            <h3 className="fm-2 fs-4 fw-bold text-dark-dark">Produk Mebel Terkait</h3>
           </div>
           <div className="p-2">
             <div className="category__btn ">
-              <Row className="g-2">
+              <Row xs="2" md="4" className="g-2">
                 {categories.map((category, index) => (
                   <Col key={index}>
                     <button

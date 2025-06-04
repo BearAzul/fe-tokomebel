@@ -32,10 +32,19 @@ const CustomSection = () => {
    };
   return (
     <>
-     <div className="">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 259"><path fill="#135961" fillOpacity="1" d="M0,192L0,160L144,160L144,64L288,64L288,96L432,96L432,192L576,192L576,64L720,64L720,288L864,288L864,192L1008,192L1008,224L1152,224L1152,128L1296,128L1296,64L1440,64L1440,320L1296,320L1296,320L1152,320L1152,320L1008,320L1008,320L864,320L864,320L720,320L720,320L576,320L576,320L432,320L432,320L288,320L288,320L144,320L144,320L0,320L0,320Z"></path></svg>
+      <div className="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 259">
+          <path
+            fill="#135961"
+            fillOpacity="1"
+            d="M0,192L0,160L144,160L144,64L288,64L288,96L432,96L432,192L576,192L576,64L720,64L720,288L864,288L864,192L1008,192L1008,224L1152,224L1152,128L1296,128L1296,64L1440,64L1440,320L1296,320L1296,320L1152,320L1152,320L1008,320L1008,320L864,320L864,320L720,320L720,320L576,320L576,320L432,320L432,320L288,320L288,320L144,320L144,320L0,320L0,320Z"
+          ></path>
+        </svg>
       </div>
-      <section id="customize" className="pt-3 pb-5 py-lg-5 bg-dark-green overflow-hidden">
+      <section
+        id="customize"
+        className="pt-3 pb-5 py-lg-5 bg-dark-green overflow-hidden"
+      >
         <Container className="my-lg-5 py-lg-5 my-3">
           <Row className="pt-5 gap-4 gap-md-5 gap-lg-0 align-items-end">
             <Col xs="12" md="12" lg="6">
@@ -48,13 +57,13 @@ const CustomSection = () => {
                 >
                   <div className="title">
                     <p className="text-orange box fm-1 fw-bold fst-italic fs-7 py-1 px-2 border border-secondary max-content text-uppercase">
-                      Customize
+                      Design
                     </p>
                     <h3 className="text-white fw-bold text-uppercase m-0 fm-2">
-                      Design Material and Color
+                      BAHAN DESAIN DAN WARNA
                     </h3>
                     <p className="text-white m-0 fm-2 fw-medium">
-                      Choose the color you want
+                      Pilih desain yang Anda inginkan:
                     </p>
                   </div>
                   <div className="color__pick fm-1 w-100">
@@ -64,7 +73,7 @@ const CustomSection = () => {
                       className="w-100 fw-medium mb-2 rounded-0"
                       onClick={() => handleChange("blue")}
                     >
-                      Blue
+                      Biru
                     </Button>
                     <Button
                       variant="success"
@@ -72,7 +81,7 @@ const CustomSection = () => {
                       className="w-100 fw-medium mb-2 rounded-0"
                       onClick={() => handleChange("green")}
                     >
-                      Green
+                      Hijau
                     </Button>
                     <Button
                       variant="secondary"
@@ -80,7 +89,7 @@ const CustomSection = () => {
                       className="w-100 fw-medium mb-2 rounded-0"
                       onClick={() => handleChange("grey")}
                     >
-                      Grey
+                      Abu-abu
                     </Button>
                     <Button
                       variant="danger"
@@ -88,11 +97,13 @@ const CustomSection = () => {
                       className="w-100 fw-medium mb-2 rounded-0"
                       onClick={() => handleChange("red")}
                     >
-                      Red
+                      Merah
                     </Button>
                   </div>
                 </Col>
-                <Col xs="6" md="6"
+                <Col
+                  xs="6"
+                  md="6"
                   data-aos="fade-down-left"
                   data-aos-delay="300"
                 >
@@ -109,7 +120,7 @@ const CustomSection = () => {
                     />
                     <Card.Footer className="d-flex align-items-center justify-content-between fm-2 p-0 border-dark">
                       <p className="m-0 fw-semibold ps-lg-4 ps-md-3 ps-3">
-                        Your Customize
+                        Your Design
                       </p>
                       <Button
                         variant="warning"

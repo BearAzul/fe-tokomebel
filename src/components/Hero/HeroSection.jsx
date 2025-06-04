@@ -43,7 +43,7 @@ const HeroSection = () => {
                   className="mx-auto rounded-0 py-2 px-3 fm-2 fs-6"
                   onClick={() => navigate("/shop")}
                 >
-                  SHOP NOW <i className="ri-arrow-right-circle-line ms-1"></i>
+                  BELI SEKARANG <i className="ri-arrow-right-circle-line ms-1"></i>
                 </Button>
               </div>
             </Col>

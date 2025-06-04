@@ -50,28 +50,28 @@ const HomeView = () => {
   const CardData = [
     {
       path: "/admin/category",
-      title: "Total Categories",
+      title: "Total Kategori",
       count: countCategory,
       iconClass: "ri-folder-open-fill",
       bgClass: "text-bg-danger",
     },
     {
       path: "/admin/products",
-      title: "Total Products",
+      title: "Total Produk",
       count: countProducts,
       iconClass: "ri-shopping-bag-fill",
       bgClass: "text-bg-primary",
     },
     {
       path: "/admin/orders",
-      title: "Total Orders",
+      title: "Total Pesanan",
       count: countOrders,
       iconClass: "ri-shopping-cart-fill",
       bgClass: "text-bg-warning",
     },
     {
       path: "/admin/customers",
-      title: "Total Customers",
+      title: "Total Pelanggan",
       count: countUsers,
       iconClass: "ri-user-3-fill",
       bgClass: "text-bg-success",
@@ -126,7 +126,7 @@ const HomeView = () => {
             <i className="ri-wallet-3-line fs-4 text-white"></i>
           </div>
           <div className="flex-grow-1">
-            <h6 className="mb-1">Total Earnings</h6>
+            <h6 className="mb-1">Total Pendapatan <span className="text-warning">(Demo)</span></h6>
             <p className="fs-6 fw-bold">
               Rp. {totalEarnings.toLocaleString("id-ID")},00
             </p>
@@ -155,7 +155,7 @@ const HomeView = () => {
         <Row className="mt-1 g-3">
           <Col lg={8} xs={12}>
             <div className="p-3 border rounded shadow-sm h-100 border-secondary ">
-              <h6 className="mb-3">Orders by Date</h6>
+              <h6 className="mb-3">Banyaknya Pesanan</h6>
               <ResponsiveContainer width="100%" height={300}>
                 <LineChart data={orderPerDate}>
                   <CartesianGrid strokeDasharray="2 2" />
@@ -175,7 +175,7 @@ const HomeView = () => {
 
           <Col lg={4} xs={12}>
             <div className="p-3 border rounded shadow-sm h-100 border-secondary ">
-              <h6 className="mb-3">Sold by Category</h6>
+              <h6 className="mb-3">Terjual Berdasarkan Kategori</h6>
               <ResponsiveContainer width="100%" height={300}>
                 <PieChart width={400} height={300}>
                   <Pie

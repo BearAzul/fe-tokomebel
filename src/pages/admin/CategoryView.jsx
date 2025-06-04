@@ -68,31 +68,31 @@ const CategoryView = () => {
       width: "70px",
     },
     {
-      name: "Category",
+      name: "Kategori",
       selector: (row) => row.name,
       sortable: true,
     },
     {
-      name: "Description",
+      name: "Deskripsi Singkat",
       selector: (row) => (
         <div dangerouslySetInnerHTML={{ __html: row.description }} />
       ),
       sortable: true,
     },
     {
-      name: "CreatedAt",
+      name: "Dibuat Pada",
       selector: (row) => row.createdAt,
       sortable: true,
       width: "210px",
     },
     {
-      name: "UpdatedAt",
+      name: "Diperbarui pada",
       selector: (row) => row.updatedAt,
       sortable: true,
       width: "210px",
     },
     {
-      name: "Action",
+      name: "Aksi",
       cell: (row) => (
         <div className="d-flex gap-1">
           <Link
@@ -116,14 +116,14 @@ const CategoryView = () => {
     <section className="fm-2">
       <Container>
         <CategoryDirect />
-        <h5 className="mb-3">All Data Categories</h5>
+        <h5 className="mb-3">Daftar Kategori</h5>
         <div className="d-flex justify-content-between gap-2 align-items-center flex-column mb-2 w-100 flex-md-row">
           <Link
             to="/admin/category/add"
             className="btn btn-success btn-sm me-auto"
           >
             <i className="ri-add-circle-line me-1"></i>
-            Add New Category
+            Tambah Kategori Baru
           </Link>
           <div className="input-group input-group-sm max-content ms-auto">
             <input

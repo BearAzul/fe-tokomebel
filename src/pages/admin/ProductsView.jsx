@@ -61,11 +61,11 @@ const ProductsView = () => {
     <section id="product" className="fm-2">
       <Container>
         <ProductsDirect />
-        <h5 className="fm-2 mb-3">Products</h5>
+        <h5 className="fm-2 mb-3">Daftar Produk Mebel</h5>
         <div className="d-flex justify-content-between align-items-start align-items-md-center flex-column flex-md-row gap-3 gap-md-0 mb-3">
           <Link to="/admin/products/add" className="btn btn-success btn-sm">
             <i className="ri-add-circle-line me-1"></i>
-            Add New Product
+            Tambah Mebel Baru
           </Link>
           <Form
             method="get"
@@ -80,7 +80,7 @@ const ProductsView = () => {
                 className="form-select form-select-sm fs-7"
                 onChange={handleCategory}
               >
-                <option value="">-- Choose Category --</option>
+                <option value="">-- Cari Kategori --</option>
                 {categories.map((category) => (
                   <option key={category._id} value={category.name}>
                     {category.name}
