@@ -40,7 +40,7 @@ const ShopPage = () => {
   const navigate = useNavigate();
   const navigation = useNavigation();
   const isPageLoading = navigation.state === 'loading';
-  
+
   const pages = Array.from({ length: totalPage }, (_, index) => {
     return index + 1;
   });
@@ -87,7 +87,7 @@ const ShopPage = () => {
             >
               <div className="category__product">
                 <h1 className="fw-semibold fs-5 fm-4 mb-1">Categories:</h1>
-                <Row md="1" className="g-1 g-lg-2">
+                <Row xs="2" md="1" className="g-1 g-lg-2">
                   {categories.map((category) => (
                     <Col key={category._id}>
                       <Button
@@ -168,7 +168,7 @@ const ShopPage = () => {
             {pages.map((pageNumber) => (
               <li className="page-item" aria-current="page" key={pageNumber}>
                 <button
-                  className={`page-link ${pageNumber === page ? "active" : ""}`}
+                  className={`page-link fm-1 fw-semibold ${pageNumber === page ? "bg-dark-green text-white" : "text-dark-green"}`}
                   onClick={() => handleChangePage(pageNumber)}
                 >
                   {pageNumber}
