@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import { formatToIDR } from "../utils/index.jsx";
 import CartItems from "../components/CartItems.jsx"
 import { CartDirect } from "../components/Directlink.jsx";
+import { HelmetHead } from "../common/Helmet.jsx";
 
 const TableHeader = [
   {
@@ -42,6 +43,11 @@ const Cart = () => {
   }
   return (
     <>
+      <HelmetHead
+        title="Keranjang Belanja | Aplikasi Toko Mebel"
+        description="Lihat dan kelola produk yang Anda tambahkan ke keranjang belanja. Siap checkout kapan saja dengan mudah dan cepat."
+        link="/cart"
+      />
       <section id="cart" className="pb-5 bg-secondary-subtle overflow-hidden">
         <BannerHeader bannerTitle="KERANJANG" />
         <Container
@@ -63,7 +69,11 @@ const Cart = () => {
                 className="g-0 text-uppercase d-md-flex d-none text-center mb-3"
               >
                 {TableHeader.map((header) => (
-                  <Col key={header.id} md={header.col} className={`text-${header.align}`}>
+                  <Col
+                    key={header.id}
+                    md={header.col}
+                    className={`text-${header.align}`}
+                  >
                     <p className="p-0 border-0 fw-bold fs-7">{header.title}</p>
                   </Col>
                 ))}
@@ -97,9 +107,7 @@ const Cart = () => {
                     <tr>
                       <td className="fw-medium">Delivery</td>
                       <td>:</td>
-                      <td className="text-end">
-                      {formatToIDR(delivery)}
-                      </td>
+                      <td className="text-end">{formatToIDR(delivery)}</td>
                     </tr>
                     <tr>
                       <td className="fw-medium">Total</td>

@@ -14,6 +14,8 @@ import {
 } from "react-router-dom";
 import Loading from "../components/Loading.jsx";
 import { ShopDirect } from "../components/Directlink.jsx";
+import { HelmetHead } from "../common/Helmet.jsx";
+
 
 export const loader = async ({ request }) => {
   const params = Object.fromEntries([
@@ -53,6 +55,11 @@ const ShopPage = () => {
 
   return (
     <>
+      <HelmetHead
+        title="Katalog | Aplikasi Toko Mebel"
+        description="Jelajahi furniture berkualitas kami di Katalog. Dapatkan penawaran terbaik untuk kebutuhan rumah Anda"
+        link="/shop"
+      />
       <section id="shop" className="bg-light pb-4 overflow-hidden">
         <BannerHeader bannerTitle="KATALOG" />
         <Container className="my-4">
@@ -72,6 +79,7 @@ const ShopPage = () => {
                       <Form method="get">
                         <input
                           type="hidden"
+                          id="category"
                           name="category"
                           defaultValue={tag.name}
                         />

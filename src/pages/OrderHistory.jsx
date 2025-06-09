@@ -9,6 +9,7 @@ import EmptyOrderIcon from "../assets/Image/empty_order.png";
 import { useState } from "react";
 import { HistoryDirect } from "../components/Directlink";
 import NotAwailableImg from "../assets/Image/landscape-placeholder.svg";
+import { HelmetHead } from "../common/Helmet.jsx";
 
 export const loader = (storage) => async () => {
   const user = storage.getState().userState.user;
@@ -21,7 +22,6 @@ export const loader = (storage) => async () => {
   const orders = data.data;
   return { orders };
 };
-
 
 const columns = [
   {
@@ -92,69 +92,76 @@ const columns = [
   },
   {
     name: "Date",
-    selector: (row) => (new Date(row.createdAt).toLocaleDateString("id-ID", {
-      day: "2-digit",
-      month: "short",
-      year: "numeric",
-    }))
-  }
+    selector: (row) =>
+      new Date(row.createdAt).toLocaleDateString("id-ID", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+      }),
+  },
 ];
 
 const OrderHistory = () => {
   const { orders } = useLoaderData();
   const [records, setRecords] = useState(orders);
   const handleSearch = (e) => {
-    const newData = orders.filter(
-      (row) =>
-        row.status.toLowerCase().includes(e.target.value.toLowerCase())
+    const newData = orders.filter((row) =>
+      row.status.toLowerCase().includes(e.target.value.toLowerCase())
     );
     setRecords(newData);
   };
   return (
-    <section id="history" className="bg-body-secondary">
-      <BannerHeader bannerTitle="RIWAYAT PESANAN" />
-      <Container className="py-3 py-md-5 fm-2">
-        <HistoryDirect />
-        <div className="d-flex justify-content-between align-items-center mb-3 gap-2">
-          <Link to="/profile" className="btn btn-primary btn-sm me-auto">
-            <i className="ri-arrow-left-circle-line me-2"></i>
-            Kembali
-          </Link>
-          <div className="input-group max-content input-group-sm ms-auto">
-            <input
-              type="search"
-              placeholder="search"
-              className="form-control"
-              onChange={handleSearch}
-            />
-            <span className="input-group-text">
-              <i className="ri-search-line"></i>
-            </span>
+    <>
+      <HelmetHead
+        title="Riwayat Pesanan | Aplikasi Toko Mebel"
+        description="Lihat daftar riwayat pesanan Anda di Toko Mebel Amanah. Pantau status pengiriman dan detail transaksi dengan mudah."
+        link="/orders"
+      />
+      <section id="history" className="bg-body-secondary">
+        <BannerHeader bannerTitle="RIWAYAT PESANAN" />
+        <Container className="py-3 py-md-5 fm-2">
+          <HistoryDirect />
+          <div className="d-flex justify-content-between align-items-center mb-3 gap-2">
+            <Link to="/profile" className="btn btn-primary btn-sm me-auto">
+              <i className="ri-arrow-left-circle-line me-2"></i>
+              Kembali
+            </Link>
+            <div className="input-group max-content input-group-sm ms-auto">
+              <input
+                type="search"
+                placeholder="search"
+                className="form-control"
+                onChange={handleSearch}
+              />
+              <span className="input-group-text">
+                <i className="ri-search-line"></i>
+              </span>
+            </div>
           </div>
-        </div>
-        {!orders.length ? (
-          <div className="fm-2 text-center order__history">
-            <p>Anda belum melakukan pesanan apapun.</p>
-            <hr />
-            <img
-              src={EmptyOrderIcon}
-              alt="Empty Orders"
-              className="d-block mx-auto w-75"
+          {!orders.length ? (
+            <div className="fm-2 text-center order__history">
+              <p>Anda belum melakukan pesanan apapun.</p>
+              <hr />
+              <img
+                src={EmptyOrderIcon}
+                alt="Empty Orders"
+                className="d-block mx-auto w-75"
+              />
+            </div>
+          ) : (
+            <DataTable
+              data={records}
+              columns={columns}
+              pagination
+              highlightOnHover
+              fixedHeader
+              theme="light"
+              className="rounded border border-2 border-success mb-2"
             />
-          </div>
-        ) : (
-          <DataTable
-            data={records}
-            columns={columns}
-            pagination
-            highlightOnHover
-            fixedHeader
-            theme="light"
-            className="rounded border border-2 border-success mb-2"
-          />
-        )}
-      </Container>
-    </section>
+          )}
+        </Container>
+      </section>
+    </>
   );
 };
 

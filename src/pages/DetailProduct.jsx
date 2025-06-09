@@ -10,6 +10,7 @@ import { addToCart } from "../features/cartSlice.js";
 import Loading from "../components/Loading.jsx";
 import QuantitySelector from "../components/QuantitySelector.jsx";
 import { ProductDetailDirect } from "../components/Directlink.jsx";
+import { HelmetHead } from "../common/Helmet.jsx";
 
 const DetailProduct = () => {
   const [detailProducts, setDetailProducts] = useState();
@@ -66,6 +67,11 @@ const DetailProduct = () => {
 
   return (
     <>
+      <HelmetHead
+        title={`Detail  ${detailProducts.name}`}
+        description={`Beli ${detailProducts.name} hanya di Toko Mebel Amanah dengan harga terbaik.`}
+        link={`/shop/${detailProducts._id}`}
+      />
       <section id="detailProduct" className="bg-secondary-subtle">
         <BannerHeader bannerTitle="Detail Mebel" />
         <Container className="pt-5 pb-5">
@@ -119,7 +125,12 @@ const DetailProduct = () => {
                   {detailProducts.stock > 0 && (
                     <>
                       <div className="qty__items d-flex align-items-center gap-3 mt-3 mb-4">
-                        <QuantitySelector handleIncrement={handleIncrement} handleDecrement={handleDecrement} stock={detailProducts.stock} amount={amount} />
+                        <QuantitySelector
+                          handleIncrement={handleIncrement}
+                          handleDecrement={handleDecrement}
+                          stock={detailProducts.stock}
+                          amount={amount}
+                        />
                         <span className="mb-0 fw-semibold">Qty</span>
                       </div>
                       <Button
