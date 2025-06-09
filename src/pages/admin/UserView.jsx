@@ -102,7 +102,7 @@ const UserView = () => {
             </div>
             <hr />
             <Row lg="3" md="2" xs="1" className="g-3">
-              <Col xs="6">
+              <Col>
                 <FormInput
                   name="firstName"
                   type="text"
@@ -111,7 +111,7 @@ const UserView = () => {
                   defaultValue={identity.firstName}
                 />
               </Col>
-              <Col xs="6">
+              <Col>
                 <FormInput
                   name="lastName"
                   type="text"
@@ -144,7 +144,7 @@ const UserView = () => {
                   defaultValue={identity.email}
                 />
               </Col>
-              <Col xs="6">
+              <Col>
                 <FormSelect
                   name="gender"
                   label="Jenis Kelamin:"
@@ -152,7 +152,7 @@ const UserView = () => {
                   defaultValue={identity.gender}
                 />
               </Col>
-              <Col xs="6">
+              <Col>
                 <FormInput
                   name="city"
                   type="text"
@@ -161,7 +161,7 @@ const UserView = () => {
                   defaultValue={identity.city}
                 />
               </Col>
-              <Col lg="12">
+              <Col md="12" lg="12">
                 <FormTextarea
                   name="address"
                   label="Alamat Lengkap:"

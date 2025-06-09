@@ -8,7 +8,7 @@ import customAPI from "../../api.js";
 
 export const loader = async () => {
   
-  const { data } = await customAPI.get("/product");
+  const { data } = await customAPI.get("/product?limit=all");
   const dataProducts = data.data;
   const response = await customAPI.get("/category");
   const categories = response.data.data

@@ -6,7 +6,7 @@ export const exportPDF = (data) => {
 
   doc.text("Data Customers Toko Mebel ", 20, 10);
 
-  const tableColumn = ["No.", "Name", "Email", "No. Telp", "Gender", "City", "Address"];
+  const tableColumn = ["No.", "Nama Lengkap", "Email", "No. Telp", "Jenis Kelamin", "Kabupaten/Kota", "Alamat"];
   const tableRows = [];
 
   data.forEach((customer, index) => {

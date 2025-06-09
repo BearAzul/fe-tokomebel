@@ -3,7 +3,6 @@
 import "../styles/index.css";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import BannerHeader from "../common/Banner/BannerHeader.jsx";
-import { useState, useEffect } from "react";
 import customAPI from "../api.js";
 import { CardProductCustomer } from "../components/CardProduct.jsx";
 import {
@@ -31,11 +30,8 @@ export const loader = async ({ request }) => {
 };
 
 const ShopPage = () => {
-  const [selectedCategory, setSelectedCategory] = useState("");
-  const [filteredProducts, setFilteredProducts] = useState([]);
-  const { dataProducts, pagination, params, categories } = useLoaderData();
+  const { dataProducts, pagination, params, categories} = useLoaderData();
   const { page, totalPage } = pagination;
-  const { name } = params;
   const { search, pathname } = useLocation();
   const navigate = useNavigate();
   const navigation = useNavigation();
@@ -51,24 +47,7 @@ const ShopPage = () => {
     navigate(`${pathname}?${searchParams.toString()}`);
   };
 
-  const filterProducts = () => {
-    const filtered = dataProducts.filter(
-      (product) =>
-        (selectedCategory ? product.category.name === selectedCategory : true)
-    );
-    setFilteredProducts(filtered);
-  };
-
-  useEffect(() => {
-    filterProducts();
-  }, [dataProducts, selectedCategory]);
-
-  const handleCategory = (category) => {
-    setSelectedCategory(category);
-  };
-
   const handleClear = () => {
-    setSelectedCategory("");
     navigate("/shop");
   };
 
@@ -82,27 +61,34 @@ const ShopPage = () => {
             <Col
               md="3"
               lg="2"
-              className="bg-light p-3 rounded h-max-content "
+              className="bg-light py-3 rounded h-max-content "
               data-aos="fade-right"
             >
               <div className="category__product">
-                <h1 className="fw-semibold fs-5 fm-4 mb-1">Categories:</h1>
+                <h1 className="fw-semibold fs-5 fm-4 mb-1">Kategori:</h1>
                 <Row xs="2" md="1" className="g-1 g-lg-2">
-                  {categories.map((category) => (
-                    <Col key={category._id}>
-                      <Button
-                        variant="dark"
-                        size="md"
-                        className={`w-100 border-0 px-3 rounded-2 fw-medium ${
-                          selectedCategory === category.name
-                            ? "bg-warning text-dark fw-semibold"
-                            : ""
-                        }`}
-                        onClick={() => handleCategory(category.name)}
-                      >
-                        <i className={category.icon}></i>
-                        <span className="ms-2 fs-7 fm-2">{category.name}</span>
-                      </Button>
+                  {categories.map((tag) => (
+                    <Col key={tag._id}>
+                      <Form method="get">
+                        <input
+                          type="hidden"
+                          name="category"
+                          defaultValue={tag.name}
+                        />
+                        <Button
+                          type="submit"
+                          variant="dark"
+                          size="md"
+                          className={`w-100 border-0 px-3 rounded-2 fw-medium ${
+                            params.category === tag.name
+                              ? "bg-warning text-dark fw-semibold"
+                              : ""
+                          }`}
+                        >
+                          <i className={tag.icon}></i>
+                          <span className="ms-2 fs-7 fm-2">{tag.name}</span>
+                        </Button>
+                      </Form>
                     </Col>
                   ))}
                 </Row>
@@ -121,7 +107,7 @@ const ShopPage = () => {
                       className="form-control fs-6 border-2 border-end-0 border-secondary-subtle"
                       placeholder="Cari Furniture"
                       name="name"
-                      defaultValue={name}
+                      defaultValue={params.name}
                     />
                     <button
                       type="submit"
@@ -140,18 +126,16 @@ const ShopPage = () => {
                   <i className="ri-filter-off-line"></i>
                 </Button>
               </div>
-              <div
-                className="furniture__product mt-3 mt-md-2 mt-lg-4"
-              >
+              <div className="furniture__product mt-3 mt-md-2 mt-lg-4">
                 <Row xs="2" md="3" lg="4" className="g-2 g-lg-4">
                   {isPageLoading ? (
                     <Loading />
-                  ) : !filteredProducts.length ? (
+                  ) : !dataProducts.length ? (
                     <h1 className="fw-semibold fs-5 fm-4 text-center w-100">
-                      No Product Found
+                      Mebel Tidak Ditemukan!
                     </h1>
                   ) : (
-                    filteredProducts.map((product) => (
+                    dataProducts.map((product) => (
                       <Col key={product._id} data-aos="zoom-in">
                         <CardProductCustomer
                           product={product}
@@ -168,7 +152,11 @@ const ShopPage = () => {
             {pages.map((pageNumber) => (
               <li className="page-item" aria-current="page" key={pageNumber}>
                 <button
-                  className={`page-link fm-1 fw-semibold ${pageNumber === page ? "bg-dark-green text-white" : "text-dark-green"}`}
+                  className={`page-link fm-1 fw-semibold ${
+                    pageNumber === page
+                      ? "bg-dark-green text-white"
+                      : "text-dark-green"
+                  }`}
                   onClick={() => handleChangePage(pageNumber)}
                 >
                   {pageNumber}

@@ -1,4 +1,4 @@
-import { Container, Button, Badge } from "react-bootstrap";
+import { Container, Badge, Button } from "react-bootstrap";
 import { useLoaderData, Link, useRevalidator } from "react-router-dom";
 import customAPI from "../../api.js";
 import DataTable from "react-data-table-component";
@@ -126,7 +126,8 @@ const CustomersView = () => {
             <i className="ri-pencil-line"></i>
           </Link>
           <Button
-            className="btn btn-danger btn-sm"
+            variant="danger"
+            size="sm"
             onClick={() => handleDelete(row)}
           >
             <i className="ri-delete-bin-6-line"></i>
@@ -145,16 +146,17 @@ const CustomersView = () => {
           <h5 className="fm-2">Daftar Pelanggan</h5>
           <div className="d-flex gap-1 align-items-center">
             <ExportCSV data={dataCustomers} />
-            <Button
-              variant="secondary"
-              size="sm"
+            <button
+              type="button"
+              className="btn btn-outline-light btn-sm"
               data-bs-toggle="tooltip"
               data-bs-placement="bottom"
+              data-bs-custom-class="custom-tooltip"
               data-bs-title="Download PDF"
               onClick={() => exportPDF(dataCustomers)}
             >
               <i className="ri-file-pdf-2-line"></i>
-            </Button>
+            </button>
             <div className="input-group input-group-sm">
               <input
                 type="search"

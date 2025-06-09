@@ -5,12 +5,12 @@ import {Button} from "react-bootstrap"
 const exportCSV = ({ data }) => {
   const headers = [
     { label: "ID", key: "id" },
-    { label: "Name", key: "fullName" },
+    { label: "Nama Lengkap", key: "fullName" },
     { label: "Email", key: "email" },
     { label: "No. Telp", key: "phone" },
-    { label: "Gender", key: "gender" },
-    { label: "City", key: "city" },
-    { label: "Address", key: "address" },
+    { label: "Jenis Kelamin", key: "gender" },
+    { label: "Kabupaten/Kota", key: "city" },
+    { label: "Alamat", key: "address" },
   ];
 
   const csvData = data.map((customer) => ({
@@ -26,7 +26,7 @@ const exportCSV = ({ data }) => {
   return (
     <CSVLink data={csvData} headers={headers} filename={"customer_data.csv"}>
       <Button
-        variant="success"
+        variant="outline-light"
         size="sm"
         data-bs-toggle="tooltip"
         data-bs-placement="bottom"

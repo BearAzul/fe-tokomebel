@@ -11,7 +11,6 @@ import { CardProductAdmin } from "../../components/CardProduct.jsx";
 import Loading from "../../components/Loading.jsx";
 import { ProductsDirect } from "../../components/Directlink.jsx";
 import "../../styles/index.css";
-import { useEffect, useState } from "react";
 
 export const loader = async ({ request }) => {
   const params = Object.fromEntries([
@@ -27,33 +26,16 @@ export const loader = async ({ request }) => {
 };
 
 const ProductsView = () => {
-  const [selectedCategory, setSelectedCategory] = useState("");
-  const [filteredProducts, setFilteredProducts] = useState([]);
   const navigate = useNavigate();
   const { dataProducts, params } = useLoaderData();
   const { categories } = useLoaderData([]);
-  const { name } = params;
+  const { name, category } = params;
 
   const navigation = useNavigation();
   const isPageLoading = navigation.state === "loading";
 
-  const filterProducts = () => {
-    const filtered = dataProducts.filter((product) =>
-      selectedCategory ? product.category.name === selectedCategory : true
-    );
-    setFilteredProducts(filtered);
-  };
-
-  useEffect(() => {
-    filterProducts();
-  }, [dataProducts, selectedCategory]);
-
-  const handleCategory = (e) => {
-    setSelectedCategory(e.target.value);
-  };
 
   const handleClear = () => {
-    setSelectedCategory("");
     navigate("/admin/products");
   };
 
@@ -78,12 +60,12 @@ const ProductsView = () => {
               <select
                 name="category"
                 className="form-select form-select-sm fs-7"
-                onChange={handleCategory}
+              defaultValue={category}
               >
                 <option value="">-- Cari Kategori --</option>
-                {categories.map((category) => (
-                  <option key={category._id} value={category.name}>
-                    {category.name}
+                {categories.map((tag) => (
+                  <option key={tag._id} value={tag.name}>
+                    {tag.name}
                   </option>
                 ))}
               </select>
@@ -106,12 +88,12 @@ const ProductsView = () => {
           <Row lg="5" md="4" xs="2" className="g-2 g-lg-3">
             {isPageLoading ? (
               <Loading />
-            ) : !filteredProducts.length ? (
+            ) : !dataProducts.length ? (
               <h1 className="fw-semibold fs-5 fm-4 text-center w-100">
                 No Product Found
               </h1>
             ) : (
-              filteredProducts.map((product) => (
+              dataProducts.map((product) => (
                 <Col key={product._id}>
                   <CardProductAdmin
                     product={product}
