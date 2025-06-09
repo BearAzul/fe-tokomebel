@@ -36,7 +36,7 @@ export const HelmetHead = ({ title, description, link }) => {
         itemProp="image"
         content="https://raw.githubusercontent.com/BearAzul/fe-tokomebel/refs/heads/client/src/assets/Image/logo_toko_mebel.png"
       />
-      <link rel="canonical" href={link} />
+      <link rel="canonical" href={`https://fe-tokomebel.vercel.app${link}`} />
       <meta property="og:type" content="website" />
     </Helmet>
   );
@@ -46,7 +46,7 @@ HelmetHead.defaultProps = {
   title: "Beranda | Aplikasi Toko Mebel",
   description:
     "Toko Mebel Amanah terbaik untuk kebutuhan furniture Anda. Temukan berbagai macam produk mebel berkualitas dengan harga terjangkau dan layanan pengiriman cepat.",
-  link: "https://fe-tokomebel.vercel.app"
+  link: "/"
 };
 
 HelmetHead.propTypes = {

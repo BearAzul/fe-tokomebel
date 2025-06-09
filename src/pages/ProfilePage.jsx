@@ -19,11 +19,12 @@ import { logoutUser } from "../features/userSlice.js";
 import { useDispatch, useSelector } from "react-redux";
 import { ProfileDirect } from "../components/Directlink.jsx";
 import { useState } from "react";
-import BlankImages from "../assets/Image/blank_user.png"
+import BlankImages from "../assets/Image/blank_user.png";
+import { HelmetHead } from "../common/Helmet.jsx";
 
 export const loader = (storage) => async () => {
   const user = storage.getState().userState.user;
-  
+
   if (!user) {
     toast.warn("Silahkan Login untuk akses halaman Profil");
     return redirect("/login");
@@ -113,195 +114,204 @@ const ProfilePage = () => {
   };
 
   return (
-    <section
-      id="profile"
-      className="bg-white overflow-hidden bg-body-secondary"
-    >
-      <BannerHeader bannerTitle="PROFIL" />
-      <Container className="py-3 py-md-5">
-        <ProfileDirect />
-        <form onSubmit={handleSubmit} encType="multipart/form-data">
-          <Row lg="2" className="g-2">
-            <Col lg="4">
-              <Card className="fm-2 p-3">
-                <Card.Img
-                  variant="top"
-                  src={
-                    currentUser.image === null ? BlankImages : currentUser.image
-                  }
-                  className="d-block rounded mx-auto object-fit-cover"
-                />
-                <Card.Body className="px-0">
-                  <input
-                    type="file"
-                    name="image"
-                    className="form-control form-control-sm w-100 fs-7 fw-bold border rounded"
-                    disabled={!edit}
+    <>
+      <HelmetHead
+        title="Profil | Aplikasi Toko Mebel"
+        description="Kelola informasi akun Anda di halaman Profil. Ubah data pribadi, alamat pengiriman, dan lihat histori aktivitas Anda."
+        link="/profile"
+      />
+      <section
+        id="profile"
+        className="bg-white overflow-hidden bg-body-secondary"
+      >
+        <BannerHeader bannerTitle="PROFIL" />
+        <Container className="py-3 py-md-5">
+          <ProfileDirect />
+          <form onSubmit={handleSubmit} encType="multipart/form-data">
+            <Row lg="2" className="g-2">
+              <Col lg="4">
+                <Card className="fm-2 p-3">
+                  <Card.Img
+                    variant="top"
+                    src={
+                      currentUser.image === null
+                        ? BlankImages
+                        : currentUser.image
+                    }
+                    className="d-block rounded mx-auto object-fit-cover"
                   />
-                </Card.Body>
-                <Card.Footer className="px-0 bg-transparent border-0">
-                  <Card.Text className="fs-7">
-                    File size: maximum 10,000,000 bytes (10 Megabytes). Allowed
-                    file extensions: .JPG, .JPEG, .PNG
-                  </Card.Text>
-                </Card.Footer>
-              </Card>
-              {/* <Button variant="base" className="fw-bold w-100 border my-3 p-2">
+                  <Card.Body className="px-0">
+                    <input
+                      type="file"
+                      name="image"
+                      className="form-control form-control-sm w-100 fs-7 fw-bold border rounded"
+                      disabled={!edit}
+                    />
+                  </Card.Body>
+                  <Card.Footer className="px-0 bg-transparent border-0">
+                    <Card.Text className="fs-7">
+                      File size: maximum 10,000,000 bytes (10 Megabytes).
+                      Allowed file extensions: .JPG, .JPEG, .PNG
+                    </Card.Text>
+                  </Card.Footer>
+                </Card>
+                {/* <Button variant="base" className="fw-bold w-100 border my-3 p-2">
               <i className="ri-key-fill me-3"></i>Change Password
             </Button> */}
 
-              {currentUser.role === "owner" ? (
-                <Link to="/admin" className="btn btn-dark w-100 fm-2 mt-2">
-                  Dashboard Admin
-                </Link>
-              ) : (
-                <div className="d-flex align-items-center gap-2 mt-2 w-100">
-                  <Button
-                    variant="danger"
-                    size="sm"
-                    className="fw-medium w-100"
-                    onClick={handleLogout}
-                  >
-                    <i className="ri-logout-box-line me-2"></i>Logout
-                  </Button>
-                  <Link
-                    to="/orders"
-                    className="btn btn-primary btn-sm fm-2 border w-100"
-                  >
-                    Riwayat Pesanan
+                {currentUser.role === "owner" ? (
+                  <Link to="/admin" className="btn btn-dark w-100 fm-2 mt-2">
+                    Dashboard Admin
                   </Link>
-                </div>
-              )}
-            </Col>
-            <Col lg="8">
-              <Card>
-                <Card.Body className="fm-2 p-0">
-                  <Card.Title className="fw-bold border-bottom p-3 text-dark-green text-white">
-                    Informasi Pribadi
-                  </Card.Title>
-                  <Card.Text className="fs-7 px-3 mb-2">
-                    <Row md="2" className="g-2">
-                      <Col>
-                        <FormInput
-                          label="Nama Depan:"
-                          type="text"
-                          name="firstName"
-                          placeHolder="Masukkan Nama Depan Anda"
-                          defaultValue={currentUser.firstName}
-                          disabled={!edit}
-                        />
-                      </Col>
-                      <Col>
-                        <FormInput
-                          label="Nama Belakang:"
-                          type="text"
-                          name="lastName"
-                          placeHolder="Masukkan Nama Belakang Anda"
-                          defaultValue={currentUser.lastName}
-                          disabled={!edit}
-                        />
-                      </Col>
-                    </Row>
-                  </Card.Text>
-                  <Card.Text className="fs-7 px-3 mb-3">
-                    <FormSelect
-                      label="Jenis Kelamin:"
-                      name="gender"
-                      defaultValue={currentUser.gender}
-                      options={genders.map((gender) => ({
-                        key: gender.key,
-                        value: gender.value,
-                        label: gender.label,
-                      }))}
-                      disabled={!edit}
-                    />
-                  </Card.Text>
-                  <Card.Text className="fs-7 px-3 mb-2">
-                    <Row lg="2" className="g-2">
-                      <Col>
-                        <FormInput
-                          label="Email:"
-                          type="email"
-                          name="email"
-                          placeHolder="Masukkan Email Valid Anda"
-                          defaultValue={currentUser.email}
-                          disabled={!edit}
-                        />
-                      </Col>
-                      <Col>
-                        <label htmlFor="phone" className="form-label">
-                          No. Telepon: <span className="text-danger">*</span>
-                        </label>
-                        <input
-                          type="number"
-                          id="phone"
-                          className="form-control form-control-sm"
-                          name="phone"
-                          minLength={11}
-                          maxLength={13}
-                          defaultValue={currentUser.phone}
-                          placeholder="Masukkan No. Telp Anda"
-                          disabled={!edit}
-                        />
-                      </Col>
-                      <Col lg="12">
-                        <FormInput
-                          label="Kabupaten/Kota:"
-                          type="text"
-                          name="city"
-                          placeHolder="Masukkan Kabupaten/Kota Anda"
-                          defaultValue={currentUser.city}
-                          disabled={!edit}
-                        />
-                      </Col>
-                      <Col lg="12">
-                        <FormTextarea
-                          label="Alamat Lengkap:"
-                          name="address"
-                          placeHolder="Masukkan Alamat Lengkap Anda"
-                          defaultValue={currentUser.address}
-                          Row={3}
-                          disabled={!edit}
-                        />
-                      </Col>
-                    </Row>
-                  </Card.Text>
-                </Card.Body>
-                <Card.Footer className="fm-2 d-flex gap-2">
-                  {!edit ? (
+                ) : (
+                  <div className="d-flex align-items-center gap-2 mt-2 w-100">
                     <Button
-                      type="button"
-                      variant="warning"
-                      onClick={handleEdit}
+                      variant="danger"
                       size="sm"
+                      className="fw-medium w-100"
+                      onClick={handleLogout}
                     >
-                      <i className="ri-edit-circle-fill me-2"></i>
-                      Edit
+                      <i className="ri-logout-box-line me-2"></i>Logout
                     </Button>
-                  ) : (
-                    <>
+                    <Link
+                      to="/orders"
+                      className="btn btn-primary btn-sm fm-2 border w-100"
+                    >
+                      Riwayat Pesanan
+                    </Link>
+                  </div>
+                )}
+              </Col>
+              <Col lg="8">
+                <Card>
+                  <Card.Body className="fm-2 p-0">
+                    <Card.Title className="fw-bold border-bottom p-3 text-dark-green text-white">
+                      Informasi Pribadi
+                    </Card.Title>
+                    <Card.Text className="fs-7 px-3 mb-2">
+                      <Row md="2" className="g-2">
+                        <Col>
+                          <FormInput
+                            label="Nama Depan:"
+                            type="text"
+                            name="firstName"
+                            placeHolder="Masukkan Nama Depan Anda"
+                            defaultValue={currentUser.firstName}
+                            disabled={!edit}
+                          />
+                        </Col>
+                        <Col>
+                          <FormInput
+                            label="Nama Belakang:"
+                            type="text"
+                            name="lastName"
+                            placeHolder="Masukkan Nama Belakang Anda"
+                            defaultValue={currentUser.lastName}
+                            disabled={!edit}
+                          />
+                        </Col>
+                      </Row>
+                    </Card.Text>
+                    <Card.Text className="fs-7 px-3 mb-3">
+                      <FormSelect
+                        label="Jenis Kelamin:"
+                        name="gender"
+                        defaultValue={currentUser.gender}
+                        options={genders.map((gender) => ({
+                          key: gender.key,
+                          value: gender.value,
+                          label: gender.label,
+                        }))}
+                        disabled={!edit}
+                      />
+                    </Card.Text>
+                    <Card.Text className="fs-7 px-3 mb-2">
+                      <Row lg="2" className="g-2">
+                        <Col>
+                          <FormInput
+                            label="Email:"
+                            type="email"
+                            name="email"
+                            placeHolder="Masukkan Email Valid Anda"
+                            defaultValue={currentUser.email}
+                            disabled={!edit}
+                          />
+                        </Col>
+                        <Col>
+                          <label htmlFor="phone" className="form-label">
+                            No. Telepon: <span className="text-danger">*</span>
+                          </label>
+                          <input
+                            type="number"
+                            id="phone"
+                            className="form-control form-control-sm"
+                            name="phone"
+                            minLength={11}
+                            maxLength={13}
+                            defaultValue={currentUser.phone}
+                            placeholder="Masukkan No. Telp Anda"
+                            disabled={!edit}
+                          />
+                        </Col>
+                        <Col lg="12">
+                          <FormInput
+                            label="Kabupaten/Kota:"
+                            type="text"
+                            name="city"
+                            placeHolder="Masukkan Kabupaten/Kota Anda"
+                            defaultValue={currentUser.city}
+                            disabled={!edit}
+                          />
+                        </Col>
+                        <Col lg="12">
+                          <FormTextarea
+                            label="Alamat Lengkap:"
+                            name="address"
+                            placeHolder="Masukkan Alamat Lengkap Anda"
+                            defaultValue={currentUser.address}
+                            Row={3}
+                            disabled={!edit}
+                          />
+                        </Col>
+                      </Row>
+                    </Card.Text>
+                  </Card.Body>
+                  <Card.Footer className="fm-2 d-flex gap-2">
+                    {!edit ? (
                       <Button
                         type="button"
-                        variant="danger"
-                        onClick={handleCancel}
+                        variant="warning"
+                        onClick={handleEdit}
                         size="sm"
                       >
-                        <i className="ri-close-circle-line me-2"></i>
-                        Cancel
+                        <i className="ri-edit-circle-fill me-2"></i>
+                        Edit
                       </Button>
-                      <Button type="submit" variant="success" size="sm">
-                        <i className="ri-save-3-line me-2"></i>
-                        Save
-                      </Button>
-                    </>
-                  )}
-                </Card.Footer>
-              </Card>
-            </Col>
-          </Row>
-        </form>
-      </Container>
-    </section>
+                    ) : (
+                      <>
+                        <Button
+                          type="button"
+                          variant="danger"
+                          onClick={handleCancel}
+                          size="sm"
+                        >
+                          <i className="ri-close-circle-line me-2"></i>
+                          Cancel
+                        </Button>
+                        <Button type="submit" variant="success" size="sm">
+                          <i className="ri-save-3-line me-2"></i>
+                          Save
+                        </Button>
+                      </>
+                    )}
+                  </Card.Footer>
+                </Card>
+              </Col>
+            </Row>
+          </form>
+        </Container>
+      </section>
+    </>
   );
 };
 
