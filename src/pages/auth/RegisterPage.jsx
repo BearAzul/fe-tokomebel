@@ -40,7 +40,7 @@ const RegisterPage = () => {
 
   return (
     <>
-      <HelmetHead title="Register | Aplikasi Toko Mebel" link="/register" />
+      <HelmetHead title="Register" link="/register" />
       <section id="register" className="bg-dark-green">
         <Container className="py-5">
           <div className="card__container mx-auto">

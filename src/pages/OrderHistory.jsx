@@ -113,7 +113,7 @@ const OrderHistory = () => {
   return (
     <>
       <HelmetHead
-        title="Riwayat Pesanan | Aplikasi Toko Mebel"
+        title="Riwayat Pesanan"
         description="Lihat daftar riwayat pesanan Anda di Toko Mebel Amanah. Pantau status pengiriman dan detail transaksi dengan mudah."
         link="/orders"
       />

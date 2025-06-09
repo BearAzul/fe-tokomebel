@@ -33,7 +33,7 @@ const ForgotPasswordPage = () => {
   return (
     <>
       <HelmetHead
-        title="Forgot Password | Aplikasi Toko Mebel"
+        title="Forgot Password"
         link="/forgot-password"
       />
       <section id="forgot" className="bg-white overflow-hidden bg-dark-green">

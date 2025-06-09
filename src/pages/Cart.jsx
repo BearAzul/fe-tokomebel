@@ -44,7 +44,7 @@ const Cart = () => {
   return (
     <>
       <HelmetHead
-        title="Keranjang Belanja | Aplikasi Toko Mebel"
+        title="Keranjang Belanja"
         description="Lihat dan kelola produk yang Anda tambahkan ke keranjang belanja. Siap checkout kapan saja dengan mudah dan cepat."
         link="/cart"
       />

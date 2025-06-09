@@ -116,7 +116,7 @@ const ProfilePage = () => {
   return (
     <>
       <HelmetHead
-        title="Profil | Aplikasi Toko Mebel"
+        title="Profil Pengguna"
         description="Kelola informasi akun Anda di halaman Profil. Ubah data pribadi, alamat pengiriman, dan lihat histori aktivitas Anda."
         link="/profile"
       />

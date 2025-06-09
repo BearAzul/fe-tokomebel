@@ -56,7 +56,7 @@ const ShopPage = () => {
   return (
     <>
       <HelmetHead
-        title="Katalog | Aplikasi Toko Mebel"
+        title="Katalog"
         description="Jelajahi furniture berkualitas kami di Katalog. Dapatkan penawaran terbaik untuk kebutuhan rumah Anda"
         link="/shop"
       />

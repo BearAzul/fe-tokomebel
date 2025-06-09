@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 export const HelmetHead = ({ title, description, link }) => {
   return (
     <Helmet>
-      <title>{title}</title>
+      <title>{title} | Aplikasi Toko Mebel</title>
       <meta name="og:url" content="https://fe-tokomebel.vercel.app" />
       <meta
         property="og:image"
@@ -12,7 +12,7 @@ export const HelmetHead = ({ title, description, link }) => {
       />
       <meta
         name="description"
-        content="Toko Mebel Amanah terbaik untuk kebutuhan furniture Anda. Temukan berbagai macam produk mebel berkualitas dengan harga terjangkau dan layanan pengiriman cepat."
+        content={description}
       />
       <meta
         name="keywords"
@@ -30,7 +30,7 @@ export const HelmetHead = ({ title, description, link }) => {
       <meta itemProp="name" content="Aplikasi Toko Mebel" />
       <meta
         itemProp="description"
-        content={description}
+        content="Toko Mebel Amanah terbaik untuk kebutuhan furniture Anda. Temukan berbagai macam produk mebel berkualitas dengan harga terjangkau dan layanan pengiriman cepat."
       />
       <meta
         itemProp="image"
@@ -43,7 +43,7 @@ export const HelmetHead = ({ title, description, link }) => {
 };
 
 HelmetHead.defaultProps = {
-  title: "Beranda | Aplikasi Toko Mebel",
+  title: "Beranda",
   description:
     "Toko Mebel Amanah terbaik untuk kebutuhan furniture Anda. Temukan berbagai macam produk mebel berkualitas dengan harga terjangkau dan layanan pengiriman cepat.",
   link: "/"

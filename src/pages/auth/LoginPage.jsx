@@ -35,7 +35,7 @@ const LoginPage = () => {
   };
   return (
     <>
-      <HelmetHead title="Login | Aplikasi Toko Mebel" link="/login" />
+      <HelmetHead title="Login" link="/login" />
       <section id="login" className="bg-dark-green">
         <Container className="py-5">
           <div className="card__container mx-auto">

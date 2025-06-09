@@ -68,7 +68,7 @@ const DetailProduct = () => {
   return (
     <>
       <HelmetHead
-        title={`Detail  ${detailProducts.name}`}
+        title={`${detailProducts.name}`}
         description={`Beli ${detailProducts.name} hanya di Toko Mebel Amanah dengan harga terbaik.`}
         link={`/shop/${detailProducts._id}`}
       />
