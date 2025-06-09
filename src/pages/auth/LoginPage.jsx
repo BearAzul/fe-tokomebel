@@ -47,6 +47,7 @@ const LoginPage = () => {
                 className="d-block mx-auto my-3"
                 style={{ width: "300px" }}
                 src={imglogin}
+                alt="image login"
               />
               <Card.Title className="fm-1 text-center fw-bold text-dark-dark">
                 Sign to your account

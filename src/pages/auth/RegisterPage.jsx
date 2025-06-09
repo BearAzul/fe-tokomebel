@@ -52,6 +52,7 @@ const RegisterPage = () => {
                 className="d-block mx-auto my-3"
                 style={{ width: "300px" }}
                 src={imgsignup}
+                alt="image register"
               />
 
               <Card.Title className="fm-1 text-center fw-bold text-dark-dark">
