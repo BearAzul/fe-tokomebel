@@ -44,23 +44,3 @@
 |![Vercel](https://img.shields.io/badge/Vercel-000000?style=flat&logo=vercel&logoColor=white)| Platform deployment dan hosting gratis |
 |![Node.Js](https://img.shields.io/badge/Node.js-339933?style=flat&logo=node.js&logoColor=white)| Runtime JavaScript untuk environment pengembangan |
 |![Vite PWA](https://img.shields.io/badge/Vite_PWA-3466F6?style=flat&logo=pwa&logoColor=white)| Membuat aplikasi menjadi Progressive Web App (offline-ready) |
-
----
-
-## 📸 Galeri Tampilan
-
-<details>
-<summary>Klik untuk melihat screenshot aplikasi</summary>
-<br>
-<table>
-  <tr>
-    <td><img src="link/ke/screenshot-landingpage.jpg" alt="Landing Page"/></td>
-    <td><img src="link/ke/screenshot-login.jpg" alt="Halaman Login"/></td>
-  </tr>
-  <tr>
-    <td><img src="link/ke/screenshot-produk.jpg" alt="Halaman Produk"/></td>
-    <td><img src="link/ke/screenshot-keranjang.jpg" alt="Halaman Keranjang"/></td>
-  </tr>
-</table>
-</details>
-
