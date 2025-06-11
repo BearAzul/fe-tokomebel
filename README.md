@@ -25,6 +25,6 @@
 |![Axios](https://img.shields.io/badge/axios-671ddf?&style=flat&logo=axios&logoColor=white)| Permintaan HTTP ke backend (API) |
 |![Midtrans](https://img.shields.io/badge/Midtrans-0C8CBF?style=flat&logo=paypal&logoColor=white)| Integrasi Payment Gateway untuk transaksi pengguna |
 |![Eslint](https://img.shields.io/badge/eslint-3A33D1?style=flat&logo=eslint&logoColor=white) ![Prettier](https://img.shields.io/badge/prettier-1A2C34?style=flat&logo=prettier&logoColor=F7BA3E)| Standarisasi dan format otomatis kode JavaScript |
-|![Vercel](https://img.shields.io/badge/Vercel-000000?style=flat&logo=vercel&logoColor=white)| Platform deployment dan hosting modern |
+|![Vercel](https://img.shields.io/badge/Vercel-000000?style=flat&logo=vercel&logoColor=white)| Platform deployment dan hosting gratis |
 |![Node.Js](https://img.shields.io/badge/Node.js-339933?style=flat&logo=node.js&logoColor=white)| Runtime JavaScript untuk environment pengembangan |
 |![Vite PWA](https://img.shields.io/badge/Vite_PWA-3466F6?style=flat&logo=pwa&logoColor=white)| Membuat aplikasi menjadi Progressive Web App (offline-ready) |
