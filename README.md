@@ -8,7 +8,7 @@
   <img src="https://img.shields.io/badge/React-18+-blue?style=flat&logo=react&logoColor=61DAFB" alt="React 18+" />
   <img src="https://img.shields.io/badge/Vite-4+-yellow?style=flat&logo=vite&logoColor=FFD62E" alt="Vite 4+" />
   <img src="https://img.shields.io/badge/License-MIT-green" alt="MIT License" />
-  <img src="https://img.shields.io/badge/Deployed-Vercel-black" alt="Deployed on Vercel" />
+  <img src="https://img.shields.io/badge/Deployed-Vercel-black?style=flat&logo=vercel&logoColor=white" alt="Deployed on Vercel" />
   <img src="https://img.shields.io/github/last-commit/BearAzul/fe-tokomebel?style=flat" alt="Last Commit">
 </p>
 
