@@ -23,6 +23,7 @@
 |![Bootstrap](https://img.shields.io/badge/Bootstrap-7952B3?style=flat&logo=bootstrap&logoColor=white)| Framework CSS responsif dan siap pakai |
 |![React Router](https://img.shields.io/badge/React_Router-CA4245?style=flat&logo=react-router&logoColor=white)| Navigasi antar halaman menggunakan routing client-side |
 |![Axios](https://img.shields.io/badge/axios-671ddf?&style=flat&logo=axios&logoColor=white)| Permintaan HTTP ke backend (API) |
+|![Midtrans](https://img.shields.io/badge/Midtrans-0C8CBF?style=flat&logo=paypal&logoColor=white)| Integrasi Payment Gateway untuk transaksi pengguna |
 |![Eslint](https://img.shields.io/badge/eslint-3A33D1?style=flat&logo=eslint&logoColor=white) ![Prettier](https://img.shields.io/badge/prettier-1A2C34?style=flat&logo=prettier&logoColor=F7BA3E)| Standarisasi dan format otomatis kode JavaScript |
 |![Vercel](https://img.shields.io/badge/Vercel-000000?style=flat&logo=vercel&logoColor=white)| Platform deployment dan hosting modern |
 |![Node.Js](https://img.shields.io/badge/Node.js-339933?style=flat&logo=node.js&logoColor=white)| Runtime JavaScript untuk environment pengembangan |
