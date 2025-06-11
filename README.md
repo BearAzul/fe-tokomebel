@@ -1,15 +1,31 @@
 <h2 align="center">🛍️ Aplikasi Toko Mebel - Mebel Amanah</h2>
 
 <p align="center">
-  Frontend untuk aplikasi furniture <strong>Mebel Amanah</strong>, dibangun menggunakan <strong>React.js</strong> dan bundler <strong>Vite</strong> untuk performa optimal, modularitas, dan kemudahan pengembangan.
+  Frontend untuk Aplikasi Toko Mebel - <strong>Mebel Amanah</strong>, dibangun menggunakan <strong>React.js</strong> dengan memanfaatkan RESTful API dan bundler <strong>Vite</strong> untuk performa optimal, modularitas, dan kemudahan pengembangan.
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/React-18+-blue" alt="React 18+" />
-  <img src="https://img.shields.io/badge/Vite-4+-yellow" alt="Vite 4+" />
+  <img src="https://img.shields.io/badge/React-18+-blue?style=flat&logo=react&logoColor=61DAFB" alt="React 18+" />
+  <img src="https://img.shields.io/badge/Vite-4+-yellow?style=flat&logo=vite&logoColor=FFD62E" alt="Vite 4+" />
   <img src="https://img.shields.io/badge/License-MIT-green" alt="MIT License" />
   <img src="https://img.shields.io/badge/Deployed-Vercel-black" alt="Deployed on Vercel" />
+  <img src="https://img.shields.io/github/last-commit/BearAzul/fe-tokomebel?style=flat" alt="Last Commit">
 </p>
+
+---
+
+### 📖 Tentang Proyek
+
+**Aplikasi Toko Mebel** adalah sebuah platform toko mebel dalam bentuk digital. Proyek ini dirancang dengan antarmuka yang bersih, modern, dan sepenuhnya responsif, memberikan pengalaman pengguna yang mulus di berbagai perangkat. Tujuannya adalah untuk mendemonstrasikan kemahiran dalam membangun aplikasi web dinamis menggunakan React dan ekosistemnya.
+
+### ✨ Fitur Utama
+- 🔐 **Autentikasi & Verifikasi**: Sistem pendaftaran (Register) dan masuk (Login) yang aman, lengkap dengan pengiriman email untuk verifikasi akun berbasis token.
+- 📚 **Katalog Produk**: Menampilkan semua produk dengan gambar dan deskripsi yang jelas.
+- 💳 **Pembayaran Online**: Terintegrasi dengan Midtrans untuk proses checkout dan pembayaran yang mudah dan aman.
+- 🔍 **Pencarian Real-time**: Fitur pencarian untuk menemukan produk dengan cepat.
+- 🛒 **Manajemen Keranjang**: Pengguna dapat menambah, melihat, dan menghapus item dari keranjang belanja.
+- 📄 **Halaman Detail Produk**: Halaman khusus untuk setiap produk dengan informasi mendalam.
+- 📱 **Desain Responsif**: Tampilan yang optimal di desktop, tablet, maupun perangkat mobile.
 
 ---
 
@@ -28,3 +44,23 @@
 |![Vercel](https://img.shields.io/badge/Vercel-000000?style=flat&logo=vercel&logoColor=white)| Platform deployment dan hosting gratis |
 |![Node.Js](https://img.shields.io/badge/Node.js-339933?style=flat&logo=node.js&logoColor=white)| Runtime JavaScript untuk environment pengembangan |
 |![Vite PWA](https://img.shields.io/badge/Vite_PWA-3466F6?style=flat&logo=pwa&logoColor=white)| Membuat aplikasi menjadi Progressive Web App (offline-ready) |
+
+---
+
+## 📸 Galeri Tampilan
+
+<details>
+<summary>Klik untuk melihat screenshot aplikasi</summary>
+<br>
+<table>
+  <tr>
+    <td><img src="link/ke/screenshot-landingpage.jpg" alt="Landing Page"/></td>
+    <td><img src="link/ke/screenshot-login.jpg" alt="Halaman Login"/></td>
+  </tr>
+  <tr>
+    <td><img src="link/ke/screenshot-produk.jpg" alt="Halaman Produk"/></td>
+    <td><img src="link/ke/screenshot-keranjang.jpg" alt="Halaman Keranjang"/></td>
+  </tr>
+</table>
+</details>
+
