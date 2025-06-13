@@ -44,3 +44,7 @@
 |![Vercel](https://img.shields.io/badge/Vercel-000000?style=flat&logo=vercel&logoColor=white)| Platform deployment dan hosting gratis |
 |![Node.Js](https://img.shields.io/badge/Node.js-339933?style=flat&logo=node.js&logoColor=white)| Runtime JavaScript untuk environment pengembangan |
 |![Vite PWA](https://img.shields.io/badge/Vite_PWA-3466F6?style=flat&logo=pwa&logoColor=white)| Membuat aplikasi menjadi Progressive Web App (offline-ready) |
+
+---
+
+<p align="center"> &copy; 2025 Adya Abdu Azizul Hakim. All rights reserved. </p>
