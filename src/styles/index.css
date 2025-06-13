@@ -282,6 +282,10 @@ main {
   .header-left {
     display: none;
   }
+
+  .payment_snap_methode {
+    max-width: 170px;
+  }
 }
 
 @media(max-width: 992px) {
@@ -305,6 +309,10 @@ main {
       "header"
       "main";
   }
+
+  .payment_snap_methode {
+    max-width: 200px;
+  }
 }
 
 @media (min-width: 768px) {
@@ -321,6 +329,7 @@ main {
   }
 
 }
+
 @media (min-width: 800px) {
 
   #register,

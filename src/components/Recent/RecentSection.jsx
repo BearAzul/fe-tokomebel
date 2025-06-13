@@ -32,7 +32,9 @@ const RecentSection = () => {
             <p className="text-orange py-1 px-2 border border-secondary max-content mx-auto fm-1 fs-7 fw-bold fst-italic mb-1">
               Recently
             </p>
-            <h3 className="text-dark-dark fm-2 fs-4 fw-bold">TATA LETAK RUANGAN</h3>
+            <h3 className="text-dark-dark fm-2 fs-4 fw-bold">
+              TATA LETAK RUANGAN
+            </h3>
           </div>
           <Row
             md="2"
@@ -125,7 +127,7 @@ const RecentSection = () => {
           </Row>
         </Container>
       </section>
-      <div className="d-block pt-5 mt-5">
+      <div className="d-block">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 180">
           <path
             fill="#212529"

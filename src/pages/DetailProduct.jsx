@@ -138,7 +138,7 @@ const DetailProduct = () => {
                         className="fs-7 fw-semibold rounded-1 btn__cart"
                         onClick={handleAddToCart}
                       >
-                        Add to Cart
+                        Tambah ke Keranjang
                         <i className="ri-shopping-cart-2-line ms-2"></i>
                       </Button>
                     </>

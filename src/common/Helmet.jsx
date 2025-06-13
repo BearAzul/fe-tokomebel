@@ -1,7 +1,11 @@
 import { Helmet } from "react-helmet-async";
 import PropTypes from "prop-types";
 
-export const HelmetHead = ({ title, description, link }) => {
+export const HelmetHead = ({
+  title = "Beranda",
+  description = "Toko Mebel Amanah terbaik untuk kebutuhan furniture Anda. Temukan berbagai macam produk mebel berkualitas dengan harga terjangkau dan layanan pengiriman cepat.",
+  link = "/",
+}) => {
   return (
     <Helmet>
       <title>{title} | Aplikasi Toko Mebel</title>
@@ -10,10 +14,7 @@ export const HelmetHead = ({ title, description, link }) => {
         property="og:image"
         content="https://raw.githubusercontent.com/BearAzul/fe-tokomebel/refs/heads/client/src/assets/Image/logo_toko_mebel.png"
       />
-      <meta
-        name="description"
-        content={description}
-      />
+      <meta name="description" content={description} />
       <meta
         name="keywords"
         content="Aplikasi Toko Mebel, Mebel Amanah, furniture, mebel berkualitas, pengiriman cepat, perabotan rumah, sofa, meja, kursi, lemari"
@@ -42,15 +43,8 @@ export const HelmetHead = ({ title, description, link }) => {
   );
 };
 
-HelmetHead.defaultProps = {
-  title: "Beranda",
-  description:
-    "Toko Mebel Amanah terbaik untuk kebutuhan furniture Anda. Temukan berbagai macam produk mebel berkualitas dengan harga terjangkau dan layanan pengiriman cepat.",
-  link: "/"
-};
-
 HelmetHead.propTypes = {
-  title: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
-  link: PropTypes.string.isRequired,
+  title: PropTypes.string,
+  description: PropTypes.string,
+  link: PropTypes.string,
 };

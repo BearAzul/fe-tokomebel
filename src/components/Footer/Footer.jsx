@@ -13,11 +13,12 @@ const Footer = () => {
               Tentang Toko<span className="text-orange">Mebel</span>{" "}
             </h5>
             <p className="fm-2 fs-7 mb-2">
-              Toko Mebel adalah Aplikasi penyedia furniture dari Toko Mebel Amanah yang terpercaya dengan
-              menghadirkan produk mebel berkualitas tinggi dengan harga
-              terjangkau. Kami menyediakan berbagai macam pilihan mebel dari
-              kayu jati, mahoni, dan bahan berkualitas lainnya yang dikerjakan
-              langsung oleh pengrajin berpengalaman.
+              Toko Mebel adalah Aplikasi penyedia furniture dari Toko
+              MebelAmanah yang terpercaya dengan menghadirkan produk mebel
+              berkualitas tinggi dengan harga terjangkau. Kami menyediakan
+              berbagai macam pilihan mebel dari kayu jati, mahoni, dan
+              bahanberkualitas lainnya yang dikerjakan langsung oleh
+              pengrajinberpengalaman.
             </p>
             <p className="fm-2 fs-7">
               Toko Mebel Amanah juga melayani pemesanan custom sesuai keinginan,
