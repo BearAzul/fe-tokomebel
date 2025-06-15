@@ -10,19 +10,16 @@ import { HelmetHead } from "../common/Helmet.jsx";
 
 const TableHeader = [
   {
-    id: 0,
     title: "Produk Detail",
     col: 6,
     align: "start",
   },
   {
-    id: 1,
     title: "Harga",
     col: 3,
     align: "center",
   },
   {
-    id: 2,
     title: "Total",
     col: 3,
     align: "center",
@@ -68,9 +65,9 @@ const Cart = () => {
                 xs="3"
                 className="g-0 text-uppercase d-md-flex d-none text-center mb-3"
               >
-                {TableHeader.map((header) => (
+                {TableHeader.map((header, index) => (
                   <Col
-                    key={header.id}
+                    key={index}
                     md={header.col}
                     className={`text-${header.align}`}
                   >

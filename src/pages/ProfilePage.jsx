@@ -186,7 +186,7 @@ const ProfilePage = () => {
               <Col lg="8">
                 <Card>
                   <Card.Body className="fm-2 p-0">
-                    <Card.Title className="fw-bold border-bottom p-3 bg-dark-green text-white">
+                    <Card.Title className="fw-bold border-bottom p-3 bg-dark-green text-white rounded-top-2">
                       Informasi Pribadi
                     </Card.Title>
                     <div className="fs-7 px-3 mb-2">
