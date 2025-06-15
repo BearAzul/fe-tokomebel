@@ -21,6 +21,7 @@ import { ProfileDirect } from "../components/Directlink.jsx";
 import { useState } from "react";
 import BlankImages from "../assets/Image/blank_user.png";
 import { HelmetHead } from "../common/Helmet.jsx";
+import OrderDetailView from "./admin/OrderDetailView.jsx";
 
 export const loader = (storage) => async () => {
   const user = storage.getState().userState.user;
@@ -31,7 +32,6 @@ export const loader = (storage) => async () => {
   }
 
   const { data } = await customAPI.get("/auth/getuser");
-
   const currentUser = data.user;
 
   return { currentUser };
@@ -41,7 +41,12 @@ const ProfilePage = () => {
   const user = useSelector((state) => state.userState.user);
   const [edit, setEdit] = useState(false);
   const { currentUser } = useLoaderData();
-  const genders = [
+
+  const [information, setInformation] = useState({
+    gender: currentUser.gender,
+  })
+  
+  const gender = [
     {
       key: 1,
       value: "Male",
@@ -133,11 +138,7 @@ const ProfilePage = () => {
                 <Card className="fm-2 p-3">
                   <Card.Img
                     variant="top"
-                    src={
-                      currentUser.image === null
-                        ? BlankImages
-                        : currentUser.image
-                    }
+                    src={currentUser.image === null ? BlankImages : currentUser.image}
                     className="d-block rounded mx-auto object-fit-cover"
                   />
                   <Card.Body className="px-0">
@@ -185,10 +186,10 @@ const ProfilePage = () => {
               <Col lg="8">
                 <Card>
                   <Card.Body className="fm-2 p-0">
-                    <Card.Title className="fw-bold border-bottom p-3 text-dark-green text-white">
+                    <Card.Title className="fw-bold border-bottom p-3 bg-dark-green text-white">
                       Informasi Pribadi
                     </Card.Title>
-                    <Card.Text className="fs-7 px-3 mb-2">
+                    <div className="fs-7 px-3 mb-2">
                       <Row md="2" className="g-2">
                         <Col>
                           <FormInput
@@ -211,21 +212,23 @@ const ProfilePage = () => {
                           />
                         </Col>
                       </Row>
-                    </Card.Text>
-                    <Card.Text className="fs-7 px-3 mb-3">
+                    </div>
+                    <div className="fs-7 px-3 mb-3">
                       <FormSelect
+                        name="gender" 
                         label="Jenis Kelamin:"
-                        name="gender"
-                        defaultValue={currentUser.gender}
-                        options={genders.map((gender) => ({
-                          key: gender.key,
-                          value: gender.value,
-                          label: gender.label,
-                        }))}
+                        value={information.gender}
+                        onChange={(e) =>
+                          setInformation((prev) => ({
+                            ...prev,
+                            gender: e.target.value,
+                          }))
+                        }
+                        options={gender}
                         disabled={!edit}
                       />
-                    </Card.Text>
-                    <Card.Text className="fs-7 px-3 mb-2">
+                    </div>
+                    <div className="fs-7 px-3 mb-2">
                       <Row lg="2" className="g-2">
                         <Col>
                           <FormInput
@@ -274,7 +277,7 @@ const ProfilePage = () => {
                           />
                         </Col>
                       </Row>
-                    </Card.Text>
+                    </div>
                   </Card.Body>
                   <Card.Footer className="fm-2 d-flex gap-2">
                     {!edit ? (

@@ -60,7 +60,7 @@ const ProductsView = () => {
               <select
                 name="category"
                 className="form-select form-select-sm fs-7"
-              defaultValue={category}
+                defaultValue={category}
               >
                 <option value="">-- Cari Kategori --</option>
                 {categories.map((tag) => (

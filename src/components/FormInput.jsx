@@ -78,7 +78,8 @@ export const FormSelect = ({
   label,
   name,
   options,
-  defaultValue,
+  value,
+  onChange,
   className,
   disabled = false,
 }) => {
@@ -91,14 +92,14 @@ export const FormSelect = ({
         className={`form-select form-select-sm ${className}`}
         id={name}
         name={name}
-        defaultValue={defaultValue}
+        value={value || ""}
+        onChange={onChange}
         disabled={disabled}
       >
         <option
           value=""
-          disabled
           className="text-capitalize"
-        >{`-- Choose ${name} --`}</option>
+        >{`-- Pilih ${label} --`}</option>
         {options.map((option) => (
           <option key={option.key} value={option.value}>
             {option.label}
@@ -155,7 +156,8 @@ FormTextarea.propTypes = {
 FormSelect.propTypes = {
   label: PropTypes.string,
   name: PropTypes.string.isRequired,
-  defaultValue: PropTypes.string,
+  value: PropTypes.string,
+  onChange: PropTypes.func,
   className: PropTypes.string,
   options: PropTypes.arrayOf(
     PropTypes.shape({

@@ -148,8 +148,14 @@ const UserView = () => {
                 <FormSelect
                   name="gender"
                   label="Jenis Kelamin:"
+                  value={identity.gender}
+                  onChange={(e) =>
+                    setIdentity((prev) => ({
+                      ...prev,
+                      gender: e.target.value,
+                    }))
+                  }
                   options={gender}
-                  defaultValue={identity.gender}
                 />
               </Col>
               <Col>

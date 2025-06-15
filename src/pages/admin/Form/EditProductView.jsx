@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import customAPI from "../../../api.js";
-import { FormInput, FormSelect, FormEditor } from "../../../components/FormInput";
+import { FormInput, FormEditor, FormSelect } from "../../../components/FormInput";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { EditProductDirect } from "../../../components/Directlink.jsx";
 import Loading from "../../../components/Loading.jsx";
-
 
 const EditProductView = () => {
   const [product, setProduct] = useState([]);
@@ -18,14 +17,22 @@ const EditProductView = () => {
   const { id } = useParams();
 
   const getProduct = async () => {
-    const { data } = await customAPI.get(`/product/${id}`);
-    setProduct(data.data);
-    setDesc(data.data.description);
+    try {
+      const { data } = await customAPI.get(`/product/${id}`);
+      setProduct(data.data);
+      setDesc(data.data.description);
+    } catch (err) {
+      toast.error("Gagal mengambil data produk");
+    }
   };
 
   const getCategories = async () => {
-    const { data } = await customAPI.get("/category");
-    setCategories(data.data);
+    try {
+      const { data } = await customAPI.get("/category");
+      setCategories(data.data);
+    } catch (err) {
+      toast.error("Gagal mengambil kategori");
+    }
   };
 
   useEffect(() => {
@@ -117,13 +124,21 @@ const EditProductView = () => {
                 <FormSelect
                   name="category"
                   label="Kategori:"
-                  defaultValue={product.category?._id}
+                  value={product.category?._id || product.category}
+                  onChange={(e) =>
+                    setProduct((prev) => ({
+                      ...prev,
+                      category: e.target.value,
+                    }))
+                  }
                   options={categories.map((category) => ({
+                    key: category._id,
                     value: category._id,
                     label: category.name,
                   }))}
                 />
               </Col>
+
               <Col md="12" lg="8">
                 <FormInput
                   name="summary"
