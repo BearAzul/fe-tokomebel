@@ -98,6 +98,7 @@ export const CardProductAdmin = ({ product, icons, className }) => {
           <Link
             to={`/admin/products/${product._id}/edit`}
             className="btn btn-warning rounded-0"
+            aria-label="Link to Edit"
           >
             <i className={`${icons} fs-6`}></i>
           </Link>

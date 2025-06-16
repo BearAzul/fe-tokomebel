@@ -33,7 +33,7 @@ export default defineConfig({
       },
     }),
     partytownVite({
-      dest: path.join(__dirname, "dist", "~partytown"),
+      dest: path.join(__dirname, "public", "~partytown"),
     }),
   ],
   server: {
