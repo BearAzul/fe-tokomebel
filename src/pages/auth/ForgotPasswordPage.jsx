@@ -50,6 +50,7 @@ const ForgotPasswordPage = () => {
                 className="d-block mx-auto my-3"
                 style={{ width: "250px" }}
                 src={ForgotImages}
+                alt="image forgot password"
               />
               <h1 className="mb-4 fs-4 text-center fm-2 fw-semibold">
                 Lupa Kata Sandi
