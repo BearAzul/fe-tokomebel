@@ -17,13 +17,13 @@ const ForgotPasswordPage = () => {
       const res = await customAPI.post("/auth/forgot-password", { email });
       toast.success(
         res.data.message ||
-          "Permintaan reset password berhasil dikirim, Silahkan Cek Email Anda!"
+        "Permintaan reset password berhasil dikirim, Silahkan Cek Email Anda!"
       );
       setEmail("");
     } catch (error) {
       toast.error(
         error.response?.data?.message ||
-          "Terjadi kesalahan saat mengirim permintaan"
+        "Terjadi kesalahan saat mengirim permintaan"
       );
     } finally {
       setLoading(false);
@@ -33,8 +33,9 @@ const ForgotPasswordPage = () => {
   return (
     <>
       <HelmetHead
-        title="Forgot Password"
+        title="Lupa Kata Sandi?"
         link="/forgot-password"
+        description="Masukkan alamat email Anda untuk menerima tautan reset kata sandi. Pastikan email yang Anda gunakan terdaftar di aplikasi kami."
       />
       <section id="forgot" className="bg-white overflow-hidden bg-dark-green">
         <Container className="py-3 px-3">
@@ -50,9 +51,9 @@ const ForgotPasswordPage = () => {
                 style={{ width: "250px" }}
                 src={ForgotImages}
               />
-              <h4 className="mb-4 text-center fm-2 fw-semibold">
+              <h1 className="mb-4 fs-4 text-center fm-2 fw-semibold">
                 Lupa Kata Sandi
-              </h4>
+              </h1>
               <Form onSubmit={handleForgotPassword} className="fm-2">
                 <Form.Group controlId="email" className="mb-3">
                   <Form.Label>Alamat Email:</Form.Label>

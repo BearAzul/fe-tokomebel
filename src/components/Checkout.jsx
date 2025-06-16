@@ -237,8 +237,8 @@ const Checkout = () => {
               Payment
             </button>
           ) : (
-            <Link to="/shop" className="btn btn-primary w-100" aria-label="Back to Shop">
-              The Cart is Empty, going to the shop?
+            <Link to="/shop" className="btn btn-danger w-100" aria-label="Back to Shop">
+              Keranjang Kosong, mau ke toko?
             </Link>
           )}
         </div>

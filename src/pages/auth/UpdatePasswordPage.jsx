@@ -49,8 +49,9 @@ const UpdatePasswordPage = () => {
               className="d-block mx-auto my-3"
               style={{ width: "200px" }}
               src={ResetImages}
+              alt="image update"
             />
-            <h4 className="mb-4 text-center fm-2 fw-semibold">Atur Ulang Kata Sandi</h4>
+            <h1 className="mb-4 fs-4 text-center fm-2 fw-semibold">Atur Ulang Kata Sandi</h1>
             <Form onSubmit={handleResetPassword} className="fm-2">
               <Form.Group controlId="password" className="mb-3">
                 <Form.Label>Password Baru:</Form.Label>

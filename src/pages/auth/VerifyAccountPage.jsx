@@ -4,6 +4,7 @@ import customAPI from "../../api.js";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import VerifyImages from "../../assets/Image/Authentication-cuate.svg";
+import { HelmetHead } from "../../common/Helmet.jsx";
 
 const VerifyAccountPage = () => {
   const [verifyCode, setVerifyCode] = useState("");
@@ -29,52 +30,56 @@ const VerifyAccountPage = () => {
   };
 
   return (
-    <section id="verify" className="bg-white overflow-hidden bg-dark-green">
-      <Container className="py-3 px-3">
-        <Row className="justify-content-md-center m-3">
-          <Col
-            xs={12}
-            md={6}
-            className="bg-white rounded-3 pb-4 px-4"
-            data-aos="zoom-in"
-          >
-            <img
-              className="d-block mx-auto my-3"
-              style={{ width: "250px" }}
-              src={VerifyImages}
-            />
-            <h4 className="text-center fw-bold fm-2">Verifikasi Email</h4>
-            <p className="mb-4 text-center fm-2 fs-7">
-              Silahkan cek email anda untuk mendapatkan kode:
-            </p>
-            <Form onSubmit={handleVerify} className="fm-4">
-              <Form.Group controlId="verifyCode" className="mb-3">
-                <Form.Label>Kode Verifikasi:</Form.Label>
-                <Form.Control
-                  type="text"
+    <>
+      <HelmetHead title="Verifikasi Email" link="/verify-email" description="Verifikasi email untuk mengaktifkan akun Anda. Silakan periksa email Anda dan klik tautan verifikasi ini untuk melanjutkan proses pendaftaran" />
+      <section id="verify" className="bg-white overflow-hidden bg-dark-green">
+        <Container className="py-3 px-3">
+          <Row className="justify-content-md-center m-3">
+            <Col
+              xs={12}
+              md={6}
+              className="bg-white rounded-3 pb-4 px-4"
+              data-aos="zoom-in"
+            >
+              <img
+                className="d-block mx-auto my-3"
+                style={{ width: "250px" }}
+                src={VerifyImages}
+                alt="image verify"
+              />
+              <h1 className="text-center fs-4 fw-bold fm-2">Verifikasi Email</h1>
+              <p className="mb-4 text-center fm-2 fs-7">
+                Silahkan cek email anda untuk mendapatkan kode:
+              </p>
+              <Form onSubmit={handleVerify} className="fm-4">
+                <Form.Group controlId="verifyCode" className="mb-3">
+                  <Form.Label>Kode Verifikasi:</Form.Label>
+                  <Form.Control
+                    type="text"
+                    size="sm"
+                    placeholder="Masukkan 6 digit kode"
+                    className="border-1 bg-white"
+                    value={verifyCode}
+                    onChange={(e) => setVerifyCode(e.target.value)}
+                    required
+                    maxLength={6}
+                  />
+                </Form.Group>
+                <Button
+                  variant="success"
+                  type="submit"
                   size="sm"
-                  placeholder="Masukkan 6 digit kode"
-                  className="border-1 bg-white"
-                  value={verifyCode}
-                  onChange={(e) => setVerifyCode(e.target.value)}
-                  required
-                  maxLength={6}
-                />
-              </Form.Group>
-              <Button
-                variant="success"
-                type="submit"
-                size="sm"
-                disabled={loading}
-                className="w-100"
-              >
-                {loading ? "Memverifikasi..." : "Verifikasi"}
-              </Button>
-            </Form>
-          </Col>
-        </Row>
-      </Container>
-    </section>
+                  disabled={loading}
+                  className="w-100"
+                >
+                  {loading ? "Memverifikasi..." : "Verifikasi"}
+                </Button>
+              </Form>
+            </Col>
+          </Row>
+        </Container>
+      </section>
+    </>
   );
 };
 
