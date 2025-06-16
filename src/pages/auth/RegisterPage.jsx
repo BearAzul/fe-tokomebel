@@ -55,8 +55,8 @@ const RegisterPage = () => {
                 alt="image register"
               />
 
-              <Card.Title className="fm-1 text-center fw-bold text-dark-dark">
-                Create your account
+              <Card.Title>
+                <h1 className="fs-5 fw-bold text-dark-dark fm-1 text-center">Create your account</h1>
               </Card.Title>
               <Card.Body>
                 <Form method="post">
@@ -101,6 +101,7 @@ const RegisterPage = () => {
                       variant="light"
                       className="bg-white border border-start-0 rounded-0 rounded-end"
                       onClick={handleEyePassword}
+                      aria-label="eyes"
                     >
                       <i
                         className={
@@ -121,6 +122,7 @@ const RegisterPage = () => {
                         variant="light"
                         className="bg-white border border-start-0 rounded-0 rounded-end"
                         onClick={handleEyeConfirmPassword}
+                        aria-label="eyes"
                       >
                         <i
                           className={

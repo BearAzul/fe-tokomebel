@@ -232,11 +232,12 @@ const Checkout = () => {
             <button
               className="btn btn-success w-100 text-uppercase fw-semibold"
               type="submit"
+              aria-label="payment"
             >
               Payment
             </button>
           ) : (
-            <Link to="/shop" className="btn btn-primary w-100">
+            <Link to="/shop" className="btn btn-primary w-100" aria-label="Back to Shop">
               The Cart is Empty, going to the shop?
             </Link>
           )}

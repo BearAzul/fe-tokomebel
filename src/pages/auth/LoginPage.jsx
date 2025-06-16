@@ -12,21 +12,21 @@ import { HelmetHead } from "../../common/Helmet.jsx";
 
 export const action =
   (store) =>
-  async ({ request }) => {
-    const formInputData = await request.formData();
-    const data = Object.fromEntries(formInputData);
+    async ({ request }) => {
+      const formInputData = await request.formData();
+      const data = Object.fromEntries(formInputData);
 
-    try {
-      const response = await customAPI.post("/auth/login", data);
-      store.dispatch(loginUser(response.data));
-      toast.success("Login Success");
-      return redirect("/profile");
-    } catch (error) {
-      const errorMessage = error?.response?.data?.message;
-      toast.error(errorMessage);
-      return null;
-    }
-  };
+      try {
+        const response = await customAPI.post("/auth/login", data);
+        store.dispatch(loginUser(response.data));
+        toast.success("Login Success");
+        return redirect("/profile");
+      } catch (error) {
+        const errorMessage = error?.response?.data?.message;
+        toast.error(errorMessage);
+        return null;
+      }
+    };
 
 const LoginPage = () => {
   const [isProtect, setIsProtect] = useState(true);
@@ -49,8 +49,8 @@ const LoginPage = () => {
                 src={imglogin}
                 alt="image login"
               />
-              <Card.Title className="fm-1 text-center fw-bold text-dark-dark">
-                Sign to your account
+              <Card.Title>
+                <h1 className="fs-5 fw-bold text-dark-dark fm-1 text-center">Sign to your account</h1>
               </Card.Title>
               <Card.Body>
                 <Form method="post">
@@ -73,6 +73,7 @@ const LoginPage = () => {
                       variant="light"
                       className="bg-white border border-start-0 rounded-0 rounded-end"
                       onClick={handleEye}
+                      aria-label="eyes"
                     >
                       <i
                         className={

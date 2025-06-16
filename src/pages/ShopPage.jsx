@@ -91,7 +91,8 @@ const ShopPage = () => {
                             params.category === tag.name
                               ? "bg-warning text-dark fw-semibold"
                               : ""
-                          }`}
+                            }`}
+                          aria-label="button kategori"
                         >
                           <i className={tag.icon}></i>
                           <span className="ms-2 fs-7 fm-2">{tag.name}</span>
@@ -120,6 +121,7 @@ const ShopPage = () => {
                     <button
                       type="submit"
                       className="border-2 border-start-0 border-secondary-subtle rounded-right input-group-text fw-semibold"
+                      aria-label="button search"
                     >
                       <i className="ri-search-line"></i>
                     </button>
@@ -130,6 +132,7 @@ const ShopPage = () => {
                   size="md"
                   className="btn__clear fm-2 fw-medium border-secondary-subtle border-2"
                   onClick={() => handleClear()}
+                  aria-label="Button Clear"
                 >
                   <i className="ri-filter-off-line"></i>
                 </Button>
@@ -156,7 +159,7 @@ const ShopPage = () => {
               </div>
             </Col>
           </Row>
-          <ul className="pagination pagination-sm justify-content-center mt-5">
+          <ul className="pagination justify-content-center mt-5">
             {pages.map((pageNumber) => (
               <li className="page-item" aria-current="page" key={pageNumber}>
                 <button
