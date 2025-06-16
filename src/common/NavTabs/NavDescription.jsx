@@ -22,6 +22,7 @@ const NavDescription = ({ description }) => {
             className="text-dark border-0"
             active={activeTab === "description"}
             onClick={() => setActiveTab("description")}
+            aria-label="Tabs"
           >
             Deskripsi
           </Nav.Link>
@@ -32,6 +33,7 @@ const NavDescription = ({ description }) => {
             className="text-dark border-0"
             active={activeTab === "orderer"}
             onClick={() => setActiveTab("orderer")}
+            aria-label="Tabs"
           >
             Cara Memesan Mebel
           </Nav.Link>

@@ -35,6 +35,7 @@ const ButtonTop = () => {
           size="sm"
           className="position-fixed bottom-0 end-0 m-4"
           onClick={scrollToTop}
+          aria-label="Button Top"
         >
           <i className="ri-arrow-up-s-line"></i>
         </Button>

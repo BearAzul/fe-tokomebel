@@ -32,9 +32,9 @@ const RecentSection = () => {
             <p className="text-orange py-1 px-2 border border-secondary max-content mx-auto fm-1 fs-7 fw-bold fst-italic mb-1">
               Recently
             </p>
-            <h3 className="text-dark-dark fm-2 fs-4 fw-bold">
+            <h2 className="text-dark-dark fm-2 fs-4 fw-bold">
               TATA LETAK RUANGAN
-            </h3>
+            </h2>
           </div>
           <Row
             md="2"

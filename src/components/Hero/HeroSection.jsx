@@ -42,6 +42,7 @@ const HeroSection = () => {
                 <Button variant="dark" size="md"
                   className="mx-auto rounded-0 py-2 px-3 fm-2 fs-6"
                   onClick={() => navigate("/shop")}
+                  aria-label="Link To Shop"
                 >
                   BELI SEKARANG <i className="ri-arrow-right-circle-line ms-1"></i>
                 </Button>

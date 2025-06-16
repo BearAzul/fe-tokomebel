@@ -31,6 +31,7 @@ const exportCSV = ({ data }) => {
         data-bs-toggle="tooltip"
         data-bs-placement="bottom"
         data-bs-title="Download CSV"
+        aria-label="Export"
       >
         <i className="ri-file-excel-line"></i>
       </Button>

@@ -41,7 +41,7 @@ const BestSellerSection = () => {
             <p className="py-1 px-2 text-orange border border-secondary max-content mx-auto fm-1 fs-7 fw-bold fst-italic mb-1">
               Best Mebel
             </p>
-            <h3 className="fm-2 fs-4 fw-bold text-dark-dark">Produk Mebel Terkait</h3>
+            <h2 className="fm-2 fs-4 fw-bold text-dark-dark">Produk Mebel Terkait</h2>
           </div>
           <div className="p-2">
             <div className="category__btn ">

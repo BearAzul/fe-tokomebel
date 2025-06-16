@@ -32,6 +32,7 @@ export const CardProductCustomer = ({ product, icons, className }) => {
           <Link
             to={`/shop/${product._id}`}
             className="btn btn-warning rounded-0"
+            role="button"
           >
             <i className={`${icons} fs-6`}></i>
           </Link>

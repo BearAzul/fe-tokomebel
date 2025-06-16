@@ -30,14 +30,14 @@ const NavbarPage = () => {
           </HashLink>
           <div className="ms-auto me-3 d-flex d-lg-none gap-3 align-items-center justify-content-center">
             {isVerified ? (
-              <NavLink to="/profile" className="nav-link">
+              <NavLink to="/profile" className="nav-link" aria-label="Link To Profile">
                 <i className="ri-user-fill fs-6"></i>
               </NavLink>
             ) : (
               <LoginButton link="login" />
             )}
 
-            <NavLink to="/cart" className="nav-link position-relative">
+            <NavLink to="/cart" className="nav-link position-relative" aria-label="Link To Cart">
               <i className="ri-shopping-cart-2-fill fs-6 "></i>
               <span
                 className={`indicator__cart ${
@@ -67,13 +67,13 @@ const NavbarPage = () => {
           </Navbar.Collapse>
           <div className="d-none ms-lg-5 d-lg-flex gap-3 align-items-center justify-content-center">
             {isVerified ? (
-              <NavLink to="/profile" className="nav-link">
+              <NavLink to="/profile" className="nav-link" aria-label="Link To Profile">
                 <i className="ri-user-fill fs-6"></i>
               </NavLink>
             ) : (
               <LoginButton link="login" />
             )}
-            <NavLink to="/cart" className="nav-link me-auto position-relative">
+            <NavLink to="/cart" className="nav-link me-auto position-relative" aria-label="Link To Cart">
               <i className="ri-shopping-cart-2-fill fs-6 "></i>
               <span
                 className={`indicator__cart ${

@@ -9,9 +9,9 @@ const Footer = () => {
       <div className="container p-4 pt-5">
         <div className="row mt-4">
           <div className="col-lg-4 col-md-12 mb-4 mb-md-0">
-            <h5 className="text-uppercase mb-4 fm-3 fw-bold">
-              Tentang Toko<span className="text-orange">Mebel</span>{" "}
-            </h5>
+            <h2 className="fs-5 text-uppercase mb-4 fm-3 fw-bold">
+              Tentang Toko<span className="text-orange">Mebel</span>
+            </h2>
             <p className="fm-2 fs-7 mb-2">
               Toko Mebel adalah Aplikasi penyedia furniture dari Toko
               MebelAmanah yang terpercaya dengan menghadirkan produk mebel
@@ -41,9 +41,9 @@ const Footer = () => {
           </div>
 
           <div className="col-lg-4 col-md-6 mb-4 mb-md-0">
-            <h5 className="text-uppercase mb-4 pb-1 fm-3 fw-bold">
+            <h2 className="text-uppercase fs-5 mb-4 pb-1 fm-3 fw-bold">
               Kontak Kami
-            </h5>
+            </h2>
 
             <ul className="list-unstyled fm-2 fs-7">
               <li className="mb-3 d-flex">
@@ -70,7 +70,7 @@ const Footer = () => {
             </ul>
           </div>
           <div className="col-lg-4 col-md-6 mb-4 mb-md-0">
-            <h5 className="text-uppercase mb-4 fm-3 fw-bold">Buka Pada Jam:</h5>
+            <h2 className="fs-5 text-uppercase mb-4 fm-3 fw-bold">Buka Pada Jam:</h2>
             <table className="table table-dark">
               <tbody className="font-weight-normal fm-2 fs-7">
                 <tr>

@@ -59,9 +59,9 @@ const CustomSection = () => {
                     <p className="text-orange box fm-1 fw-bold fst-italic fs-7 py-1 px-2 border border-secondary max-content text-uppercase">
                       Design
                     </p>
-                    <h3 className="text-white fw-bold text-uppercase m-0 fm-2">
+                    <h2 className="text-white fs-4 fw-bold text-uppercase m-0 fm-2">
                       BAHAN DESAIN DAN WARNA
-                    </h3>
+                    </h2>
                     <p className="text-white m-0 fm-2 fw-medium">
                       Pilih desain yang Anda inginkan:
                     </p>
@@ -72,6 +72,7 @@ const CustomSection = () => {
                       size="md"
                       className="w-100 fw-medium mb-2 rounded-0"
                       onClick={() => handleChange("blue")}
+                      aria-label="Warna"
                     >
                       Biru
                     </Button>
@@ -80,6 +81,7 @@ const CustomSection = () => {
                       size="md"
                       className="w-100 fw-medium mb-2 rounded-0"
                       onClick={() => handleChange("green")}
+                      aria-label="Warna"
                     >
                       Hijau
                     </Button>
@@ -88,6 +90,7 @@ const CustomSection = () => {
                       size="md"
                       className="w-100 fw-medium mb-2 rounded-0"
                       onClick={() => handleChange("grey")}
+                      aria-label="Warna"
                     >
                       Abu-abu
                     </Button>
@@ -96,6 +99,7 @@ const CustomSection = () => {
                       size="md"
                       className="w-100 fw-medium mb-2 rounded-0"
                       onClick={() => handleChange("red")}
+                      aria-label="Warna"
                     >
                       Merah
                     </Button>
@@ -126,6 +130,7 @@ const CustomSection = () => {
                         variant="warning"
                         size="md"
                         className="rounded-0 px-md-4 px-3 fw-bold"
+                        aria-label="Settings"
                       >
                         <i className="ri-settings-5-fill fs-6"></i>
                       </Button>
