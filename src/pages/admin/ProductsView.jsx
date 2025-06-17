@@ -2,6 +2,7 @@ import { Container, Row, Col, Button } from "react-bootstrap";
 import {
   Link,
   useLoaderData,
+  useLocation,
   useNavigation,
   Form,
   useNavigate,
@@ -10,13 +11,14 @@ import customAPI from "../../api.js";
 import { CardProductAdmin } from "../../components/CardProduct.jsx";
 import Loading from "../../components/Loading.jsx";
 import { ProductsDirect } from "../../components/Directlink.jsx";
+import CustomPagination from "../../components/Pagination.jsx";
 import "../../styles/index.css";
 
 export const loader = async ({ request }) => {
   const params = Object.fromEntries([
     ...new URL(request.url).searchParams.entries(),
   ]);
-  const { data } = await customAPI.get("/product", { params: params });
+  const { data } = await customAPI.get("/product?limit=8", { params: params });
   const resCategory = await customAPI.get("/category");
   const dataProducts = data.data;
   const pagination = data.pagination;
@@ -27,13 +29,19 @@ export const loader = async ({ request }) => {
 
 const ProductsView = () => {
   const navigate = useNavigate();
-  const { dataProducts, params } = useLoaderData();
-  const { categories } = useLoaderData([]);
+  const { dataProducts, params, categories, pagination } = useLoaderData();
+  const { search, pathname } = useLocation();
   const { name, category } = params;
+  const { page, totalPage } = pagination;
 
   const navigation = useNavigation();
   const isPageLoading = navigation.state === "loading";
 
+  const handleChangePage = (number) => {
+    const searchParams = new URLSearchParams(search);
+    searchParams.set("page", number);
+    navigate(`${pathname}?${searchParams.toString()}`);
+  };
 
   const handleClear = () => {
     navigate("/admin/products");
@@ -85,7 +93,7 @@ const ProductsView = () => {
           </Form>
         </div>
         <div className="mt-4 furniture__product">
-          <Row lg="5" md="4" xs="2" className="g-2 g-lg-3">
+          <Row lg="4" md="4" xs="2" className="g-2 g-lg-3">
             {isPageLoading ? (
               <Loading />
             ) : !dataProducts.length ? (
@@ -104,6 +112,11 @@ const ProductsView = () => {
               ))
             )}
           </Row>
+          <CustomPagination
+            totalPage={totalPage}
+            currentPage={page}
+            onChangePage={handleChangePage}
+          />
         </div>
       </Container>
     </section>

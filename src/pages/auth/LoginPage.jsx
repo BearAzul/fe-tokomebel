@@ -84,7 +84,7 @@ const LoginPage = () => {
                   </div>
                   <div className="mb-3 text-keep input-group">
                     <Link
-                      to={"/forgot-password"}
+                      to="/forgot-password"
                       className="fm-2 fs-7 text-link fw-medium  btn-link"
                     >
                       Lupa Kata Sandi?

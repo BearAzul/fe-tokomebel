@@ -89,7 +89,27 @@ h1, h2, h3, h4, h5, h6, p {
   height: max-content;
 }
 
+#shop .pagination .page-item.active .page-link {
+  background-color: #135961;
+  color: white;
+  border-color: #135961;
+}
 
+#shop .pagination .page-link {
+  color: #135961;
+}
+
+#product .pagination .page-item.active .page-link {
+  background-color: #ffc107;
+  color: #000;
+  border-color: #ffc107;
+}
+
+#product .pagination .page-link {
+  color: #fff;
+  background-color: transparent;
+  border-color: #ffc107;
+}
 
 
 #shop .category__product button,

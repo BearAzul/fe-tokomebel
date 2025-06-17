@@ -136,10 +136,6 @@ const ProfilePage = () => {
                     </Card.Text>
                   </Card.Footer>
                 </Card>
-                {/* <Button variant="base" className="fw-bold w-100 border my-3 p-2">
-              <i className="ri-key-fill me-3"></i>Change Password
-            </Button> */}
-
                 {currentUser.role === "owner" ? (
                   <Link to="/admin" className="btn btn-dark w-100 fm-2 mt-2">
                     Dashboard Admin

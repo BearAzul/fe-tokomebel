@@ -15,13 +15,13 @@ const EditCustomersView = () => {
   const genders = [
     {
       key: 1,
-      value: "Male",
-      label: "Male",
+      value: "Laki-Laki",
+      label: "Laki-Laki",
     },
     {
       key: 2,
-      value: "Female",
-      label: "Female",
+      value: "Perempuan",
+      label: "Perempuan",
     },
   ];
   const [customer, setCustomer] = useState([]);

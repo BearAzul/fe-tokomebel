@@ -15,6 +15,7 @@ import {
 import Loading from "../components/Loading.jsx";
 import { ShopDirect } from "../components/Directlink.jsx";
 import { HelmetHead } from "../common/Helmet.jsx";
+import CustomPagination from "../components/Pagination.jsx";
 
 
 export const loader = async ({ request }) => {
@@ -32,16 +33,12 @@ export const loader = async ({ request }) => {
 };
 
 const ShopPage = () => {
-  const { dataProducts, pagination, params, categories} = useLoaderData();
+  const { dataProducts, pagination, params, categories } = useLoaderData();
   const { page, totalPage } = pagination;
   const { search, pathname } = useLocation();
   const navigate = useNavigate();
   const navigation = useNavigation();
   const isPageLoading = navigation.state === 'loading';
-
-  const pages = Array.from({ length: totalPage }, (_, index) => {
-    return index + 1;
-  });
 
   const handleChangePage = (number) => {
     const searchParams = new URLSearchParams(search);
@@ -87,8 +84,7 @@ const ShopPage = () => {
                           type="submit"
                           variant="dark"
                           size="md"
-                          className={`w-100 border-0 px-3 rounded-2 fw-medium ${
-                            params.category === tag.name
+                          className={`w-100 border-0 px-3 rounded-2 fw-medium ${params.category === tag.name
                               ? "bg-warning text-dark fw-semibold"
                               : ""
                             }`}
@@ -156,25 +152,14 @@ const ShopPage = () => {
                     ))
                   )}
                 </Row>
+                <CustomPagination
+                  totalPage={totalPage}
+                  currentPage={page}
+                  onChangePage={handleChangePage}
+                />
               </div>
             </Col>
           </Row>
-          <ul className="pagination justify-content-center mt-5">
-            {pages.map((pageNumber) => (
-              <li className="page-item" aria-current="page" key={pageNumber}>
-                <button
-                  className={`page-link fm-1 fw-semibold ${
-                    pageNumber === page
-                      ? "bg-dark-green text-white"
-                      : "text-dark-green"
-                  }`}
-                  onClick={() => handleChangePage(pageNumber)}
-                >
-                  {pageNumber}
-                </button>
-              </li>
-            ))}
-          </ul>
         </Container>
       </section>
     </>

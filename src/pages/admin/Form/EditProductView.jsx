@@ -85,7 +85,7 @@ const EditProductView = () => {
     <section className="fm-2">
       <Container>
         <EditProductDirect />
-        <h5 className="my-3">Edit a Product</h5>
+        <h5 className="my-3">Edit Produk Mebel</h5>
         {product ? (
           <form
             className="border border-secondary rounded p-3"
