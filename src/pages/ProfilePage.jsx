@@ -21,7 +21,7 @@ import { ProfileDirect } from "../components/Directlink.jsx";
 import { useState } from "react";
 import BlankImages from "../assets/Image/blank_user.png";
 import { HelmetHead } from "../common/Helmet.jsx";
-import OrderDetailView from "./admin/OrderDetailView.jsx";
+import { googleLogout } from "@react-oauth/google";
 
 export const loader = (storage) => async () => {
   const user = storage.getState().userState.user;
@@ -49,13 +49,13 @@ const ProfilePage = () => {
   const gender = [
     {
       key: 1,
-      value: "Male",
-      label: "Male",
+      value: "Laki-Laki",
+      label: "Laki-Laki",
     },
     {
       key: 2,
-      value: "Female",
-      label: "Female",
+      value: "Perempuan",
+      label: "Perempuan",
     },
   ];
   const { revalidate } = useRevalidator();
@@ -99,6 +99,7 @@ const ProfilePage = () => {
 
   const handleLogout = async () => {
     try {
+      googleLogout()
       await customAPI.get("/auth/logout");
       dispatch(logoutUser());
       dispatch(clearCartItem());
@@ -237,7 +238,7 @@ const ProfilePage = () => {
                             name="email"
                             placeHolder="Masukkan Email Valid Anda"
                             defaultValue={currentUser.email}
-                            disabled={!edit}
+                            disabled={true}
                           />
                         </Col>
                         <Col>

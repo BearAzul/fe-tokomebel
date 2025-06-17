@@ -13,6 +13,7 @@ import { ToastContainer } from "react-toastify";
 import { store } from "./store.js";
 import { Provider } from "react-redux";
 import { HelmetProvider } from "react-helmet-async";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
 import { registerSW } from "virtual:pwa-register";
 
@@ -26,22 +27,24 @@ AOS.init({
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <HelmetProvider>
-      <Provider store={store}>
-        <ToastContainer
-          position="bottom-right"
-          autoClose={3400}
-          hideProgressBar={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss={false}
-          draggable
-          pauseOnHover={false}
-          theme="dark"
-        />
-        <App />
-        <ButtonTop />
-      </Provider>
-    </HelmetProvider>
+    <GoogleOAuthProvider clientId="913942463853-veha9ege0bsrqqu1gujhi8ptt7c65osu.apps.googleusercontent.com">
+      <HelmetProvider>
+        <Provider store={store}>
+          <ToastContainer
+            position="bottom-right"
+            autoClose={3400}
+            hideProgressBar={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss={false}
+            draggable
+            pauseOnHover={false}
+            theme="dark"
+          />
+          <App />
+          <ButtonTop />
+        </Provider>
+      </HelmetProvider>
+    </GoogleOAuthProvider>
   </React.StrictMode>
 );

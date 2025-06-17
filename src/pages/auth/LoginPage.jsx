@@ -8,7 +8,7 @@ import { loginUser } from "../../features/userSlice.js";
 import { Form } from "react-router-dom";
 import customAPI from "../../api.js";
 import { HelmetHead } from "../../common/Helmet.jsx";
-// import IconGoogle from "../../assets/Image/google_icons.webp";
+import Oauth from "./google/Oauth.jsx";
 
 export const action =
   (store) =>
@@ -106,18 +106,12 @@ const LoginPage = () => {
                     </Link>
                   </div>
                 </Form>
-                {/* <div className="d-flex justify-content-center align-items-center gap-3 my-2">
-                <hr className="border-secondary w-100" />
-                <span className="text-secondary fm-2 fw-medium">OR</span>
-                <hr className="border-secondary w-100" />
-              </div>
-              <Button
-                variant="light"
-                className="border d-flex justify-content-center fm-2 gap-3 w-100 p-2 text-secondary"
-              >
-                <img src={IconGoogle} alt="" style={{ width: "25px" }} />
-                Login with google account
-              </Button> */}
+                <div className="d-flex justify-content-center align-items-center gap-3 my-2">
+                  <hr className="border-secondary w-100" />
+                  <span className="text-secondary fm-2 fw-medium">Atau</span>
+                  <hr className="border-secondary w-100" />
+                </div>
+                <Oauth />
               </Card.Body>
             </Card>
           </div>
