@@ -7,21 +7,17 @@ import {
 import { Container, Row, Col, Button, Card } from "react-bootstrap";
 import { toast } from "react-toastify";
 import {
-  useNavigate,
   Link,
   redirect,
   useRevalidator,
   useLoaderData,
 } from "react-router-dom";
 import BannerHeader from "../common/Banner/BannerHeader.jsx";
-import { clearCartItem } from "../features/cartSlice.js";
-import { logoutUser } from "../features/userSlice.js";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { ProfileDirect } from "../components/Directlink.jsx";
 import { useState } from "react";
 import BlankImages from "../assets/Image/blank_user.png";
 import { HelmetHead } from "../common/Helmet.jsx";
-import { googleLogout } from "@react-oauth/google";
 
 export const loader = (storage) => async () => {
   const user = storage.getState().userState.user;
@@ -45,7 +41,7 @@ const ProfilePage = () => {
   const [information, setInformation] = useState({
     gender: currentUser.gender,
   })
-  
+
   const gender = [
     {
       key: 1,
@@ -59,10 +55,6 @@ const ProfilePage = () => {
     },
   ];
   const { revalidate } = useRevalidator();
-
-  const dispatch = useDispatch();
-
-  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -97,20 +89,6 @@ const ProfilePage = () => {
     }
   };
 
-  const handleLogout = async () => {
-    try {
-      googleLogout()
-      await customAPI.get("/auth/logout");
-      dispatch(logoutUser());
-      dispatch(clearCartItem());
-      navigate("/login");
-    } catch (error) {
-      dispatch(logoutUser());
-      dispatch(clearCartItem());
-      navigate("/login");
-    }
-  };
-
   const handleEdit = () => {
     setEdit(true);
   };
@@ -141,6 +119,7 @@ const ProfilePage = () => {
                     variant="top"
                     src={currentUser.image === null ? BlankImages : currentUser.image}
                     className="d-block rounded mx-auto object-fit-cover"
+                    alt="image user"
                   />
                   <Card.Body className="px-0">
                     <input
@@ -166,22 +145,12 @@ const ProfilePage = () => {
                     Dashboard Admin
                   </Link>
                 ) : (
-                  <div className="d-flex align-items-center gap-2 mt-2 w-100">
-                    <Button
-                      variant="danger"
-                      size="sm"
-                      className="fw-medium w-100"
-                      onClick={handleLogout}
-                    >
-                      <i className="ri-logout-box-line me-2"></i>Logout
-                    </Button>
-                    <Link
-                      to="/orders"
-                      className="btn btn-primary btn-sm fm-2 border w-100"
-                    >
-                      Riwayat Pesanan
-                    </Link>
-                  </div>
+                  <Link
+                    to="/orders"
+                    className="btn btn-primary btn-sm fm-2 border w-100 mt-2"
+                  >
+                    Riwayat Pesanan
+                  </Link>
                 )}
               </Col>
               <Col lg="8">
@@ -216,7 +185,7 @@ const ProfilePage = () => {
                     </div>
                     <div className="fs-7 px-3 mb-3">
                       <FormSelect
-                        name="gender" 
+                        name="gender"
                         label="Jenis Kelamin:"
                         value={information.gender}
                         onChange={(e) =>

@@ -17,11 +17,9 @@ const Oauth = () => {
       })
       dispatch(loginUser(response.data))
       toast.success("Login Google Berhasil!");
-      setTimeout(() => {
-        navigate("/profile");
-      }, 100);
+      navigate("/profile");
     } catch (error) {
-      toast.error("Login Google Gagal!")
+      toast.error(error.response?.data?.message);
     }
   }
 

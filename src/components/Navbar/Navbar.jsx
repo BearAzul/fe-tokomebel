@@ -1,11 +1,9 @@
-import Container from "react-bootstrap/Container";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
+import { Nav, Navbar, Container } from "react-bootstrap"
 import "./Navbar.css";
 import { HashLink } from "react-router-hash-link";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { LoginButton } from "../Button.jsx";
+import { LoginButton, ProfileButton } from "../Button.jsx";
 
 const NavbarPage = () => {
   const user = useSelector((state) => state.userState.user);
@@ -30,19 +28,16 @@ const NavbarPage = () => {
           </HashLink>
           <div className="ms-auto me-3 d-flex d-lg-none gap-3 align-items-center justify-content-center">
             {isVerified ? (
-              <NavLink to="/profile" className="nav-link" aria-label="Link To Profile">
-                <i className="ri-user-fill fs-6"></i>
-              </NavLink>
+              <ProfileButton />
             ) : (
-              <LoginButton link="login" />
+              <LoginButton />
             )}
 
             <NavLink to="/cart" className="nav-link position-relative" aria-label="Link To Cart">
               <i className="ri-shopping-cart-2-fill fs-6 "></i>
               <span
-                className={`indicator__cart ${
-                  !countCart && "d-none"
-                }`}
+                className={`indicator__cart ${!countCart && "d-none"
+                  }`}
               >
                 {countCart}
               </span>
@@ -67,18 +62,15 @@ const NavbarPage = () => {
           </Navbar.Collapse>
           <div className="d-none ms-lg-5 d-lg-flex gap-3 align-items-center justify-content-center">
             {isVerified ? (
-              <NavLink to="/profile" className="nav-link" aria-label="Link To Profile">
-                <i className="ri-user-fill fs-6"></i>
-              </NavLink>
+              <ProfileButton />
             ) : (
-              <LoginButton link="login" />
+              <LoginButton />
             )}
             <NavLink to="/cart" className="nav-link me-auto position-relative" aria-label="Link To Cart">
               <i className="ri-shopping-cart-2-fill fs-6 "></i>
               <span
-                className={`indicator__cart ${
-                  !countCart && "d-none"
-                }`}
+                className={`indicator__cart ${!countCart && "d-none"
+                  }`}
               >
                 {countCart}
               </span>
