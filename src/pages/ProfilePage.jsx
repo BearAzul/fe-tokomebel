@@ -147,7 +147,7 @@ const ProfilePage = () => {
                 ) : (
                   <Link
                     to="/orders"
-                    className="btn btn-primary btn-sm fm-2 border w-100 mt-2"
+                    className="btn btn-primary fm-2 border w-100 mt-2"
                   >
                     Riwayat Pesanan
                   </Link>
