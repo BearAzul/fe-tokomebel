@@ -27,7 +27,7 @@ AOS.init({
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <GoogleOAuthProvider clientId="913942463853-veha9ege0bsrqqu1gujhi8ptt7c65osu.apps.googleusercontent.com">
+    <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
       <HelmetProvider>
         <Provider store={store}>
           <ToastContainer
