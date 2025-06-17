@@ -125,13 +125,16 @@ const CustomersView = () => {
           >
             <i className="ri-pencil-line"></i>
           </Link>
-          <Button
-            variant="danger"
-            size="sm"
-            onClick={() => handleDelete(row)}
-          >
-            <i className="ri-delete-bin-6-line"></i>
-          </Button>
+          {!row.isVerified && (
+            <Button
+              variant="danger"
+              size="sm"
+              onClick={() => handleDelete(row)}
+            >
+              <i className="ri-delete-bin-6-line"></i>
+            </Button>
+          )
+          }
         </div>
       ),
       ignoreRowClick: true,

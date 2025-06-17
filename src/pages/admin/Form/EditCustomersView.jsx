@@ -12,7 +12,7 @@ import { EditCustomerDirect } from "../../../components/Directlink.jsx";
 import Loading from "../../../components/Loading.jsx";
 
 const EditCustomersView = () => {
-  const genders = [
+  const gender = [
     {
       key: 1,
       value: "Laki-Laki",
@@ -82,6 +82,8 @@ const EditCustomersView = () => {
                   label="Nama Depan:"
                   placeHolder="Masukkan Nama Depan Pelanggan"
                   defaultValue={customer.firstName}
+                  disabled
+                  readOnly
                 />
               </Col>
               <Col xs="6">
@@ -91,6 +93,8 @@ const EditCustomersView = () => {
                   label="Nama Belakang:"
                   placeHolder="Masukkan Nama Belakang Pelanggan"
                   defaultValue={customer.lastName}
+                  disabled
+                  readOnly
                 />
               </Col>
               <Col>
@@ -100,6 +104,7 @@ const EditCustomersView = () => {
                   label="No. Telp:"
                   placeHolder="Masukkan No. Telp Pelanggan"
                   readOnly
+                  disabled
                   defaultValue={customer.phone}
                 />
               </Col>
@@ -110,6 +115,7 @@ const EditCustomersView = () => {
                   label="Email:"
                   placeHolder="Masukkan Email Valid Pelanggan"
                   readOnly
+                  disabled
                   defaultValue={customer.email}
                 />
               </Col>
@@ -117,8 +123,14 @@ const EditCustomersView = () => {
                 <FormSelect
                   name="gender"
                   label="Jenis Kelamin:"
-                  defaultValue={customer.gender}
-                  options={genders}
+                  value={customer.gender}
+                  onChange={(e) =>
+                    setCustomer((prev) => ({
+                      ...prev,
+                      gender: e.target.value,
+                    }))
+                  }
+                  options={gender}
                 />
               </Col>
               <Col>
