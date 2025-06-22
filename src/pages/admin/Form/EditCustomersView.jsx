@@ -182,7 +182,7 @@ const EditCustomersView = () => {
         ) : (
           <Loading />
         )}
-        <Modal show={showZoom} onHide={handleClose} centered size="lg">
+        <Modal show={showZoom} onHide={handleClose} centered size="md">
           <Modal.Body className="p-0 bg-dark">
             <Image
               src={customer.image}
