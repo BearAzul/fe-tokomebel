@@ -8,6 +8,7 @@ import { DetailOrderDirect } from "../../components/Directlink.jsx";
 import BlankImages from "../../assets/Image/blank_user.png"
 import { HelmetHead } from "../../common/Helmet.jsx";
 import Loading from "../../components/Loading.jsx";
+import { formatTanggalWaktu } from "../../utils/index.jsx";
 
 const OrderDetailView = () => {
   const [detailOrder, setDetailOrder] = useState([]);
@@ -162,7 +163,7 @@ const OrderDetailView = () => {
                             <td>Pesanan Dibuat</td>
                             <td>:</td>
                             <td className="text-end">
-                              {new Date(detailOrder.createdAt).toLocaleString()}
+                              {formatTanggalWaktu(detailOrder.createdAt)}
                             </td>
                           </tr>
                           <tr>
