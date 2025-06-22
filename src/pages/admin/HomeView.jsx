@@ -60,7 +60,7 @@ const HomeView = () => {
       path: "/admin/products",
       title: "Total Produk",
       count: countProducts,
-      iconClass: "ri-shopping-bag-fill",
+      iconClass: "ri-box-3-line",
       bgClass: "text-bg-primary",
     },
     {
