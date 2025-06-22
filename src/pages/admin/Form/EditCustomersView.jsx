@@ -6,12 +6,16 @@ import {
   FormTextarea,
   FormSelect,
 } from "../../../components/FormInput";
-import { Container, Row, Col, Button } from "react-bootstrap";
+import { Container, Row, Col, Button, Image, Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { EditCustomerDirect } from "../../../components/Directlink.jsx";
 import Loading from "../../../components/Loading.jsx";
+import BlankImages from "../../../assets/Image/blank_user.png"
 
 const EditCustomersView = () => {
+  const [customer, setCustomer] = useState([]);
+  const [showZoom, setShowZoom] = useState(false);
+
   const gender = [
     {
       key: 1,
@@ -24,7 +28,9 @@ const EditCustomersView = () => {
       label: "Perempuan",
     },
   ];
-  const [customer, setCustomer] = useState([]);
+  
+  const handleOpen = () => setShowZoom(true);
+  const handleClose = () => setShowZoom(false);
 
   const navigate = useNavigate();
 
@@ -74,51 +80,49 @@ const EditCustomersView = () => {
             onSubmit={handleUpdate}
             encType="multipart/form-data"
           >
-            <Row lg="3" xs="1" md="2" className="g-3">
-              <Col xs="6">
-                <FormInput
-                  name="firstName"
-                  type="text"
-                  label="Nama Depan:"
-                  placeHolder="Masukkan Nama Depan Pelanggan"
-                  defaultValue={customer.firstName}
-                  disabled
-                  readOnly
-                />
+            <Row lg="2" md="2" xs="1" className="g-3">
+              <Col lg="2" md="4">
+                <Image src={customer.image === null ? BlankImages : customer.image} rounded thumbnail alt="Image User" className="d-block mx-auto object-fit-cover" style={{ width: "150px" }} onClick={handleOpen} />
               </Col>
-              <Col xs="6">
-                <FormInput
-                  name="lastName"
-                  type="text"
-                  label="Nama Belakang:"
-                  placeHolder="Masukkan Nama Belakang Pelanggan"
-                  defaultValue={customer.lastName}
-                  disabled
-                  readOnly
-                />
+              <Col lg="10" md="8">
+                <Row lg="2" md="2" xs="1" className="g-3">
+                  <Col>
+                    <FormInput
+                      name="firstName"
+                      type="text"
+                      label="Nama Depan:"
+                      placeHolder="Masukkan Nama Depan Pelanggan"
+                      defaultValue={customer.firstName}
+                      disabled
+                      readOnly
+                    />
+                  </Col>
+                  <Col>
+                    <FormInput
+                      name="lastName"
+                      type="text"
+                      label="Nama Belakang:"
+                      placeHolder="Masukkan Nama Belakang Pelanggan"
+                      defaultValue={customer.lastName}
+                      disabled
+                      readOnly
+                    />
+                  </Col>
+                  <Col lg="12" md="12">
+                    <FormInput
+                      name="email"
+                      type="email"
+                      label="Email:"
+                      placeHolder="Masukkan Email Valid Pelanggan"
+                      readOnly
+                      disabled
+                      defaultValue={customer.email}
+                    />
+                  </Col>
+                </Row>
               </Col>
-              <Col>
-                <FormInput
-                  name="phone"
-                  type="number"
-                  label="No. Telp:"
-                  placeHolder="Masukkan No. Telp Pelanggan"
-                  readOnly
-                  disabled
-                  defaultValue={customer.phone}
-                />
-              </Col>
-              <Col>
-                <FormInput
-                  name="email"
-                  type="email"
-                  label="Email:"
-                  placeHolder="Masukkan Email Valid Pelanggan"
-                  readOnly
-                  disabled
-                  defaultValue={customer.email}
-                />
-              </Col>
+            </Row>
+            <Row xs="1" lg="3" md="2" className="g-3 mt-2">
               <Col>
                 <FormSelect
                   name="gender"
@@ -134,6 +138,17 @@ const EditCustomersView = () => {
                 />
               </Col>
               <Col>
+                <FormInput
+                  name="phone"
+                  type="number"
+                  label="No. Telp:"
+                  placeHolder="Masukkan No. Telp Pelanggan"
+                  readOnly
+                  disabled
+                  defaultValue={customer.phone}
+                />
+              </Col>
+              <Col md="12">
                 <FormInput
                   name="city"
                   type="text"
@@ -167,6 +182,16 @@ const EditCustomersView = () => {
         ) : (
           <Loading />
         )}
+        <Modal show={showZoom} onHide={handleClose} centered size="lg">
+          <Modal.Body className="p-0 bg-dark">
+            <Image
+              src={customer.image}
+              alt="Zoomed Image"
+              className="w-100"
+              style={{ objectFit: "cover" }}
+            />
+          </Modal.Body>
+        </Modal>
       </Container>
     </section>
   );
