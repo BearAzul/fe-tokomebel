@@ -13,6 +13,7 @@ import { OrdersDirect } from "../../components/Directlink.jsx";
 import { useState } from "react";
 import Swal from "sweetalert2";
 import BlankImages from "../../assets/Image/blank_user.png"
+import { HelmetHead } from "../../common/Helmet.jsx";
 
 export const loader = (storage) => async () => {
   const user = storage.getState().userState.user;
@@ -126,30 +127,27 @@ const OrdersView = () => {
       name: "Status Pembayaran",
       selector: (row) => (
         <div
-          className={`rounded px-2 py-1 d-flex align-items-center justify-content-center ${
-            row.status === "success"
+          className={`rounded px-2 py-1 d-flex align-items-center justify-content-center ${row.status === "success"
               ? "text-bg-success"
               : row.status === "failed"
-              ? "text-bg-danger"
-              : "text-bg-warning"
-          }`}
+                ? "text-bg-danger"
+                : "text-bg-warning"
+            }`}
         >
           <i
-            className={`me-1 ${
-              row.status === "success"
+            className={`me-1 ${row.status === "success"
                 ? "ri-checkbox-circle-line"
                 : row.status === "failed"
-                ? "ri-close-circle-line"
-                : "ri-error-warning-line"
-            }`}
+                  ? "ri-close-circle-line"
+                  : "ri-error-warning-line"
+              }`}
           ></i>
-          {`${
-            row.status === "success"
+          {`${row.status === "success"
               ? "success"
               : row.status === "failed"
-              ? "failed"
-              : "pending"
-          }`}
+                ? "failed"
+                : "pending"
+            }`}
         </div>
       ),
       width: "160px",
@@ -171,33 +169,36 @@ const OrdersView = () => {
   ];
 
   return (
-    <section className="fm-2">
-      <Container>
-        <OrdersDirect />
-        <div className="d-flex align-items-center gap-3 flex-md-row justify-content-between flex-column mb-3">
-          <h5 className="w-100">Daftar Pelanggan</h5>
-          <div className="input-group input-group-sm">
-            <input
-              type="search"
-              name="search"
-              className="form-control"
-              placeholder="Search"
-              onChange={handleSearch}
-            />
-            <span className="input-group-text">
-              <i className="ri-search-line"></i>
-            </span>
+    <>
+      <HelmetHead title="Pesanan" />
+      <section className="fm-2">
+        <Container>
+          <OrdersDirect />
+          <div className="d-flex align-items-center gap-3 flex-md-row justify-content-between flex-column mb-3">
+            <h5 className="w-100">Daftar Pelanggan</h5>
+            <div className="input-group input-group-sm">
+              <input
+                type="search"
+                name="search"
+                className="form-control"
+                placeholder="Search"
+                onChange={handleSearch}
+              />
+              <span className="input-group-text">
+                <i className="ri-search-line"></i>
+              </span>
+            </div>
           </div>
-        </div>
-        <DataTable
-          data={records}
-          columns={columns}
-          pagination
-          theme="dark"
-          className="rounded my-2 border border-secondary"
-        />
-      </Container>
-    </section>
+          <DataTable
+            data={records}
+            columns={columns}
+            pagination
+            theme="dark"
+            className="rounded my-2 border border-secondary"
+          />
+        </Container>
+      </section>
+    </>
   );
 };
 

@@ -9,6 +9,7 @@ import customAPI from "../../api.js";
 import { useEffect, useState } from "react";
 import { redirect } from "react-router-dom";
 import BlankImages from "../../assets/Image/blank_user.png"
+import { HelmetHead } from "../../common/Helmet.jsx";
 
 export const loader = (storage) => () => {
   const user = storage.getState().userState.user;
@@ -75,121 +76,124 @@ const UserView = () => {
     }
   };
   return (
-    <section className="fm-2">
-      <Container>
-        <h5 className="mb-3">Profil Admin</h5>
-        <form onSubmit={handleUpdate} encType="multipart/form-data">
-          <Card className="border border-secondary text-bg-dark p-4">
-            <div className="d-flex gap-3 align-items-start flex-wrap mb-3 mb-md-0">
-              <figure
-                className="overflow-hidden rounded border border-2 border-secondary mx-auto mx-md-0 bg-secondary"
-                style={{ width: "120px", height: "120px" }}
-              >
-                <img
-                  src={identity.image === null ? BlankImages : identity.image}
-                  alt=""
-                  className="w-100 h-100 d-block object-fit-cover"
-                />
-              </figure>
-              <div>
-                <h5>{`${identity.firstName} ${identity.lastName}`}</h5>
-                <input
-                  type="file"
-                  name="image"
-                  className="form-control form-control-sm mt-3"
-                />
+    <>
+      <HelmetHead title="Profil" />
+      <section className="fm-2">
+        <Container>
+          <h5 className="mb-3">Profil Admin</h5>
+          <form onSubmit={handleUpdate} encType="multipart/form-data">
+            <Card className="border border-secondary text-bg-dark p-4">
+              <div className="d-flex gap-3 align-items-start flex-wrap mb-3 mb-md-0">
+                <figure
+                  className="overflow-hidden rounded border border-2 border-secondary mx-auto mx-md-0 bg-secondary"
+                  style={{ width: "120px", height: "120px" }}
+                >
+                  <img
+                    src={identity.image === null ? BlankImages : identity.image}
+                    alt=""
+                    className="w-100 h-100 d-block object-fit-cover"
+                  />
+                </figure>
+                <div>
+                  <h5>{`${identity.firstName} ${identity.lastName}`}</h5>
+                  <input
+                    type="file"
+                    name="image"
+                    className="form-control form-control-sm mt-3"
+                  />
+                </div>
               </div>
-            </div>
-            <hr />
-            <Row lg="3" md="2" xs="1" className="g-3">
-              <Col>
-                <FormInput
-                  name="firstName"
-                  type="text"
-                  label="Nama Depan:"
-                  placeHolder="Masukkan Nama Depan"
-                  defaultValue={identity.firstName}
-                />
-              </Col>
-              <Col>
-                <FormInput
-                  name="lastName"
-                  type="text"
-                  label="Nama Belakang:"
-                  placeHolder="Enter Your Last Name"
-                  defaultValue={identity.lastName}
-                />
-              </Col>
-              <Col>
-                <label htmlFor="phone" className="form-label">
-                  No. Telp: <span className="text-danger">*</span>
-                </label>
-                <input
-                  type="number"
-                  id="phone"
-                  className="form-control form-control-sm"
-                  name="phone"
-                  minLength={11}
-                  maxLength={13}
-                  defaultValue={identity.phone}
-                  placeholder="Masukkan No. Telp (+62)"
-                />
-              </Col>
-              <Col>
-                <FormInput
-                  name="email"
-                  type="email"
-                  label="Email:"
-                  placeHolder="Masukkan Email Valid"
-                  defaultValue={identity.email}
-                />
-              </Col>
-              <Col>
-                <FormSelect
-                  name="gender"
-                  label="Jenis Kelamin:"
-                  value={identity.gender}
-                  onChange={(e) =>
-                    setIdentity((prev) => ({
-                      ...prev,
-                      gender: e.target.value,
-                    }))
-                  }
-                  options={gender}
-                />
-              </Col>
-              <Col>
-                <FormInput
-                  name="city"
-                  type="text"
-                  label="Kabupaten/Kota:"
-                  placeHolder="Masukkan Kabupaten/Kota"
-                  defaultValue={identity.city}
-                />
-              </Col>
-              <Col md="12" lg="12">
-                <FormTextarea
-                  name="address"
-                  label="Alamat Lengkap:"
-                  placeHolder="Masukkan Alamat Lengkap"
-                  Row={3}
-                  defaultValue={identity.address}
-                />
-              </Col>
-            </Row>
-            <Button
-              variant="success"
-              size="sm"
-              type="submit"
-              className="max-content px-3 mt-3"
-            >
-              <i className="ri-save-3-line me-2"></i>
-              Update Profile
-            </Button>
-          </Card>
-        </form>
-      </Container>
-    </section>
+              <hr />
+              <Row lg="3" md="2" xs="1" className="g-3">
+                <Col>
+                  <FormInput
+                    name="firstName"
+                    type="text"
+                    label="Nama Depan:"
+                    placeHolder="Masukkan Nama Depan"
+                    defaultValue={identity.firstName}
+                  />
+                </Col>
+                <Col>
+                  <FormInput
+                    name="lastName"
+                    type="text"
+                    label="Nama Belakang:"
+                    placeHolder="Enter Your Last Name"
+                    defaultValue={identity.lastName}
+                  />
+                </Col>
+                <Col>
+                  <label htmlFor="phone" className="form-label">
+                    No. Telp: <span className="text-danger">*</span>
+                  </label>
+                  <input
+                    type="number"
+                    id="phone"
+                    className="form-control form-control-sm"
+                    name="phone"
+                    minLength={11}
+                    maxLength={13}
+                    defaultValue={identity.phone}
+                    placeholder="Masukkan No. Telp (+62)"
+                  />
+                </Col>
+                <Col>
+                  <FormInput
+                    name="email"
+                    type="email"
+                    label="Email:"
+                    placeHolder="Masukkan Email Valid"
+                    defaultValue={identity.email}
+                  />
+                </Col>
+                <Col>
+                  <FormSelect
+                    name="gender"
+                    label="Jenis Kelamin:"
+                    value={identity.gender}
+                    onChange={(e) =>
+                      setIdentity((prev) => ({
+                        ...prev,
+                        gender: e.target.value,
+                      }))
+                    }
+                    options={gender}
+                  />
+                </Col>
+                <Col>
+                  <FormInput
+                    name="city"
+                    type="text"
+                    label="Kabupaten/Kota:"
+                    placeHolder="Masukkan Kabupaten/Kota"
+                    defaultValue={identity.city}
+                  />
+                </Col>
+                <Col md="12" lg="12">
+                  <FormTextarea
+                    name="address"
+                    label="Alamat Lengkap:"
+                    placeHolder="Masukkan Alamat Lengkap"
+                    Row={3}
+                    defaultValue={identity.address}
+                  />
+                </Col>
+              </Row>
+              <Button
+                variant="success"
+                size="sm"
+                type="submit"
+                className="max-content px-3 mt-3"
+              >
+                <i className="ri-save-3-line me-2"></i>
+                Update Profile
+              </Button>
+            </Card>
+          </form>
+        </Container>
+      </section>
+    </>
   );
 };
 

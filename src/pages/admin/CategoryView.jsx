@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 import { toast } from "react-toastify";
 import { CategoryDirect } from "../../components/Directlink.jsx";
 import { formatTanggalWaktu } from "../../utils/index.jsx";
+import { HelmetHead } from "../../common/Helmet.jsx";
 
 export const loader = async () => {
   const { data } = await customAPI.get("/category");
@@ -114,42 +115,45 @@ const CategoryView = () => {
     },
   ];
   return (
-    <section className="fm-2">
-      <Container>
-        <CategoryDirect />
-        <h5 className="mb-3">Daftar Kategori</h5>
-        <div className="d-flex justify-content-between gap-2 align-items-center flex-column mb-2 w-100 flex-md-row">
-          <Link
-            to="/admin/category/add"
-            className="btn btn-success btn-sm me-auto"
-          >
-            <i className="ri-add-circle-line me-1"></i>
-            Tambah Kategori Baru
-          </Link>
-          <div className="input-group input-group-sm max-content ms-auto">
-            <input
-              type="search"
-              name="search"
-              className="form-control"
-              placeholder="Search"
-              onChange={handleSearch}
-            />
-            <span className="input-group-text">
-              <i className="ri-search-line"></i>
-            </span>
+    <>
+      <HelmetHead title="Kategori" />
+      <section className="fm-2">
+        <Container>
+          <CategoryDirect />
+          <h5 className="mb-3">Daftar Kategori</h5>
+          <div className="d-flex justify-content-between gap-2 align-items-center flex-column mb-2 w-100 flex-md-row">
+            <Link
+              to="/admin/category/add"
+              className="btn btn-success btn-sm me-auto"
+            >
+              <i className="ri-add-circle-line me-1"></i>
+              Tambah Kategori Baru
+            </Link>
+            <div className="input-group input-group-sm max-content ms-auto">
+              <input
+                type="search"
+                name="search"
+                className="form-control"
+                placeholder="Search"
+                onChange={handleSearch}
+              />
+              <span className="input-group-text">
+                <i className="ri-search-line"></i>
+              </span>
+            </div>
           </div>
-        </div>
-        <DataTable
-          columns={columns}
-          data={records}
-          theme="dark"
-          pagination
-          highlightOnHover
-          fixedHeader
-          className="rounded border border-secondary mb-2"
-        />
-      </Container>
-    </section>
+          <DataTable
+            columns={columns}
+            data={records}
+            theme="dark"
+            pagination
+            highlightOnHover
+            fixedHeader
+            className="rounded border border-secondary mb-2"
+          />
+        </Container>
+      </section>
+    </>
   );
 };
 
