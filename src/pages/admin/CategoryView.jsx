@@ -6,6 +6,7 @@ import { useState } from "react";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
 import { CategoryDirect } from "../../components/Directlink.jsx";
+import { formatTanggalWaktu } from "../../utils/index.jsx";
 
 export const loader = async () => {
   const { data } = await customAPI.get("/category");
@@ -81,13 +82,13 @@ const CategoryView = () => {
     },
     {
       name: "Dibuat Pada",
-      selector: (row) => row.createdAt,
+      selector: (row) => formatTanggalWaktu(row.createdAt),
       sortable: true,
       width: "210px",
     },
     {
       name: "Diperbarui pada",
-      selector: (row) => row.updatedAt,
+      selector: (row) => formatTanggalWaktu(row.updatedAt),
       sortable: true,
       width: "210px",
     },

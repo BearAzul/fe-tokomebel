@@ -7,7 +7,7 @@ import ResetImages from "../../assets/Image/Reset_password-cuate.svg";
 
 
 const UpdatePasswordPage = () => {
-  const { token } = useParams(); // Token dari URL
+  const { token } = useParams();
   const navigate = useNavigate();
 
   const [password, setPassword] = useState("");
