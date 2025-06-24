@@ -1,9 +1,7 @@
 import { Container, Row, Col, Button, Carousel } from "react-bootstrap";
-import ImgProject1 from "../../assets/Image/Slide/img_project1.jpg";
-import ImgProject2 from "../../assets/Image/Slide/img_project2.jpg";
-import ImgProject3 from "../../assets/Image/Slide/img_project3.jpg";
 import "./Recent.css";
 import { useState } from "react";
+import { recents } from "../../assets/data/DummyData.jsx";
 
 const RecentSection = () => {
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
@@ -43,45 +41,20 @@ const RecentSection = () => {
             <Col md="6" data-aos="fade-right">
               <div className="recent__project">
                 <div className="recent__button fm-3 h-max-content border-bottom border-secondary-subtle">
-                  <Button
-                    variant="base"
-                    className="border-0 rounded-0 border-top border-secondary-subtle d-flex justify-content-between w-100 py-2 py-lg-3 fw-medium"
-                    onClick={() => handleButtonClick(0)}
-                  >
-                    <div className="text-dark-dark d-flex gap-2">
-                      <span>01.</span>
-                      <p className="text-dark-dark m-0 text-start">
-                        PENGATURAN RUANG TAMU
-                      </p>
-                    </div>
-                    <i className="text-dark-dark ri-arrow-right-up-fill"></i>
-                  </Button>
-                  <Button
-                    variant="base"
-                    className="border-0 rounded-0 border-top border-secondary-subtle d-flex justify-content-between w-100 py-2 py-lg-3 fw-medium"
-                    onClick={() => handleButtonClick(1)}
-                  >
-                    <div className="text-dark-dark d-flex gap-2">
-                      <span>02.</span>
-                      <p className="text-dark-dark m-0 text-start">
-                        DEKORASI GEDUNG KONVENSI
-                      </p>
-                    </div>
-                    <i className="text-dark-dark ri-arrow-right-up-fill"></i>
-                  </Button>
-                  <Button
-                    variant="base"
-                    className="border-0 rounded-0 border-top border-secondary-subtle d-flex justify-content-between w-100 py-2 py-lg-3 fw-medium"
-                    onClick={() => handleButtonClick(2)}
-                  >
-                    <div className="text-dark-dark d-flex gap-2">
-                      <span>03.</span>
-                      <p className="text-dark-dark m-0 text-start">
-                        PENATAAN INTERIOR STUDIO
-                      </p>
-                    </div>
-                    <i className="text-dark-dark ri-arrow-right-up-fill"></i>
-                  </Button>
+                  {recents.map((recent, index) => (
+                    <Button
+                      key={index}
+                      variant="base"
+                      className="border-0 rounded-0 border-top border-secondary-subtle d-flex justify-content-between w-100 py-2 py-lg-3 fw-medium"
+                      onClick={() => handleButtonClick(index)}
+                    >
+                      <div className="text-dark-dark d-flex gap-2">
+                        <span>{recent.label}</span>
+                        <p className="text-dark-dark m-0 text-start">{recent.title}</p>
+                      </div>
+                      <i className="text-dark-dark ri-arrow-right-up-fill"></i>
+                    </Button>
+                  ))}
                 </div>
               </div>
             </Col>
@@ -90,38 +63,22 @@ const RecentSection = () => {
                 style={{ width: "100%" }}
                 className="mx-auto"
                 activeIndex={selectedImageIndex}
-                onSelect={setSelectedImageIndex}
+                onSelect={(selectedIndex) => setSelectedImageIndex(selectedIndex)}
               >
-                <Carousel.Item>
-                  <img
-                    className="d-block w-100 h-100 object-fit-cover"
-                    src={ImgProject1}
-                    alt="Image Project 1"
-                  />
-                  <Carousel.Caption className="fm-3 bg-dark py-1 px-2">
-                    <p className="m-0">01. PENGATURAN RUANG TAMU</p>
-                  </Carousel.Caption>
-                </Carousel.Item>
-                <Carousel.Item>
-                  <img
-                    className="d-block w-100 h-100 object-fit-cover"
-                    src={ImgProject2}
-                    alt="Image Project 2"
-                  />
-                  <Carousel.Caption className="fm-3 bg-dark py-1 px-2">
-                    <p className="m-0">02. DEKORASI GEDUNG KONVENSI</p>
-                  </Carousel.Caption>
-                </Carousel.Item>
-                <Carousel.Item>
-                  <img
-                    className="d-block w-100 h-100 object-fit-cover"
-                    src={ImgProject3}
-                    alt="Image Project 3"
-                  />
-                  <Carousel.Caption className="fm-3 bg-dark py-1 px-2">
-                    <p className="m-0">03. PENATAAN INTERIOR STUDIO</p>
-                  </Carousel.Caption>
-                </Carousel.Item>
+                {recents.map((recent, index) => (
+                  <Carousel.Item key={index}>
+                    <img
+                      className="d-block w-100 h-100 object-fit-cover"
+                      src={recent.image}
+                      alt={`Image Recent ${index + 1}`}
+                    />
+                    <Carousel.Caption className="fm-3 bg-dark py-1 px-2">
+                      <p className="m-0">
+                        {recent.label} {recent.title}
+                      </p>
+                    </Carousel.Caption>
+                  </Carousel.Item>
+                ))}
               </Carousel>
             </Col>
           </Row>

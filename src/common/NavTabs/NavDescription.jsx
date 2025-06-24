@@ -57,43 +57,42 @@ const NavDescription = ({ description }) => {
             }`}
         >
           <Card.Body className="fm-2">
-            <Card.Text>
-              <article
-                id="order-guide"
-                role="tabpanel"
-                aria-labelledby="order-tab"
-              >
-                <h5 className="mb-2">Cara Memesan Mebel:</h5>
-                <ol>
-                  <li>
-                    Pilih jumlah produk yang diinginkan menggunakan tombol + atau
-                    -.
-                  </li>
-                  <li>
-                    Klik tombol <span className="btn btn-sm btn-warning  fw-semibold fs-7">Tambah ke Keranjang
-                      <i className="ri-shopping-cart-2-line ms-2"></i>
-                    </span>.
-                  </li>
-                  <li>
-                    Buka halaman <Link to="/cart" className="text-dark">Keranjang</Link> dan pastikan produk
-                    yang dipilih sudah benar.
-                  </li>
-                  <li>
-                    Klik tombol <span className="btn btn-sm btn-primary fw-semibold fs-7">Checkout</span>.
-                  </li>
-                  <li>Pastikan informasi pengiriman dan kontak dengan benar. Jika belum silahkan lengkapi melalui halaman <Link to="/profile" className="text-dark">Profil</Link></li>
-                  <li>
-                    Lanjutkan pembayaran melalui metode yang tersedia (Midtrans). Pilih Metode Pembayaran yang diinginkan.
-                    <br />
-                    <Image src={SnapPay} alt="Image PaymentMethode" className="payment_snap_methode d-block m-2 object-fit-cover"/>
-                  </li>
-                  <li>
-                    Setelah pembayaran berhasil, konfirmasi dan status pesanan
-                    akan ditampilkan.
-                  </li>
-                </ol>
-              </article>
-            </Card.Text>
+
+            <article
+              id="order-guide"
+              role="tabpanel"
+              aria-labelledby="order-tab"
+            >
+              <h5 className="mb-2">Cara Memesan Mebel:</h5>
+              <ol>
+                <li>
+                  Pilih jumlah produk yang diinginkan menggunakan tombol + atau
+                  -.
+                </li>
+                <li>
+                  Klik tombol <span className="btn btn-sm btn-warning  fw-semibold fs-7">Tambah ke Keranjang
+                    <i className="ri-shopping-cart-2-line ms-2"></i>
+                  </span>.
+                </li>
+                <li>
+                  Buka halaman <Link to="/cart" className="text-dark">Keranjang</Link> dan pastikan produk
+                  yang dipilih sudah benar.
+                </li>
+                <li>
+                  Klik tombol <span className="btn btn-sm btn-primary fw-semibold fs-7">Checkout</span>.
+                </li>
+                <li>Pastikan informasi pengiriman dan kontak dengan benar. Jika belum silahkan lengkapi melalui halaman <Link to="/profile" className="text-dark">Profil</Link></li>
+                <li>
+                  Lanjutkan pembayaran melalui metode yang tersedia (Midtrans). Pilih Metode Pembayaran yang diinginkan.
+                  <br />
+                  <Image src={SnapPay} alt="Image PaymentMethode" className="payment_snap_methode d-block m-2 object-fit-cover" />
+                </li>
+                <li>
+                  Setelah pembayaran berhasil, konfirmasi dan status pesanan
+                  akan ditampilkan.
+                </li>
+              </ol>
+            </article>
             {/* <Card.Text className="fm-2">
               No reviews yet. Be the first to review!
             </Card.Text>

@@ -51,7 +51,25 @@ import ImageWardrobe2 from "../Image/Wardrobe/lemari-02-putih.png";
 import ImageWardrobe3 from "../Image/Wardrobe/lemari-03-putih.png";
 import ImageWardrobe4 from "../Image/Wardrobe/lemari-05-putih.png";
 
-const Products = [
+// Recents Project
+import ImgProject1 from "../Image/Slide/img_project1.jpg";
+import ImgProject2 from "../Image/Slide/img_project2.jpg";
+import ImgProject3 from "../Image/Slide/img_project3.jpg";
+
+let salam;
+const hour = new Date().getHours();
+
+if (hour >= 5 && hour < 11) {
+  salam = "Selamat pagi";
+} else if (hour >= 11 && hour < 15) {
+  salam = "Selamat siang";
+} else if (hour >= 15 && hour < 18) {
+  salam = "Selamat sore";
+} else {
+  salam = "Selamat malam";
+}
+
+export const Products = [
   {
     id: 1,
     title: "VALEVAG",
@@ -369,4 +387,123 @@ const Products = [
   },
 ];
 
-export default Products;
+export const ListServices = [
+  {
+    id: 1,
+    icons: "ri-truck-line",
+    title: "Free Shipping",
+    description: "Gratis Ongkir untuk wilayah terdekat",
+    delay: 0,
+  },
+  {
+    id: 2,
+    icons: "ri-loop-right-fill",
+    title: "Easy Returns",
+    description: "Penukaran Mebel jika terdapat kecacatan mebel",
+    delay: 200,
+  },
+  {
+    id: 3,
+    icons: "ri-secure-payment-line",
+    title: "Secure Payment",
+    description: "Metode pembayaran yang mudah dan aman",
+    delay: 400,
+  },
+  {
+    id: 4,
+    icons: "ri-exchange-dollar-line",
+    title: "Waranty",
+    description: "Menyediakan garansi mebel selama 1 bulan",
+    delay: 600,
+  },
+];
+
+
+export const Categories = [
+  {
+    icons: "ri-armchair-line",
+    title: "Chair",
+    delay: 0,
+  },
+  {
+    icons: "ri-sofa-line",
+    title: "Sofa",
+    delay: 200,
+  },
+  {
+    icons: "ri-archive-drawer-line",
+    title: "Wardrobe",
+    delay: 400,
+  },
+  {
+    icons: "ri-hotel-bed-line",
+    title: "Bed",
+    delay: 600,
+  },
+  {
+    icons: "ri-table-line",
+    title: "Table",
+    delay: 800,
+  },
+  {
+    icons: "ri-lightbulb-line",
+    title: "Lamps",
+    delay: 1000,
+  },
+];
+
+export const recents = [
+  {
+    label: "01.",
+    title: "PENGATURAN RUANG TAMU",
+    image: ImgProject1,
+  },
+  {
+    label: "02.",
+    title: "DEKORASI GEDUNG KONVENSI",
+    image: ImgProject2,
+  },
+  {
+    label: "03.",
+    title: "PENATAAN INTERIOR STUDIO",
+    image: ImgProject3,
+  },
+];
+
+export const contacts = [
+  {
+    ikon: "ri-map-pin-line",
+    keterangan:
+      "Plebean Rt.04/Rw.04 Plelen, Kec. Gringsing, Kab. Batang, Jawa Tengah 51281",
+    link: "https://maps.app.goo.gl/1rWJUvTyisAvFtZG7",
+  },
+  {
+    ikon: "ri-mail-line",
+    keterangan: "tokoamanahmebel@gmail.com",
+    link: `mailto:tokoamanahmebel@gmail.com?subject=${encodeURIComponent(
+      "Pertanyaan dari Pengunjung"
+    )}&body=${encodeURIComponent(
+      `${salam} Toko Mebel Amanah, ada yang saya mau tanyakan.`
+    )}`,
+  },
+  {
+    ikon: "ri-whatsapp-line",
+    keterangan: "(+62) 813-2617-7128",
+    link: "/",
+  },
+];
+
+export const times = [
+  {
+    hari: "Senin - Kamis",
+    jam: "08:00 - 17:30 WIB",
+  },
+  {
+    hari: "Jum`at - Sabtu:",
+    jam: "08:00 - 11:00 WIB",
+  },
+  {
+    hari: "Minggu",
+    jam: "Libur",
+  },
+];

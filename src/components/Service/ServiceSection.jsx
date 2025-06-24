@@ -1,7 +1,7 @@
 import "./Services.css";
 import "../../styles/index.css";
 import { Container, Row, Col, Card } from "react-bootstrap";
-import ListServices from "../../assets/data/ListService.jsx"
+import { ListServices } from "../../assets/data/DummyData.jsx";
 import PropTypes from "prop-types"
 
 const CardService = (props) => {

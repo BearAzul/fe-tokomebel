@@ -1,4 +1,5 @@
 import "./Footer.css";
+import { contacts, times } from "../../assets/data/DummyData.jsx";
 const Footer = () => {
   return (
     <footer
@@ -46,48 +47,36 @@ const Footer = () => {
             </h2>
 
             <ul className="list-unstyled fm-2 fs-7">
-              <li className="mb-3 d-flex">
-                <span className="fa-li">
-                  <i className="ri-map-pin-line" />
-                </span>
-                <span className="ms-2">
-                  Plebean Rt.04/Rw.04 Plelen, Kec. Gringsing, Kab. Batang, Jawa
-                  Tengah 51281
-                </span>
-              </li>
-              <li className="mb-3">
-                <span className="fa-li">
-                  <i className="ri-mail-line" />
-                </span>
-                <span className="ms-2">tokoamanahmebel@gmail.com</span>
-              </li>
-              <li className="mb-3">
-                <span className="fa-li">
-                  <i className="ri-phone-fill" />
-                </span>
-                <span className="ms-2">(+62) 813-2617-7128</span>
-              </li>
+              {contacts.map((kontak, index) => (
+                <li className="mb-3 d-flex align-items-center" key={index}>
+                  <span className="fa-li">
+                    <i className={`${kontak.ikon} fs-6`} />
+                  </span>
+                  <a
+                    href={kontak.link}
+                    aria-label="media link"
+                    target="_blank"
+                    className="ms-2 text-decoration-none text-white"
+                  >
+                    {kontak.keterangan}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
           <div className="col-lg-4 col-md-6 mb-4 mb-md-0">
-            <h2 className="fs-5 text-uppercase mb-4 fm-3 fw-bold">Buka Pada Jam:</h2>
+            <h2 className="fs-5 text-uppercase mb-4 fm-3 fw-bold">
+              Buka Pada Jam:
+            </h2>
             <table className="table table-dark">
               <tbody className="font-weight-normal fm-2 fs-7">
-                <tr>
-                  <td>Senin - Kamis</td>
-                  <td>:</td>
-                  <td>08:00 - 17:30 WIB</td>
-                </tr>
-                <tr>
-                  <td>Jum`at - Sabtu:</td>
-                  <td>:</td>
-                  <td>08:00 - 11:00 WIB</td>
-                </tr>
-                <tr>
-                  <td>Minggu</td>
-                  <td>:</td>
-                  <td>Libur</td>
-                </tr>
+                {times.map((time, index) => (
+                  <tr key={index}>
+                    <td>{ time.hari }</td>
+                    <td>:</td>
+                    <td>{ time.jam }</td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
