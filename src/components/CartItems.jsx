@@ -61,7 +61,7 @@ const CartItems = ({ cartItem }) => {
         </div>
       </Col>
       <Col md="3" xs="6">
-        <span className="fw-bold d-block d-md-none">Price:</span>
+        <span className="fw-bold d-block d-md-none">Harga:</span>
         <p className="text-start m-0 text-md-center fw-medium">
           {formatToIDR(price)}
         </p>

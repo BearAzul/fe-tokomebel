@@ -16,6 +16,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { HelmetHead } from "../../common/Helmet.jsx";
+import { formatToIDR } from "../../utils/index.jsx";
 
 export const loader = async () => {
   const [resProducts, resOrders, resUsers, resCategory] = await Promise.all([
@@ -129,9 +130,9 @@ const HomeView = () => {
               <i className="ri-wallet-3-line fs-4 text-white"></i>
             </div>
             <div className="flex-grow-1">
-              <h6 className="mb-1">Total Pendapatan <span className="text-warning">(Demo)</span></h6>
+              <h6 className="mb-1">Total Uang Masuk</h6>
               <p className="fs-6 fw-bold">
-                Rp. {totalEarnings.toLocaleString("id-ID")},00
+                {formatToIDR(totalEarnings)}
               </p>
             </div>
           </div>
