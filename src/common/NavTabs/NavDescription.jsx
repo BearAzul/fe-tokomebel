@@ -6,7 +6,7 @@ import SnapPay from "../../assets/Image/PaymentMethode_snap.png"
 // import { useSelector } from "react-redux";
 
 const NavDescription = ({ description }) => {
-  const [activeTab, setActiveTab] = useState("orderer");
+  const [activeTab, setActiveTab] = useState("description");
   //  const user = useSelector((state) => state.userState.user);
   return (
     <>
