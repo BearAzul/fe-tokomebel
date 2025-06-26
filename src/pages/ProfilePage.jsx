@@ -137,18 +137,21 @@ const ProfilePage = () => {
                     </Card.Text>
                   </Card.Footer>
                 </Card>
-                {currentUser.role === "owner" || currentUser.role === "courier" ? (
-                  <Link to="/admin" className="btn btn-dark w-100 fm-2 mt-2">
-                    Dashboard Admin
-                  </Link>
-                ) : (
-                  <Link
-                    to="/orders"
-                    className="btn btn-primary fm-2 border w-100 mt-2"
-                  >
-                    Riwayat Pesanan
-                  </Link>
-                )}
+                {
+                  currentUser.role === 'owner' ? (
+                    <Link to="/admin" className="btn btn-dark w-100 fm-2 mt-2">
+                      Dashboard Admin
+                    </Link>
+                  ) : currentUser.role === 'courier' ? (
+                    <Link to="/admin/orders" className="btn btn-info w-100 fm-2 mt-2">
+                      Tugas Pengiriman
+                    </Link>
+                  ) : (
+                    <Link to="/orders" className="btn btn-primary fm-2 border w-100 mt-2">
+                      Riwayat Pesanan
+                    </Link>
+                  )
+                }
               </Col>
               <Col lg="8">
                 <Card>
