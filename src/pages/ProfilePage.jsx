@@ -66,7 +66,8 @@ const ProfilePage = () => {
       await customAPI.put(
         `/auth/users/${user._id}`,
         {
-          name: data.name,
+          firstName: data.firstName,
+          lastName: data.lastName,
           email: data.email,
           gender: data.gender,
           phone: data.phone,
@@ -136,7 +137,7 @@ const ProfilePage = () => {
                     </Card.Text>
                   </Card.Footer>
                 </Card>
-                {currentUser.role === "owner" ? (
+                {currentUser.role === "owner" || currentUser.role === "courier" ? (
                   <Link to="/admin" className="btn btn-dark w-100 fm-2 mt-2">
                     Dashboard Admin
                   </Link>

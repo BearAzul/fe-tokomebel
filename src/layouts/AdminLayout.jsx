@@ -12,7 +12,7 @@ export const loader = (storage) => () => {
     return redirect("/login");
   }
 
-  if (user.role !== "owner") {
+  if (user.role !== "owner" && user.role !== "courier") {
     toast.error("Anda bukan admin, anda tidak dapat mengakses halaman ini");
     return redirect("/");
   }

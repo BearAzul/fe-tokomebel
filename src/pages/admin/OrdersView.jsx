@@ -24,7 +24,7 @@ export const loader = (storage) => async () => {
     return redirect("/login");
   }
 
-  if (user.role !== "owner") {
+  if (user.role !== "owner" && user.role !== "courier") {
     toast.warn("Hanya admin yang dapat melihat daftar pesanan");
     return redirect("/");
   }
@@ -32,6 +32,7 @@ export const loader = (storage) => async () => {
 
   return { orders };
 };
+
 const OrdersView = () => {
   const { orders } = useLoaderData();
   const [records, setRecords] = useState(orders);

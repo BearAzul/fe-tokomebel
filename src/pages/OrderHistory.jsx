@@ -1,7 +1,7 @@
 import { toast } from "react-toastify";
-import { redirect, useLoaderData, Link } from "react-router-dom";
+import { redirect, useLoaderData, Link, useNavigate } from "react-router-dom";
 import BannerHeader from "../common/Banner/BannerHeader";
-import { Container, Badge } from "react-bootstrap";
+import { Container, Badge, Button } from "react-bootstrap";
 import { formatToIDR } from "../utils";
 import customAPI from "../api";
 import DataTable from "react-data-table-component";
@@ -23,87 +23,153 @@ export const loader = (storage) => async () => {
   return { orders };
 };
 
-const columns = [
-  {
-    name: "No.",
-    selector: (row, index) => index + 1,
-    width: "60px",
-  },
-
-  {
-    name: "Nama Lengkap",
-    selector: (row) => `${row.firstName} ${row.lastName}`,
-    sortable: true,
-    width: "200px",
-  },
-  {
-    name: "Order List",
-    width: "370px",
-    selector: (row) => (
-      <ul className="list-group p-3">
-        {row.itemsDetail.map((itemProduct) => (
-          <li
-            key={itemProduct.product}
-            className="d-flex gap-2 align-items-start list-group-item"
-          >
-            <figure
-              className="overflow-hidden rounded"
-              style={{ width: "70px", height: "70px" }}
-            >
-              <img
-                src={!itemProduct.image ? NotAwailableImg : itemProduct.image}
-                alt={itemProduct.name}
-                className="d-block w-100 h-100 object-fit-cover"
-              />
-            </figure>
-            <div>
-              <h6 className="fw-semibold">{itemProduct.name}</h6>
-              <Badge bg="success">{itemProduct.category}</Badge>
-              <p>
-                {formatToIDR(itemProduct.price)} x{itemProduct.quantity}
-              </p>
-            </div>
-          </li>
-        ))}
-      </ul>
-    ),
-  },
-  {
-    name: "Total",
-    selector: (row) => formatToIDR(row.total),
-    sortable: true,
-  },
-  {
-    name: "Status Order",
-    selector: (row) => (
-      <span
-        className={`btn ${
-          row.status === "success"
-            ? "btn-success"
-            : row.status === "failed"
-            ? "btn-danger"
-            : "btn-warning"
-        } btn-sm`}
-      >
-        {row.status}
-      </span>
-    ),
-    sortable: true,
-  },
-  {
-    name: "Date",
-    selector: (row) =>
-      new Date(row.createdAt).toLocaleDateString("id-ID", {
-        day: "2-digit",
-        month: "short",
-        year: "numeric",
-      }),
-  },
-];
-
 const OrderHistory = () => {
   const { orders } = useLoaderData();
   const [records, setRecords] = useState(orders);
+  const [loading, setLoading] = useState({});
+  const navigate = useNavigate();
+
+  const handleRetryPayment = async (orderId) => {
+    setLoading((prev) => ({ ...prev, [orderId]: true }));
+
+    try {
+      const response = await customAPI.post(`/order/${orderId}/retry-order`);
+      const { token, message } = response.data;
+      toast.info(message);
+
+      window.snap.pay(token, {
+        onSuccess: function (result) {
+          toast.success("Pembayaran berhasil! Status pesanan akan segera diperbarui.");
+          navigate(0);
+        },
+        onPending: function (result) {
+          toast.info("Menunggu pembayaran Anda.");
+        },
+        onError: function (result) {
+          toast.error("Pembayaran gagal. Silakan coba lagi.");
+        },
+        onClose: function () {
+          toast.warn("Anda menutup pop up tanpa menyelesaikan pembayaran.");
+        },
+      });
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Terjadi kesalahan, gagal mencoba ulang pembayaran.");
+    } finally {
+      setLoading((prev) => ({ ...prev, [orderId]: false }));
+    }
+  };
+
+  const columns = [
+    {
+      name: "No.",
+      selector: (row, index) => index + 1,
+      width: "60px",
+    },
+    {
+      name: "Nama Lengkap",
+      selector: (row) => `${row.firstName} ${row.lastName}`,
+      sortable: true,
+      width: "200px",
+    },
+    {
+      name: "Order List",
+      width: "370px",
+      selector: (row) => (
+        <ul className="list-group p-3">
+          {row.itemsDetail.map((itemProduct) => (
+            <li
+              key={itemProduct.product}
+              className="list-group-item"
+            >
+              <h1 className="fw-semibold fs-6 mb-1">{itemProduct.name}</h1>
+              <div className="d-flex gap-2 align-items-start">
+                <figure
+                  className="overflow-hidden rounded"
+                  style={{ width: "70px", height: "70px" }}
+                >
+                  <img
+                    src={!itemProduct.image ? NotAwailableImg : itemProduct.image}
+                    alt={itemProduct.name}
+                    className="d-block w-100 h-100 object-fit-cover"
+                  />
+                </figure>
+                <div>
+                  <Badge bg="success">{itemProduct.category}</Badge>
+                  <p>
+                    {formatToIDR(itemProduct.price)} x{itemProduct.quantity}
+                  </p>
+                </div>
+              </div>
+            </li>
+          ))}
+        </ul>
+      ),
+    },
+    {
+      name: "Total",
+      selector: (row) => formatToIDR(row.total),
+      sortable: true,
+      width: "150px"
+    },
+    {
+      name: "Status Order",
+      selector: (row) => (
+        <span
+          className={`btn btn-sm ${row.status === "success"
+            ? "btn-success"
+            : row.status === "failed"
+              ? "btn-danger"
+              : "btn-warning"
+            } btn-sm`}
+        >
+          {row.status}
+        </span>
+      ),
+      sortable: true,
+      width: "150px"
+    },
+    {
+      name: "Date",
+      selector: (row) =>
+        new Date(row.createdAt).toLocaleDateString("id-ID", {
+          day: "2-digit",
+          month: "short",
+          year: "numeric",
+        }),
+    },
+    {
+      name: "Aksi",
+      cell: (row) => {
+        if (row.status === "pending") {
+          return (
+            <Button
+              variant="info"
+              size="sm"
+              onClick={() => handleRetryPayment(row._id)}
+              disabled={loading[row._id]}
+            >
+              {loading[row._id] ? 'Loading...' : 'Lanjutkan Bayar'}
+            </Button>
+          );
+        }
+        if (row.status === "failed") {
+          return (
+            <Button
+              variant="primary"
+              size="sm"
+              onClick={() => handleRetryPayment(row._id)}
+              disabled={loading[row._id]}
+            >
+              {loading[row._id] ? 'Loading...' : 'Bayar Lagi'}
+            </Button>
+          );
+        }
+        return null;
+      },
+      width: "140px",
+    }
+  ];
+
   const handleSearch = (e) => {
     const newData = orders.filter((row) =>
       row.status.toLowerCase().includes(e.target.value.toLowerCase())
@@ -155,7 +221,7 @@ const OrderHistory = () => {
               pagination
               highlightOnHover
               fixedHeader
-              theme="light"
+              theme="dark"
               className="rounded border border-2 border-success mb-2"
             />
           )}

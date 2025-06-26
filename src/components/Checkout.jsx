@@ -74,6 +74,7 @@ const Checkout = () => {
         },
         onPending: function (result) {
           console.log(result);
+          dispatch(clearCartItem());
           alert("Pending");
         },
         onError: function (result) {
