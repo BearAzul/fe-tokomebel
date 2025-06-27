@@ -27,6 +27,7 @@ const Checkout = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const getCurrentUser = async () => {
     const { data } = await customAPI.get("/auth/getuser");
     setCurrentUser(data.user);
@@ -41,7 +42,6 @@ const Checkout = () => {
     e.preventDefault();
     const form = e.target;
     const formData = new FormData(form);
-
     const data = Object.fromEntries(formData);
 
     const newArrayCart = carts.map((item) => {
@@ -65,7 +65,7 @@ const Checkout = () => {
 
       const snapToken = response.data.token;
 
-      window.snap.embed(snapToken.token, {
+      window.snap.embed(snapToken, {
         embedId: "snap-container",
         onSuccess: function (result) {
           console.log(result);

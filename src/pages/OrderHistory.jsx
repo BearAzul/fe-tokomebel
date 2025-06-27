@@ -81,7 +81,7 @@ const OrderHistory = () => {
               key={itemProduct.product}
               className="list-group-item"
             >
-              <h1 className="fw-semibold fs-6 mb-1">{itemProduct.name}</h1>
+              <h2 className="fw-semibold fs-6 mb-1 text-wrap">{itemProduct.name}</h2>
               <div className="d-flex gap-2 align-items-start">
                 <figure
                   className="overflow-hidden rounded"
@@ -115,7 +115,7 @@ const OrderHistory = () => {
       name: "Status Pembayaran",
       selector: (row) => (
         <div
-          className={`rounded px-2 py-1 ${row.status === "success"
+          className={`rounded fs-6 px-2 py-1 ${row.status === "success"
             ? "text-bg-success"
             : row.status === "failed"
               ? "text-bg-danger"
@@ -131,7 +131,7 @@ const OrderHistory = () => {
     {
       name: "Tanggal Pesanan",
       selector: (row) =>
-        formatTanggalWaktu(row.createdAt),
+        <p className="text-wrap">{formatTanggalWaktu(row.createdAt)}</p>
     },
     {
       name: "Aksi",
@@ -141,6 +141,7 @@ const OrderHistory = () => {
             <Button
               variant="info"
               size="sm"
+              className="text-nowrap"
               onClick={() => handleRetryPayment(row._id)}
               disabled={loading[row._id]}
             >
@@ -162,7 +163,7 @@ const OrderHistory = () => {
         }
         return null;
       },
-      width: "140px",
+      width: "160px",
     }
   ];
 
