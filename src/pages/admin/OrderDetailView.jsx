@@ -15,7 +15,7 @@ import { toast } from "react-toastify"
 
 const OrderDetailView = () => {
   const user = useSelector((state) => state.userState.user);
-  const [showZoom, setShowZoom] = useState(false);
+  const [showZoom, setShowZoom] = useState(null);
   const [detailOrder, setDetailOrder] = useState([]);
   const navigate = useNavigate()
   const { id } = useParams();
@@ -85,7 +85,6 @@ const OrderDetailView = () => {
     {
       name: "Qty",
       selector: (row) => `x${row.quantity}`,
-      center: true,
     },
     {
       name: "Harga",
@@ -251,7 +250,7 @@ const OrderDetailView = () => {
             </Col>
           </Row>
           <ZoomModal
-            show={showZoom}
+            show={!!showZoom}
             onHide={handleZoomOut}
             imageUrl={showZoom}
             altText="Detail Gambar"

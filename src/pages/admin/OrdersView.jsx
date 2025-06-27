@@ -147,7 +147,7 @@ const OrdersView = () => {
             ? "Berhasil"
             : row.status === "failed"
               ? "Gagal"
-              : "Tertunda"
+              : "Pending"
             }`}
         </div>
       ),
@@ -177,7 +177,7 @@ const OrdersView = () => {
           <Link to={`/admin/orders/${row._id}`} className="btn btn-info btn-sm">
             <i className="ri-user-search-line"></i>
           </Link>
-          {user && user.role === "owner" && (
+          {user && user.role === "owner" && row.status !== "success" && (
             <Button variant="danger" size="sm" onClick={() => handleDelete(row)}>
               <i className="ri-delete-bin-line"></i>
             </Button>
