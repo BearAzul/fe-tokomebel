@@ -30,11 +30,11 @@ export const loader = (storage) => async () => {
   }
   const orders = data.data;
 
-  return { orders };
+  return { orders, user };
 };
 
 const OrdersView = () => {
-  const { orders } = useLoaderData();
+  const { orders, user } = useLoaderData();
   const [records, setRecords] = useState(orders);
 
   const handleSearch = (e) => {
