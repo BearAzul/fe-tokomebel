@@ -154,6 +154,14 @@ const OrdersView = () => {
       width: "160px",
     },
     {
+      name: "Pengiriman",
+      selector: (row) => (
+        <span className={`btn btn-sm btn-warning ${row.shipping === "shipping" ? "btn-warning": "btn-success"}`} aria-label="label shipping">
+          {row.shipping === "shipping" ? "Belum Dikirim" : "Sudah Dikirim"}
+        </span>
+      )
+    },
+    {
       name: "Aksi",
       selector: (row) => (
         <div className="d-flex gap-2 align-items-center">
