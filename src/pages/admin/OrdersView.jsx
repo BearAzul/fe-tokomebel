@@ -129,25 +129,25 @@ const OrdersView = () => {
       selector: (row) => (
         <div
           className={`rounded px-2 py-1 d-flex align-items-center justify-content-center ${row.status === "success"
-              ? "text-bg-success"
-              : row.status === "failed"
-                ? "text-bg-danger"
-                : "text-bg-warning"
+            ? "text-bg-success"
+            : row.status === "failed"
+              ? "text-bg-danger"
+              : "text-bg-warning"
             }`}
         >
           <i
             className={`me-1 ${row.status === "success"
-                ? "ri-checkbox-circle-line"
-                : row.status === "failed"
-                  ? "ri-close-circle-line"
-                  : "ri-error-warning-line"
+              ? "ri-checkbox-circle-line"
+              : row.status === "failed"
+                ? "ri-close-circle-line"
+                : "ri-error-warning-line"
               }`}
           ></i>
           {`${row.status === "success"
-              ? "success"
-              : row.status === "failed"
-                ? "failed"
-                : "pending"
+            ? "success"
+            : row.status === "failed"
+              ? "failed"
+              : "pending"
             }`}
         </div>
       ),
@@ -156,7 +156,7 @@ const OrdersView = () => {
     {
       name: "Pengiriman",
       selector: (row) => (
-        <span className={`btn btn-sm btn-warning ${row.shipping === "shipping" ? "btn-warning": "btn-success"}`} aria-label="label shipping">
+        <span className={`btn btn-sm btn-warning ${row.shipping === "shipping" ? "btn-warning" : "btn-success"}`} aria-label="label shipping">
           {row.shipping === "shipping" ? "Belum Dikirim" : "Sudah Dikirim"}
         </span>
       )
@@ -168,9 +168,11 @@ const OrdersView = () => {
           <Link to={`/admin/orders/${row._id}`} className="btn btn-info btn-sm">
             <i className="ri-user-search-line"></i>
           </Link>
-          <Button variant="danger" size="sm" onClick={() => handleDelete(row)}>
-            <i className="ri-delete-bin-line"></i>
-          </Button>
+          {user && user.role === "owner" && (
+            <Button variant="danger" size="sm" onClick={() => handleDelete(row)}>
+              <i className="ri-delete-bin-line"></i>
+            </Button>
+          )}
         </div>
       ),
       width: "150px",
