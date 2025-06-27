@@ -2,14 +2,14 @@ import { toast } from "react-toastify";
 import { redirect, useLoaderData, Link, useNavigate } from "react-router-dom";
 import BannerHeader from "../common/Banner/BannerHeader";
 import { Container, Badge, Button } from "react-bootstrap";
-import { formatToIDR } from "../utils";
-import customAPI from "../api";
+import { formatToIDR, formatTanggalWaktu } from "../utils/index.jsx";
+import customAPI from "../api.js";
 import DataTable from "react-data-table-component";
 import EmptyOrderIcon from "../assets/Image/empty_order.png";
 import { useState } from "react";
 import { HistoryDirect } from "../components/Directlink";
 import NotAwailableImg from "../assets/Image/landscape-placeholder.svg";
-import { HelmetHead } from "../common/Helmet.jsx";
+import { HelmetHead } from "../common/Helmet.jsx"
 
 export const loader = (storage) => async () => {
   const user = storage.getState().userState.user;
@@ -72,7 +72,7 @@ const OrderHistory = () => {
       width: "200px",
     },
     {
-      name: "Order List",
+      name: "Daftar Pesanan",
       width: "370px",
       selector: (row) => (
         <ul className="list-group p-3">
@@ -106,36 +106,32 @@ const OrderHistory = () => {
       ),
     },
     {
-      name: "Total",
+      name: "Total Pembayaran",
       selector: (row) => formatToIDR(row.total),
       sortable: true,
-      width: "150px"
+      width: "180px"
     },
     {
-      name: "Status Order",
+      name: "Status Pembayaran",
       selector: (row) => (
-        <span
-          className={`btn btn-sm ${row.status === "success"
-            ? "btn-success"
+        <div
+          className={`rounded px-2 py-1 ${row.status === "success"
+            ? "text-bg-success"
             : row.status === "failed"
-              ? "btn-danger"
-              : "btn-warning"
-            } btn-sm`}
+              ? "text-bg-danger"
+              : "text-bg-warning"
+            }`}
         >
           {row.status}
-        </span>
+        </div>
       ),
       sortable: true,
-      width: "150px"
+      width: "180px"
     },
     {
-      name: "Date",
+      name: "Tanggal Pesanan",
       selector: (row) =>
-        new Date(row.createdAt).toLocaleDateString("id-ID", {
-          day: "2-digit",
-          month: "short",
-          year: "numeric",
-        }),
+        formatTanggalWaktu(row.createdAt),
     },
     {
       name: "Aksi",

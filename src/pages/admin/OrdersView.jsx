@@ -120,7 +120,7 @@ const OrdersView = () => {
       width: "100px",
     },
     {
-      name: "Total Harga",
+      name: "Total Pembayaran",
       selector: (row) => formatToIDR(row.total),
       width: "150px",
     },
@@ -144,22 +144,31 @@ const OrdersView = () => {
               }`}
           ></i>
           {`${row.status === "success"
-            ? "success"
+            ? "Berhasil"
             : row.status === "failed"
-              ? "failed"
-              : "pending"
+              ? "Gagal"
+              : "Tertunda"
             }`}
         </div>
       ),
-      width: "160px",
+      sortable: true,
+      width: "180px",
     },
     {
-      name: "Pengiriman",
+      name: "Status Pengiriman",
       selector: (row) => (
-        <span className={`btn btn-sm btn-warning ${row.shipping === "shipping" ? "btn-warning" : "btn-success"}`} aria-label="label shipping">
+        <div className={`rounded px-2 py-1 ${row.shipping === "shipping" ? "text-bg-danger" : "text-bg-success"}`} aria-label="label shipping">
+          <i
+            className={`me-1 ${row.shipping === "shipping"
+              ? "ri-error-warning-line"
+              : "ri-checkbox-circle-line"
+              }`}
+          ></i>
           {row.shipping === "shipping" ? "Belum Dikirim" : "Sudah Dikirim"}
-        </span>
-      )
+        </div>
+      ),
+      sortable: true,
+      width: "160px"
     },
     {
       name: "Aksi",
@@ -175,7 +184,7 @@ const OrdersView = () => {
           )}
         </div>
       ),
-      width: "150px",
+      width: "120px",
     },
   ];
 
