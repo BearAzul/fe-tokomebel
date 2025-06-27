@@ -1,4 +1,4 @@
-import { Container } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import DataTable from "react-data-table-component";
 import customAPI from "../../api.js";
 import { useLoaderData, Link, useRevalidator } from "react-router-dom";
@@ -121,27 +121,32 @@ const CategoryView = () => {
         <Container>
           <CategoryDirect />
           <h5 className="mb-3">Daftar Kategori</h5>
-          <div className="d-flex justify-content-between gap-2 align-items-center flex-column mb-2 w-100 flex-md-row">
-            <Link
-              to="/admin/category/add"
-              className="btn btn-success btn-sm me-auto"
-            >
-              <i className="ri-add-circle-line me-1"></i>
-              Tambah Kategori Baru
-            </Link>
-            <div className="input-group input-group-sm max-content ms-auto">
-              <input
-                type="search"
-                name="search"
-                className="form-control"
-                placeholder="Search"
-                onChange={handleSearch}
-              />
-              <span className="input-group-text">
-                <i className="ri-search-line"></i>
-              </span>
-            </div>
-          </div>
+          <Row lg="2" xs="1" md="2" className="g-2">
+            <Col>
+              <Link
+                to="/admin/category/add"
+                className="btn btn-success btn-sm me-auto"
+                aria-label="Tambah Button"
+              >
+                <i className="ri-add-circle-line me-1"></i>
+                Tambah Kategori Baru
+              </Link>
+            </Col>
+            <Col xs="12">
+              <div className="input-group input-group-sm w-100">
+                <input
+                  type="search"
+                  name="search"
+                  className="form-control"
+                  placeholder="Search"
+                  onChange={handleSearch}
+                />
+                <span className="input-group-text" aria-label="button">
+                  <i className="ri-search-line"></i>
+                </span>
+              </div>
+            </Col>
+          </Row>
           <DataTable
             columns={columns}
             data={records}
