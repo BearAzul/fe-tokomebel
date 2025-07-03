@@ -91,9 +91,9 @@ const Checkout = () => {
 
   let delivery;
   if (!numItems) {
-    delivery = 0;
+    delivery = formatToIDR(0);
   } else {
-    delivery = 80000;
+    delivery = "Free";
   }
 
   return (
@@ -216,13 +216,13 @@ const Checkout = () => {
               <tr>
                 <td className="fw-medium">Delivery</td>
                 <td>:</td>
-                <td className="text-end">{formatToIDR(delivery)}</td>
+                <td className="text-end">{delivery}</td>
               </tr>
               <tr>
                 <td className="fw-medium">Total</td>
                 <td>:</td>
                 <td className="text-end">
-                  {formatToIDR(cartTotal + delivery)}
+                  {formatToIDR(cartTotal)}
                 </td>
               </tr>
             </tbody>
