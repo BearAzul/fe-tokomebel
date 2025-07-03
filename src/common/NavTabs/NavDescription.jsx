@@ -45,9 +45,7 @@ const NavDescription = ({ description }) => {
             }`}
         >
           <Card.Body>
-            <Card.Text className="fm-2">
-              <div dangerouslySetInnerHTML={{ __html: description }} />
-            </Card.Text>
+            <div className="fm-2" dangerouslySetInnerHTML={{ __html: description }} />
           </Card.Body>
         </Card>
       )}

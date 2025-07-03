@@ -11,6 +11,7 @@ import LoginPage from "./pages/auth/LoginPage.jsx";
 import RegisterPage from "./pages/auth/RegisterPage.jsx";
 import PaymentPage from "./pages/PaymentPage.jsx";
 import OrderHistory from "./pages/OrderHistory.jsx";
+import OrderDetailPage from "./pages/OrderDetailPage.jsx";
 
 // Admin Component
 import AdminLayout from "./layouts/AdminLayout.jsx";
@@ -37,6 +38,7 @@ import { loader as ShopLoader } from "./pages/ShopPage.jsx";
 import { loader as ProfileLoader } from "./pages/ProfilePage.jsx";
 import { loader as PaymentLoader } from "./pages/PaymentPage.jsx";
 import { loader as OrderLoader } from "./pages/OrderHistory.jsx";
+import { loader as OrderDetailLoader } from "./pages/OrderDetailPage.jsx"
 import { loader as ProductsLoader } from "./pages/admin/ProductsView.jsx";
 import { loader as AdminLoader } from "./layouts/AdminLayout.jsx";
 import { loader as DashboardLoader } from "./pages/admin/HomeView.jsx";
@@ -54,6 +56,7 @@ import ForgotPasswordPage from "./pages/auth/ForgotPasswordPage.jsx";
 // storage
 import { store } from "./store.js";
 import UpdatePasswordPage from "./pages/auth/UpdatePasswordPage.jsx";
+
 
 
 
@@ -84,6 +87,11 @@ const router = createBrowserRouter([
         path: "orders",
         element: <OrderHistory />,
         loader: OrderLoader(store),
+      },
+      {
+        path: "orders/:id/shipping",
+        element: <OrderDetailPage />,
+        loader: OrderDetailLoader(store),
       },
       {
         path: "login",

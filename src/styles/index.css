@@ -42,7 +42,7 @@
 }
 
 .text-dark-green {
-  color: #135961;
+  color: #135961 !important;
 }
 
 .text-dark-dark {
@@ -87,6 +87,10 @@ h1, h2, h3, h4, h5, h6, p {
 
 .h-max-content {
   height: max-content;
+}
+
+.border-dark-green {
+  border-color: #135961 !important;
 }
 
 #shop .pagination .page-item.active .page-link {
@@ -305,6 +309,17 @@ main {
 
   .payment_snap_methode {
     max-width: 170px;
+  }
+
+  .progress-container #delivered, 
+  .progress-container #confirm {
+    top: 230% !important;
+    width: 100px;
+  }
+
+  .progress-container #shipping {
+    top: 290% !important;
+    width: 100px;
   }
 }
 

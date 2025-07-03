@@ -205,6 +205,25 @@ export function HistoryDirect() {
     </div>
   );
 }
+export function DetailOrderCustomerDirect() {
+  return (
+    <div className="d-flex gap-2 fm-2 fs-7 mb-3 text-dark">
+      <Link to="/" className="text-body-secondary text-decoration-none">
+        Beranda
+      </Link>
+      <span> &gt; </span>
+      <Link to="/profile" className="text-body-secondary text-decoration-none">
+        Profil
+      </Link>
+      <span> &gt; </span>
+      <Link to="/orders" className="text-body-secondary text-decoration-none">
+        Riwayat Pesanan
+      </Link>
+      <span> &gt; </span>
+      <p>Detail Pesanan</p>
+    </div>
+  );
+}
 //=====================================
 
 //=============== Checkout ============
