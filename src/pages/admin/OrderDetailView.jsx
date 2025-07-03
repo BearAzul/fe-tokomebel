@@ -41,11 +41,16 @@ const OrderDetailView = () => {
     }
   };
 
-  const getShippingStatusInfo = (shippingStatus) => {
-    if (shippingStatus === "delivered") {
-      return { text: "Sudah Sampai", color: "success" };
+  const getShippingStatusInfo = (shippingStatus, paymentStatus) => {
+    if (paymentStatus === "pending" || paymentStatus === "failed") {
+      return { text: "Menunggu Pembayaran", color: "secondary" };
     }
-    return { text: "Dalam Perjalanan", color: "warning" };
+
+    if (shippingStatus === "delivered") {
+      return { text: "Sampai Tujuan", color: "success" };
+    }
+
+    return { text: "Dalam Perjalanan", color: "warning" }; 
   };
 
   if (!detailOrder) {
@@ -98,7 +103,7 @@ const OrderDetailView = () => {
     },
   ];
 
-  const shippingStatusInfo = getShippingStatusInfo(detailOrder.shipping);
+  const shippingStatusInfo = getShippingStatusInfo(detailOrder.shipping, detailOrder.status);
 
   useEffect(() => {
     getDetailOrder(id);
