@@ -6,10 +6,9 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import { CustomersDirect } from "../../components/Directlink.jsx";
 import Swal from "sweetalert2";
-import ExportCSV from "../../components/export/exportCSV.jsx";
-import { exportPDF } from "../../components/export/exportPDF.jsx";
 import BlankImages from "../../assets/Image/blank_user.png"
 import { HelmetHead } from "../../common/Helmet.jsx";
+import { ExportCustomers } from "../../components/Button.jsx";
 
 export const loader = async () => {
   const { data } = await customAPI.get("/auth/users");
@@ -151,18 +150,7 @@ const CustomersView = () => {
           <div className="d-flex justify-content-between gap-3 align-items-center mb-3 flex-wrap">
             <h5 className="fm-2">Daftar Pelanggan</h5>
             <div className="d-flex gap-1 align-items-center">
-              <ExportCSV data={dataCustomers} />
-              <button
-                type="button"
-                className="btn btn-outline-light btn-sm"
-                data-bs-toggle="tooltip"
-                data-bs-placement="bottom"
-                data-bs-custom-class="custom-tooltip"
-                data-bs-title="Download PDF"
-                onClick={() => exportPDF(dataCustomers)}
-              >
-                <i className="ri-file-pdf-2-line"></i>
-              </button>
+              <ExportCustomers data={dataCustomers} />
               <div className="input-group input-group-sm">
                 <input
                   type="search"

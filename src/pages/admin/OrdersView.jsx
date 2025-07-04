@@ -14,20 +14,20 @@ import { useState } from "react";
 import Swal from "sweetalert2";
 import BlankImages from "../../assets/Image/blank_user.png"
 import { HelmetHead } from "../../common/Helmet.jsx";
+import { ExportOrders } from "../../components/Button.jsx";
 
 export const loader = (storage) => async () => {
   const user = storage.getState().userState.user;
-  const { data } = await customAPI.get("/order");
-
   if (!user) {
     toast.warn("Silahkan login sebagai admin untuk akses halaman ini!");
     return redirect("/login");
   }
-
   if (user.role !== "owner" && user.role !== "courier") {
     toast.warn("Hanya admin yang dapat melihat daftar pesanan");
     return redirect("/");
   }
+
+  const { data } = await customAPI.get("/order");
   const orders = data.data;
 
   return { orders, user };
@@ -38,12 +38,14 @@ const OrdersView = () => {
   const [records, setRecords] = useState(orders);
 
   const handleSearch = (e) => {
+    const searchTerm = e.target.value.toLowerCase();
     const newData = orders.filter(
       (row) =>
-        row.email.toLowerCase().includes(e.target.value.toLowerCase()) ||
-        row.firstName.toLowerCase().includes(e.target.value.toLowerCase()) ||
-        row.lastName.toLowerCase().includes(e.target.value.toLowerCase()) ||
-        row.status.toLowerCase().includes(e.target.value.toLowerCase())
+        row.email.toLowerCase().includes(searchTerm) ||
+        row.firstName.toLowerCase().includes(searchTerm) ||
+        row.lastName.toLowerCase().includes(searchTerm) ||
+        row.status.toLowerCase().includes(searchTerm) ||
+        row.shipping.toLowerCase().includes(searchTerm)
     );
     setRecords(newData);
   };
@@ -52,29 +54,27 @@ const OrdersView = () => {
 
   const handleDelete = async (row) => {
     Swal.fire({
-      title: "Are you sure?",
-      text: `
-      You are about to delete the order by: ${row.firstName} ${row.lastName}. This action cannot be undone.
-      `,
+      title: "Anda yakin?",
+      text: `Anda akan menghapus pesanan milik ${row.firstName}  ${row.lastName}. Aksi ini tidak bisa diurungkan.`,
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#d33",
       cancelButtonColor: "#3085d6",
-      confirmButtonText: "Yes",
-      cancelButtonText: "Cancel",
+      confirmButtonText: "Ya, hapus!",
+      cancelButtonText: "Batal",
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
           await customAPI.delete(`/order/${row._id}`);
           toast.success(
-            `Order Product by name ${row.firstName} ${row.lastName} deleted successfully`
+            `Pesanan atas nama ${row.firstName} ${row.lastName} berhasil dihapus!`
           );
           setRecords((prevRecords) =>
             prevRecords.filter((record) => record._id !== row._id)
           );
           revalidate();
         } catch (error) {
-          toast.error("Failed to delete Customer Order. Please try again.");
+          toast.error("Gagal menghapus pesanan. Silakan coba lagi.");
         }
       }
     });
@@ -196,6 +196,7 @@ const OrdersView = () => {
           <OrdersDirect />
           <div className="d-flex align-items-center gap-3 flex-md-row justify-content-between flex-column mb-3">
             <h5 className="w-100">Daftar Pelanggan</h5>
+            <ExportOrders data={orders} />
             <div className="input-group input-group-sm">
               <input
                 type="search"

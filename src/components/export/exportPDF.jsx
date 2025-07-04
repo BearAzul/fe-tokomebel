@@ -1,33 +1,21 @@
 import jsPDF from "jspdf";
-import "jspdf-autotable"; // Plugin tambahan untuk membuat tabel otomatis
+import "jspdf-autotable";
 
-export const exportPDF = (data) => {
-  const doc = new jsPDF();
+export const generatePDF = (headers, data, title = "Data Default") => {
+  const doc = new jsPDF({ orientation: "landscape" });
+  const tableColumn = headers.map(h => h.label);
+  const tableRows = data.map(item => headers.map(h => item[h.key]));
 
-  doc.text("Data Customers Toko Mebel ", 20, 10);
-
-  const tableColumn = ["No.", "Nama Lengkap", "Email", "No. Telp", "Jenis Kelamin", "Kabupaten/Kota", "Alamat"];
-  const tableRows = [];
-
-  data.forEach((customer, index) => {
-    const customerData = [
-      index + 1,
-      `${customer.firstName} ${customer.lastName}`,
-      customer.email,
-      customer.phone,
-      customer.gender,
-      customer.city,
-      customer.address,
-    ];
-    tableRows.push(customerData);
-  });
+  doc.setFontSize(18);
+  doc.text(title, 14, 22);
 
   doc.autoTable({
     head: [tableColumn],
     body: tableRows,
-    startY: 20, 
+    startY: 30,
+    theme: 'grid',
+    headStyles: { fillColor: [41, 128, 185], textColor: 255, fontStyle: 'bold' }
   });
 
-  doc.save("customer_data.pdf");
+  doc.save(`${title}.pdf`);
 };
-
