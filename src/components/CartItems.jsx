@@ -23,10 +23,10 @@ const CartItems = ({ cartItem }) => {
     }
   };
 
-  
+
 
   const handleRemoveItem = () => {
-    dispatch(removeItem({cartId}))
+    dispatch(removeItem({ cartId }))
   }
 
   return (

@@ -1,35 +1,36 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLoaderData } from "react-router-dom";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import {
   FormInput,
-  FormEditor,
-  FormSelect,
+  FormEditor
 } from "../../../components/FormInput.jsx";
 import customAPI from "../../../api.js";
 import { toast } from "react-toastify";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { AddProductDirect } from "../../../components/Directlink.jsx";
 
+export const loader = async () => { 
+  try {
+    const { data } = await customAPI.get("/category");
+    return { categories: data.data };
+  } catch (error) {
+    toast.error("Failed to load categories");
+    return [];
+  }
+}
+
 const AddProductView = () => {
-  const [categories, setCategories] = useState([]);
+  const { categories } = useLoaderData();
   const navigate = useNavigate();
   const [desc, setDesc] = useState("");
-
-  const getCategories = async () => {
-    const { data } = await customAPI.get("/category");
-    setCategories(data.data);
-  };
-
-  useEffect(() => {
-    getCategories();
-  }, []);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const form = e.target;
     const formData = new FormData(form);
-
     const data = Object.fromEntries(formData);
+    setLoading(true);
     try {
       const uploadImage = await customAPI.post(
         "/product/file-upload",
@@ -47,10 +48,10 @@ const AddProductView = () => {
         name: data.name,
         summary: data.summary,
         description: desc,
+        category: data.category,
         price: data.price,
         stock: data.stock,
         image: uploadImage.data.url,
-        category: data.category,
       });
 
       toast.success("Product created successfully");
@@ -58,6 +59,8 @@ const AddProductView = () => {
     } catch (error) {
       const errorMessage = error?.response?.data?.message;
       toast.error(errorMessage);
+    } finally {
+      setLoading(false);
     }
   };
   return (
@@ -96,14 +99,17 @@ const AddProductView = () => {
               />
             </Col>
             <Col>
-              <FormSelect
-                name="category"
-                label="Kategori:"
-                options={categories.map((category) => ({
-                  value: category._id,
-                  label: category.name,
-                }))}
-              />
+              <label htmlFor="category" className="form-label">
+                Kategori Produk Mebel: <span className="text-danger">*</span>
+              </label>
+              <select name="category" id="category" className="form-select form-select-sm">
+                <option value="">Pilih Kategori Produk Mebel</option>
+                {categories.map((category) => (
+                  <option key={category._id} value={category._id}>
+                    {category.name}
+                  </option>
+                ))}
+              </select>
             </Col>
             <Col md="12" lg="8">
               <FormInput
@@ -134,11 +140,20 @@ const AddProductView = () => {
             </Col>
           </Row>
           <div className="d-flex gap-2 align-items-center mt-3">
-            <Button type="submit" variant="success" size="sm">
-              <i className="ri-add-circle-line me-1"></i>
-              Submit
+            <Button type="submit" variant="success" size="sm" disabled={loading}>
+              {loading ? (
+                <>
+                  <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                  Menyimpan...
+                </>
+              ) : (
+                <>
+                  <i className="ri-add-circle-line me-1"></i>
+                  Create
+                </>
+              )}
             </Button>
-            <Button type="reset" variant="danger" size="sm">
+            <Button type="reset" variant="danger" size="sm" disabled={loading}>
               <i className="ri-loop-right-line me-1"></i>
               Reset
             </Button>

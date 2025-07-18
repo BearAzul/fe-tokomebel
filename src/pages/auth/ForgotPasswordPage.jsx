@@ -1,34 +1,32 @@
-import { useState } from "react";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
+import { Form as RouterForm, useNavigation, redirect } from "react-router-dom"
 import { toast } from "react-toastify";
 import customAPI from "../../api.js";
 import ForgotImages from "../../assets/Image/Forgot_password-bro.svg";
 import { HelmetHead } from "../../common/Helmet.jsx";
 
+export const action = async ({ request }) => {
+  const formData = await request.formData();
+  const data = Object.fromEntries(formData);
+
+  try {
+    const res = await customAPI.post("/auth/forgot-password", data);
+    toast.success(
+      res.data.message ||
+      "Permintaan reset password berhasil dikirim, Silahkan Cek Email Anda!"
+    );
+  } catch (error) {
+    toast.error(
+      error.response?.data?.message ||
+      "Terjadi kesalahan saat mengirim permintaan"
+    );
+  }
+  return null;
+};
+
 const ForgotPasswordPage = () => {
-  const [email, setEmail] = useState("");
-  const [loading, setLoading] = useState(false);
-
-  const handleForgotPassword = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-
-    try {
-      const res = await customAPI.post("/auth/forgot-password", { email });
-      toast.success(
-        res.data.message ||
-        "Permintaan reset password berhasil dikirim, Silahkan Cek Email Anda!"
-      );
-      setEmail("");
-    } catch (error) {
-      toast.error(
-        error.response?.data?.message ||
-        "Terjadi kesalahan saat mengirim permintaan"
-      );
-    } finally {
-      setLoading(false);
-    }
-  };
+  const navigation = useNavigation();
+  const isSubmitting = navigation.state === 'submitting';
 
   return (
     <>
@@ -55,15 +53,14 @@ const ForgotPasswordPage = () => {
               <h1 className="mb-4 fs-4 text-center fm-2 fw-semibold">
                 Lupa Kata Sandi
               </h1>
-              <Form onSubmit={handleForgotPassword} className="fm-2">
+              <RouterForm method="post" className="fm-2">
                 <Form.Group controlId="email" className="mb-3">
                   <Form.Label>Alamat Email:</Form.Label>
                   <Form.Control
                     type="email"
+                    name="email"
                     className="fm-2 border-1 bg-white"
                     placeholder="Masukkan email yang terdaftar"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
                     size="sm"
                     required
                   />
@@ -73,11 +70,11 @@ const ForgotPasswordPage = () => {
                   variant="success"
                   size="sm"
                   className="w-100"
-                  disabled={loading}
+                  disabled={isSubmitting}
                 >
-                  {loading ? "Mengirim..." : "Kirim Link Reset"}
+                  {isSubmitting ? "Mengirim..." : "Kirim Link Reset"}
                 </Button>
-              </Form>
+              </RouterForm>
             </Col>
           </Row>
         </Container>

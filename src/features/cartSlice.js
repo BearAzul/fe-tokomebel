@@ -28,7 +28,7 @@ const cartSlice = createSlice({
       state.cartTotal += product.price * product.amount;
 
       localStorage.setItem("cart", JSON.stringify(state));
-      toast.success(`${product.name} added to cart`, { autoClose: 2000 });
+      toast.success(`${product.name} ditambahkan ke keranjang`, { autoClose: 2000 });
     },
     editItem: (state, action) => {
       const { cartId, amount } = action.payload;
@@ -38,7 +38,7 @@ const cartSlice = createSlice({
       state.cartTotal += itemProduct.price * (amount - itemProduct.amount);
       itemProduct.amount = amount;
       localStorage.setItem("cart", JSON.stringify(state));
-      toast.info("Change Amount Success")
+      toast.info("jumlah produk berhasil diubah", { autoClose: 2000 });
     },
     clearCartItem: (state) => {
       localStorage.setItem("cart", JSON.stringify(defaultValue));
@@ -53,7 +53,7 @@ const cartSlice = createSlice({
       state.cartTotal -= itemProduct.price * itemProduct.amount;
 
       localStorage.setItem("cart", JSON.stringify(state));
-      toast.success(`${itemProduct.name} removed from cart`, { autoClose: 2000 });
+      toast.success(`${itemProduct.name} dihapus dari keranjang`, { autoClose: 2000 });
     }
     
   },

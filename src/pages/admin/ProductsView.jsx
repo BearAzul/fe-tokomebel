@@ -70,7 +70,7 @@ const ProductsView = () => {
                 </Button>
                 <select
                   name="category"
-                  className="form-select form-select-sm fs-7"
+                  className="form-select fs-7"
                   defaultValue={category}
                 >
                   <option value="">-- Cari Kategori --</option>

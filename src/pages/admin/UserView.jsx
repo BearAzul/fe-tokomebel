@@ -6,21 +6,30 @@ import {
 } from "../../components/FormInput";
 import { toast } from "react-toastify";
 import customAPI from "../../api.js";
-import { useEffect, useState } from "react";
-import { redirect } from "react-router-dom";
+import { useState } from "react";
+import { redirect, useLoaderData } from "react-router-dom";
 import BlankImages from "../../assets/Image/blank_user.png"
 import { HelmetHead } from "../../common/Helmet.jsx";
 
-export const loader = (storage) => () => {
-  const user = storage.getState().userState.user;
-  if (!user) {
-    toast.warn("Silahkan Login untuk akses halaman Profil");
+export const loader = async () => {
+  try {
+    const { data } = await customAPI.get("/auth/getuser");
+    return { currentUser: data.user };
+  } catch (error) {
+    toast.error("Gagal memuat profil");
     return redirect("/login");
-  }
-  return null;
+  };
 };
 
 const UserView = () => {
+  const { currentUser } = useLoaderData();
+  const profile = currentUser.profile || {}
+  const [information, setInformation] = useState({
+    gender: profile.gender,
+  })
+
+  const [loading, setLoading] = useState(false);
+
   const gender = [
     {
       key: 1,
@@ -33,26 +42,17 @@ const UserView = () => {
       label: "Perempuan",
     },
   ];
-  const [identity, setIdentity] = useState("");
-
-  const getUserProfile = async () => {
-    const { data } = await customAPI.get("/auth/getuser");
-    setIdentity(data.user);
-  };
-
-  useEffect(() => {
-    getUserProfile();
-  }, []);
 
   const handleUpdate = async (e) => {
     e.preventDefault();
     const form = e.target;
     const formData = new FormData(form);
     const data = Object.fromEntries(formData);
+    setLoading(true);
 
     try {
       await customAPI.put(
-        `/auth/users/${identity._id}`,
+        `/auth/users/${currentUser._id}`,
         {
           name: data.name,
           email: data.email,
@@ -73,6 +73,8 @@ const UserView = () => {
     } catch (error) {
       const errorMessage = error?.response?.data?.message;
       toast.error(errorMessage);
+    } finally {
+      setLoading(false);
     }
   };
   return (
@@ -89,13 +91,13 @@ const UserView = () => {
                   style={{ width: "120px", height: "120px" }}
                 >
                   <img
-                    src={identity.image === null ? BlankImages : identity.image}
+                    src={!profile.image ? BlankImages : profile.image}
                     alt=""
                     className="w-100 h-100 d-block object-fit-cover"
                   />
                 </figure>
                 <div>
-                  <h5>{`${identity.firstName} ${identity.lastName}`}</h5>
+                  <h5>{`${currentUser.firstName} ${currentUser.lastName}`}</h5>
                   <input
                     type="file"
                     name="image"
@@ -111,7 +113,7 @@ const UserView = () => {
                     type="text"
                     label="Nama Depan:"
                     placeHolder="Masukkan Nama Depan"
-                    defaultValue={identity.firstName}
+                    defaultValue={currentUser.firstName}
                   />
                 </Col>
                 <Col>
@@ -120,7 +122,7 @@ const UserView = () => {
                     type="text"
                     label="Nama Belakang:"
                     placeHolder="Enter Your Last Name"
-                    defaultValue={identity.lastName}
+                    defaultValue={currentUser.lastName}
                   />
                 </Col>
                 <Col>
@@ -134,7 +136,7 @@ const UserView = () => {
                     name="phone"
                     minLength={11}
                     maxLength={13}
-                    defaultValue={identity.phone}
+                    defaultValue={profile.phone}
                     placeholder="Masukkan No. Telp (+62)"
                   />
                 </Col>
@@ -144,16 +146,16 @@ const UserView = () => {
                     type="email"
                     label="Email:"
                     placeHolder="Masukkan Email Valid"
-                    defaultValue={identity.email}
+                    defaultValue={currentUser.email}
                   />
                 </Col>
                 <Col>
                   <FormSelect
                     name="gender"
                     label="Jenis Kelamin:"
-                    value={identity.gender}
+                    value={information.gender}
                     onChange={(e) =>
-                      setIdentity((prev) => ({
+                      setInformation((prev) => ({
                         ...prev,
                         gender: e.target.value,
                       }))
@@ -167,7 +169,7 @@ const UserView = () => {
                     type="text"
                     label="Kabupaten/Kota:"
                     placeHolder="Masukkan Kabupaten/Kota"
-                    defaultValue={identity.city}
+                    defaultValue={profile.city}
                   />
                 </Col>
                 <Col md="12" lg="12">
@@ -176,7 +178,7 @@ const UserView = () => {
                     label="Alamat Lengkap:"
                     placeHolder="Masukkan Alamat Lengkap"
                     Row={3}
-                    defaultValue={identity.address}
+                    defaultValue={profile.address}
                   />
                 </Col>
               </Row>
@@ -185,9 +187,15 @@ const UserView = () => {
                 size="sm"
                 type="submit"
                 className="max-content px-3 mt-3"
+                disabled={loading}
               >
-                <i className="ri-save-3-line me-2"></i>
-                Update Profile
+                {loading ? (<>
+                  <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                  Updating...
+                </>) : (<>
+                  <i className="ri-save-3-line me-2"></i>
+                  Update Profile
+                </>)}
               </Button>
             </Card>
           </form>

@@ -2,7 +2,7 @@ import "../../styles/index.css";
 import { Button, Card, Container, Row, Col } from "react-bootstrap";
 import { useState } from "react";
 import imgsignup from "../../assets/Image/signup-img.svg";
-import { redirect, Form, Link } from "react-router-dom";
+import { redirect, Form, Link, useNavigation } from "react-router-dom";
 import { toast } from "react-toastify";
 import customAPI from "../../api.js";
 import { registerUser } from "../../features/userSlice.js";
@@ -10,25 +10,27 @@ import { HelmetHead } from "../../common/Helmet.jsx";
 
 export const action =
   (store) =>
-  async ({ request }) => {
-    const formInputData = await request.formData();
-    const data = Object.fromEntries(formInputData);
+    async ({ request }) => {
+      const formInputData = await request.formData();
+      const data = Object.fromEntries(formInputData);
 
-    try {
-      const response = await customAPI.post("/auth/register", data);
-      store.dispatch(registerUser(response.data));
-      toast.success("Register Success, please verification Code!");
-      return redirect("/verify-email");
-    } catch (error) {
-      const errorMessage = error?.response?.data?.message;
-      toast.error(errorMessage);
-      return null;
-    }
-  };
+      try {
+        const response = await customAPI.post("/auth/register", data);
+        store.dispatch(registerUser(response.data));
+        toast.success("Register Success, please verification Code!");
+        return redirect("/verify-email");
+      } catch (error) {
+        const errorMessage = error?.response?.data?.message;
+        toast.error(errorMessage);
+        return null;
+      }
+    };
 
 const RegisterPage = () => {
   const [isPassword, setIsPassword] = useState(true);
   const [isConfirmPassword, setIsConfirmPassword] = useState(true);
+  const navigation = useNavigation();
+  const isSubmitting = navigation.state === 'submitting';
 
   const handleEyePassword = () => {
     setIsPassword(!isPassword);
@@ -140,8 +142,16 @@ const RegisterPage = () => {
                       variant="success"
                       type="submit"
                       className="px-5 fw-semibold w-100"
+                      disabled={isSubmitting}
                     >
-                      Register
+                      {isSubmitting ? (
+                        <>
+                          <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                          Registering...
+                        </>
+                      ) : (
+                        "Register"
+                      )}
                     </Button>
                   </div>
                 </Form>

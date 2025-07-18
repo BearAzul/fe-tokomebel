@@ -2,7 +2,7 @@ import "../../styles/index.css";
 import { Button, Card, Container } from "react-bootstrap";
 import { useState } from "react";
 import imglogin from "../../assets/Image/login-img.svg";
-import { Link, redirect } from "react-router-dom";
+import { Link, redirect, useNavigation } from "react-router-dom";
 import { toast } from "react-toastify";
 import { loginUser } from "../../features/userSlice.js";
 import { Form } from "react-router-dom";
@@ -30,6 +30,9 @@ export const action =
 
 const LoginPage = () => {
   const [isProtect, setIsProtect] = useState(true);
+  const navigation = useNavigation();
+  const isSubmitting = navigation.state === 'submitting';
+
   const handleEye = () => {
     setIsProtect(!isProtect);
   };
@@ -95,8 +98,16 @@ const LoginPage = () => {
                       type="submit"
                       variant="success"
                       className="border-0 px-5 fw-semibold w-100 btn__login"
+                      disabled={isSubmitting}
                     >
-                      Login
+                      {isSubmitting ? (
+                        <>
+                          <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                          Logging in...
+                        </>
+                      ) : (
+                        "Login"
+                      )}
                     </Button>
                   </div>
                   <div className="fm-2 fs-7 text-center d-flex justify-content-center gap-1 align-items-center input-group">

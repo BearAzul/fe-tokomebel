@@ -1,33 +1,29 @@
-import { useState } from "react";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import customAPI from "../../api.js";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { Form as RouterForm, useNavigation, redirect } from "react-router-dom";
 import VerifyImages from "../../assets/Image/Authentication-cuate.svg";
 import { HelmetHead } from "../../common/Helmet.jsx";
 
+export const action = async ({ request }) => {
+  const formData = await request.formData();
+  const data = Object.fromEntries(formData);
+
+  try {
+    const res = await customAPI.post("/auth/verify-email", data);
+    toast.success(res.data.message || "Verifikasi berhasil, Silahkan login!");
+    return redirect("/login");
+  } catch (error) {
+    toast.error(
+      error.response?.data?.message || "Terjadi kesalahan saat verifikasi"
+    );
+    return null;
+  }
+};
+
 const VerifyAccountPage = () => {
-  const [verifyCode, setVerifyCode] = useState("");
-  const [loading, setLoading] = useState(false);
-  const navigate = useNavigate()
-
-  const handleVerify = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-
-    try {
-      const res = await customAPI.post("/auth/verify-email", { verifyCode });
-      toast.success(res.data.message || "Verifikasi berhasil, Silahkan login!");
-      setVerifyCode("");
-      navigate("/login")
-    } catch (error) {
-      toast.error(
-        error.response?.data?.message || "Terjadi kesalahan saat verifikasi"
-      );
-    } finally {
-      setLoading(false);
-    }
-  };
+  const navigation = useNavigation();
+  const isSubmitting = navigation.state === "submitting";
 
   return (
     <>
@@ -51,30 +47,29 @@ const VerifyAccountPage = () => {
               <p className="mb-4 text-center fm-2 fs-7">
                 Silahkan cek email anda untuk mendapatkan kode:
               </p>
-              <Form onSubmit={handleVerify} className="fm-4">
+              <RouterForm method="post" className="fm-4">
                 <Form.Group controlId="verifyCode" className="mb-3">
                   <Form.Label>Kode Verifikasi:</Form.Label>
                   <Form.Control
-                    type="text"
+                    type="number"
                     size="sm"
                     placeholder="Masukkan 6 digit kode"
                     className="border-1 bg-white"
                     value={verifyCode}
                     onChange={(e) => setVerifyCode(e.target.value)}
                     required
-                    maxLength={6}
                   />
                 </Form.Group>
                 <Button
                   variant="success"
                   type="submit"
                   size="sm"
-                  disabled={loading}
+                  disabled={isSubmitting}
                   className="w-100"
                 >
-                  {loading ? "Memverifikasi..." : "Verifikasi"}
+                  {isSubmitting ? "Memverifikasi..." : "Verifikasi"}
                 </Button>
-              </Form>
+              </RouterForm>
             </Col>
           </Row>
         </Container>

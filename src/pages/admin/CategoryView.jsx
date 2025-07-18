@@ -121,7 +121,7 @@ const CategoryView = () => {
         <Container>
           <CategoryDirect />
           <h5 className="mb-3">Daftar Kategori</h5>
-          <Row lg="2" xs="1" md="2" className="g-2">
+          <Row lg="2" xs="1" md="2" className="g-2 mb-2 mb-md-3">
             <Col>
               <Link
                 to="/admin/category/add"

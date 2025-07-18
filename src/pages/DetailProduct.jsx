@@ -86,11 +86,10 @@ const DetailProduct = () => {
                   <Image
                     src={detailProducts.image}
                     alt={detailProducts.name}
-                    className={`w-100 h-100 d-block mx-auto ${
-                      detailProducts.category.name === "Bed"
-                        ? "object-fit-cover"
-                        : "object-fit-contain"
-                    }`}
+                    className={`w-100 h-100 d-block mx-auto ${detailProducts.category.name === "Bed"
+                      ? "object-fit-cover"
+                      : "object-fit-contain"
+                      }`}
                   />
                 </div>
                 {detailProducts.stock < 1 && (

@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import BlankImages from "../../assets/Image/blank_user.png";
+import NotificationBell from "../NotificationBell.jsx";
 
 const Header = ({ OpenSidebar }) => {
   const user = useSelector((state) => state.userState.user);
@@ -29,6 +30,8 @@ const Header = ({ OpenSidebar }) => {
         <h6 className="my-0 mx-3 fm-2 text-uppercase">{user.role === "owner" ? "Admin" : "Kurir"}</h6>
 
         <div className="header-right d-flex ms-auto align-items-center">
+         
+
           <button
             onClick={toggleFullScreen}
             className="border-0 btn btn-sm btn-secondary d-flex justify-content-center rounded px-3 me-3 text-white"
@@ -40,6 +43,7 @@ const Header = ({ OpenSidebar }) => {
               }
             ></i>
           </button>
+          
 
           <p className="m-0 fm-2 fs-6 me-2 d-lg-block d-none">
             Selamat Datang, {`${user.firstName} ${user.lastName}`}
@@ -49,11 +53,13 @@ const Header = ({ OpenSidebar }) => {
             className="rounded-circle border-2 border border-secondary overflow-hidden bg-secondary"
           >
             <img
-              src={!user.image ? BlankImages : user.image}
+              src={user?.profile?.image || BlankImages}
               alt={`${user.firstName} ${user.lastName}`}
               className="d-block object-fit-cover w-100 h-100"
             />
           </div>
+
+          <NotificationBell />
         </div>
       </div>
     </header>

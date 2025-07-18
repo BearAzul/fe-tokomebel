@@ -11,10 +11,16 @@ import { HelmetHead } from "../../common/Helmet.jsx";
 import { ExportCustomers } from "../../components/Button.jsx";
 
 export const loader = async () => {
-  const { data } = await customAPI.get("/auth/users");
-  const dataCustomers = data.data;
-
-  return { dataCustomers };
+  try {
+    const { data } = await customAPI.get("/auth/users");
+    if (!data.data || data.data.length === 0) {
+      toast.info("Tidak ada pelanggan yang ditemukan.");
+    }
+    return { dataCustomers: data.data };
+  } catch (error) { 
+    toast.error("Gagal memuat data pelanggan. Silakan coba lagi nanti.");
+    return { dataCustomers: [] }; 
+  }
 };
 
 const CustomersView = () => {

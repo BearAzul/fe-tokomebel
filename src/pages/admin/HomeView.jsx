@@ -18,65 +18,61 @@ import {
 import { HelmetHead } from "../../common/Helmet.jsx";
 import { formatToIDR } from "../../utils/index.jsx";
 
-export const loader = async () => {
-  const [resProducts, resOrders, resUsers, resCategory] = await Promise.all([
-    customAPI.get("/product"),
-    customAPI.get("/order"),
-    customAPI.get("/auth/users"),
-    customAPI.get("/category"),
-  ]);
+export const loader = (storage) => async () => {
+  const user = storage.getState().userState.user;
+  if (!user || user.role !== 'owner') {
+    toast.error("Hanya owner yang bisa mengakses dashboard.");
+    return redirect("/admin/orders");
+  }
 
-  const countProducts = resProducts.data.pagination.totalProduct;
-  const countOrders = resOrders.data.count;
-  const countUsers = resUsers.data.count;
-  const countCategory = resCategory.data.count;
+  try {
+    const { data: statsData } = await customAPI.get("/order/stats/summary");
+    const { data: ordersData } = await customAPI.get("/order");
 
-  const orders = resOrders.data.data;
-
-  const totalEarnings = orders.reduce((acc, order) => acc + order.total, 0);
-
-  return {
-    countProducts,
-    countOrders,
-    countUsers,
-    countCategory,
-    orders,
-    totalEarnings
-  };
+    return {
+      stats: statsData.data,
+      orders: ordersData.data,
+    };
+  } catch (error) {
+    console.error("Gagal memuat data dashboard", error);
+    return { stats: null, orders: [] };
+  }
 };
 
 const HomeView = () => {
-  const { countProducts, countOrders, countUsers, countCategory, orders, totalEarnings } =
+  const { stats, orders } =
     useLoaderData();
+
+  if (!stats) {
+    return <p className="text-center p-5">Gagal memuat data dashboard.</p>;
+  }
 
   const CardData = [
     {
-      path: "/admin/category",
-      title: "Total Kategori",
-      count: countCategory,
-      iconClass: "ri-folder-open-fill",
-      bgClass: "text-bg-danger",
-    },
-    {
-      path: "/admin/products",
-      title: "Total Produk",
-      count: countProducts,
-      iconClass: "ri-box-3-line",
-      bgClass: "text-bg-primary",
-    },
-    {
       path: "/admin/orders",
       title: "Total Pesanan",
-      count: countOrders,
+      count: stats.totalOrders,
       iconClass: "ri-shopping-cart-fill",
       bgClass: "text-bg-warning",
     },
     {
       path: "/admin/customers",
       title: "Total Pelanggan",
-      count: countUsers,
+      count: stats.totalUniqueCustomers,
       iconClass: "ri-user-3-fill",
       bgClass: "text-bg-success",
+    },
+    {
+      title: "Pesanan Sukses",
+      count: stats.orderStatusCounts.find(s => s._id === 'success')?.count || 0,
+      iconClass: "ri-check-double-line",
+      bgClass: "text-bg-primary",
+    },
+    {
+      title: "Pesanan Gagal",
+      count: stats.orderStatusCounts.find(s => s._id === 'failed')?.count || 0,
+      iconClass: "ri-close-circle-line",
+      bgClass: "text-bg-danger",
     },
   ];
 
@@ -132,7 +128,7 @@ const HomeView = () => {
             <div className="flex-grow-1">
               <h6 className="mb-1">Total Uang Masuk</h6>
               <p className="fs-6 fw-bold">
-                {formatToIDR(totalEarnings)}
+                {formatToIDR(stats.totalRevenue)}
               </p>
             </div>
           </div>
@@ -141,7 +137,7 @@ const HomeView = () => {
               <Col key={index}>
                 <div className="d-flex align-items-start gap-3 gap p-3 rounded border border-secondary shadow-md">
                   <Link
-                    to={card.path}
+                    to={card.path || "#"}
                     className={`flex-shrink-0 ${card.bgClass} text-decoration-none rounded d-flex align-items-center justify-content-center`}
                     style={{ width: "50px", height: "50px" }}
                   >

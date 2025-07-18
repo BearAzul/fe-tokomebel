@@ -1,64 +1,73 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
-// Component
+// Layouts
 import PublicLayout from "./layouts/PublicLayout.jsx";
-import HomePage from "./pages/HomePage.jsx";
-import ShopPage from "./pages/ShopPage.jsx";
-import Cart from "./pages/Cart.jsx";
-import DetailProduct from "./pages/DetailProduct.jsx";
-import ProfilePage from "./pages/ProfilePage.jsx";
+import AdminLayout from "./layouts/AdminLayout.jsx";
+
+// Auth Pages
 import LoginPage from "./pages/auth/LoginPage.jsx";
 import RegisterPage from "./pages/auth/RegisterPage.jsx";
+import VerifyAccountPage from "./pages/auth/VerifyAccountPage.jsx";
+import ForgotPasswordPage from "./pages/auth/ForgotPasswordPage.jsx";
+import UpdatePasswordPage from "./pages/auth/UpdatePasswordPage.jsx";
+
+// Public Pages
+import HomePage from "./pages/HomePage.jsx";
+import ShopPage from "./pages/ShopPage.jsx";
+import DetailProduct from "./pages/DetailProduct.jsx";
+import Cart from "./pages/Cart.jsx";
+import ProfilePage from "./pages/ProfilePage.jsx";
 import PaymentPage from "./pages/PaymentPage.jsx";
 import OrderHistory from "./pages/OrderHistory.jsx";
 import OrderDetailPage from "./pages/OrderDetailPage.jsx";
+import NotPage from "./pages/NotPage.jsx";
 
-// Admin Component
-import AdminLayout from "./layouts/AdminLayout.jsx";
+// Admin Pages
 import HomeView from "./pages/admin/HomeView.jsx";
 import UserView from "./pages/admin/UserView.jsx";
 import ProductsView from "./pages/admin/ProductsView.jsx";
-import OrdersView from "./pages/admin/OrdersView.jsx";
 import AddProductView from "./pages/admin/Form/AddProductView.jsx";
 import EditProductView from "./pages/admin/Form/EditProductView.jsx";
-import CustomersView from "./pages/admin/CustomersView.jsx";
-import EditCustomersView from "./pages/admin/Form/EditCustomersView.jsx";
-import OrderDetailView from "./pages/admin/OrderDetailView.jsx";
 import CategoryView from "./pages/admin/CategoryView.jsx";
 import AddCategoryView from "./pages/admin/Form/AddCategoryView.jsx";
 import EditCategoryView from "./pages/admin/Form/EditCategoryView.jsx";
-
-// Page Not Found / Error
-import NotPage from "./pages/NotPage.jsx";
+import CustomersView from "./pages/admin/CustomersView.jsx";
+import EditCustomersView from "./pages/admin/Form/EditCustomersView.jsx";
+import OrdersView from "./pages/admin/OrdersView.jsx";
+import OrderDetailView from "./pages/admin/OrderDetailView.jsx";
 import NotFoundView from "./pages/admin/NotFoundView.jsx";
 
-// Loader
+// Loaders
 import { loader as SellerLoader } from "./components/Trending/BestSellerSection.jsx";
 import { loader as ShopLoader } from "./pages/ShopPage.jsx";
 import { loader as ProfileLoader } from "./pages/ProfilePage.jsx";
 import { loader as PaymentLoader } from "./pages/PaymentPage.jsx";
 import { loader as OrderLoader } from "./pages/OrderHistory.jsx";
-import { loader as OrderDetailLoader } from "./pages/OrderDetailPage.jsx"
-import { loader as ProductsLoader } from "./pages/admin/ProductsView.jsx";
+import { loader as OrderDetailLoader } from "./pages/OrderDetailPage.jsx";
 import { loader as AdminLoader } from "./layouts/AdminLayout.jsx";
 import { loader as DashboardLoader } from "./pages/admin/HomeView.jsx";
 import { loader as AdminProfileLoader } from "./pages/admin/UserView.jsx";
+import { loader as ProductsLoader } from "./pages/admin/ProductsView.jsx";
+import { loader as EditProductLoader } from "./pages/admin/Form/EditProductView.jsx";
+import { loader as AddProductLoader } from "./pages/admin/Form/AddProductView.jsx";
 import { loader as CustomersLoader } from "./pages/admin/CustomersView.jsx";
+import { loader as EditCustomersLoader } from "./pages/admin/Form/EditCustomersView.jsx";
 import { loader as OrdersAdminLoader } from "./pages/admin/OrdersView.jsx";
+import { loader as OrderDetailAdminLoader } from "./pages/admin/OrderDetailView.jsx";
 import { loader as CategoryLoader } from "./pages/admin/CategoryView.jsx";
+import { loader as EditCategoryLoader } from "./pages/admin/Form/EditCategoryView.jsx";
 
-// auth
+// Actions
 import { action as LoginAction } from "./pages/auth/LoginPage.jsx";
 import { action as RegisterAction } from "./pages/auth/RegisterPage.jsx";
-import VerifyAccountPage from "./pages/auth/VerifyAccountPage.jsx";
-import ForgotPasswordPage from "./pages/auth/ForgotPasswordPage.jsx";
+import { action as verifyAction } from "./pages/auth/VerifyAccountPage.jsx";
+import { action as forgotPasswordAction } from "./pages/auth/ForgotPasswordPage.jsx";
+import { action as updatePasswordAction } from "./pages/auth/UpdatePasswordPage.jsx";
+import { action as EditCustomersAction } from "./pages/admin/Form/EditCustomersView.jsx";
+import { action as OrderDetailAdminAction } from "./pages/admin/OrderDetailView.jsx";
 
-// storage
+// Redux Store
 import { store } from "./store.js";
-import UpdatePasswordPage from "./pages/auth/UpdatePasswordPage.jsx";
-
-
-
 
 const router = createBrowserRouter([
   {
@@ -111,15 +120,18 @@ const router = createBrowserRouter([
       {
         path: "forgot-password",
         element: <ForgotPasswordPage />,
+        action: forgotPasswordAction,
       },
       {
         path: "verify-email",
         element: <VerifyAccountPage />,
+        action: verifyAction,
       },
 
       {
         path: "reset-password/:token",
         element: <UpdatePasswordPage />,
+        action: updatePasswordAction,
       },
     ],
   },
@@ -132,12 +144,12 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <HomeView />,
-        loader: DashboardLoader,
+        loader: DashboardLoader(store),
       },
       {
         path: "/admin/user",
         element: <UserView />,
-        loader: AdminProfileLoader(store),
+        loader: AdminProfileLoader,
       },
       {
         path: "/admin/category",
@@ -151,6 +163,7 @@ const router = createBrowserRouter([
       {
         path: "/admin/category/:id/edit",
         element: <EditCategoryView />,
+        loader: EditCategoryLoader
       },
       {
         path: "/admin/products",
@@ -160,10 +173,12 @@ const router = createBrowserRouter([
       {
         path: "/admin/products/add",
         element: <AddProductView />,
+        loader: AddProductLoader
       },
       {
         path: "/admin/products/:id/edit",
         element: <EditProductView />,
+        loader: EditProductLoader
       },
 
       {
@@ -174,6 +189,8 @@ const router = createBrowserRouter([
       {
         path: "/admin/customers/:id/edit",
         element: <EditCustomersView />,
+        loader: EditCustomersLoader,
+        action: EditCustomersAction
       },
       {
         path: "/admin/orders",
@@ -183,6 +200,8 @@ const router = createBrowserRouter([
       {
         path: "/admin/orders/:id",
         element: <OrderDetailView />,
+        loader: OrderDetailAdminLoader,
+        action: OrderDetailAdminAction
       },
     ],
   },

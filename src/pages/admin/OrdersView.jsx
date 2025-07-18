@@ -195,7 +195,7 @@ const OrdersView = () => {
         <Container>
           <OrdersDirect />
           <div className="d-flex align-items-center gap-3 flex-md-row justify-content-between flex-column mb-3">
-            <h5 className="w-100">Daftar Pelanggan</h5>
+            <h5 className="w-100">Daftar Pesanan</h5>
             <ExportOrders data={orders} />
             <div className="input-group input-group-sm">
               <input

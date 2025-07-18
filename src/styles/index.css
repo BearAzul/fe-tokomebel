@@ -61,6 +61,16 @@
   color: #212529;
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
 
 
 body {
@@ -311,7 +321,7 @@ main {
     max-width: 170px;
   }
 
-  .progress-container #delivered, 
+  .progress-container #delivered,
   .progress-container #confirm {
     top: 230% !important;
     width: 100px;

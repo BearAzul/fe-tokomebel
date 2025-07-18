@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Container, Row, Col, Card, Table, Button } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import { useParams, useRevalidator, useNavigate } from "react-router-dom";
+import { useNavigation, useLoaderData, redirect, Form } from "react-router-dom";
 import customAPI from "../../api.js";
 import DataTable from "react-data-table-component";
 import { formatToIDR } from "../../utils";
@@ -13,33 +13,37 @@ import { formatTanggalWaktu } from "../../utils/index.jsx";
 import ZoomModal from "../../components/ZoomModal.jsx";
 import { toast } from "react-toastify"
 
+export const loader = async ({ params }) => {
+  try {
+    const { data } = await customAPI.get(`/order/${params.id}`);
+    return { detailOrder: data.data };
+  } catch (error) {
+    toast.error("Gagal mengambil data pesanan.");
+    return redirect("/admin/orders");
+  }
+};
+
+export const action = async ({ params }) => {
+  try {
+    await customAPI.put(`/order/${params.id}/shipping`);
+    toast.success("Status pengiriman berhasil diubah!");
+  } catch (error) {
+    toast.error(error.response?.data?.message || "Gagal update status.");
+  }
+  return null; 
+};
+
 const OrderDetailView = () => {
   const user = useSelector((state) => state.userState.user);
-  const [showZoom, setShowZoom] = useState(null);
-  const [detailOrder, setDetailOrder] = useState([]);
-  const navigate = useNavigate()
-  const { id } = useParams();
-  const { revalidate } = useRevalidator();
+  const { detailOrder } = useLoaderData();
+  const navigation = useNavigation();
+  const isSubmitting = navigation.state === 'submitting';
 
+  const [showZoom, setShowZoom] = useState(null);
+  
   const handleZoomIn = (url) => setShowZoom(url);
   const handleZoomOut = () => setShowZoom(null);
 
-  const getDetailOrder = async (id) => {
-    const { data } = await customAPI.get(`/order/${id}`);
-    setDetailOrder(data.data);
-  };
-
-
-  const handleUpdateShipping = async () => {
-    try {
-      await customAPI.put(`/order/${id}/shipping`);
-      toast.success("Status pengiriman berhasil diubah!");
-      navigate(0)
-      revalidate();
-    } catch (error) {
-      toast.error(error.response?.data?.message || "Gagal update status.");
-    }
-  };
 
   const getShippingStatusInfo = (shippingStatus, paymentStatus) => {
     if (paymentStatus === "pending" || paymentStatus === "failed") {
@@ -104,10 +108,6 @@ const OrderDetailView = () => {
   ];
 
   const shippingStatusInfo = getShippingStatusInfo(detailOrder.shipping, detailOrder.status);
-
-  useEffect(() => {
-    getDetailOrder(id);
-  }, []);
 
   return (
     <>
@@ -205,9 +205,17 @@ const OrderDetailView = () => {
                         <Card.Title className="border-bottom fs-6 pb-2 border-secondary">
                           Aksi Kurir
                         </Card.Title>
-                        <Button variant="primary" size="sm" className="w-100" onClick={handleUpdateShipping}>
-                          Tandai Sudah Sampai
-                        </Button>
+                        <Form method="post">
+                          <Button
+                            variant="primary"
+                            type="submit"
+                            size="sm"
+                            className="w-100"
+                            disabled={isSubmitting}
+                          >
+                            {isSubmitting ? "Memperbarui..." : "Tandai Sudah Sampai"}
+                          </Button>
+                        </Form>
                       </Card.Body>
                     </Card>
                   )}

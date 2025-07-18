@@ -9,13 +9,15 @@ import customAPI from "../../../api.js";
 const AddCategoryView = () => {
   const navigate = useNavigate();
   const [desc, setDesc] = useState("")
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const form = e.target;
     const formData = new FormData(form);
-
     const data = Object.fromEntries(formData);
+
+    setLoading(true);
     try {
       await customAPI.post("/category", {
         name: data.name,
@@ -28,6 +30,8 @@ const AddCategoryView = () => {
     } catch (error) {
       const errorMessage = error?.response?.data?.message;
       toast.error(errorMessage);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -74,9 +78,18 @@ const AddCategoryView = () => {
               />
             </Col>
           </Row>
-          <Button variant="success" size="sm" type="submit" className="mt-3">
-            <i className="ri-save-line me-2"></i>
-            Create
+          <Button variant="success" size="sm" type="submit" className="mt-3" disabled={loading}>
+            {loading ? (
+              <>
+                <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                Menyimpan...
+              </>
+            ) : (
+              <>
+                <i className="ri-save-3-line me-2"></i>
+                Create
+              </>
+            )}
           </Button>
         </form>
       </Container>

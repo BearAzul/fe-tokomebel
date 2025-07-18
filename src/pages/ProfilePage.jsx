@@ -38,8 +38,10 @@ const ProfilePage = () => {
   const [edit, setEdit] = useState(false);
   const { currentUser } = useLoaderData();
 
+  const profile = currentUser.profile || {}
+
   const [information, setInformation] = useState({
-    gender: currentUser.gender,
+    gender: profile.gender,
   })
 
   const gender = [
@@ -60,21 +62,19 @@ const ProfilePage = () => {
     e.preventDefault();
     const form = e.target;
     const formData = new FormData(form);
-    const data = Object.fromEntries(formData);
+    const data = Object.fromEntries(formData.entries());
 
     try {
       await customAPI.put(
-        `/auth/users/${user._id}`,
-        {
-          firstName: data.firstName,
-          lastName: data.lastName,
-          email: data.email,
-          gender: data.gender,
-          phone: data.phone,
-          city: data.city,
-          address: data.address,
-          image: data.image,
-        },
+        `/auth/users/${user._id}`, {
+        firstName: data.firstName,
+        lastName: data.lastName,
+        gender: data.gender,
+        phone: data.phone,
+        address: data.address,
+        city: data.city,
+        image: data.image,
+      },
         {
           headers: {
             "Content-Type": "multipart/form-data",
@@ -83,6 +83,7 @@ const ProfilePage = () => {
       );
 
       toast.success("Profile updated successfully!");
+      setEdit(false);
       revalidate();
     } catch (error) {
       const errorMessage = error?.response?.data?.message;
@@ -118,7 +119,7 @@ const ProfilePage = () => {
                 <Card className="fm-2 p-3">
                   <Card.Img
                     variant="top"
-                    src={currentUser.image === null ? BlankImages : currentUser.image}
+                    src={!profile.image ? BlankImages : profile.image}
                     className="d-block rounded mx-auto object-fit-cover"
                     alt="image user"
                   />
@@ -140,14 +141,17 @@ const ProfilePage = () => {
                 {
                   currentUser.role === 'owner' ? (
                     <Link to="/admin" className="btn btn-dark w-100 fm-2 mt-2">
+                      <i className="ri-dashboard-line me-2"></i>
                       Dashboard Admin
                     </Link>
                   ) : currentUser.role === 'courier' ? (
                     <Link to="/admin/orders" className="btn btn-dark w-100 fm-2 mt-2">
+                      <i className="ri-truck-line me-2"></i>
                       Tugas Pengiriman
                     </Link>
                   ) : (
                     <Link to="/orders" className="btn btn-primary fm-2 border w-100 mt-2">
+                      <i className="ri-list-unordered me-2"></i>
                       Riwayat Pesanan
                     </Link>
                   )
@@ -219,9 +223,7 @@ const ProfilePage = () => {
                             id="phone"
                             className="form-control form-control-sm"
                             name="phone"
-                            minLength={11}
-                            maxLength={13}
-                            defaultValue={currentUser.phone}
+                            defaultValue={profile.phone}
                             placeholder="Masukkan No. Telp Anda"
                             disabled={!edit}
                           />
@@ -232,7 +234,7 @@ const ProfilePage = () => {
                             type="text"
                             name="city"
                             placeHolder="Masukkan Kabupaten/Kota Anda"
-                            defaultValue={currentUser.city}
+                            defaultValue={profile.city}
                             disabled={!edit}
                           />
                         </Col>
@@ -241,7 +243,7 @@ const ProfilePage = () => {
                             label="Alamat Lengkap:"
                             name="address"
                             placeHolder="Masukkan Alamat Lengkap Anda"
-                            defaultValue={currentUser.address}
+                            defaultValue={profile.address}
                             Row={3}
                             disabled={!edit}
                           />

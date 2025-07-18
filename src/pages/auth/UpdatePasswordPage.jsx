@@ -1,42 +1,32 @@
-import { useState } from "react"
 import { toast } from "react-toastify"
-import { useParams, useNavigate } from "react-router-dom";
+import { Form as RouterForm, useNavigation, redirect } from "react-router-dom";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import customAPI from "../../api.js";
 import ResetImages from "../../assets/Image/Reset_password-cuate.svg";
 
+export const action = async ({ request, params }) => {
+  const { token } = params;
+  const formData = await request.formData();
+  const data = Object.fromEntries(formData);
+
+  if (data.password !== data.confirmPassword) {
+    toast.error("Password dan konfirmasi tidak cocok!");
+    return null;
+  }
+
+  try {
+    const res = await customAPI.post(`/auth/reset-password/${token}`, data);
+    toast.success(res.data.message || "Password berhasil diubah!");
+    return redirect("/login");
+  } catch (error) {
+    toast.error(error.response?.data?.message || "Gagal mengubah password!");
+    return null;
+  }
+};
 
 const UpdatePasswordPage = () => {
-  const { token } = useParams();
-  const navigate = useNavigate();
-
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-
-  const handleResetPassword = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-
-    if (password !== confirmPassword) {
-      toast.error("Password dan konfirmasi tidak cocok!");
-      setLoading(false);
-      return;
-    }
-
-    try {
-      const res = await customAPI.post(`/auth/reset-password/${token}`, {
-        password,
-        confirmPassword,
-      });
-      toast.success(res.data.message || "Password berhasil diubah!");
-      navigate("/login");
-    } catch (error) {
-      toast.error(error.response?.data?.message || "Gagal mengubah password!");
-    } finally {
-      setLoading(false);
-    }
-  };
+  const navigation = useNavigation();
+  const isSubmitting = navigation.state === 'submitting';
   return (
     <section
       id="updatePassword"
@@ -52,14 +42,13 @@ const UpdatePasswordPage = () => {
               alt="image update"
             />
             <h1 className="mb-4 fs-4 text-center fm-2 fw-semibold">Atur Ulang Kata Sandi</h1>
-            <Form onSubmit={handleResetPassword} className="fm-2">
+            <RouterForm method="post" className="fm-2">
               <Form.Group controlId="password" className="mb-3">
                 <Form.Label>Password Baru:</Form.Label>
                 <Form.Control
                   type="password"
                   placeholder="Masukkan password baru"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  name="password"
                   required
                 />
               </Form.Group>
@@ -69,8 +58,7 @@ const UpdatePasswordPage = () => {
                 <Form.Control
                   type="password"
                   placeholder="Ulangi password"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  name="confirmPassword"
                   required
                 />
               </Form.Group>
@@ -79,11 +67,11 @@ const UpdatePasswordPage = () => {
                 type="submit"
                 variant="success"
                 className="w-100"
-                disabled={loading}
+                disabled={isSubmitting}
               >
-                {loading ? "Menyimpan..." : "Reset Password"}
+                {isSubmitting ? "Menyimpan..." : "Reset Password"}
               </Button>
-            </Form>
+            </RouterForm>
           </Col>
         </Row>
       </Container>
