@@ -16,7 +16,7 @@ import BannerHeader from "../common/Banner/BannerHeader.jsx";
 import { useSelector } from "react-redux";
 import { ProfileDirect } from "../components/Directlink.jsx";
 import { useState } from "react";
-import BlankImages from "../assets/Image/blank_user.png";
+// import BlankImages from "../assets/Image/blank_user.png";
 import { HelmetHead } from "../common/Helmet.jsx";
 
 export const loader = (storage) => async () => {
@@ -119,7 +119,7 @@ const ProfilePage = () => {
                 <Card className="fm-2 p-3">
                   <Card.Img
                     variant="top"
-                    src={!profile.image ? BlankImages : profile.image}
+                    src={profile?.image || `https://ui-avatars.com/api/?name=${currentUser.firstName}${currentUser.lastName}&background=random`}
                     className="d-block rounded mx-auto object-fit-cover"
                     alt="image user"
                   />

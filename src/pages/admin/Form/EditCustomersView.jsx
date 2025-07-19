@@ -11,7 +11,7 @@ import { toast } from "react-toastify";
 import { EditCustomerDirect } from "../../../components/Directlink.jsx";
 import ZoomModal from "../../../components/ZoomModal.jsx";
 import Loading from "../../../components/Loading.jsx";
-import BlankImages from "../../../assets/Image/blank_user.png"
+// import BlankImages from "../../../assets/Image/blank_user.png"
 
 export const loader = async ({ params }) => {
   try {
@@ -82,7 +82,7 @@ const EditCustomersView = () => {
         >
           <Row lg="2" md="2" xs="1" className="g-3">
             <Col lg="2" md="4">
-              <Image src={!profile.image ? BlankImages : profile.image} rounded thumbnail alt="Image User" className="d-block mx-auto object-fit-cover" style={{ width: "150px", height: "150px" }} onClick={handleOpen} />
+              <Image src={profile?.image || `https://ui-avatars.com/api/?name=${customer.firstName}${customer.lastName}&background=random`} rounded thumbnail alt="Image User" className="d-block mx-auto object-fit-cover" style={{ width: "150px", height: "150px" }} onClick={handleOpen} />
             </Col>
             <Col lg="10" md="8">
               <Row lg="2" md="2" xs="1" className="g-3">
@@ -194,7 +194,7 @@ const EditCustomersView = () => {
         <ZoomModal
           show={showZoom}
           onHide={handleClose}
-          imageUrl={profile.image}
+          imageUrl={profile?.image}
           altText={`Gambar profil ${customer.firstName}`}
         />
       </Container>

@@ -6,7 +6,7 @@ import customAPI from "../../api.js";
 import DataTable from "react-data-table-component";
 import { formatToIDR } from "../../utils";
 import { DetailOrderDirect } from "../../components/Directlink.jsx";
-import BlankImages from "../../assets/Image/blank_user.png"
+// import BlankImages from "../../assets/Image/blank_user.png"
 import { HelmetHead } from "../../common/Helmet.jsx";
 import Loading from "../../components/Loading.jsx";
 import { formatTanggalWaktu } from "../../utils/index.jsx";
@@ -167,10 +167,7 @@ const OrderDetailView = () => {
                       onClick={() => handleZoomIn(detailOrder.image)}
                     >
                       <img
-                        src={`${detailOrder.image === null
-                          ? BlankImages
-                          : detailOrder.image
-                          }`}
+                        src={detailOrder?.image || `https://ui-avatars.com/api/?name=${detailOrder.firstName}${detailOrder.lastName}&background=random`}
                         alt={detailOrder.firstName}
                         className="d-block w-100 h-100 object-fit-cover"
                       />

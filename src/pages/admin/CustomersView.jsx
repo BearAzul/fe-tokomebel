@@ -1,4 +1,4 @@
-import { Container, Badge, Button } from "react-bootstrap";
+import { Container, Badge, Button, Image } from "react-bootstrap";
 import { useLoaderData, Link, useRevalidator } from "react-router-dom";
 import customAPI from "../../api.js";
 import DataTable from "react-data-table-component";
@@ -6,7 +6,7 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import { CustomersDirect } from "../../components/Directlink.jsx";
 import Swal from "sweetalert2";
-import BlankImages from "../../assets/Image/blank_user.png"
+// import BlankImages from "../../assets/Image/blank_user.png"
 import { HelmetHead } from "../../common/Helmet.jsx";
 import { ExportCustomers } from "../../components/Button.jsx";
 
@@ -77,11 +77,11 @@ const CustomersView = () => {
       name: "Image",
       selector: (row) => (
         <figure
-          className="overflow-hidden rounded m-auto bg-white"
+          className="overflow-hidden rounded-3 m-auto bg-white border border-tertiary"
           style={{ width: "40px", height: "40px" }}
         >
-          <img
-            src={!row.image ? BlankImages : row.image}
+          <Image
+            src={row.profile?.image || `https://ui-avatars.com/api/?name=${row.firstName}${row.lastName}&background=random`}
             alt={row.firstName}
             className="d-block w-100 h-100 object-fit-cover"
           />
@@ -102,12 +102,12 @@ const CustomersView = () => {
     },
     {
       name: "No. Telp",
-      selector: (row) => row.phone,
+      selector: (row) => row.profile?.phone || "-",
       width: "150px",
     },
     {
       name: "Jenis Kelamin",
-      selector: (row) => row.gender,
+      selector: (row) => row.profile?.gender || "-",
       sortable: true,
       width: "150px",
     },

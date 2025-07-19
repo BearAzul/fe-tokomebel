@@ -12,7 +12,7 @@ import { formatToIDR } from "../../utils/index.jsx";
 import { OrdersDirect } from "../../components/Directlink.jsx";
 import { useState } from "react";
 import Swal from "sweetalert2";
-import BlankImages from "../../assets/Image/blank_user.png"
+// import BlankImages from "../../assets/Image/blank_user.png"
 import { HelmetHead } from "../../common/Helmet.jsx";
 import { ExportOrders } from "../../components/Button.jsx";
 
@@ -94,7 +94,7 @@ const OrdersView = () => {
           style={{ width: "40px", height: "40px" }}
         >
           <img
-            src={!row.image ? BlankImages : row.image}
+            src={row?.image || `https://ui-avatars.com/api/?name=${row.firstName}${row.lastName}&background=random`}
             alt={row.firstName}
             className="d-block w-100 h-100 object-fit-cover"
           />

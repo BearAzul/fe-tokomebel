@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 import customAPI from "../../api.js";
 import { useState } from "react";
 import { redirect, useLoaderData } from "react-router-dom";
-import BlankImages from "../../assets/Image/blank_user.png"
+// import BlankImages from "../../assets/Image/blank_user.png"
 import { HelmetHead } from "../../common/Helmet.jsx";
 
 export const loader = async () => {
@@ -91,8 +91,8 @@ const UserView = () => {
                   style={{ width: "120px", height: "120px" }}
                 >
                   <img
-                    src={!profile.image ? BlankImages : profile.image}
-                    alt=""
+                    src={profile?.image ||`https://ui-avatars.com/api/?name=${currentUser.firstName}${currentUser.lastName}&background=random`}
+                    alt={currentUser.firstName}
                     className="w-100 h-100 d-block object-fit-cover"
                   />
                 </figure>
