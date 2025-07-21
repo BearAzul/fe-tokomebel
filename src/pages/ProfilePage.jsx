@@ -14,10 +14,10 @@ import {
 } from "react-router-dom";
 import BannerHeader from "../common/Banner/BannerHeader.jsx";
 import { useSelector } from "react-redux";
-import { ProfileDirect } from "../components/Directlink.jsx";
 import { useState } from "react";
 // import BlankImages from "../assets/Image/blank_user.png";
 import { HelmetHead } from "../common/Helmet.jsx";
+import Breadcrumbs from "../components/Breadcrumbs.jsx";
 
 export const loader = (storage) => async () => {
   const user = storage.getState().userState.user;
@@ -28,14 +28,13 @@ export const loader = (storage) => async () => {
   }
 
   const { data } = await customAPI.get("/auth/getuser");
-  const currentUser = data.user;
-
-  return { currentUser };
+  return { currentUser: data.user };
 };
 
 const ProfilePage = () => {
   const user = useSelector((state) => state.userState.user);
   const [edit, setEdit] = useState(false);
+  const [loading, setLoading] = useState(false)
   const { currentUser } = useLoaderData();
 
   const profile = currentUser.profile || {}
@@ -62,19 +61,12 @@ const ProfilePage = () => {
     e.preventDefault();
     const form = e.target;
     const formData = new FormData(form);
-    const data = Object.fromEntries(formData.entries());
+
+    setLoading(true)
 
     try {
       await customAPI.put(
-        `/auth/users/${user._id}`, {
-        firstName: data.firstName,
-        lastName: data.lastName,
-        gender: data.gender,
-        phone: data.phone,
-        address: data.address,
-        city: data.city,
-        image: data.image,
-      },
+        `/auth/users/${user._id}`, formData,
         {
           headers: {
             "Content-Type": "multipart/form-data",
@@ -88,16 +80,15 @@ const ProfilePage = () => {
     } catch (error) {
       const errorMessage = error?.response?.data?.message;
       toast.error(errorMessage);
+    } finally {
+      setLoading(false)
     }
   };
 
-  const handleEdit = () => {
-    setEdit(true);
-  };
-
-  const handleCancel = () => {
-    setEdit(false);
-  };
+  const breadcrumbItems = [
+    { label: "Beranda", path: "/" },
+    { label: "Profil" }
+  ];
 
   return (
     <>
@@ -112,7 +103,7 @@ const ProfilePage = () => {
       >
         <BannerHeader bannerTitle="PROFIL" />
         <Container className="py-3 py-md-5">
-          <ProfileDirect />
+          <Breadcrumbs items={breadcrumbItems} className="text-body-secondary" />
           <form onSubmit={handleSubmit} encType="multipart/form-data">
             <Row lg="2" className="g-2">
               <Col lg="4">
@@ -256,7 +247,7 @@ const ProfilePage = () => {
                       <Button
                         type="button"
                         variant="warning"
-                        onClick={handleEdit}
+                        onClick={() => setEdit(true)}
                         size="sm"
                       >
                         <i className="ri-edit-circle-fill me-2"></i>
@@ -267,15 +258,25 @@ const ProfilePage = () => {
                         <Button
                           type="button"
                           variant="danger"
-                          onClick={handleCancel}
+                          onClick={() => setEdit(false)}
                           size="sm"
                         >
                           <i className="ri-close-circle-line me-2"></i>
                           Cancel
                         </Button>
-                        <Button type="submit" variant="success" size="sm">
-                          <i className="ri-save-3-line me-2"></i>
-                          Save
+                        <Button type="submit" variant="success" size="sm" disabled={loading}>
+                          {loading ? (
+                            <>
+                              <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                              Menyimpan...
+                            </>
+                          ) : (
+                            <>
+                              <i className="ri-save-3-line me-2"></i>
+                              Save
+                            </>
+                          )}
+
                         </Button>
                       </>
                     )}

@@ -47,21 +47,11 @@ const UserView = () => {
     e.preventDefault();
     const form = e.target;
     const formData = new FormData(form);
-    const data = Object.fromEntries(formData);
     setLoading(true);
 
     try {
       await customAPI.put(
-        `/auth/users/${currentUser._id}`,
-        {
-          name: data.name,
-          email: data.email,
-          gender: data.gender,
-          phone: data.phone,
-          city: data.city,
-          address: data.address,
-          image: data.image,
-        },
+        `/auth/users/${currentUser._id}`, formData,
         {
           headers: {
             "Content-Type": "multipart/form-data",
@@ -77,11 +67,18 @@ const UserView = () => {
       setLoading(false);
     }
   };
+
+  const breadcrumbItems = [
+    { label: "Dashboard", path: "/admin" },
+    { label: "Profil Admin" },
+  ];
+
   return (
     <>
       <HelmetHead title="Profil" />
       <section className="fm-2">
         <Container>
+          <Breadcrumb items={breadcrumbItems} className="text-white-50" />
           <h5 className="mb-3">Profil Admin</h5>
           <form onSubmit={handleUpdate} encType="multipart/form-data">
             <Card className="border border-secondary text-bg-dark p-4">
@@ -91,7 +88,7 @@ const UserView = () => {
                   style={{ width: "120px", height: "120px" }}
                 >
                   <img
-                    src={profile?.image ||`https://ui-avatars.com/api/?name=${currentUser.firstName}${currentUser.lastName}&background=random`}
+                    src={profile?.image || `https://ui-avatars.com/api/?name=${currentUser.firstName}${currentUser.lastName}&background=random`}
                     alt={currentUser.firstName}
                     className="w-100 h-100 d-block object-fit-cover"
                   />

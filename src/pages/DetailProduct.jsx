@@ -1,7 +1,8 @@
 import BannerHeader from "../common/Banner/BannerHeader.jsx";
+import Breadcrumbs from "../components/Breadcrumbs.jsx";
 import { Container, Row, Col, Button, Image } from "react-bootstrap";
-import { useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useLoaderData } from "react-router-dom";
+import { useState } from "react";
 import NavDescription from "../common/NavTabs/NavDescription.jsx";
 import customAPI from "../api.js";
 import { formatToIDR } from "../utils/index.jsx";
@@ -9,24 +10,26 @@ import { useDispatch } from "react-redux";
 import { addToCart } from "../features/cartSlice.js";
 import Loading from "../components/Loading.jsx";
 import QuantitySelector from "../components/QuantitySelector.jsx";
-import { ProductDetailDirect } from "../components/Directlink.jsx";
 import { HelmetHead } from "../common/Helmet.jsx";
 
+export const loader = async ({ params }) => {
+  try {
+    const { id } = params;
+    const { data } = await customAPI.get(`/product/${id}`);
+    if (!data.data) {
+      throw new Response("Produk Tidak Ditemukan", { status: 404 });
+    }
+    return { detailProducts: data.data };
+  } catch (error) {
+    console.error("Gagal memuat detail produk:", error);
+    throw error;
+  }
+};
+
 const DetailProduct = () => {
-  const [detailProducts, setDetailProducts] = useState();
+  const { detailProducts } = useLoaderData();
   const [amount, setAmount] = useState(1);
   const dispatch = useDispatch();
-
-  let { id } = useParams();
-
-  const getDetails = async () => {
-    const { data } = await customAPI.get(`/product/${id}`);
-    setDetailProducts(data.data);
-  };
-
-  useEffect(() => {
-    getDetails();
-  }, []);
 
   if (!detailProducts) {
     return (
@@ -65,6 +68,12 @@ const DetailProduct = () => {
     dispatch(addToCart({ product: productCart }));
   };
 
+  const breadcrumbItems = [
+    { label: "Beranda", path: "/" },
+    { label: "Katalog", path: "/shop" },
+    { label: detailProducts.name },
+  ];
+
   return (
     <>
       <HelmetHead
@@ -75,7 +84,7 @@ const DetailProduct = () => {
       <section id="detailProduct" className="bg-secondary-subtle">
         <BannerHeader bannerTitle="Detail Mebel" />
         <Container className="pt-5 pb-5">
-          <ProductDetailDirect />
+          <Breadcrumbs items={breadcrumbItems} className="text-body-secondary" />
           <div className="detail__items">
             <Row lg="2" className="g-3 gy-5">
               <Col md="6" className="d-flex">

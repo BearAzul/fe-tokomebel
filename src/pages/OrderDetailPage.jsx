@@ -1,7 +1,6 @@
 import { HelmetHead } from "../common/Helmet.jsx";
 import BannerHeader from "../common/Banner/BannerHeader.jsx";
 import { Container, Card, ProgressBar, Form, Row, Col, ListGroup, Image, Table } from "react-bootstrap";
-import { DetailOrderCustomerDirect } from "../components/Directlink.jsx";
 import { formatToIDR, formatTanggalWaktu } from "../utils/index.jsx";
 import NotAwailableImg from "../assets/Image/landscape-placeholder.svg";
 import { useLoaderData, redirect } from "react-router-dom";
@@ -9,6 +8,7 @@ import { toast } from "react-toastify";
 import customAPI from "../api.js";
 import Loading from "../components/Loading.jsx";
 import { useEffect, useState } from "react";
+import Breadcrumbs from "../components/Breadcrumbs.jsx";
 
 export const loader = (storage) => async ({ params }) => {
   const user = storage.getState().userState.user;
@@ -34,6 +34,13 @@ const OrderDetailPage = () => {
     shipping: false,
     delivered: false,
   });
+
+  const breadcrumbItems = [
+    { label: "Beranda", path: "/" },
+    { label: "Profil", path: "/profile" },
+    { label: "Riwayat Pesanan", path: "/orders" },
+    { label: `Detail Pesanan: #${order._id}` },
+  ];
 
   useEffect(() => {
     if (order) {
@@ -61,9 +68,7 @@ const OrderDetailPage = () => {
     }
   }, [order]);
 
-  if (!order) {
-    return <Loading />;
-  }
+  if (!order) return <Loading />
 
   const getStatusClass = (isActive) => isActive ? 'text-bg-success' : 'text-bg-secondary';
 
@@ -75,7 +80,7 @@ const OrderDetailPage = () => {
       <section id="detailPesananUser" className="bg-body-secondary">
         <BannerHeader bannerTitle="DETAIL PESANAN" />
         <Container className="py-3 py-md-5 fm-2">
-          <DetailOrderCustomerDirect />
+          <Breadcrumbs items={breadcrumbItems} className="text-body-secondary" /> 
 
           <Card className="p-3 bg-light">
             <h1 className="fs-6 fw-medium mb-1 text-wrap">Detail Pesanan: #{order._id}</h1>

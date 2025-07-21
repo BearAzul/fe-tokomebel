@@ -5,9 +5,9 @@ import { useLoaderData, Link, useRevalidator } from "react-router-dom";
 import { useState } from "react";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
-import { CategoryDirect } from "../../components/Directlink.jsx";
 import { formatTanggalWaktu } from "../../utils/index.jsx";
 import { HelmetHead } from "../../common/Helmet.jsx";
+import Breadcrumbs from "../../components/Breadcrumbs.jsx";
 
 export const loader = async () => {
   const { data } = await customAPI.get("/category");
@@ -33,14 +33,11 @@ const CategoryView = () => {
 
   const handleDelete = async (row) => {
     Swal.fire({
-      title: "Are you sure?",
-      text: `You are about to delete ${row.name} from Category?. This action cannot be undone.`,
+      title: "Anda yakin?",
+      text: `Anda akan menghapus kategori ${row.name}.`,
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#d33",
-      cancelButtonColor: "#3085d6",
-      confirmButtonText: "Yes",
-      cancelButtonText: "Cancel",
+      confirmButtonText: "Ya, hapus!",
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
@@ -114,12 +111,18 @@ const CategoryView = () => {
       width: "100px",
     },
   ];
+
+  const breadcrumbItems = [
+    { label: "Dashboard", path: "/admin" },
+    { label: "Kategori" },
+  ];
+
   return (
     <>
       <HelmetHead title="Kategori" />
       <section className="fm-2">
         <Container>
-          <CategoryDirect />
+          <Breadcrumbs items={breadcrumbItems} className="text-white-50" /> 
           <h5 className="mb-3">Daftar Kategori</h5>
           <Row lg="2" xs="1" md="2" className="g-2 mb-2 mb-md-3">
             <Col>

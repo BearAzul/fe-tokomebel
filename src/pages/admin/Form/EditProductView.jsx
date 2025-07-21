@@ -4,8 +4,8 @@ import customAPI from "../../../api.js";
 import { FormInput, FormEditor, FormSelect } from "../../../components/FormInput";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import { toast } from "react-toastify";
-import { EditProductDirect } from "../../../components/Directlink.jsx";
 import Loading from "../../../components/Loading.jsx";
+import Breadcrumbs from "../../../components/Breadcrumbs.jsx";
 
 export const loader = async () => {
   try {
@@ -45,33 +45,21 @@ const EditProductView = () => {
     e.preventDefault();
     const form = e.target;
     const formData = new FormData(form);
-    const data = Object.fromEntries(formData);
 
     setLoading(true);
 
     try {
       let imageUrl = product.image;
-      if (formData.get("image").name) {
-        const uploadImage = await customAPI.post(
-          "/product/file-upload",
-          {
-            image: formData.get("image"),
-          },
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          }
-        );
-        imageUrl = uploadImage.data.url;
+      if (formData.get("image")?.name) {
+        const { data: uploadData } = await customAPI.post("/product/file-upload", formData, {
+          headers: { "Content-Type": "multipart/form-data" },
+        });
+        imageUrl = uploadData.url;
       }
 
+      const updatedData = Object.fromEntries(formData);
       await customAPI.put(`/product/${id}`, {
-        name: data.name,
-        stock: data.stock,
-        price: data.price,
-        category: data.category,
-        summary: data.summary,
+        ...updatedData,
         description: desc,
         image: imageUrl,
       });
@@ -86,10 +74,18 @@ const EditProductView = () => {
     }
   };
 
+  if (!product) return <Loading />;
+
+  const breadcrumbItems = [
+    { label: "Dashboard", path: "/admin" },
+    { label: "Produk Mebel", path: "/admin/products" },
+    { label: `Edit: ${product.name}` },
+  ];
+
   return (
     <section className="fm-2">
       <Container>
-        <EditProductDirect />
+        <Breadcrumbs items={breadcrumbItems} className="text-white-50" />
         <h5 className="my-3">Edit Produk Mebel</h5>
         <form
           className="border border-secondary rounded p-3"

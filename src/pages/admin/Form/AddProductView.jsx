@@ -7,7 +7,7 @@ import {
 import customAPI from "../../../api.js";
 import { toast } from "react-toastify";
 import { useState } from "react";
-import { AddProductDirect } from "../../../components/Directlink.jsx";
+import Breadcrumbs from "../../../components/Breadcrumbs.jsx";
 
 export const loader = async () => { 
   try {
@@ -29,29 +29,18 @@ const AddProductView = () => {
     e.preventDefault();
     const form = e.target;
     const formData = new FormData(form);
-    const data = Object.fromEntries(formData);
+
     setLoading(true);
     try {
-      const uploadImage = await customAPI.post(
-        "/product/file-upload",
-        {
-          image: data.image,
-        },
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      const { data: uploadData } = await customAPI.post("/product/file-upload", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
 
+      const productData = Object.fromEntries(formData);
       await customAPI.post("/product", {
-        name: data.name,
-        summary: data.summary,
+        ...productData,
         description: desc,
-        category: data.category,
-        price: data.price,
-        stock: data.stock,
-        image: uploadImage.data.url,
+        image: uploadData.url,
       });
 
       toast.success("Product created successfully");
@@ -63,10 +52,17 @@ const AddProductView = () => {
       setLoading(false);
     }
   };
+
+  const breadcrumbItems = [
+    { label: "Dashboard", path: "/admin" },
+    { label: "Produk Mebel", path: "/admin/products" },
+    { label: "Tambah Mebel" },
+  ];
+
   return (
     <section className="fm-2">
       <Container>
-        <AddProductDirect />
+        <Breadcrumbs items={breadcrumbItems} className="text-white-50" /> 
         <h5 className="my-3">Tambah Produk Mebel</h5>
         <form
           className="border border-secondary rounded p-3"

@@ -4,11 +4,11 @@ import customAPI from "../../api.js";
 import DataTable from "react-data-table-component";
 import { useState } from "react";
 import { toast } from "react-toastify";
-import { CustomersDirect } from "../../components/Directlink.jsx";
 import Swal from "sweetalert2";
 // import BlankImages from "../../assets/Image/blank_user.png"
 import { HelmetHead } from "../../common/Helmet.jsx";
 import { ExportCustomers } from "../../components/Button.jsx";
+import Breadcrumbs from "../../components/Breadcrumbs.jsx";
 
 export const loader = async () => {
   try {
@@ -147,12 +147,17 @@ const CustomersView = () => {
     },
   ];
 
+  const breadcrumbItems = [
+    { label: "Dashboard", path: "/admin" },
+    { label: "Pelanggan" },
+  ];
+
   return (
     <>
       <HelmetHead title="Pelanggan" />
       <section className="fm-2">
         <Container>
-          <CustomersDirect />
+          <Breadcrumbs items={breadcrumbItems} className="text-white-50" /> 
           <div className="d-flex justify-content-between gap-3 align-items-center mb-3 flex-wrap">
             <h5 className="fm-2">Daftar Pelanggan</h5>
             <div className="d-flex gap-1 align-items-center">

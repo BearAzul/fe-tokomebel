@@ -9,12 +9,12 @@ import DataTable from "react-data-table-component";
 import { Container, Button } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { formatToIDR } from "../../utils/index.jsx";
-import { OrdersDirect } from "../../components/Directlink.jsx";
 import { useState } from "react";
 import Swal from "sweetalert2";
 // import BlankImages from "../../assets/Image/blank_user.png"
 import { HelmetHead } from "../../common/Helmet.jsx";
 import { ExportOrders } from "../../components/Button.jsx";
+import Breadcrumbs from "../../components/Breadcrumbs.jsx";
 
 export const loader = (storage) => async () => {
   const user = storage.getState().userState.user;
@@ -188,12 +188,17 @@ const OrdersView = () => {
     },
   ];
 
+  const breadcrumbItems = [
+    { label: "Dashboard", path: "/admin" },
+    { label: "Pesanan" },
+  ];
+
   return (
     <>
       <HelmetHead title="Pesanan" />
       <section className="fm-2">
         <Container>
-          <OrdersDirect />
+          <Breadcrumbs items={breadcrumbItems} className="text-white-50" />
           <div className="d-flex align-items-center gap-3 flex-md-row justify-content-between flex-column mb-3">
             <h5 className="w-100">Daftar Pesanan</h5>
             <ExportOrders data={orders} />

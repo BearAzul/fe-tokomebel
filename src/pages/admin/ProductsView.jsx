@@ -10,10 +10,10 @@ import {
 import customAPI from "../../api.js";
 import { CardProductAdmin } from "../../components/CardProduct.jsx";
 import Loading from "../../components/Loading.jsx";
-import { ProductsDirect } from "../../components/Directlink.jsx";
 import CustomPagination from "../../components/Pagination.jsx";
 import "../../styles/index.css";
 import { HelmetHead } from "../../common/Helmet.jsx";
+import Breadcrumbs from "../../components/Breadcrumbs.jsx";
 
 export const loader = async ({ request }) => {
   const params = Object.fromEntries([
@@ -44,16 +44,17 @@ const ProductsView = () => {
     navigate(`${pathname}?${searchParams.toString()}`);
   };
 
-  const handleClear = () => {
-    navigate("/admin/products");
-  };
+  const breadcrumbItems = [
+    { label: "Dashboard", path: "/admin" },
+    { label: "Produk Mebel" },
+  ];
 
   return (
     <>
       <HelmetHead title="Produk Mebel" />
       <section id="product" className="fm-2">
         <Container>
-          <ProductsDirect />
+          <Breadcrumbs items={breadcrumbItems} className="text-white-50" />
           <h5 className="fm-2 mb-3">Daftar Produk Mebel</h5>
           <div className="d-flex justify-content-between align-items-start align-items-md-center flex-column flex-md-row gap-3 gap-md-0 mb-3">
             <Link to="/admin/products/add" className="btn btn-success btn-sm">
@@ -65,7 +66,7 @@ const ProductsView = () => {
               className="d-flex align-items-center gap-2 flex-wrap flex-md-nowrap"
             >
               <div className="d-flex w-100 gap-1 align-items-center">
-                <Button variant="light" size="sm" onClick={handleClear}>
+                <Button variant="light" size="sm" onClick={() => navigate("/admin/products")}>
                   <i className="ri-filter-off-line"></i>
                 </Button>
                 <select

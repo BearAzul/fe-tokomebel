@@ -5,13 +5,13 @@ import { useNavigation, useLoaderData, redirect, Form } from "react-router-dom";
 import customAPI from "../../api.js";
 import DataTable from "react-data-table-component";
 import { formatToIDR } from "../../utils";
-import { DetailOrderDirect } from "../../components/Directlink.jsx";
 // import BlankImages from "../../assets/Image/blank_user.png"
 import { HelmetHead } from "../../common/Helmet.jsx";
 import Loading from "../../components/Loading.jsx";
 import { formatTanggalWaktu } from "../../utils/index.jsx";
 import ZoomModal from "../../components/ZoomModal.jsx";
 import { toast } from "react-toastify"
+import Breadcrumbs from "../../components/Breadcrumbs.jsx";
 
 export const loader = async ({ params }) => {
   try {
@@ -109,12 +109,18 @@ const OrderDetailView = () => {
 
   const shippingStatusInfo = getShippingStatusInfo(detailOrder.shipping, detailOrder.status);
 
+  const breadcrumbItems = [
+    { label: "Dashboard", path: "/admin" },
+    { label: "Pesanan", path: "/admin/orders" },
+    { label: "Detail Pesanan" },
+  ];
+
   return (
     <>
       <HelmetHead title="Dashboard" />
       <section className="fm-2">
         <Container>
-          <DetailOrderDirect />
+          <Breadcrumbs items={breadcrumbItems} className="text-white-50" />
           <h6 className="mb-2">
             ID Pesanan: <span className="text-warning">#{detailOrder._id}</span>
           </h6>

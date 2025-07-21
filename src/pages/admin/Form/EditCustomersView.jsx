@@ -8,9 +8,9 @@ import {
 } from "../../../components/FormInput";
 import { Container, Row, Col, Button, Image } from "react-bootstrap";
 import { toast } from "react-toastify";
-import { EditCustomerDirect } from "../../../components/Directlink.jsx";
 import ZoomModal from "../../../components/ZoomModal.jsx";
 import Loading from "../../../components/Loading.jsx";
+import Breadcrumbs from "../../../components/Breadcrumbs.jsx";
 // import BlankImages from "../../../assets/Image/blank_user.png"
 
 export const loader = async ({ params }) => {
@@ -66,13 +66,17 @@ const EditCustomersView = () => {
     },
   ];
 
-  if (!customer) {
-    return <Loading />;
-  }
+  if (!customer) return <Loading />
+
+  const breadcrumbItems = [
+    { label: "Dashboard", path: "/admin" },
+    { label: "Pelanggan", path: "/admin/customers" },
+    { label: `Edit: ${customer.firstName} ${customer.lastName}` },
+  ];
   return (
     <section className="fm-2">
       <Container>
-        <EditCustomerDirect />
+        <Breadcrumbs items={breadcrumbItems} className="text-white-50" />
         <h5 className="my-3">Edit Profil Pelanggan</h5>
 
         <Form

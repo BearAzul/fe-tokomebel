@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import { Form } from "react-bootstrap";
 
 const modules = {
   toolbar: [
@@ -30,20 +31,21 @@ export const FormInput = ({
   disabled = false,
 }) => {
   return (
-    <>
-      <label htmlFor={name} className="form-label">
+    <Form.Group>
+      <Form.Label htmlFor={name}>
         {label} <span className="text-danger">*</span>
-      </label>
-      <input
+      </Form.Label>
+      <Form.Control
+        size="sm"
         type={type}
-        className={`form-control form-control-sm ${className}`}
+        className={`${className}`}
         id={name}
         name={name}
         defaultValue={defaultValue}
         placeholder={placeHolder}
         disabled={disabled}
       />
-    </>
+    </Form.Group>
   );
 };
 
@@ -57,11 +59,13 @@ export const FormTextarea = ({
   disabled = false,
 }) => {
   return (
-    <>
-      <label htmlFor={name} className="form-label">
+    <Form.Group>
+      <Form.Label htmlFor={name}>
         {label} <span className="text-danger">*</span>
-      </label>
-      <textarea
+      </Form.Label>
+      <Form.Control
+        as="textarea"
+        size="sm"
         className={`form-control form-control-sm ${className}`}
         id={name}
         name={name}
@@ -69,8 +73,8 @@ export const FormTextarea = ({
         rows={Row}
         placeholder={placeHolder}
         disabled={disabled}
-      ></textarea>
-    </>
+      />
+    </Form.Group>
   );
 };
 
@@ -84,17 +88,19 @@ export const FormSelect = ({
   disabled = false,
 }) => {
   return (
-    <>
-      <label htmlFor={name} className="form-label">
+    <Form.Group>
+      <Form.Label htmlFor={ name }>
         {label} <span className="text-danger">*</span>
-      </label>
-      <select
-        className={`form-select form-select-sm ${className}`}
+      </Form.Label>
+      <Form.Select
+        className={`${className}`}
+        size="sm"
         id={name}
         name={name}
         value={value || ""}
         onChange={onChange}
         disabled={disabled}
+        aria-label={name}
       >
         <option
           value=""
@@ -105,8 +111,8 @@ export const FormSelect = ({
             {option.label}
           </option>
         ))}
-      </select>
-    </>
+      </Form.Select>
+    </Form.Group>
   );
 };
 
@@ -119,9 +125,9 @@ export const FormEditor = ({
 }) => {
   return (
     <div className={`form-editor ${className}`}>
-      <label className="form-label">
+      <Form.Label>
         {label} <span className="text-danger">*</span>
-      </label>
+      </Form.Label>
       <ReactQuill
         theme="snow"
         value={value}

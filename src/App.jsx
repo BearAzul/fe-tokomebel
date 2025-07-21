@@ -40,6 +40,7 @@ import NotFoundView from "./pages/admin/NotFoundView.jsx";
 // Loaders
 import { loader as SellerLoader } from "./components/Trending/BestSellerSection.jsx";
 import { loader as ShopLoader } from "./pages/ShopPage.jsx";
+import { loader as DetailProductLoader } from "./pages/DetailProduct.jsx";
 import { loader as ProfileLoader } from "./pages/ProfilePage.jsx";
 import { loader as PaymentLoader } from "./pages/PaymentPage.jsx";
 import { loader as OrderLoader } from "./pages/OrderHistory.jsx";
@@ -85,7 +86,11 @@ const router = createBrowserRouter([
         element: <ShopPage />,
         loader: ShopLoader,
       },
-      { path: "shop/:id", element: <DetailProduct /> },
+      {
+        path: "shop/:id",
+        element: <DetailProduct />,
+        loader: DetailProductLoader
+      },
       { path: "cart", element: <Cart /> },
       {
         path: "profile",

@@ -4,7 +4,7 @@ import customAPI from "../../../api.js";
 import { FormInput, FormEditor } from "../../../components/FormInput";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import { toast } from "react-toastify";
-import { EditCategoryDirect } from "../../../components/Directlink.jsx";
+import Breadcrumbs from "../../../components/Breadcrumbs.jsx";
 
 export const loader = async ({ params }) => {
   try {
@@ -48,10 +48,16 @@ const EditCategoryView = () => {
     }
   };
 
+  const breadcrumbItems = [
+    { label: "Dashboard", path: "/admin" },
+    { label: "Kategori", path: "/admin/category" },
+    { label: `Edit: ${category.name}` },
+  ];
+
   return (
     <section className="fm-2">
       <Container>
-        <EditCategoryDirect />
+        <Breadcrumbs items={breadcrumbItems} className="text-white-50" />
         <h5 className="my-3">Edit Kategori</h5>
 
         <form

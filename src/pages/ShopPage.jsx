@@ -13,9 +13,9 @@ import {
   useNavigation,
 } from "react-router-dom";
 import Loading from "../components/Loading.jsx";
-import { ShopDirect } from "../components/Directlink.jsx";
 import { HelmetHead } from "../common/Helmet.jsx";
 import CustomPagination from "../components/Pagination.jsx";
+import Breadcrumbs from "../components/Breadcrumbs.jsx";
 
 
 export const loader = async ({ request }) => {
@@ -46,10 +46,13 @@ const ShopPage = () => {
     navigate(`${pathname}?${searchParams.toString()}`);
   };
 
-  const handleClear = () => {
-    navigate("/shop");
-  };
-
+  const breadcrumbItems = [
+    {
+      label: "Beranda",
+      path: "/"
+    },
+    { label: "Katalog" }
+  ];
   return (
     <>
       <HelmetHead
@@ -60,7 +63,7 @@ const ShopPage = () => {
       <section id="shop" className="bg-light pb-4 overflow-hidden">
         <BannerHeader bannerTitle="KATALOG" />
         <Container className="my-4">
-          <ShopDirect />
+          <Breadcrumbs items={breadcrumbItems} className="text-body-secondary" />
           <Row md="2" className="g-0 g-md-3 g-lg-5 ">
             <Col
               md="3"
@@ -85,8 +88,8 @@ const ShopPage = () => {
                           variant="dark"
                           size="md"
                           className={`w-100 border-0 px-3 rounded-2 fw-medium ${params.category === tag.name
-                              ? "bg-warning text-dark fw-semibold"
-                              : ""
+                            ? "bg-warning text-dark fw-semibold"
+                            : ""
                             }`}
                           aria-label="button kategori"
                         >
@@ -127,7 +130,7 @@ const ShopPage = () => {
                   variant="light"
                   size="md"
                   className="btn__clear fm-2 fw-medium border-secondary-subtle border-2"
-                  onClick={() => handleClear()}
+                  onClick={() => navigate("/shop")}
                   aria-label="Button Clear"
                 >
                   <i className="ri-filter-off-line"></i>

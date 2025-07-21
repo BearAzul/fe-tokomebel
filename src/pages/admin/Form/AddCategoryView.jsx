@@ -3,8 +3,8 @@ import { Container, Row, Col, Button } from "react-bootstrap";
 import { FormInput, FormEditor } from "../../../components/FormInput.jsx";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { AddCategoryDirect } from "../../../components/Directlink.jsx";
 import customAPI from "../../../api.js";
+import Breadcrumbs from "../../../components/Breadcrumbs.jsx";
 
 const AddCategoryView = () => {
   const navigate = useNavigate();
@@ -35,10 +35,16 @@ const AddCategoryView = () => {
     }
   };
 
+  const breadcrumbItems = [
+    { label: "Dashboard", path: "/admin" },
+    { label: "Kategori", path: "/admin/category" },
+    { label: "Tambah Kategori" },
+  ];
+
   return (
     <section className="fm-2">
       <Container>
-        <AddCategoryDirect />
+        <Breadcrumbs items={breadcrumbItems} className="text-white-50" />
         <h5 className="mb-3">Tambah Kategori Baru</h5>
         <form
           onSubmit={handleSubmit}

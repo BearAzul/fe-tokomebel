@@ -5,8 +5,8 @@ import "../styles/index.css";
 import { useSelector } from "react-redux";
 import { formatToIDR } from "../utils/index.jsx";
 import CartItems from "../components/CartItems.jsx"
-import { CartDirect } from "../components/Directlink.jsx";
 import { HelmetHead } from "../common/Helmet.jsx";
+import Breadcrumbs from "../components/Breadcrumbs.jsx";
 
 const TableHeader = [
   {
@@ -27,17 +27,16 @@ const TableHeader = [
 ];
 
 const Cart = () => {
-  const cartListItems = useSelector((state) => state.cartState.CartItems);
-  const numItems = useSelector((state) => state.cartState.numItemsInCart);
   const user = useSelector((state) => state.userState.user);
-  const { cartTotal } = useSelector((state) => state.cartState);
 
-  let delivery
-  if (!numItems) {
-    delivery = formatToIDR(0)
-  } else {
-    delivery = "Free";
-  }
+  const { CartItems: cartListItems, numItemsInCart: numItems, cartTotal } = useSelector((state) => state.cartState);
+
+  const delivery = !numItems ? formatToIDR(0) : "Free";
+
+  const breadcrumbItems = [
+    { label: "Katalog", path: "/shop" },
+    { label: "Keranjang" }
+  ];
   return (
     <>
       <HelmetHead
@@ -54,7 +53,7 @@ const Cart = () => {
               "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0, 0.1)",
           }}
         >
-          <CartDirect />
+          <Breadcrumbs items={breadcrumbItems} className="text-body-secondary" />
           <Row lg="2" className="gx-2 g-md-0 h-max-content">
             <Col lg="8" className="p-3 bg-white">
               <div className="title__cart d-flex justify-content-between align-items-center w-100 pb-3 mb-3 border-bottom border-2 border-secondary-subtle">
