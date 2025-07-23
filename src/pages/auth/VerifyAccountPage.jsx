@@ -23,7 +23,6 @@ export const action = async ({ request }) => {
 };
 
 const VerifyAccountPage = () => {
-  const [verifyCode, setVerifyCode] = useState("");
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
 
@@ -55,10 +54,9 @@ const VerifyAccountPage = () => {
                   <Form.Control
                     type="number"
                     size="sm"
+                    name="verifyCode"
                     placeholder="Masukkan 6 digit kode"
                     className="border-1 bg-white"
-                    value={verifyCode}
-                    onChange={(e) => setVerifyCode(e.target.value)}
                     required
                   />
                 </Form.Group>
