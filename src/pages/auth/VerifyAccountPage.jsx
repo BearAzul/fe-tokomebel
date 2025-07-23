@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { Form as RouterForm, useNavigation, redirect } from "react-router-dom";
 import VerifyImages from "../../assets/Image/Authentication-cuate.svg";
 import { HelmetHead } from "../../common/Helmet.jsx";
+import { useState } from "react";
 
 export const action = async ({ request }) => {
   const formData = await request.formData();
@@ -22,6 +23,7 @@ export const action = async ({ request }) => {
 };
 
 const VerifyAccountPage = () => {
+  const [verifyCode, setVerifyCode] = useState("");
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
 
