@@ -8,9 +8,14 @@ import { toast } from "react-toastify";
 import customAPI from "../../api.js";
 import { useState, useEffect } from "react";
 import { redirect, useLoaderData, useRevalidator } from "react-router-dom";
-// import BlankImages from "../../assets/Image/blank_user.png"
 import { HelmetHead } from "../../common/Helmet.jsx";
 import Breadcrumbs from "../../components/Breadcrumbs.jsx";
+
+const breadcrumbItems = [
+  { label: "Dashboard", path: "/admin" },
+  { label: "Profil Admin" },
+];
+
 
 export const loader = async () => {
   try {
@@ -81,11 +86,6 @@ const UserView = () => {
       setLoading(false);
     }
   };
-
-  const breadcrumbItems = [
-    { label: "Dashboard", path: "/admin" },
-    { label: "Profil Admin" },
-  ];
 
   return (
     <>

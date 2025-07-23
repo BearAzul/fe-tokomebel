@@ -9,6 +9,12 @@ import { toast } from "react-toastify";
 import { useState } from "react";
 import Breadcrumbs from "../../../components/Breadcrumbs.jsx";
 
+const breadcrumbItems = [
+  { label: "Dashboard", path: "/admin" },
+  { label: "Produk Mebel", path: "/admin/products" },
+  { label: "Tambah Mebel" },
+];
+
 export const loader = async () => { 
   try {
     const { data } = await customAPI.get("/category");
@@ -52,12 +58,6 @@ const AddProductView = () => {
       setLoading(false);
     }
   };
-
-  const breadcrumbItems = [
-    { label: "Dashboard", path: "/admin" },
-    { label: "Produk Mebel", path: "/admin/products" },
-    { label: "Tambah Mebel" },
-  ];
 
   return (
     <section className="fm-2">

@@ -49,23 +49,6 @@ const EditCustomersView = () => {
 
   const profile = customer.profile || {};
 
-  const [customerGender, setCustomerGender] = useState({
-    gender: profile.gender
-  });
-
-  const gender = [
-    {
-      key: 1,
-      value: "Laki-Laki",
-      label: "Laki-Laki",
-    },
-    {
-      key: 2,
-      value: "Perempuan",
-      label: "Perempuan",
-    },
-  ];
-
   if (!customer) return <Loading />
 
   const breadcrumbItems = [
@@ -131,14 +114,8 @@ const EditCustomersView = () => {
               <FormSelect
                 name="gender"
                 label="Jenis Kelamin:"
-                value={customerGender.gender}
-                onChange={(e) =>
-                  setCustomerGender((prev) => ({
-                    ...prev,
-                    gender: e.target.value,
-                  }))
-                }
-                options={gender}
+                defaultValue={profile.gender}
+                options={[{ value: "Laki-Laki", label: "Laki-Laki" }, { value: "Perempuan", label: "Perempuan" }]}
               />
             </Col>
             <Col>

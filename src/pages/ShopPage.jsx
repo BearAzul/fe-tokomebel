@@ -17,6 +17,10 @@ import { HelmetHead } from "../common/Helmet.jsx";
 import CustomPagination from "../components/Pagination.jsx";
 import Breadcrumbs from "../components/Breadcrumbs.jsx";
 
+const breadcrumbItems = [
+  { label: "Beranda", path: "/" },
+  { label: "Katalog" }
+];
 
 export const loader = async ({ request }) => {
   const params = Object.fromEntries([
@@ -46,13 +50,6 @@ const ShopPage = () => {
     navigate(`${pathname}?${searchParams.toString()}`);
   };
 
-  const breadcrumbItems = [
-    {
-      label: "Beranda",
-      path: "/"
-    },
-    { label: "Katalog" }
-  ];
   return (
     <>
       <HelmetHead

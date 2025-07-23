@@ -15,9 +15,13 @@ import {
 import BannerHeader from "../common/Banner/BannerHeader.jsx";
 import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
-// import BlankImages from "../assets/Image/blank_user.png";
 import { HelmetHead } from "../common/Helmet.jsx";
 import Breadcrumbs from "../components/Breadcrumbs.jsx";
+
+const breadcrumbItems = [
+  { label: "Beranda", path: "/" },
+  { label: "Profil" }
+];
 
 export const loader = (storage) => async () => {
   const user = storage.getState().userState.user;
@@ -94,11 +98,6 @@ const ProfilePage = () => {
       setLoading(false)
     }
   };
-
-  const breadcrumbItems = [
-    { label: "Beranda", path: "/" },
-    { label: "Profil" }
-  ];
 
   return (
     <>

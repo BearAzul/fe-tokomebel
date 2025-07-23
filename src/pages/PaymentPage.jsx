@@ -5,6 +5,12 @@ import { toast } from "react-toastify"
 import { redirect } from "react-router-dom";
 import Breadcrumbs from "../components/Breadcrumbs.jsx";
 
+const breadcrumbItems = [
+  { label: "Katalog", path: "/shop" },
+  { label: "Keranjang", path: "/cart" },
+  { label: "Pembayaran" },
+];
+
 export const loader = (storage) => () => {
   const user = storage.getState().userState.user
   if (!user) {
@@ -15,13 +21,6 @@ export const loader = (storage) => () => {
 }
 
 const PaymentPage = () => {
-
-  const breadcrumbItems = [
-    { label: "Katalog", path: "/shop" },
-    { label: "Keranjang", path: "/cart" },
-    { label: "Pembayaran" },
-  ];
-
   return (
     <section id="checkout" className="pb-5 bg-secondary-subtle overflow-hidden">
       <BannerHeader bannerTitle="PEMBAYARAN" />

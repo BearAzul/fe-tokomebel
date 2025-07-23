@@ -5,13 +5,18 @@ import { useNavigation, useLoaderData, redirect, Form } from "react-router-dom";
 import customAPI from "../../api.js";
 import DataTable from "react-data-table-component";
 import { formatToIDR } from "../../utils";
-// import BlankImages from "../../assets/Image/blank_user.png"
 import { HelmetHead } from "../../common/Helmet.jsx";
 import Loading from "../../components/Loading.jsx";
 import { formatTanggalWaktu } from "../../utils/index.jsx";
 import ZoomModal from "../../components/ZoomModal.jsx";
 import { toast } from "react-toastify"
 import Breadcrumbs from "../../components/Breadcrumbs.jsx";
+
+const breadcrumbItems = [
+  { label: "Dashboard", path: "/admin" },
+  { label: "Pesanan", path: "/admin/orders" },
+  { label: "Detail Pesanan" },
+];
 
 export const loader = async ({ params }) => {
   try {
@@ -108,12 +113,6 @@ const OrderDetailView = () => {
   ];
 
   const shippingStatusInfo = getShippingStatusInfo(detailOrder.shipping, detailOrder.status);
-
-  const breadcrumbItems = [
-    { label: "Dashboard", path: "/admin" },
-    { label: "Pesanan", path: "/admin/orders" },
-    { label: "Detail Pesanan" },
-  ];
 
   return (
     <>

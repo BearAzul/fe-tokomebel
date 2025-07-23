@@ -9,6 +9,11 @@ import { formatTanggalWaktu } from "../../utils/index.jsx";
 import { HelmetHead } from "../../common/Helmet.jsx";
 import Breadcrumbs from "../../components/Breadcrumbs.jsx";
 
+const breadcrumbItems = [
+  { label: "Dashboard", path: "/admin" },
+  { label: "Kategori" },
+];
+
 export const loader = async () => {
   const { data } = await customAPI.get("/category");
   const dataCategory = data.data;
@@ -110,11 +115,6 @@ const CategoryView = () => {
       ),
       width: "100px",
     },
-  ];
-
-  const breadcrumbItems = [
-    { label: "Dashboard", path: "/admin" },
-    { label: "Kategori" },
   ];
 
   return (

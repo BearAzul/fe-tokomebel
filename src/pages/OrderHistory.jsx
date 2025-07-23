@@ -12,6 +12,12 @@ import { generateInvoice } from "../utils/InvoiceGenerator.jsx";
 import Swal from "sweetalert2";
 import Breadcrumbs from "../components/Breadcrumbs.jsx";
 
+const breadcrumbItems = [
+  { label: "Beranda", path: "/" },
+  { label: "Profil", path: "/profile" },
+  { label: "Riwayat Pesanan" },
+];
+
 export const loader = (storage) => async () => {
   const user = storage.getState().userState.user;
   if (!user) {
@@ -86,12 +92,6 @@ const OrderHistory = () => {
     );
     setRecords(newData);
   };
-
-  const breadcrumbItems = [
-    { label: "Beranda", path: "/" },
-    { label: "Profil", path: "/profile" },
-    { label: "Riwayat Pesanan" },
-  ];
 
   return (
     <>

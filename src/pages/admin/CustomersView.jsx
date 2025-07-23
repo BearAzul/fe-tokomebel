@@ -5,10 +5,14 @@ import DataTable from "react-data-table-component";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
-// import BlankImages from "../../assets/Image/blank_user.png"
 import { HelmetHead } from "../../common/Helmet.jsx";
 import { ExportCustomers } from "../../components/Button.jsx";
 import Breadcrumbs from "../../components/Breadcrumbs.jsx";
+
+const breadcrumbItems = [
+  { label: "Dashboard", path: "/admin" },
+  { label: "Pelanggan" },
+];
 
 export const loader = async () => {
   try {
@@ -145,11 +149,6 @@ const CustomersView = () => {
       ),
       ignoreRowClick: true,
     },
-  ];
-
-  const breadcrumbItems = [
-    { label: "Dashboard", path: "/admin" },
-    { label: "Pelanggan" },
   ];
 
   return (

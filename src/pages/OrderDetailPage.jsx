@@ -10,6 +10,13 @@ import Loading from "../components/Loading.jsx";
 import { useEffect, useState } from "react";
 import Breadcrumbs from "../components/Breadcrumbs.jsx";
 
+const breadcrumbItems = [
+  { label: "Beranda", path: "/" },
+  { label: "Profil", path: "/profile" },
+  { label: "Riwayat Pesanan", path: "/orders" },
+  { label: "Detail Pesanan" },
+];
+
 export const loader = (storage) => async ({ params }) => {
   const user = storage.getState().userState.user;
   if (!user) {
@@ -34,13 +41,6 @@ const OrderDetailPage = () => {
     shipping: false,
     delivered: false,
   });
-
-  const breadcrumbItems = [
-    { label: "Beranda", path: "/" },
-    { label: "Profil", path: "/profile" },
-    { label: "Riwayat Pesanan", path: "/orders" },
-    { label: "Detail Pesanan" },
-  ];
 
   useEffect(() => {
     if (order) {

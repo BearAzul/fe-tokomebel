@@ -8,6 +8,11 @@ import CartItems from "../components/CartItems.jsx"
 import { HelmetHead } from "../common/Helmet.jsx";
 import Breadcrumbs from "../components/Breadcrumbs.jsx";
 
+const breadcrumbItems = [
+  { label: "Katalog", path: "/shop" },
+  { label: "Keranjang" }
+];
+
 const TableHeader = [
   {
     title: "Produk Detail",
@@ -33,10 +38,6 @@ const Cart = () => {
 
   const delivery = !numItems ? formatToIDR(0) : "Free";
 
-  const breadcrumbItems = [
-    { label: "Katalog", path: "/shop" },
-    { label: "Keranjang" }
-  ];
   return (
     <>
       <HelmetHead

@@ -15,6 +15,12 @@ import "../../styles/index.css";
 import { HelmetHead } from "../../common/Helmet.jsx";
 import Breadcrumbs from "../../components/Breadcrumbs.jsx";
 
+const breadcrumbItems = [
+  { label: "Dashboard", path: "/admin" },
+  { label: "Produk Mebel" },
+];
+
+
 export const loader = async ({ request }) => {
   const params = Object.fromEntries([
     ...new URL(request.url).searchParams.entries(),
@@ -43,11 +49,6 @@ const ProductsView = () => {
     searchParams.set("page", number);
     navigate(`${pathname}?${searchParams.toString()}`);
   };
-
-  const breadcrumbItems = [
-    { label: "Dashboard", path: "/admin" },
-    { label: "Produk Mebel" },
-  ];
 
   return (
     <>

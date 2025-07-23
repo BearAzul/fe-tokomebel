@@ -11,10 +11,14 @@ import { toast } from "react-toastify";
 import { formatToIDR } from "../../utils/index.jsx";
 import { useState } from "react";
 import Swal from "sweetalert2";
-// import BlankImages from "../../assets/Image/blank_user.png"
 import { HelmetHead } from "../../common/Helmet.jsx";
 import { ExportOrders } from "../../components/Button.jsx";
 import Breadcrumbs from "../../components/Breadcrumbs.jsx";
+
+const breadcrumbItems = [
+  { label: "Dashboard", path: "/admin" },
+  { label: "Pesanan" },
+];
 
 export const loader = (storage) => async () => {
   const user = storage.getState().userState.user;
@@ -186,11 +190,6 @@ const OrdersView = () => {
       ),
       width: "120px",
     },
-  ];
-
-  const breadcrumbItems = [
-    { label: "Dashboard", path: "/admin" },
-    { label: "Pesanan" },
   ];
 
   return (

@@ -6,6 +6,12 @@ import { toast } from "react-toastify";
 import customAPI from "../../../api.js";
 import Breadcrumbs from "../../../components/Breadcrumbs.jsx";
 
+const breadcrumbItems = [
+  { label: "Dashboard", path: "/admin" },
+  { label: "Kategori", path: "/admin/category" },
+  { label: "Tambah Kategori" },
+];
+
 const AddCategoryView = () => {
   const navigate = useNavigate();
   const [desc, setDesc] = useState("")
@@ -34,12 +40,6 @@ const AddCategoryView = () => {
       setLoading(false);
     }
   };
-
-  const breadcrumbItems = [
-    { label: "Dashboard", path: "/admin" },
-    { label: "Kategori", path: "/admin/category" },
-    { label: "Tambah Kategori" },
-  ];
 
   return (
     <section className="fm-2">
