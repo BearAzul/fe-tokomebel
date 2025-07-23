@@ -82,8 +82,7 @@ export const FormSelect = ({
   label,
   name,
   options,
-  value,
-  onChange,
+  defaultValue,
   className,
   disabled = false,
 }) => {
@@ -97,8 +96,7 @@ export const FormSelect = ({
         size="sm"
         id={name}
         name={name}
-        value={value || ""}
-        onChange={onChange}
+        defaultValue={defaultValue || ""}
         disabled={disabled}
         aria-label={name}
       >
@@ -107,7 +105,7 @@ export const FormSelect = ({
           className="text-capitalize"
         >{`-- Pilih ${label} --`}</option>
         {options.map((option) => (
-          <option key={option.key} value={option.value}>
+          <option key={option.label} value={option.value}>
             {option.label}
           </option>
         ))}

@@ -14,7 +14,7 @@ import {
 } from "react-router-dom";
 import BannerHeader from "../common/Banner/BannerHeader.jsx";
 import { useSelector } from "react-redux";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 // import BlankImages from "../assets/Image/blank_user.png";
 import { HelmetHead } from "../common/Helmet.jsx";
 import Breadcrumbs from "../components/Breadcrumbs.jsx";
@@ -33,29 +33,28 @@ export const loader = (storage) => async () => {
 
 const ProfilePage = () => {
   const user = useSelector((state) => state.userState.user);
+  const { currentUser } = useLoaderData();
+  const { revalidate } = useRevalidator()
+
   const [edit, setEdit] = useState(false);
   const [loading, setLoading] = useState(false)
-  const { currentUser } = useLoaderData();
+
+  const [imageFile, setImageFile] = useState(null);
+  const [imagePreview, setImagePreview] = useState(currentUser.profile?.image);
 
   const profile = currentUser.profile || {}
 
-  const [information, setInformation] = useState({
-    gender: profile.gender,
-  })
+  useEffect(() => {
+    setImagePreview(profile?.image || `https://ui-avatars.com/api/?name=${currentUser.firstName}${currentUser.lastName}&background=random`);
+  }, [currentUser, profile?.image]);
 
-  const gender = [
-    {
-      key: 1,
-      value: "Laki-Laki",
-      label: "Laki-Laki",
-    },
-    {
-      key: 2,
-      value: "Perempuan",
-      label: "Perempuan",
-    },
-  ];
-  const { revalidate } = useRevalidator();
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setImageFile(file);
+      setImagePreview(URL.createObjectURL(file));
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -65,14 +64,25 @@ const ProfilePage = () => {
     setLoading(true)
 
     try {
-      await customAPI.put(
-        `/auth/users/${user._id}`, formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      let imageUrl = profile.image;
+
+      if (imageFile) {
+        const imageFormData = new FormData();
+        imageFormData.append("image", imageFile);
+
+        const { data: uploadData } = await customAPI.post("/auth/upload-profile-image", imageFormData, {
+          headers: { "Content-Type": "multipart/form-data" },
+        });
+        imageUrl = uploadData.url;
+      }
+
+      const updatedProfileData = Object.fromEntries(formData);
+      delete updatedProfileData.image;
+
+      await customAPI.put(`/auth/users/${user._id}`, {
+        ...updatedProfileData,
+        image: imageUrl,
+      });
 
       toast.success("Profile updated successfully!");
       setEdit(false);
@@ -110,7 +120,7 @@ const ProfilePage = () => {
                 <Card className="fm-2 p-3">
                   <Card.Img
                     variant="top"
-                    src={profile?.image || `https://ui-avatars.com/api/?name=${currentUser.firstName}${currentUser.lastName}&background=random`}
+                    src={imagePreview}
                     className="d-block rounded mx-auto object-fit-cover"
                     alt="image user"
                   />
@@ -119,13 +129,13 @@ const ProfilePage = () => {
                       type="file"
                       name="image"
                       className="form-control form-control-sm w-100 fs-7 fw-bold border rounded"
+                      onChange={handleImageChange}
                       disabled={!edit}
                     />
                   </Card.Body>
                   <Card.Footer className="px-0 bg-transparent border-0">
                     <Card.Text className="fs-7">
-                      File size: maximum 10,000,000 bytes (10 Megabytes).
-                      Allowed file extensions: .JPG, .JPEG, .PNG
+                      Ukuran file: maksimum 10MB. Ekstensi: .JPG, .JPEG, .PNG
                     </Card.Text>
                   </Card.Footer>
                 </Card>
@@ -182,14 +192,8 @@ const ProfilePage = () => {
                       <FormSelect
                         name="gender"
                         label="Jenis Kelamin:"
-                        value={information.gender}
-                        onChange={(e) =>
-                          setInformation((prev) => ({
-                            ...prev,
-                            gender: e.target.value,
-                          }))
-                        }
-                        options={gender}
+                        defaultValue={profile.gender}
+                        options={[{ value: "Laki-Laki", label: "Laki-Laki" }, { value: "Perempuan", label: "Perempuan" }]}
                         disabled={!edit}
                       />
                     </div>

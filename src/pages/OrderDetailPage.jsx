@@ -39,7 +39,7 @@ const OrderDetailPage = () => {
     { label: "Beranda", path: "/" },
     { label: "Profil", path: "/profile" },
     { label: "Riwayat Pesanan", path: "/orders" },
-    { label: `Detail Pesanan: #${order._id}` },
+    { label: "Detail Pesanan" },
   ];
 
   useEffect(() => {

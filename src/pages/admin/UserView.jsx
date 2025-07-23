@@ -6,10 +6,11 @@ import {
 } from "../../components/FormInput";
 import { toast } from "react-toastify";
 import customAPI from "../../api.js";
-import { useState } from "react";
-import { redirect, useLoaderData } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { redirect, useLoaderData, useRevalidator } from "react-router-dom";
 // import BlankImages from "../../assets/Image/blank_user.png"
 import { HelmetHead } from "../../common/Helmet.jsx";
+import Breadcrumbs from "../../components/Breadcrumbs.jsx";
 
 export const loader = async () => {
   try {
@@ -23,25 +24,26 @@ export const loader = async () => {
 
 const UserView = () => {
   const { currentUser } = useLoaderData();
-  const profile = currentUser.profile || {}
-  const [information, setInformation] = useState({
-    gender: profile.gender,
-  })
+  const { revalidate } = useRevalidator();
 
   const [loading, setLoading] = useState(false);
 
-  const gender = [
-    {
-      key: 1,
-      value: "Laki-Laki",
-      label: "Laki-Laki",
-    },
-    {
-      key: 2,
-      value: "Perempuan",
-      label: "Perempuan",
-    },
-  ];
+  const [imageFile, setImageFile] = useState(null);
+  const [imagePreview, setImagePreview] = useState(currentUser.profile?.image);
+
+  const profile = currentUser.profile || {};
+
+  useEffect(() => {
+    setImagePreview(profile?.image || `https://ui-avatars.com/api/?name=${currentUser.firstName}${currentUser.lastName}&background=random`);
+  }, [currentUser, profile?.image]);
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setImageFile(file);
+      setImagePreview(URL.createObjectURL(file));
+    }
+  };
 
   const handleUpdate = async (e) => {
     e.preventDefault();
@@ -50,16 +52,28 @@ const UserView = () => {
     setLoading(true);
 
     try {
-      await customAPI.put(
-        `/auth/users/${currentUser._id}`, formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      let imageUrl = profile.image;
+
+      if (imageFile) {
+        const imageFormData = new FormData();
+        imageFormData.append("image", imageFile);
+
+        const { data: uploadData } = await customAPI.post("/auth/upload-profile-image", imageFormData, {
+          headers: { "Content-Type": "multipart/form-data" },
+        });
+        imageUrl = uploadData.url;
+      }
+
+      const updatedProfileData = Object.fromEntries(formData);
+      delete updatedProfileData.image;
+
+      await customAPI.put(`/auth/users/${currentUser._id}`, {
+        ...updatedProfileData,
+        image: imageUrl,
+      });
 
       toast.success("Profile updated successfully!");
+      revalidate();
     } catch (error) {
       const errorMessage = error?.response?.data?.message;
       toast.error(errorMessage);
@@ -78,7 +92,7 @@ const UserView = () => {
       <HelmetHead title="Profil" />
       <section className="fm-2">
         <Container>
-          <Breadcrumb items={breadcrumbItems} className="text-white-50" />
+          <Breadcrumbs items={breadcrumbItems} className="text-white-50" />
           <h5 className="mb-3">Profil Admin</h5>
           <form onSubmit={handleUpdate} encType="multipart/form-data">
             <Card className="border border-secondary text-bg-dark p-4">
@@ -88,7 +102,7 @@ const UserView = () => {
                   style={{ width: "120px", height: "120px" }}
                 >
                   <img
-                    src={profile?.image || `https://ui-avatars.com/api/?name=${currentUser.firstName}${currentUser.lastName}&background=random`}
+                    src={imagePreview}
                     alt={currentUser.firstName}
                     className="w-100 h-100 d-block object-fit-cover"
                   />
@@ -99,6 +113,7 @@ const UserView = () => {
                     type="file"
                     name="image"
                     className="form-control form-control-sm mt-3"
+                    onChange={handleImageChange}
                   />
                 </div>
               </div>
@@ -123,19 +138,12 @@ const UserView = () => {
                   />
                 </Col>
                 <Col>
-                  <label htmlFor="phone" className="form-label">
-                    No. Telp: <span className="text-danger">*</span>
-                  </label>
-                  <input
-                    type="number"
-                    id="phone"
-                    className="form-control form-control-sm"
+                  <FormInput
                     name="phone"
-                    minLength={11}
-                    maxLength={13}
-                    defaultValue={profile.phone}
-                    placeholder="Masukkan No. Telp (+62)"
-                  />
+                    type="number"
+                    label="No. Telp:"
+                    placeHolder="Masukkan No. Telp (+62)"
+                    defaultValue={profile.phone} />
                 </Col>
                 <Col>
                   <FormInput
@@ -150,14 +158,8 @@ const UserView = () => {
                   <FormSelect
                     name="gender"
                     label="Jenis Kelamin:"
-                    value={information.gender}
-                    onChange={(e) =>
-                      setInformation((prev) => ({
-                        ...prev,
-                        gender: e.target.value,
-                      }))
-                    }
-                    options={gender}
+                    defaultValue={profile.gender}
+                    options={[{ value: "Laki-Laki", label: "Laki-Laki" }, { value: "Perempuan", label: "Perempuan" }]}
                   />
                 </Col>
                 <Col>

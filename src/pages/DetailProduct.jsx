@@ -14,8 +14,7 @@ import { HelmetHead } from "../common/Helmet.jsx";
 
 export const loader = async ({ params }) => {
   try {
-    const { id } = params;
-    const { data } = await customAPI.get(`/product/${id}`);
+    const { data } = await customAPI.get(`/product/${params.id}`);
     if (!data.data) {
       throw new Response("Produk Tidak Ditemukan", { status: 404 });
     }
