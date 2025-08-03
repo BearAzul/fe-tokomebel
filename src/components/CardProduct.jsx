@@ -11,7 +11,7 @@ import BlankImages from "../assets/Image/landscape-placeholder.svg";
 export const CardProductCustomer = ({ product, icons, className }) => {
   return (
     <div className="card__container">
-      <Card className="h-100 w-100 rounded-0 bg-light fm-2 overflow-hidden border-2">
+      <Card className="h-100 w-100 rounded-0 bg-light fm-2 overflow-hidden">
         <div className="position-relative">
           <Card.Img
             variant="top"
@@ -25,13 +25,13 @@ export const CardProductCustomer = ({ product, icons, className }) => {
             </span>
           )}
         </div>
-        <Card.Footer className="d-flex align-items-center justify-content-between p-0 bg-light position-relative z-1 w-100 border-2 rounded-0">
-          <Card.Text className="mb-0 ms-3 ms-md-2 fs-7">
+        <Card.Footer className="d-flex align-items-center justify-content-between p-1 gap-2 bg-light position-relative z-1">
+          <Card.Text className="fs-6 w-100 text-center">
             {formatToIDR(product.price)}
           </Card.Text>
           <Link
             to={`/shop/${product._id}`}
-            className="btn btn-warning rounded-0"
+            className="btn btn-warning btn-sm rounded-lg"
             aria-label="Link To Details"
           >
             <i className={`${icons} fs-6`}></i>
@@ -82,7 +82,7 @@ export const CardProductAdmin = ({ product, icons, className }) => {
       >
         <i className="ri-delete-bin-5-line fs-6"></i>
       </Button>
-      <Card className="h-100 w-100 rounded-0 bg-light fm-2 overflow-hidden border-2">
+      <Card className="h-100 w-100 rounded-0 bg-light fm-2 overflow-hidden">
         <div className="">
           <Card.Img
             variant="top"
@@ -91,13 +91,13 @@ export const CardProductAdmin = ({ product, icons, className }) => {
             className="d-block w-100 rounded-0 object-fit-cover"
           />
         </div>
-        <Card.Footer className="d-flex align-items-center justify-content-between p-0 bg-light position-relative z-1 w-100 border-2 rounded-0">
-          <Card.Text className="mb-0 ms-3 ms-md-2 fs-7">
+        <Card.Footer className="d-flex align-items-center justify-content-between p-1 bg-light position-relative z-1">
+          <Card.Text className="w-100 text-center fs-6">
             {formatToIDR(product.price)}
           </Card.Text>
           <Link
             to={`/admin/products/${product._id}/edit`}
-            className="btn btn-warning rounded-0"
+            className="btn btn-warning rounded-lg btn-sm"
             aria-label="Link to Edit"
           >
             <i className={`${icons} fs-6`}></i>

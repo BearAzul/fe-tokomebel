@@ -1,29 +1,44 @@
 import "./BestSeller.css";
 import "../../styles/index.css";
-import { Container, Row, Col} from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import { useState, useEffect } from "react";
-import { useLoaderData } from "react-router-dom";
 import { CardProductCustomer } from "../CardProduct.jsx";
 import customAPI from "../../api.js";
+import Loading from "../Loading.jsx";
 
-export const loader = async () => {
-  
-  const { data } = await customAPI.get("/product?limit=all");
-  const dataProducts = data.data;
-  const response = await customAPI.get("/category");
-  const categories = response.data.data
-  return { dataProducts, categories };
-};
-
-const BestSellerSection = () => {  
+const BestSellerSection = () => {
   const [selectedCategory, setSelectedCategory] = useState("Kursi");
   const [filteredProducts, setFilteredProducts] = useState([]);
-  const { dataProducts, categories } = useLoaderData();
-   const filterProducts = () => {
-     const filtered = dataProducts.filter((product) =>
-       selectedCategory ? product.category.name === selectedCategory : true
-     );
-     setFilteredProducts(filtered);
+
+  const [dataProducts, setDataProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
+
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsLoading(true);
+      try {
+        const productResponse = await customAPI.get("/product?limit=all");
+        const categoryResponse = await customAPI.get("/category");
+
+        setDataProducts(productResponse.data.data);
+        setCategories(categoryResponse.data.data);
+      } catch (error) {
+        console.error("Gagal mengambil data untuk best seller:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const filterProducts = () => {
+    const filtered = dataProducts.filter((product) =>
+      selectedCategory ? product.category.name === selectedCategory : true
+    );
+    setFilteredProducts(filtered);
   };
 
   useEffect(() => {
@@ -49,9 +64,8 @@ const BestSellerSection = () => {
                 {categories.map((category, index) => (
                   <Col key={index}>
                     <button
-                      className={`fm-2 w-100 fw-semibold border-0  py-2 ${
-                        category.name === selectedCategory ? "active" : ""
-                      }`}
+                      className={`fm-2 w-100 fw-semibold border-0  py-2 ${category.name === selectedCategory ? "active" : ""
+                        }`}
                       onClick={() => setSelectedCategory(`${category.name}`)}
                     >
                       <i className={`${category.icon} fs-5`}></i>
@@ -62,16 +76,18 @@ const BestSellerSection = () => {
               </Row>
             </div>
             <div className="product__container mt-3">
-              <Row xs="2" md="3" lg="4" className="g-4">
-                {filteredProducts.map((product) => (
-                  <Col key={product._id} data-aos="zoom-in">
-                    <CardProductCustomer
-                      product={product}
-                      icons="ri-shopping-cart-2-line"
-                    />
-                  </Col>
-                ))}
-              </Row>
+              {isLoading ? <Loading /> : (
+                <Row xs="2" md="3" lg="4" className="g-4">
+                  {filteredProducts.map((product) => (
+                    <Col key={product._id} data-aos="zoom-in">
+                      <CardProductCustomer
+                        product={product}
+                        icons="ri-shopping-cart-2-line"
+                      />
+                    </Col>
+                  ))}
+                </Row>
+              )}
             </div>
           </div>
         </Container>

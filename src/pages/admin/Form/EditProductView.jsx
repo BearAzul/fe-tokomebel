@@ -1,16 +1,22 @@
-import { useEffect, useState } from "react";
-import { useNavigate, useParams, useLoaderData } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate, useLoaderData } from "react-router-dom";
 import customAPI from "../../../api.js";
 import { FormInput, FormEditor, FormSelect } from "../../../components/FormInput";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import { toast } from "react-toastify";
-import Loading from "../../../components/Loading.jsx";
 import Breadcrumbs from "../../../components/Breadcrumbs.jsx";
 
-export const loader = async () => {
+export const loader = async ({ params }) => {
   try {
-    const { data } = await customAPI.get("/category");
-    return { categories: data.data };
+    const productPromise = customAPI.get(`/product/${params.id}`);
+    const categoryPromise = customAPI.get("/category");
+
+    const [productResponse, categoryResponse] = await Promise.all([
+      productPromise,
+      categoryPromise,
+    ]);
+
+    return { product: productResponse.data.data, categories: categoryResponse.data.data };
   } catch (error) {
     toast.error("Gagal mengambil kategori");
     return [];
@@ -18,28 +24,13 @@ export const loader = async () => {
 }
 
 const EditProductView = () => {
-  const { categories } = useLoaderData();
-  const [product, setProduct] = useState([]);
-  const [desc, setDesc] = useState("");
+  const { product, categories } = useLoaderData();
+  const [desc, setDesc] = useState(product?.description || "");
   const navigate = useNavigate();
-
-  const { id } = useParams();
 
   const [loading, setLoading] = useState(false);
 
-  const getProduct = async () => {
-    try {
-      const { data } = await customAPI.get(`/product/${id}`);
-      setProduct(data.data);
-      setDesc(data.data.description);
-    } catch (err) {
-      toast.error("Gagal mengambil data produk");
-    }
-  };
-
-  useEffect(() => {
-    getProduct();
-  }, []);
+  const category = product.category || {}
 
   const handleUpdate = async (e) => {
     e.preventDefault();
@@ -74,7 +65,7 @@ const EditProductView = () => {
     }
   };
 
-  if (!product) return <Loading />;
+  if (!product) return <p>Produk tidak ditemukan.</p>
 
   const breadcrumbItems = [
     { label: "Dashboard", path: "/admin" },
@@ -124,15 +115,8 @@ const EditProductView = () => {
               <FormSelect
                 name="category"
                 label="Kategori:"
-                value={product?.category?._id}
-                onChange={(e) =>
-                  setProduct((prev) => ({
-                    ...prev,
-                    category: e.target.value,
-                  }))
-                }
+                defaultValue={category.name}
                 options={categories.map((cat) => ({
-                  key: cat._id,
                   value: cat._id,
                   label: cat.name,
                 }))}
@@ -170,7 +154,6 @@ const EditProductView = () => {
                 name="image"
                 id="image"
                 className="form-control form-control-sm mt-2"
-                defaultValue={product.image}
               />
             </Col>
           </Row>

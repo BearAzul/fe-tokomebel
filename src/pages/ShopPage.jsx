@@ -9,10 +9,8 @@ import {
   useLoaderData,
   useLocation,
   useNavigate,
-  Form,
-  useNavigation,
+  Form
 } from "react-router-dom";
-import Loading from "../components/Loading.jsx";
 import { HelmetHead } from "../common/Helmet.jsx";
 import CustomPagination from "../components/Pagination.jsx";
 import Breadcrumbs from "../components/Breadcrumbs.jsx";
@@ -41,8 +39,6 @@ const ShopPage = () => {
   const { page, totalPage } = pagination;
   const { search, pathname } = useLocation();
   const navigate = useNavigate();
-  const navigation = useNavigation();
-  const isPageLoading = navigation.state === 'loading';
 
   const handleChangePage = (number) => {
     const searchParams = new URLSearchParams(search);
@@ -135,9 +131,7 @@ const ShopPage = () => {
               </div>
               <div className="furniture__product mt-3 mt-md-2 mt-lg-4">
                 <Row xs="2" md="3" lg="4" className="g-2 g-lg-4">
-                  {isPageLoading ? (
-                    <Loading />
-                  ) : !dataProducts.length ? (
+                  {!dataProducts.length ? (
                     <h1 className="fw-semibold fs-5 fm-4 text-center w-100">
                       Mebel Tidak Ditemukan!
                     </h1>
