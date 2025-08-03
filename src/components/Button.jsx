@@ -1,4 +1,4 @@
-import { NavLink, useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { logoutUser } from "../features/userSlice.js"
 import { useDispatch } from "react-redux"
 import { clearCartItem } from "../features/cartSlice.js"
@@ -9,12 +9,6 @@ import ExportCSV from "../components/export/exportCSV.jsx";
 import { generatePDF } from "../components/export/exportPDF.jsx";
 import { formatDataForExport, formatOrderDataForExport, headers, orderHeaders } from "../utils/ExportUtils.jsx";
 import { CSVLink } from 'react-csv';
-
-export const LoginButton = () => {
-  return (
-    <NavLink to="/login" className="btn btn-outline-light btn-sm fm-2">Login</NavLink>
-  )
-}
 
 export const ProfileButton = () => {
   const dispatch = useDispatch()
@@ -37,14 +31,14 @@ export const ProfileButton = () => {
     <Dropdown align="end">
       <Dropdown.Toggle
         variant="link"
-        className="nav-link text-decoration-none text-white p-0 border-0"
+        className="text-decoration-none text-white p-0 border-0"
         id="dropdown-user"
       >
         <i className="ri-user-fill fs-6"></i>
       </Dropdown.Toggle>
 
       <Dropdown.Menu>
-        <Dropdown.Item as={NavLink} to="/profile">
+        <Dropdown.Item as={Link} to="/profile">
           <i className="ri-user-line me-2"></i> Profil
         </Dropdown.Item>
         <Dropdown.Divider />

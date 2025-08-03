@@ -1,14 +1,10 @@
 import { Nav, Navbar, Container } from "react-bootstrap"
 import "./Navbar.css";
 import { HashLink } from "react-router-hash-link";
-import { NavLink } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { LoginButton, ProfileButton } from "../Button.jsx";
+import { Link } from "react-router-dom";
+import UserActions from "../UserActions.jsx";
 
 const NavbarPage = () => {
-  const user = useSelector((state) => state.userState.user);
-  const countCart = useSelector((state) => state.cartState.numItemsInCart);
-  const isVerified = user?.isVerified;
 
   return (
     <>
@@ -26,32 +22,19 @@ const NavbarPage = () => {
             <span className="text-color-logo1">Toko</span>
             <span className="text-color-logo2">Mebel</span>
           </HashLink>
-          <div className="ms-auto me-3 d-flex d-lg-none gap-3 align-items-center justify-content-center">
-            {isVerified ? (
-              <ProfileButton />
-            ) : (
-              <LoginButton />
-            )}
 
-            <NavLink to="/cart" className="nav-link position-relative" aria-label="Link To Cart">
-              <i className="ri-shopping-cart-2-fill fs-6 "></i>
-              <span
-                className={`indicator__cart ${!countCart && "d-none"
-                  }`}
-              >
-                {countCart}
-              </span>
-            </NavLink>
-          </div>
+          {/* Mobile Mode */}
+          <UserActions className="ms-auto me-3 d-flex d-lg-none gap-3 align-items-center" />
+
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav" className="mt-4 mt-lg-0">
             <Nav className="mx-auto w-50 text-center text-uppercase">
               <HashLink to="/#home" className="nav-link">
                 Beranda
               </HashLink>
-              <NavLink to="/shop" className="nav-link">
+              <Link to="/shop" className="nav-link">
                 Katalog
-              </NavLink>
+              </Link>
               <HashLink to="/#customize" className="nav-link">
                 Desain
               </HashLink>
@@ -60,22 +43,10 @@ const NavbarPage = () => {
               </HashLink>
             </Nav>
           </Navbar.Collapse>
-          <div className="d-none ms-lg-5 d-lg-flex gap-3 align-items-center justify-content-center">
-            {isVerified ? (
-              <ProfileButton />
-            ) : (
-              <LoginButton />
-            )}
-            <NavLink to="/cart" className="nav-link me-auto position-relative" aria-label="Link To Cart">
-              <i className="ri-shopping-cart-2-fill fs-6 "></i>
-              <span
-                className={`indicator__cart ${!countCart && "d-none"
-                  }`}
-              >
-                {countCart}
-              </span>
-            </NavLink>
-          </div>
+
+          {/* Desktop Mode */}
+          <UserActions className="d-none ms-lg-5 d-lg-flex gap-3 align-items-center" />
+
         </Container>
       </Navbar>
     </>

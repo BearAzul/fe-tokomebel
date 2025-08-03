@@ -13,7 +13,6 @@ import {
   useLoaderData,
 } from "react-router-dom";
 import BannerHeader from "../common/Banner/BannerHeader.jsx";
-import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { HelmetHead } from "../common/Helmet.jsx";
 import Breadcrumbs from "../components/Breadcrumbs.jsx";
@@ -36,7 +35,6 @@ export const loader = (storage) => async () => {
 };
 
 const ProfilePage = () => {
-  const user = useSelector((state) => state.userState.user);
   const { currentUser } = useLoaderData();
   const { revalidate } = useRevalidator()
 
@@ -83,7 +81,7 @@ const ProfilePage = () => {
       const updatedProfileData = Object.fromEntries(formData);
       delete updatedProfileData.image;
 
-      await customAPI.put(`/auth/users/${user._id}`, {
+      await customAPI.put(`/auth/users/${currentUser._id}`, {
         ...updatedProfileData,
         image: imageUrl,
       });
