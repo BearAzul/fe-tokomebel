@@ -1,4 +1,4 @@
-import { Container, Row, Col, Button, Card } from "react-bootstrap";
+import { Container, Row, Col, Button, Card, Image } from "react-bootstrap";
 import {
   FormInput,
   FormSelect,
@@ -90,113 +90,101 @@ const UserView = () => {
   return (
     <>
       <HelmetHead title="Profil" />
-      <section className="fm-2">
+      <section className="fm-2" id="adminview">
         <Container>
           <Breadcrumbs items={breadcrumbItems} className="text-white-50" />
           <h5 className="mb-3">Profil Admin</h5>
-          <form onSubmit={handleUpdate} encType="multipart/form-data">
-            <Card className="border border-secondary text-bg-dark p-4">
-              <div className="d-flex gap-3 align-items-start flex-wrap mb-3 mb-md-0">
-                <figure
-                  className="overflow-hidden rounded border border-2 border-secondary mx-auto mx-md-0 bg-secondary"
-                  style={{ width: "120px", height: "120px" }}
-                >
-                  <img
-                    src={imagePreview}
-                    alt={currentUser.firstName}
-                    className="w-100 h-100 d-block object-fit-cover"
-                  />
-                </figure>
-                <div>
-                  <h5>{`${currentUser.firstName} ${currentUser.lastName}`}</h5>
-                  <input
-                    type="file"
-                    name="image"
-                    className="form-control form-control-sm mt-3"
-                    onChange={handleImageChange}
-                  />
+          <form onSubmit={handleUpdate} className="border border-secondary rounded p-3" encType="multipart/form-data">
+            <Row className="g-4">
+              <Col md="4">
+                <div className="mb-3">
+                  <label className="form-label">Foto Profil:</label>
+                  <div className="ratio ratio-1x1 border border-secondary rounded-2 d-flex align-items-center justify-content-center text-bg-dark">
+                    {imagePreview ? (
+                      <Image src={imagePreview} alt="Preview" className="object-fit-cover w-100 h-100" rounded />
+                    ) : (
+                      <div className="text-center d-flex flex-column align-items-center justify-content-center">
+                        <i className="ri-user-line fs-1"></i>
+                        <p className="mt-2">Tidak Ada Foto</p>
+                      </div>
+                    )}
+                  </div>
                 </div>
-              </div>
-              <hr />
-              <Row lg="3" md="2" xs="1" className="g-3">
-                <Col>
-                  <FormInput
-                    name="firstName"
-                    type="text"
-                    label="Nama Depan:"
-                    placeHolder="Masukkan Nama Depan"
-                    defaultValue={currentUser.firstName}
-                  />
-                </Col>
-                <Col>
-                  <FormInput
-                    name="lastName"
-                    type="text"
-                    label="Nama Belakang:"
-                    placeHolder="Enter Your Last Name"
-                    defaultValue={currentUser.lastName}
-                  />
-                </Col>
-                <Col>
-                  <FormInput
-                    name="phone"
-                    type="number"
-                    label="No. Telp:"
-                    placeHolder="Masukkan No. Telp (+62)"
-                    defaultValue={profile.phone} />
-                </Col>
-                <Col>
-                  <FormInput
-                    name="email"
-                    type="email"
-                    label="Email:"
-                    placeHolder="Masukkan Email Valid"
-                    defaultValue={currentUser.email}
-                  />
-                </Col>
-                <Col>
-                  <FormSelect
-                    name="gender"
-                    label="Jenis Kelamin:"
-                    defaultValue={profile.gender}
-                    options={[{ value: "Laki-Laki", label: "Laki-Laki" }, { value: "Perempuan", label: "Perempuan" }]}
-                  />
-                </Col>
-                <Col>
-                  <FormInput
-                    name="city"
-                    type="text"
-                    label="Kabupaten/Kota:"
-                    placeHolder="Masukkan Kabupaten/Kota"
-                    defaultValue={profile.city}
-                  />
-                </Col>
-                <Col md="12" lg="12">
-                  <FormTextarea
-                    name="address"
-                    label="Alamat Lengkap:"
-                    placeHolder="Masukkan Alamat Lengkap"
-                    Row={3}
-                    defaultValue={profile.address}
-                  />
-                </Col>
-              </Row>
+                <Button type="button" variant="outline-secondary" className="w-100" onClick={() => document.getElementById('imageUpload').click()}>
+                  Ubah Foto
+                </Button>
+                <input id="imageUpload" name="image" type="file" className="d-none" accept="image/*" onChange={handleImageChange} />
+              </Col>
+              <Col md="8">
+                <Row className="g-3">
+                  <Col md={6}>
+                    <FormInput
+                      name="firstName" type="text" label="Nama Depan:"
+                      defaultValue={currentUser.firstName}
+                    />
+                  </Col>
+                  <Col md={6}>
+                    <FormInput
+                      name="lastName" type="text" label="Nama Belakang:"
+                      defaultValue={currentUser.lastName}
+                    />
+                  </Col>
+                  <Col md={6}>
+                    <FormInput
+                      name="email" type="email" label="Email:" readOnly
+                      defaultValue={currentUser.email}
+                    />
+                  </Col>
+                  <Col md={6}>
+                    <FormInput
+                      name="phone" type="number" label="No. Telp:"
+                      defaultValue={profile.phone}
+                    />
+                  </Col>
+                  <Col md={6}>
+                    <FormSelect
+                      name="gender" label="Jenis Kelamin:"
+                      defaultValue={profile.gender}
+                      options={[{ value: "", label: "Pilih Jenis Kelamin" }, { value: "Laki-Laki", label: "Laki-Laki" }, { value: "Perempuan", label: "Perempuan" }]}
+                    />
+                  </Col>
+                  <Col md={6}>
+                    <FormInput
+                      name="city" type="text" label="Kabupaten/Kota:"
+                      defaultValue={profile.city}
+                    />
+                  </Col>
+                  <Col xs={12}>
+                    <FormTextarea
+                      name="address" label="Alamat Lengkap:"
+                      Row={6} defaultValue={profile.address}
+                    />
+                  </Col>
+                </Row>
+              </Col>
+            </Row>
+
+            <div className="d-flex gap-2 align-items-center mt-3">
               <Button
                 variant="success"
                 size="sm"
                 type="submit"
-                className="max-content px-3 mt-3"
+                className="px-4"
                 disabled={loading}
               >
-                {loading ? (<>
-                  <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
-                  Updating...
-                </>) : (<>
-                  <i className="ri-save-3-line me-2"></i>
-                  Update Profile
-                </>)}
+                {loading ? (
+                  <>
+                    <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                    Memperbarui...
+                  </>
+                ) : (
+                  <>
+                    <i className="ri-save-3-line me-2"></i>
+                    Update Profil
+                  </>
+                )}
               </Button>
-            </Card>
+            </div>
           </form>
         </Container>
       </section>

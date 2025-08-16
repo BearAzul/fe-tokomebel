@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate, useLoaderData } from "react-router-dom";
 import customAPI from "../../../api.js";
 import { FormInput, FormEditor, FormSelect } from "../../../components/FormInput";
-import { Container, Row, Col, Button } from "react-bootstrap";
+import { Container, Row, Col, Button, Image } from "react-bootstrap";
 import { toast } from "react-toastify";
 import Breadcrumbs from "../../../components/Breadcrumbs.jsx";
 
@@ -25,12 +25,22 @@ export const loader = async ({ params }) => {
 
 const EditProductView = () => {
   const { product, categories } = useLoaderData();
+  const [imageFile, setImageFile] = useState(null);
+  const [imagePreview, setImagePreview] = useState(product?.image || "");
   const [desc, setDesc] = useState(product?.description || "");
   const navigate = useNavigate();
 
   const [loading, setLoading] = useState(false);
 
   const category = product.category || {}
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setImageFile(file);
+      setImagePreview(URL.createObjectURL(file));
+    }
+  };
 
   const handleUpdate = async (e) => {
     e.preventDefault();
@@ -41,15 +51,18 @@ const EditProductView = () => {
 
     try {
       let imageUrl = product.image;
-      if (formData.get("image")?.name) {
-        const { data: uploadData } = await customAPI.post("/product/file-upload", formData, {
+      if (imageFile) {
+        const fileUploadData = new FormData();
+        fileUploadData.append('image', imageFile);
+
+        const { data: uploadData } = await customAPI.post("/product/file-upload", fileUploadData, {
           headers: { "Content-Type": "multipart/form-data" },
         });
         imageUrl = uploadData.url;
       }
 
       const updatedData = Object.fromEntries(formData);
-      await customAPI.put(`/product/${id}`, {
+      await customAPI.put(`/product/${product._id}`, {
         ...updatedData,
         description: desc,
         image: imageUrl,
@@ -64,6 +77,7 @@ const EditProductView = () => {
       setLoading(false);
     }
   };
+  
 
   if (!product) return <p>Produk tidak ditemukan.</p>
 
@@ -83,8 +97,27 @@ const EditProductView = () => {
           onSubmit={handleUpdate}
           encType="multipart/form-data"
         >
-          <Row lg="3" xs="1" md="2" className="g-3">
-            <Col>
+          <Row className="g-3">
+            <Col md="4">
+              <div className="mb-3">
+                <label className="form-label">Gambar Produk: <span className="text-danger">*</span></label>
+                <div className="ratio ratio-1x1 border border-secondary rounded-2 d-flex align-items-center justify-content-center text-bg-dark">
+                  {imagePreview ? (
+                    <Image src={imagePreview} alt="Preview" className="object-fit-cover w-100 h-100" rounded />
+                  ) : (
+                    <div className="text-center d-flex flex-column align-items-center justify-content-center">
+                      <i className="ri-image-add-line fs-1"></i>
+                      <p className="mt-2">Tidak Ada Gambar</p>
+                    </div>
+                  )}
+                </div>
+              </div>
+              <Button type="button" variant="outline-secondary" className="w-100" onClick={() => document.getElementById('imageUpload').click()}>
+                Pilih Gambar
+              </Button>
+              <input id="imageUpload" type="file" className="d-none" accept="image/*" onChange={handleFileChange} />
+            </Col>
+            <Col md="8">
               <FormInput
                 name="name"
                 type="text"
@@ -92,69 +125,56 @@ const EditProductView = () => {
                 placeHolder="Masukkan Nama Produk Mebel"
                 defaultValue={product.name}
               />
-            </Col>
-            <Col>
-              <FormInput
-                name="stock"
-                type="number"
-                label="Stok:"
-                placeHolder="Masukkan Stok Mebel"
-                defaultValue={product.stock}
-              />
-            </Col>
-            <Col>
-              <FormInput
-                name="price"
-                type="number"
-                label="Harga:"
-                placeHolder="Masukkan Harga Mebel"
-                defaultValue={product.price}
-              />
-            </Col>
-            <Col>
-              <FormSelect
-                name="category"
-                label="Kategori:"
-                defaultValue={category.name}
-                options={categories.map((cat) => ({
-                  value: cat._id,
-                  label: cat.name,
-                }))}
-              />
-            </Col>
 
-            <Col md="12" lg="8">
-              <FormInput
-                name="summary"
-                type="text"
-                label="Ringkasan:"
-                placeHolder="Masukkan Ringkasan Produk Mebel"
-                defaultValue={product.summary}
-              />
-            </Col>
-            <Col md="12" lg="12">
-              <FormEditor
-                label="Deskripsi:"
-                value={desc}
-                onChange={setDesc}
-                placeHolder="Masukkkan Deskripsi Mebel"
-              />
-            </Col>
-            <Col lg="8">
-              <label htmlFor="image" className="form-label">
-                Pilih Gambar Mebel:
-              </label>
-              <img
-                src={product.image}
-                alt={product.name}
-                className="d-block w-50"
-              />
-              <input
-                type="file"
-                name="image"
-                id="image"
-                className="form-control form-control-sm mt-2"
-              />
+              <Row className="g-3 mt-1">
+                <Col md="6">
+                  <FormInput
+                    name="stock"
+                    type="number"
+                    label="Stok:"
+                    placeHolder="Masukkan Stok Mebel"
+                    defaultValue={product.stock}
+                  />
+                </Col>
+                <Col md="6">
+                  <FormInput
+                    name="price"
+                    type="number"
+                    label="Harga:"
+                    placeHolder="Masukkan Harga Mebel"
+                    defaultValue={product.price}
+                  />
+                </Col>
+                <Col md="12" lg="6">
+                  <FormSelect
+                    name="category"
+                    label="Kategori:"
+                    defaultValue={category._id}
+                    options={categories.map((cat) => ({
+                      value: cat._id,
+                      label: cat.name,
+                    }))}
+                  />
+                </Col>
+                <Col md="12" lg="6">
+                  <FormInput
+                    name="summary"
+                    type="text"
+                    label="Ringkasan:"
+                    placeHolder="Masukkan Ringkasan Produk Mebel"
+                    defaultValue={product.summary}
+                  />
+                </Col>
+              </Row>
+
+              <div className="my-3">
+                <FormEditor
+                  label="Deskripsi:"
+                  value={desc}
+                  onChange={setDesc}
+                  placeHolder="Masukkkan Deskripsi Mebel"
+                />
+              </div>
             </Col>
           </Row>
           <div className="d-flex gap-2 align-items-center mt-3">
@@ -179,7 +199,6 @@ const EditProductView = () => {
             </Button>
           </div>
         </form>
-        )
       </Container>
     </section>
   );

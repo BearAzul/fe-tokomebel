@@ -105,7 +105,7 @@ export const FormSelect = ({
           className="text-capitalize"
         >{`-- Pilih ${label} --`}</option>
         {options.map((option) => (
-          <option key={option.value} value={option.name}>
+          <option key={option.value} value={option.value}>
             {option.label}
           </option>
         ))}
@@ -147,6 +147,7 @@ FormInput.propTypes = {
   className: PropTypes.string,
   disabled: PropTypes.bool,
 };
+
 FormTextarea.propTypes = {
   label: PropTypes.string,
   name: PropTypes.string.isRequired,
@@ -160,7 +161,7 @@ FormTextarea.propTypes = {
 FormSelect.propTypes = {
   label: PropTypes.string,
   name: PropTypes.string.isRequired,
-  defaultValue: PropTypes.string,
+  defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   className: PropTypes.string,
   options: PropTypes.arrayOf(
     PropTypes.shape({

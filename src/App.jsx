@@ -29,8 +29,6 @@ import ProductsView from "./pages/admin/ProductsView.jsx";
 import AddProductView from "./pages/admin/Form/AddProductView.jsx";
 import EditProductView from "./pages/admin/Form/EditProductView.jsx";
 import CategoryView from "./pages/admin/CategoryView.jsx";
-import AddCategoryView from "./pages/admin/Form/AddCategoryView.jsx";
-import EditCategoryView from "./pages/admin/Form/EditCategoryView.jsx";
 import CustomersView from "./pages/admin/CustomersView.jsx";
 import EditCustomersView from "./pages/admin/Form/EditCustomersView.jsx";
 import OrdersView from "./pages/admin/OrdersView.jsx";
@@ -55,7 +53,6 @@ import { loader as EditCustomersLoader } from "./pages/admin/Form/EditCustomersV
 import { loader as OrdersAdminLoader } from "./pages/admin/OrdersView.jsx";
 import { loader as OrderDetailAdminLoader } from "./pages/admin/OrderDetailView.jsx";
 import { loader as CategoryLoader } from "./pages/admin/CategoryView.jsx";
-import { loader as EditCategoryLoader } from "./pages/admin/Form/EditCategoryView.jsx";
 
 // Actions
 import { action as LoginAction } from "./pages/auth/LoginPage.jsx";
@@ -158,15 +155,6 @@ const router = createBrowserRouter([
         path: "/admin/category",
         element: <CategoryView />,
         loader: CategoryLoader,
-      },
-      {
-        path: "/admin/category/add",
-        element: <AddCategoryView />,
-      },
-      {
-        path: "/admin/category/:id/edit",
-        element: <EditCategoryView />,
-        loader: EditCategoryLoader
       },
       {
         path: "/admin/products",

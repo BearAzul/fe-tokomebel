@@ -1,4 +1,4 @@
-import { Container, Row, Col, Card, Button, Badge } from "react-bootstrap";
+import { Container, Row, Col, Card, Button, Badge, Modal } from "react-bootstrap";
 import customAPI from "../../api.js";
 import { useLoaderData, Link, useRevalidator } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -6,6 +6,8 @@ import { toast } from "react-toastify";
 import { formatTanggalWaktu } from "../../utils/index.jsx";
 import { HelmetHead } from "../../common/Helmet.jsx";
 import Breadcrumbs from "../../components/Breadcrumbs.jsx";
+import { useState } from "react";
+import FormCategory from "./Form/FormCategory.jsx";
 
 const breadcrumbItems = [
   { label: "Dashboard", path: "/admin" },
@@ -21,21 +23,79 @@ export const loader = async () => {
 
 const CategoryView = () => {
   const { dataCategory } = useLoaderData();
-
   const { revalidate } = useRevalidator();
 
-  const handleDelete = async (row) => {
+  const [showModal, setShowModal] = useState(false);
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [desc, setDesc] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handleShowAddModal = () => {
+    setIsEditMode(false);
+    setSelectedCategory(null);
+    setDesc("");
+    setShowModal(true);
+  };
+
+  const handleShowEditModal = (category) => {
+    setIsEditMode(true);
+    setSelectedCategory(category);
+    setDesc(category.description || "");
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setSelectedCategory(null);
+    setDesc("");
+  };
+
+
+  const handleSubmit = async (e) => { 
+    e.preventDefault();
+    const form = e.target;
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
+
+    const payload = {
+      name: data.name,
+      icon: data.icon,
+      description: desc,
+    }
+
+    setLoading(true);
+
+    try {
+      if (isEditMode) {
+        await customAPI.put(`/category/${selectedCategory._id}`, payload);
+        toast.success(`Kategori "${payload.name}" berhasil diperbarui.`);
+      } else {
+        await customAPI.post("/category", payload);
+        toast.success(`Kategori "${payload.name}" berhasil dibuat.`);
+      }
+      revalidate();
+      handleCloseModal();
+    } catch (error) {
+      const errorMessage = error?.response?.data?.message || "Terjadi kesalahan.";
+      toast.error(errorMessage);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  const handleDelete = async (category) => {
     Swal.fire({
       title: "Anda yakin?",
-      text: `Anda akan menghapus kategori ${dataCategory.name}.`,
+      text: `Anda akan menghapus kategori ${category.name}.`,
       icon: "warning",
       showCancelButton: true,
       confirmButtonText: "Ya, hapus!",
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          await customAPI.delete(`/category/${dataCategory._id}`);
-          toast.success(`Category with name ${dataCategory.name} deleted successfully`);
+          await customAPI.delete(`/category/${category._id}`);
+          toast.success(`Category with name ${category.name} deleted successfully`);
           revalidate();
         } catch (error) {
           const errorMessage = error?.response?.data?.message;
@@ -45,85 +105,30 @@ const CategoryView = () => {
     });
   };
 
-  const columns = [
-    {
-      name: "No.",
-      selector: (row, index) => index + 1,
-      width: "70px",
-    },
-    {
-      name: "Icon",
-      selector: (row) => <i className={`${row.icon} fs-4`}></i>,
-      width: "70px",
-    },
-    {
-      name: "Kategori",
-      selector: (row) => row.name,
-      sortable: true,
-    },
-    {
-      name: "Deskripsi Singkat",
-      selector: (row) => (
-        <div dangerouslySetInnerHTML={{ __html: row.description }} />
-      ),
-      sortable: true,
-    },
-    {
-      name: "Dibuat Pada",
-      selector: (row) => formatTanggalWaktu(row.createdAt),
-      sortable: true,
-      width: "210px",
-    },
-    {
-      name: "Diperbarui pada",
-      selector: (row) => formatTanggalWaktu(row.updatedAt),
-      sortable: true,
-      width: "210px",
-    },
-    {
-      name: "Aksi",
-      cell: (row) => (
-        <div className="d-flex gap-1">
-          <Link
-            to={`/admin/category/${row._id}/edit`}
-            className="btn btn-warning btn-sm"
-          >
-            <i className="ri-pencil-line"></i>
-          </Link>
-          <button
-            className="btn btn-danger btn-sm"
-            onClick={() => handleDelete(row)}
-          >
-            <i className="ri-delete-bin-line"></i>
-          </button>
-        </div>
-      ),
-      width: "100px",
-    },
-  ];
-
   return (
     <>
       <HelmetHead title="Kategori" />
       <section className="fm-2">
         <Container>
           <Breadcrumbs items={breadcrumbItems} className="text-white-50" />
-          <Row lg="12" xs="1" md="2" className="g-2 mb-2 mb-md-3">
+          <Row lg="12" xs="1" md="2" className="g-2 mb-3">
             <Col lg="8">
               <h5 className="mb-3">Daftar Kategori</h5>
             </Col>
             <Col xs="12" lg="4">
-              <Link
-                to="/admin/category/add"
-                className="btn btn-success btn-sm w-100"
+              <Button
+                variant="success"
+                size="sm"
+                className="w-100"
+                onClick={handleShowAddModal}
                 aria-label="Tambah Button"
               >
                 <i className="ri-add-circle-line me-1"></i>
                 Tambah Kategori Baru
-              </Link>
+              </Button>
             </Col>
           </Row>
-          <Row className="g-3 mt-1">
+          <Row className="g-3">
             {dataCategory.map((category) => (
               <Col key={category._id} lg="4" md="6" xs="12">
                 <Card className="h-100 border bg-transparent text-white py-2">
@@ -133,12 +138,13 @@ const CategoryView = () => {
                       <h6 className="mb-0">{category.name}</h6>
                     </div>
                     <div className="d-flex align-items-center gap-2">
-                      <Link
-                        to={`/admin/category/${category._id}/edit`}
-                        className="btn btn-warning btn-sm"
+                      <Button
+                        variant="warning"
+                        size="sm"
+                        onClick={() => handleShowEditModal(category)}
                       >
                         <i className="ri-pencil-line"></i>
-                      </Link>
+                      </Button>
                       <Button
                         className="btn btn-danger btn-sm"
                         onClick={() => handleDelete(category)}
@@ -147,14 +153,16 @@ const CategoryView = () => {
                       </Button>
                     </div>
                   </Card.Header>
-                  <Card.Body>
+                  <Card.Body className="text-wrap">
                     <div dangerouslySetInnerHTML={{ __html: category.description }} />
                   </Card.Body>
                   <Card.Footer className="d-flex justify-content-between align-items-center border-0">
                     <Badge className="p-2">
-                      <i className="ri-box-3-line me-1"></i> {category.products ? category.products : 0} Produk
+                      <i className="ri-box-3-line me-1"></i> {
+                        category.products.length ? category.products.length : 0
+                      } Produk Mebel
                     </Badge>
-                    <p className="m-0 fs-7">ID:{(category._id).substring(0, 20) + '...'}</p>
+                    <p className="m-0 fs-7">ID:{(category._id).substring(0, 15) + '...'}</p>
                   </Card.Footer>
                 </Card>
               </Col>
@@ -162,6 +170,37 @@ const CategoryView = () => {
           </Row>
         </Container>
       </section>
+
+      <Modal show={showModal} onHide={handleCloseModal} centered className="fm-2 text-white" data-bs-theme="dark" >
+        <Modal.Header closeButton>
+          <Modal.Title>
+            {isEditMode ? "Edit Kategori" : "Tambah Kategori Baru"}
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <form id="categoryForm" onSubmit={handleSubmit}>
+            <FormCategory categoryData={selectedCategory} description={desc} onDescriptionChange={setDesc} />
+          </form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" size="sm" onClick={handleCloseModal}>
+            Batal
+          </Button>
+          <Button variant="success" size="sm" type="submit" form="categoryForm" disabled={loading}>
+            {loading ? (
+              <>
+                <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                Menyimpan...
+              </>
+            ) : (
+              <>
+                <i className={isEditMode ? "ri-save-line me-2" : "ri-add-circle-line me-2"}></i>
+                {isEditMode ? "Update" : "Simpan"}
+              </>
+            )}
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 };

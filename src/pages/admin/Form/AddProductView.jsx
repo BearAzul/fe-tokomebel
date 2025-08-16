@@ -1,7 +1,8 @@
 import { useNavigate, useLoaderData } from "react-router-dom";
-import { Container, Row, Col, Button } from "react-bootstrap";
+import { Container, Row, Col, Button, Image } from "react-bootstrap";
 import {
   FormInput,
+  FormSelect,
   FormEditor
 } from "../../../components/FormInput.jsx";
 import customAPI from "../../../api.js";
@@ -31,16 +32,39 @@ const AddProductView = () => {
   const [desc, setDesc] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const [imageFile, setImageFile] = useState(null);
+  const [imagePreview, setImagePreview] = useState("");
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setImageFile(file);
+      setImagePreview(URL.createObjectURL(file));
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const form = e.target;
     const formData = new FormData(form);
 
+    if (!imageFile) {
+      toast.error("Gambar produk wajib diunggah.");
+      return;
+    }
+
     setLoading(true);
     try {
-      const { data: uploadData } = await customAPI.post("/product/file-upload", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
+      const fileUploadData = new FormData();
+      fileUploadData.append("image", imageFile);
+
+      const { data: uploadData } = await customAPI.post(
+        "/product/file-upload",
+        fileUploadData,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      );
 
       const productData = Object.fromEntries(formData);
       await customAPI.post("/product", {
@@ -52,12 +76,20 @@ const AddProductView = () => {
       toast.success("Product created successfully");
       navigate("/admin/products");
     } catch (error) {
+      console.log(error);
       const errorMessage = error?.response?.data?.message;
       toast.error(errorMessage);
     } finally {
       setLoading(false);
     }
   };
+
+  const handleReset = () => {
+    setImageFile(null);
+    setImagePreview("");
+    setDesc("");
+  };
+
 
   return (
     <section className="fm-2">
@@ -69,70 +101,79 @@ const AddProductView = () => {
           onSubmit={handleSubmit}
           encType="multipart/form-data"
         >
-          <Row lg="3" xs="1" md="2" className="g-3">
-            <Col>
+          <Row className="g-3">
+            <Col md="4">
+              <div className="mb-3">
+                <label className="form-label">Gambar Produk: <span className="text-danger">*</span></label>
+                <div className="ratio ratio-1x1 border border-secondary rounded-2 d-flex align-items-center justify-content-center text-bg-dark">
+                  {imagePreview ? (
+                    <Image src={imagePreview} alt="Preview" className="object-fit-cover w-100 h-100" rounded />
+                  ) : (
+                    <div className="text-center d-flex flex-column align-items-center justify-content-center">
+                      <i className="ri-image-add-line fs-1"></i>
+                      <p className="mt-2">Upload Gambar</p>
+                    </div>
+                  )}
+                </div>
+              </div>
+              <Button type="button" variant="outline-secondary" className="w-100" onClick={() => document.getElementById('imageUpload').click()}>
+                Pilih Gambar
+              </Button>
+              <input id="imageUpload" type="file" className="d-none" accept="image/*" onChange={handleFileChange} />
+            </Col>
+            <Col md="8">
               <FormInput
                 name="name"
                 type="text"
                 label="Nama Produk Mebel:"
                 placeHolder="Masukkan Nama Produk Mebel"
               />
-            </Col>
-            <Col>
-              <FormInput
-                name="stock"
-                type="number"
-                label="Stok:"
-                placeHolder="Masukkan Stok Mebel"
-              />
-            </Col>
-            <Col>
-              <FormInput
-                name="price"
-                type="number"
-                label="Harga:"
-                placeHolder="Masukkan Harga Mebel"
-              />
-            </Col>
-            <Col>
-              <label htmlFor="category" className="form-label">
-                Kategori Produk Mebel: <span className="text-danger">*</span>
-              </label>
-              <select name="category" id="category" className="form-select form-select-sm">
-                <option value="">Pilih Kategori Produk Mebel</option>
-                {categories.map((category) => (
-                  <option key={category._id} value={category._id}>
-                    {category.name}
-                  </option>
-                ))}
-              </select>
-            </Col>
-            <Col md="12" lg="8">
-              <FormInput
-                name="summary"
-                type="text"
-                label="Ringkasan:"
-                placeHolder="Masukkan Ringkasan Produk Mebel"
-              />
-            </Col>
-            <Col md="12" lg="12">
-              <FormEditor
-                label="Deskripsi:"
-                value={desc}
-                onChange={setDesc}
-                placeHolder="Masukkkan Deskripsi Mebel"
-              />
-            </Col>
-            <Col lg="8">
-              <label htmlFor="image" className="form-label">
-                Pilih Gambar Mebel:
-              </label>
-              <input
-                type="file"
-                name="image"
-                id="image"
-                className="form-control form-control-sm"
-              />
+
+              <Row className="g-3 mt-1">
+                <Col md="6">
+                  <FormInput
+                    name="stock"
+                    type="number"
+                    label="Stok:"
+                    placeHolder="Masukkan Stok Mebel"
+                  />
+                </Col>
+                <Col md="6">
+                  <FormInput
+                    name="price"
+                    type="number"
+                    label="Harga:"
+                    placeHolder="Masukkan Harga Mebel"
+                  />
+                </Col>
+                <Col md="12" lg="6">
+                  <FormSelect
+                    name="category"
+                    label="Kategori Produk Mebel:"
+                    options={categories.map((cat) => ({
+                      value: cat._id,
+                      label: cat.name,
+                    }))}
+                  />
+                </Col>
+                <Col md="12" lg="6">
+                  <FormInput
+                    name="summary"
+                    type="text"
+                    label="Ringkasan:"
+                    placeHolder="Masukkan Ringkasan Produk Mebel"
+                  />
+                </Col>
+              </Row>
+
+              <div className="my-3">
+                <FormEditor
+                  label="Deskripsi:"
+                  value={desc}
+                  onChange={setDesc}
+                  placeHolder="Masukkkan Deskripsi Mebel"
+                />
+              </div>
             </Col>
           </Row>
           <div className="d-flex gap-2 align-items-center mt-3">
@@ -149,7 +190,7 @@ const AddProductView = () => {
                 </>
               )}
             </Button>
-            <Button type="reset" variant="danger" size="sm" disabled={loading}>
+            <Button type="reset" variant="danger" size="sm" onClick={handleReset} disabled={loading}>
               <i className="ri-loop-right-line me-1"></i>
               Reset
             </Button>
