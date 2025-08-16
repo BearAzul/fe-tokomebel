@@ -25,12 +25,12 @@ const breadcrumbItems = [
 export const loader = (storage) => async () => {
   const user = storage.getState().userState.user;
 
-  if (!user) {
+  const { data } = await customAPI.get("/auth/getuser");
+
+  if (!user || !data.user) {
     toast.warn("Silahkan Login untuk akses halaman Profil");
     return redirect("/login");
   }
-
-  const { data } = await customAPI.get("/auth/getuser");
   return { currentUser: data.user };
 };
 

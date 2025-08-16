@@ -118,19 +118,17 @@ const HomeView = () => {
       <HelmetHead title="Dashboard" />
       <section id="dashboard" className="p-2 fm-2">
         <Container>
-          <div className="d-flex align-items-start gap-3 p-3 rounded border border-secondary shadow-md mb-3">
-            <div
-              className="flex-shrink-0 bg-secondary text-decoration-none rounded d-flex align-items-center justify-content-center"
-              style={{ width: "50px", height: "50px" }}
-            >
-              <i className="ri-wallet-3-line fs-4 text-white"></i>
-            </div>
-            <div className="flex-grow-1">
-              <h6 className="mb-1">Total Uang Masuk</h6>
-              <p className="fs-6 fw-bold">
-                {formatToIDR(stats.totalRevenue)}
-              </p>
-            </div>
+          <div className="rounded-2 p-4 text-white mb-3 bg-dark bg-gradient">
+            <h1 className="h3 fw-bold mb-2">Dashboard</h1>
+            <p className="text-light">Selamat datang di sistem manajemen Toko Mebel Amanah</p>
+            <p className="small text-white-50 mt-3">
+              Hari ini, {new Date().toLocaleDateString('id-ID', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+              })}
+            </p>
           </div>
           <Row md="2" xs="1" lg="4" className="g-3 g-lg-2">
             {CardData.map((card, index) => (
