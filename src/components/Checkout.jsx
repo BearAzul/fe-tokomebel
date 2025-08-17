@@ -163,7 +163,7 @@ const Checkout = () => {
                 name="phone"
                 id="phone"
                 className="form-control"
-                defaultValue={currentUser.phone}
+                defaultValue={currentUser?.profile.phone}
                 readOnly
               />
               <label htmlFor="phone">
@@ -179,7 +179,7 @@ const Checkout = () => {
                 name="city"
                 id="city"
                 className="form-control"
-                defaultValue={currentUser.city}
+                defaultValue={currentUser?.profile.city}
                 readOnly
               />
               <label htmlFor="city">
@@ -194,7 +194,7 @@ const Checkout = () => {
                 name="address"
                 id="address"
                 className="form-control"
-                defaultValue={currentUser.address}
+                defaultValue={currentUser?.profile.address}
                 readOnly
                 style={{ height: "100px" }}
               ></textarea>
