@@ -5,7 +5,7 @@ import { Container, Button, Row, Col, Image, ListGroup, Table } from "react-boot
 import { formatToIDR, formatTanggalWaktu } from "../utils/index.jsx";
 import customAPI from "../api.js";
 import EmptyOrderIcon from "../assets/Image/empty_order.png";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import NotAwailableImg from "../assets/Image/landscape-placeholder.svg";
 import { HelmetHead } from "../common/Helmet.jsx"
 import { generateInvoice } from "../utils/InvoiceGenerator.jsx";
@@ -17,6 +17,20 @@ const breadcrumbItems = [
   { label: "Profil", path: "/profile" },
   { label: "Riwayat Pesanan" },
 ];
+
+const insertSnapScript = () => {
+  return new Promise((resolve) => {
+    if (document.querySelector(`script[src*="snap.js"]`)) {
+      resolve();
+      return;
+    }
+    const script = document.createElement("script");
+    script.src = "https://app.sandbox.midtrans.com/snap/snap.js";
+    script.setAttribute("data-client-key", import.meta.env.VITE_CLIENT_MIDTRANS);
+    script.onload = () => resolve();
+    document.body.appendChild(script);
+  });
+};
 
 export const loader = (storage) => async () => {
   const user = storage.getState().userState.user;
@@ -38,6 +52,10 @@ const OrderHistory = () => {
   const navigate = useNavigate();
   const { revalidate } = useRevalidator();
 
+  useEffect(() => {
+    insertSnapScript();
+  }, []);
+
   const handleRetryPayment = async (orderId) => {
     setLoading((prev) => ({ ...prev, [orderId]: true }));
 
@@ -49,11 +67,12 @@ const OrderHistory = () => {
       window.snap.pay(token, {
         onSuccess: () => {
           toast.success("Pembayaran berhasil!");
+          revalidate();
           navigate(0);
         },
         onPending: () => toast.info("Menunggu pembayaran Anda."),
         onError: () => toast.error("Pembayaran gagal. Silakan coba lagi."),
-        onClose: () => toast.warn("Anda menutup pop up pembayaran."),
+        onClose: () => console.log("customer closed the popup without finishing the payment"),
       });
     } catch (error) {
       toast.error(error.response?.data?.message || "Terjadi kesalahan, gagal mencoba ulang pembayaran.");
