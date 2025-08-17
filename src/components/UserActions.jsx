@@ -17,7 +17,7 @@ const UserActions = ({ className }) => {
         <Link to="/login" className="btn btn-outline-light btn-sm fm-2">Login</Link>
       }
 
-      <Link to="/cart" className="text-decoration-none text-white" aria-label="Link To Cart">
+      <Link to="/cart" className="text-decoration-none text-white position-relative" aria-label="Link To Cart">
         <i className="ri-shopping-cart-2-fill fs-6"></i>
 
         <span className={`indicator__cart ${!countCart && "d-none"}`}>
