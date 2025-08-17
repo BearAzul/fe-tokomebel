@@ -11,6 +11,10 @@ import customAPI from "../api.js";
 
 const insertSnapScript = () => {
   return new Promise((resolve) => {
+    if (document.querySelector(`script[src*="snap.js"]`)) {
+      resolve();
+      return;
+    }
     const script = document.createElement("script");
     script.src = "https://app.sandbox.midtrans.com/snap/snap.js";
     script.setAttribute("data-client-key", import.meta.env.VITE_CLIENT_MIDTRANS);
@@ -24,6 +28,8 @@ const Checkout = () => {
   const numItems = useSelector((state) => state.cartState.numItemsInCart);
   const carts = useSelector((state) => state.cartState.CartItems);
   const { cartTotal } = useSelector((state) => state.cartState);
+
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -50,6 +56,8 @@ const Checkout = () => {
         quantity: item.amount,
       };
     });
+
+    setLoading(true);
 
     try {
       const response = await customAPI.post("/order", {
@@ -86,6 +94,8 @@ const Checkout = () => {
     } catch (error) {
       const errorMessage = error?.response?.data?.message;
       toast.error(errorMessage);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -229,8 +239,9 @@ const Checkout = () => {
               className="btn btn-success w-100 text-uppercase fw-semibold"
               type="submit"
               aria-label="payment"
+              disabled={loading}
             >
-              Payment
+              {loading ? "Memproses..." : "Bayar Sekarang"}
             </button>
           ) : (
             <Link to="/shop" className="btn btn-danger w-100" aria-label="Back to Shop">
