@@ -11,10 +11,6 @@ import customAPI from "../api.js";
 
 const insertSnapScript = () => {
   return new Promise((resolve) => {
-    if (document.querySelector(`script[src*="snap.js"]`)) {
-      resolve();
-      return;
-    }
     const script = document.createElement("script");
     script.src = "https://app.sandbox.midtrans.com/snap/snap.js";
     script.setAttribute("data-client-key", import.meta.env.VITE_CLIENT_MIDTRANS);

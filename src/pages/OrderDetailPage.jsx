@@ -13,7 +13,7 @@ import Breadcrumbs from "../components/Breadcrumbs.jsx";
 const breadcrumbItems = [
   { label: "Beranda", path: "/" },
   { label: "Profil", path: "/profile" },
-  { label: "Riwayat Pesanan", path: "/orders" },
+  { label: "Pesanan", path: "/orders" },
   { label: "Detail Pesanan" },
 ];
 
@@ -184,7 +184,7 @@ const OrderDetailPage = () => {
                         <td>Pembayaran</td>
                         <td>:</td>
                         <td>
-                          <span className={`px-2 py-1 rounded ${order.status === "success" ? "text-bg-success" : "text-bg-warning"}`}>{order.status === "success" ? "Berhasil" : "Menunggu Pembayaran"}</span>
+                          <span className={`px-2 fs-7 py-1 rounded ${order.status === "success" ? "text-bg-success" : "text-bg-warning"}`}>{order.status === "success" ? "Berhasil" : "Menunggu Pembayaran"}</span>
                         </td>
                       </tr>
                     </tbody>
