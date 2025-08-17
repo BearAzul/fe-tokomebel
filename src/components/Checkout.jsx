@@ -11,6 +11,10 @@ import customAPI from "../api.js";
 
 const insertSnapScript = () => {
   return new Promise((resolve) => {
+    if (document.querySelector(`script[src*="snap.js"]`)) {
+      resolve();
+      return;
+    }
     const script = document.createElement("script");
     script.src = "https://app.sandbox.midtrans.com/snap/snap.js";
     script.setAttribute("data-client-key", import.meta.env.VITE_CLIENT_MIDTRANS);
@@ -53,7 +57,7 @@ const Checkout = () => {
 
     try {
       const response = await customAPI.post("/order", {
-        image: currentUser.image,
+        image: currentUser?.profile?.image,
         firstName: data.firstName,
         lastName: data.lastName,
         email: data.email,
@@ -69,32 +73,27 @@ const Checkout = () => {
         embedId: "snap-container",
         onSuccess: function (result) {
           console.log(result);
+          toast.success("Pesanan Anda telah diterima! Pembayaran berhasil.");
           dispatch(clearCartItem());
           navigate("/cart");
         },
         onPending: function (result) {
           console.log(result);
-          dispatch(clearCartItem());
-          alert("Pending");
+          toast.info("Pembayaran Anda tertunda. Silakan selesaikan pembayaran.");
+          navigate("/orders");
         },
         onError: function (result) {
           console.log(result);
-          alert("Gagal");
+          toast.error("Pembayaran gagal. Silakan coba lagi.");
         },
       });
-      toast.success("Your order has been received");
     } catch (error) {
       const errorMessage = error?.response?.data?.message;
       toast.error(errorMessage);
     }
   };
 
-  let delivery;
-  if (!numItems) {
-    delivery = formatToIDR(0);
-  } else {
-    delivery = "Free";
-  }
+  let delivery = !numItems ? formatToIDR(0) : "Free";
 
   return (
     <>
