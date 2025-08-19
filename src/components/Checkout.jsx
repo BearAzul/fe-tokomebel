@@ -24,6 +24,7 @@ const insertSnapScript = () => {
 };
 
 const Checkout = () => {
+  const user = useSelector((state) => state.userState.user);
   const [currentUser, setCurrentUser] = useState([]);
   const numItems = useSelector((state) => state.cartState.numItemsInCart);
   const carts = useSelector((state) => state.cartState.CartItems);
@@ -233,22 +234,25 @@ const Checkout = () => {
             </tbody>
           </table>
         </div>
-        <div className="mb-2 fs-7 input-group">
-          {numItems ? (
-            <button
-              className="btn btn-success w-100 text-uppercase fw-semibold"
-              type="submit"
-              aria-label="payment"
-              disabled={loading}
-            >
-              {loading ? "Memproses..." : "Bayar Sekarang"}
-            </button>
-          ) : (
-            <Link to="/shop" className="btn btn-danger w-100" aria-label="Back to Shop">
-              Keranjang Kosong, mau ke toko?
-            </Link>
-          )}
-        </div>
+        {user && user.role !== "owner"(
+          <div className="mb-2 fs-7 input-group">
+            {numItems ? (
+              <button
+                className="btn btn-success w-100 text-uppercase fw-semibold"
+                type="submit"
+                aria-label="payment"
+                disabled={loading}
+              >
+                {loading ? "Memproses..." : "Bayar Sekarang"}
+              </button>
+            ) : (
+              <Link to="/shop" className="btn btn-danger w-100" aria-label="Back to Shop">
+                Keranjang Kosong, mau ke toko?
+              </Link>
+            )}
+          </div>
+        )}
+
       </form>
     </>
   );
