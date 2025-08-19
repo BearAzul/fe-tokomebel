@@ -102,7 +102,7 @@ const DetailProduct = () => {
                 </div>
                 {detailProducts.stock < 1 && (
                   <span className="badge text-bg-warning position-absolute m-2 fs-5">
-                    Sold Out
+                    Tidak Tersedia
                   </span>
                 )}
               </Col>
