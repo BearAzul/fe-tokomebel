@@ -21,7 +21,7 @@ export const CardProductCustomer = ({ product, icons, className }) => {
           />
           {product.stock < 1 && (
             <span className="badge text-bg-warning position-absolute m-2 z-1 top-0">
-              Sold Out
+              Tidak Tersedia
             </span>
           )}
         </div>

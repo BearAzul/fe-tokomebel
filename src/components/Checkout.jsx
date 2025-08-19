@@ -234,7 +234,7 @@ const Checkout = () => {
             </tbody>
           </table>
         </div>
-        {user && user.role !== "owner" && (
+        {user && user.role !== "owner" && user.role !== "courier" && (
           <div className="mb-2 fs-7 input-group">
             {numItems ? (
               <button
