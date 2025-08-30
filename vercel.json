@@ -1,15 +1,12 @@
 {
-  "rewrites": [
+  "rewrites":[
     {
       "source": "/api/:path(.*)",
       "destination": "https://be-tokomebel.vercel.app/api/:path"
-    }
-  ],
-  "redirects": [
+    },
     {
       "source": "/(.*)",
-      "destination": "/maintenance.html",
-      "permanent": false
+      "destination": "/maintenance.html"
     }
   ]
 }
