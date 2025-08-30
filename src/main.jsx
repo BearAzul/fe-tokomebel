@@ -16,6 +16,7 @@ import { HelmetProvider } from "react-helmet-async";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 
 import { registerSW } from "virtual:pwa-register";
+import MaintenancePage from "./pages/maintenance/MaintenancePage.jsx";
 
 registerSW();
 
@@ -25,26 +26,32 @@ AOS.init({
   once: true,
 });
 
+const isMaintenance = import.meta.env.VITE_MAINTENANCE_MODE === "true";
+
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
-      <HelmetProvider>
-        <Provider store={store}>
-          <ToastContainer
-            position="bottom-right"
-            autoClose={3400}
-            hideProgressBar={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss={false}
-            draggable
-            pauseOnHover={false}
-            theme="dark"
-          />
-          <App />
-          <ButtonTop />
-        </Provider>
-      </HelmetProvider>
-    </GoogleOAuthProvider>
+    {isMaintenance ? (
+      <MaintenancePage />
+    ) : (
+      <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
+        <HelmetProvider>
+          <Provider store={store}>
+            <ToastContainer
+              position="bottom-right"
+              autoClose={3400}
+              hideProgressBar={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss={false}
+              draggable
+              pauseOnHover={false}
+              theme="dark"
+            />
+            <App />
+            <ButtonTop />
+          </Provider>
+        </HelmetProvider>
+      </GoogleOAuthProvider>
+    )}
   </React.StrictMode>
 );

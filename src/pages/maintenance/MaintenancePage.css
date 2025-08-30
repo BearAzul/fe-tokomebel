@@ -1,0 +1,42 @@
+#maintenance {
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+#maintenance p {
+  font-size: 1.2em;
+}
+
+#maintenance p:nth-child(2) {
+  font-size: 1.5em;
+}
+
+#maintenance p:nth-child(3) {
+  font-size: 0.9em;
+}
+
+@media (max-width: 600px) {
+  #maintenance h1 {
+    font-size: 1.2em;
+  }
+
+  #maintenance p{
+    font-size: .8em;
+  }
+  #maintenance p:nth-child(2) {
+    font-size: 1em;
+  }
+  #maintenance p:nth-child(3) {
+    font-size: .6em;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 1024px) {
+  #maintenance .wrapp {
+    max-width: 700px;
+  }
+
+  #maintenance h1 {
+    font-size: 2.4em;
+  }
+}
