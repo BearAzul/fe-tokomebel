@@ -3,10 +3,13 @@
     {
       "source": "/api/:path(.*)",
       "destination": "https://be-tokomebel.vercel.app/api/:path"
-    },
+    }
+  ],
+  "redirects": [
     {
       "source": "/(.*)",
-      "destination": "/maintenance.html"
+      "destination": "/maintenance.html",
+      "permanent": false
     }
   ]
 }
