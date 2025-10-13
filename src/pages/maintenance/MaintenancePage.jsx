@@ -1,6 +1,6 @@
 import { Container } from "react-bootstrap";
-import HelmetHead from "../../common/Helmet.jsx"
 import "./MaintenancePage.css";
+import { HelmetHead } from "../../common/Helmet.jsx";
 
 const MaintenancePage = () => {
   return (
