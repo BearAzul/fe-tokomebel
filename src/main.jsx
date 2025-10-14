@@ -30,11 +30,11 @@ const isMaintenance = import.meta.env.VITE_MAINTENANCE_MODE === "true";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    {isMaintenance ? (
-      <MaintenancePage />
-    ) : (
-      <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
-        <HelmetProvider>
+    <HelmetProvider>
+      {isMaintenance ? (
+        <MaintenancePage />
+      ) : (
+        <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
           <Provider store={store}>
             <ToastContainer
               position="bottom-right"
@@ -50,8 +50,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(
             <App />
             <ButtonTop />
           </Provider>
-        </HelmetProvider>
-      </GoogleOAuthProvider>
-    )}
+        </GoogleOAuthProvider>
+      )}
+    </HelmetProvider>
   </React.StrictMode>
 );
